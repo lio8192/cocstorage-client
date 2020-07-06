@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			justifyContent: 'flex-end'
 		},
 		contentContainer: {
-			padding: theme.spacing(1, 3),
+			paddingTop: theme.spacing(1),
 			backgroundColor: 'white'
 		},
 		typography: {
