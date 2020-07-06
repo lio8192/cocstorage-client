@@ -1,9 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React from 'react';
 import {
-	createStyles,
-	makeStyles,
-	Theme,
-	useTheme
+	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
@@ -70,20 +67,32 @@ function Board({ query }: NextPageContext) {
 				<meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
 				<meta name={'author'} content={'개념글 저장소'} />
 				<meta name={'title'} content={`${getCategoryNameByCategoryId(query.id)} : 개념글 저장소`} />
-				<meta name={'description'} content={`${getCategoryNameByCategoryId(query.id)} 인기 게시글들을 한 눈에 확인해보세요!`} />
+				<meta
+					name={'description'}
+					content={`${getCategoryNameByCategoryId(query.id)} 인기 게시글들을 한 눈에 확인해보세요!`}
+				/>
 				<meta property={'og:title'} content={`${getCategoryNameByCategoryId(query.id)} : 개념글 저장소`} />
-				<meta property={'og:description'} content={`${getCategoryNameByCategoryId(query.id)} 인기 게시글들을 한 눈에 확인해보세요!`} />
+				<meta
+					property={'og:description'}
+					content={`${getCategoryNameByCategoryId(query.id)} 인기 게시글들을 한 눈에 확인해보세요!`}
+				/>
 				<meta property={'og:type'} content={'website'} />
 				<meta property={'og:image'} content={'/logo.png'} />
 				<meta property={'og:url'} content={`https://www.cocstorage.com/board/${query.id}`} />
 				<meta property={'og:site_name'} content={`${getCategoryNameByCategoryId(query.id)} : 개념글 저장소`} />
 				<meta property={'og:locale'} content={'ko_KR'} />
 				<meta property={'twitter:title'} content={`${getCategoryNameByCategoryId(query.id)} : 개념글 저장소`} />
-				<meta property={'twitter:description'} content={`${getCategoryNameByCategoryId(query.id)} 인기 게시글들을 한 눈에 확인해보세요!`} />
+				<meta
+					property={'twitter:description'}
+					content={`${getCategoryNameByCategoryId(query.id)} 인기 게시글들을 한 눈에 확인해보세요!`}
+				/>
 				<meta property={'twitter:image'} content={'https://www.cocstorage.com/logo.png'} />
 				<meta property={'twitter:url'} content={`https://www.cocstorage.com/board/${query.id}`} />
 				<meta property={'twitter:card'} content={'summary'} />
-				<meta name={'apple-mobile-web-app-title'} content={`${getCategoryNameByCategoryId(query.id)} : 개념글 저장소`} />
+				<meta
+					name={'apple-mobile-web-app-title'}
+					content={`${getCategoryNameByCategoryId(query.id)} : 개념글 저장소`}
+				/>
 				<title>{`${getCategoryNameByCategoryId(query.id)} : 개념글 저장소`}</title>
 				<link rel={'canonical'} href={`https://www.cocstorage.com/board/${query.id}`} />
 				<link rel={'shortcut icon'} href={'/favicon.ico'} />
@@ -103,13 +112,15 @@ function Board({ query }: NextPageContext) {
 								{!pending && (
 									<Fade in>
 										<GoogleAdSense
-											html={'<ins class="adsbygoogle"'
-											+ 'style="display:block"'
-											+ 'data-ad-client="ca-pub-5809905264951057"'
-											+ 'data-ad-slot="3880285784"'
-											+ 'data-ad-format="auto"'
-											+ 'data-full-width-responsive="true">'
-											+ '</ins>'}
+											html={
+												'<ins class="adsbygoogle"'
+												+ 'style="display:block"'
+												+ 'data-ad-client="ca-pub-5809905264951057"'
+												+ 'data-ad-slot="3880285784"'
+												+ 'data-ad-format="auto"'
+												+ 'data-full-width-responsive="true">'
+												+ '</ins>'
+											}
 										/>
 									</Fade>
 								)}
@@ -131,7 +142,9 @@ function Board({ query }: NextPageContext) {
 }
 
 Board.getInitialProps = async ({ store, query }: NextPageContext) => {
-	let { board: { searchState } } = store.getState();
+	let {
+		board: { searchState }
+	} = store.getState();
 	let page = 1;
 
 	if (typeof window !== 'undefined') {
@@ -144,11 +157,13 @@ Board.getInitialProps = async ({ store, query }: NextPageContext) => {
 		}
 	}
 
-	store.dispatch(fetchBoards({
-		categoryId: query.id,
-		searchState,
-		page
-	}));
+	store.dispatch(
+		fetchBoards({
+			categoryId: query.id,
+			searchState,
+			page
+		})
+	);
 
 	return {
 		query
