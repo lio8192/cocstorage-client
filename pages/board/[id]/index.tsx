@@ -32,6 +32,7 @@ import { getCategoryNameByCategoryId } from '../../../src/snippet/board';
 
 // Svgs
 import AdWords from '../../../styles/svgs/adwords.svg';
+import TempNotice from '../../../src/components/board/TempNotice';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -123,6 +124,7 @@ function Board({ query }: NextPageContext) {
 						</Hidden>
 					</Grid>
 				</Grid>
+				<TempNotice />
 			</Container>
 		</>
 	);
