@@ -21,35 +21,30 @@ import MessageIcon from '@material-ui/icons/Message';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
 // Custom Hooks
-import useHome from '../../hooks/useHome';
+import useHome from '../../../hooks/useHome';
 
 // Svgs
-import DefaultImageSvg from '../../../styles/svgs/default_image.svg';
+import DefaultImageSvg from '../../../../styles/svgs/default_image.svg';
 
 // Modules
-import { Board } from '../../modules/boardDetail';
+import { Board } from '../../../modules/boardDetail';
 
 moment.locale('ko');
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			marginTop: theme.spacing(2),
-			marginBottom: theme.spacing(1),
-			backgroundColor: 'white',
-			[theme.breakpoints.down('md')]: {
-				margin: 0,
-				paddingTop: theme.spacing(1),
-				paddingBottom: theme.spacing(0)
-			}
+			margin: theme.spacing(1, 0),
+			padding: theme.spacing(1, 0),
+			backgroundColor: 'white'
 		},
 		title: {
+			paddingBottom: theme.spacing(1),
 			fontWeight: 700,
 			color: '#3d3d3d',
 			cursor: 'default'
 		},
 		container: {
-			marginBottom: theme.spacing(2),
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0)
 			}
@@ -195,13 +190,13 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function NewBoard() {
+function LatestBoardCardBox() {
 	const classes = useStyles();
 	const { boardList, pending, dummyBoardArray } = useHome();
 
 	return (
-		<>
-			<Container className={classes.root}>
+		<Box className={classes.root}>
+			<Container>
 				<Typography className={classes.title} variant={'h6'} component={'h6'}>
 					{'새로운 개념글'}
 				</Typography>
@@ -319,8 +314,8 @@ function NewBoard() {
 					)}
 				</Box>
 			</Container>
-		</>
+		</Box>
 	);
 }
 
-export default memo(NewBoard);
+export default memo(LatestBoardCardBox);

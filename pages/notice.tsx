@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		contentContainer: {
 			paddingTop: theme.spacing(1),
+			paddingBottom: theme.spacing(1),
 			backgroundColor: 'white'
 		},
 		typography: {

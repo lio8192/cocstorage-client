@@ -19,36 +19,31 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 
 // Svgs
-import DefaultImageSvg from '../../../styles/svgs/default_image.svg';
+import DefaultImageSvg from '../../../../styles/svgs/default_image.svg';
 
 // Modules
-import { Board } from '../../modules/boardDetail';
+import { Board } from '../../../modules/boardDetail';
 
 // Custom Hooks
-import useHome from '../../hooks/useHome';
+import useHome from '../../../hooks/useHome';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			marginTop: theme.spacing(2),
-			marginBottom: theme.spacing(1),
-			backgroundColor: 'white',
-			[theme.breakpoints.down('md')]: {
-				margin: 0,
-				paddingTop: theme.spacing(1),
-				paddingBottom: theme.spacing(1)
-			}
+			margin: theme.spacing(1, 0),
+			padding: theme.spacing(1, 0),
+			backgroundColor: 'white'
 		},
 		title: {
+			paddingBottom: theme.spacing(1),
 			fontWeight: 700,
 			color: '#3d3d3d',
 			cursor: 'default'
 		},
 		box: {
-			padding: theme.spacing(2, 0),
+			padding: theme.spacing(1, 0),
 			backgroundColor: '#eff1f5',
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0),
 				backgroundColor: 'white'
 			}
 		},
@@ -171,13 +166,13 @@ const config = {
 	wrapperClass: 'customized-daily-swiper-wrapper'
 };
 
-function DailyPopularBoard() {
+function DailyPopularBoardSwiper() {
 	const classes = useStyles();
 	const { dailyPopularList, pending, dummyDailyPopularBoardArray } = useHome();
 
 	return (
-		<>
-			<Container className={classes.root}>
+		<Box className={classes.root}>
+			<Container>
 				<Typography className={classes.title} variant={'h6'} component={'h6'}>
 					{'일간 개념글'}
 				</Typography>
@@ -273,8 +268,8 @@ function DailyPopularBoard() {
 					</Swiper>
 				)}
 			</Box>
-		</>
+		</Box>
 	);
 }
 
-export default memo(DailyPopularBoard);
+export default memo(DailyPopularBoardSwiper);

@@ -20,6 +20,7 @@ import { fetchBoards, handleBoardsSearchState } from '../../../src/modules/board
 import BackgroundSearch from '../../../src/components/board/BackgroundSearch';
 import BoardList from '../../../src/components/board/BoardList';
 import GoogleAdSense from '../../../src/components/common/GoogleAdSense';
+import NoticeCard from '../../../src/components/common/NoticeCard';
 
 // Custom Hooks
 import useBoard from '../../../src/hooks/useBoard';
@@ -29,7 +30,6 @@ import { getCategoryNameByCategoryId } from '../../../src/snippet/board';
 
 // Svgs
 import AdWords from '../../../styles/svgs/adwords.svg';
-import TempNotice from '../../../src/components/board/TempNotice';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -48,6 +48,13 @@ const useStyles = makeStyles((theme: Theme) =>
 			border: `1px solid ${theme.palette.grey['50']}`,
 			'& > img': {
 				maxWidth: 50
+			}
+		},
+		noticeCardBox: {
+			marginBottom: theme.spacing(2),
+			[theme.breakpoints.down('md')]: {
+				margin: 0,
+				borderTop: `1px solid ${theme.palette.grey['50']}`
 			}
 		}
 	})
@@ -135,7 +142,9 @@ function Board({ query }: NextPageContext) {
 						</Hidden>
 					</Grid>
 				</Grid>
-				<TempNotice />
+				<Box className={classes.noticeCardBox}>
+					<NoticeCard />
+				</Box>
 			</Container>
 		</>
 	);

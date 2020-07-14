@@ -1,16 +1,42 @@
 import React from 'react';
 import { NextPageContext } from 'next';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Head from 'next/head';
+
+// Material UI Components
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Hidden from '@material-ui/core/Hidden';
 
 // Modules
 import { fetchMainContents } from '../src/modules/home';
 
 // Components
-import DailyPopularBoard from '../src/components/index/DailyPopularBoard';
-import NewBoard from '../src/components/index/NewBoard';
-import TempNotice from '../src/components/index/TempNotice';
+import DailyPopularBoardSwiper from '../src/components/index/DailyPopularBoardSwiper';
+import DailyPopularBoardCardBox from '../src/components/index/DailyPopularBoardCardBox';
+import LatestBoardCardBox from '../src/components/index/LatestBoardCardBox';
+import NoticeCard from '../src/components/common/NoticeCard';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		noticeContainer: {
+			[theme.breakpoints.down('md')]: {
+				padding: 0
+			}
+		},
+		noticeCardBox: {
+			marginTop: theme.spacing(2),
+			[theme.breakpoints.down('md')]: {
+				marginTop: 0,
+				paddingTop: theme.spacing(1)
+			}
+		}
+	})
+);
 
 function Index() {
+	const classes = useStyles();
+
 	return (
 		<>
 			<Head>
@@ -39,9 +65,18 @@ function Index() {
 				<link rel={'canonical'} href={'https://www.cocstorage.com'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 			</Head>
-			<TempNotice />
-			<DailyPopularBoard />
-			<NewBoard />
+			<Container className={classes.noticeContainer}>
+				<Box className={classes.noticeCardBox}>
+					<NoticeCard />
+				</Box>
+			</Container>
+			<Hidden smDown>
+				<DailyPopularBoardSwiper />
+			</Hidden>
+			<Hidden mdUp>
+				<DailyPopularBoardCardBox />
+			</Hidden>
+			<LatestBoardCardBox />
 		</>
 	);
 }
