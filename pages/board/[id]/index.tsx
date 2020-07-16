@@ -114,7 +114,7 @@ function Board({ query }: NextPageContext) {
 						<BoardList />
 					</Grid>
 					<Grid item xs={12} lg={3}>
-						<Hidden implementation={'css'} mdDown>
+						<Hidden mdDown>
 							<Box className={classes.box}>
 								{!pending && (
 									<Fade in>
