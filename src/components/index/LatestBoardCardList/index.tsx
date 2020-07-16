@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			margin: theme.spacing(1, 0),
-			padding: theme.spacing(1, 0),
+			padding: theme.spacing(1, 0, 0),
 			backgroundColor: 'white'
 		},
 		title: {
