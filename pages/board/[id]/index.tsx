@@ -17,7 +17,7 @@ import Fade from '@material-ui/core/Fade';
 import { fetchBoards, handleBoardsSearchState } from '../../../src/modules/board';
 
 // Components
-import BackgroundSearch from '../../../src/components/board/BackgroundSearch';
+import BoardBackground from '../../../src/components/board/BoardBackground';
 import BoardList from '../../../src/components/board/BoardList';
 import GoogleAdSense from '../../../src/components/common/GoogleAdSense';
 import NoticeCard from '../../../src/components/common/NoticeCard';
@@ -107,14 +107,14 @@ function Board({ query }: NextPageContext) {
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
-			<BackgroundSearch />
+			<BoardBackground />
 			<Container className={classes.root} disableGutters={isMobile} maxWidth={isMobile ? 'md' : 'lg'}>
 				<Grid container>
 					<Grid item xs={12} lg={9}>
 						<BoardList />
 					</Grid>
 					<Grid item xs={12} lg={3}>
-						<Hidden mdDown>
+						<Hidden implementation={'css'} mdDown>
 							<Box className={classes.box}>
 								{!pending && (
 									<Fade in>

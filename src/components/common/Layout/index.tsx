@@ -29,10 +29,10 @@ function Layout({ children }: LayoutProps) {
 
 	return (
 		<>
-			<Hidden mdDown>
+			<Hidden implementation={'css'} mdDown>
 				<Header />
 			</Hidden>
-			<Hidden lgUp>
+			<Hidden implementation={'css'} lgUp>
 				<MobileHeader />
 			</Hidden>
 			<Box maxWidth={'lg'} className={classes.root}>

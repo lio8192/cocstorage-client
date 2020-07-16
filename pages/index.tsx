@@ -70,10 +70,10 @@ function Index() {
 					<NoticeCard />
 				</Box>
 			</Container>
-			<Hidden smDown>
+			<Hidden implementation={'css'} smDown>
 				<DailyPopularBoardSwiper />
 			</Hidden>
-			<Hidden mdUp>
+			<Hidden implementation={'css'} mdUp>
 				<DailyPopularBoardCardList />
 			</Hidden>
 			<LatestBoardCardList />

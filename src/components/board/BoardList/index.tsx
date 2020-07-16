@@ -348,7 +348,7 @@ function BoardList() {
 								</Grid>
 							</Grid>
 						))}
-						<Hidden lgUp>
+						<Hidden implementation={'css'} lgUp>
 							<Box className={classes.searchSkeletonBox}>
 								<Box flexGrow={1}>
 									<Skeleton height={50} animation={'wave'} />
@@ -487,7 +487,7 @@ function BoardList() {
 							})}
 						</Box>
 					</Grow>
-					<Hidden lgUp>
+					<Hidden implementation={'css'} lgUp>
 						<Grid container>
 							<TextField
 								className={classes.textField}
@@ -521,7 +521,7 @@ function BoardList() {
 					/>
 				</>
 			)}
-			<Hidden lgUp>
+			<Hidden implementation={'css'} lgUp>
 				<Dialog disableBackdropClick disableEscapeKeyDown open={dialogState} onClose={onHandleDialog}>
 					<DialogTitle>{'검색 조건'}</DialogTitle>
 					<DialogContent>

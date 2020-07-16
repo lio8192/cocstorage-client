@@ -189,7 +189,7 @@ function BoardBackground() {
 						</Typography>
 					</Grid>
 					<Grid className={classes.gridItem} item xs={6}>
-						<Hidden mdDown>
+						<Hidden implementation={'css'} mdDown>
 							<Box className={classes.gridBox}>
 								<Box>
 									<Button className={classes.searchButton} color={'inherit'} onClick={onHandleDialog}>
