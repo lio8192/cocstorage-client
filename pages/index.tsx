@@ -13,8 +13,8 @@ import { fetchMainContents } from '../src/modules/home';
 
 // Components
 import DailyPopularBoardSwiper from '../src/components/index/DailyPopularBoardSwiper';
-import DailyPopularBoardCardBox from '../src/components/index/DailyPopularBoardCardBox';
-import LatestBoardCardBox from '../src/components/index/LatestBoardCardBox';
+import DailyPopularBoardCardList from '../src/components/index/DailyPopularBoardCardList';
+import LatestBoardCardList from '../src/components/index/LatestBoardCardList';
 import NoticeCard from '../src/components/common/NoticeCard';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -74,9 +74,9 @@ function Index() {
 				<DailyPopularBoardSwiper />
 			</Hidden>
 			<Hidden mdUp>
-				<DailyPopularBoardCardBox />
+				<DailyPopularBoardCardList />
 			</Hidden>
-			<LatestBoardCardBox />
+			<LatestBoardCardList />
 		</>
 	);
 }

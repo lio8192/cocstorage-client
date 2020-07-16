@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppContext, AppProps } from 'next/app';
 
 // Redux
@@ -31,6 +31,13 @@ import '../styles/common/swiper.scss';
 import Layout from '../src/components/common/Layout';
 
 function App({ Component, pageProps, store }: AppProps | any) {
+	useEffect(() => {
+		const jssStyles = document.querySelector('#jss-server-side');
+		if (jssStyles && jssStyles.parentElement) {
+			jssStyles.parentElement.removeChild(jssStyles);
+		}
+	}, []);
+
 	return (
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>

@@ -35,16 +35,16 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import SearchIcon from '@material-ui/icons/Search';
 
 // Components
-import GoogleAdSense from '../common/GoogleAdSense';
+import GoogleAdSense from '../../common/GoogleAdSense';
 
 // Custom Hooks
-import useBoard from '../../hooks/useBoard';
+import useBoard from '../../../hooks/useBoard';
 
 // Modules
-import { Board } from '../../modules/boardDetail';
+import { Board } from '../../../modules/boardDetail';
 
 // Snippets
-import { getSearchTypeLabelByType } from '../../snippet/board';
+import { getSearchTypeLabelByType } from '../../../snippet/board';
 
 moment.locale('ko');
 

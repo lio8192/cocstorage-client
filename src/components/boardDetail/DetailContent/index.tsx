@@ -26,10 +26,10 @@ import ThumbDownAltSharpIcon from '@material-ui/icons/ThumbDownAltSharp';
 import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
 
 // Components
-import GoogleAdSense from '../common/GoogleAdSense';
+import GoogleAdSense from '../../common/GoogleAdSense';
 
 // Custom Hooks
-import useBoardDetail from '../../hooks/useBoardDetail';
+import useBoardDetail from '../../../hooks/useBoardDetail';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -133,33 +133,33 @@ function getAlterMessageByResponseBody(data: string | null): string | null {
 	let alertMessage: string | null = null;
 
 	switch (data) {
-	case 'up':
-		alertMessage = '추천을 누르셨습니다.';
-		break;
-	case 'up_rollback':
-		alertMessage = '추천을 취소하셨습니다.';
-		break;
-	case 'down':
-		alertMessage = '비추천을 누르셨습니다.';
-		break;
-	case 'down_rollback':
-		alertMessage = '비추천을 취소하셨습니다.';
-		break;
-	case 'Already pressed the up button':
-		alertMessage = '이미 추천을 누르셨습니다.';
-		break;
-	case 'Already pressed the down button':
-		alertMessage = '이미 비추천을 누르셨습니다.';
-		break;
-	default:
-		alertMessage = '알 수 없는 오류입니다.';
-		break;
+		case 'up':
+			alertMessage = '추천을 누르셨습니다.';
+			break;
+		case 'up_rollback':
+			alertMessage = '추천을 취소하셨습니다.';
+			break;
+		case 'down':
+			alertMessage = '비추천을 누르셨습니다.';
+			break;
+		case 'down_rollback':
+			alertMessage = '비추천을 취소하셨습니다.';
+			break;
+		case 'Already pressed the up button':
+			alertMessage = '이미 추천을 누르셨습니다.';
+			break;
+		case 'Already pressed the down button':
+			alertMessage = '이미 비추천을 누르셨습니다.';
+			break;
+		default:
+			alertMessage = '알 수 없는 오류입니다.';
+			break;
 	}
 
 	return alertMessage;
 }
 
-function BoardDetail() {
+function DetailContent() {
 	const classes = useStyles();
 	const {
 		board: { data, pending },
@@ -362,4 +362,4 @@ function BoardDetail() {
 	);
 }
 
-export default memo(BoardDetail);
+export default memo(DetailContent);

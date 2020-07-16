@@ -32,13 +32,13 @@ import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 import MenuIcon from '@material-ui/icons/Menu';
 
 // Modules
-import { clearBoardsRelatedState } from '../../modules/board';
+import { clearBoardsRelatedState } from '../../../modules/board';
 
 // Images
-import Logo from '../../../public/logo.png';
+import Logo from '../../../../public/logo.png';
 
 // Snippets
-import { getCategoryNameByCategoryId } from '../../snippet/board';
+import { getCategoryNameByCategoryId } from '../../../snippet/board';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

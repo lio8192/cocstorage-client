@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import moment from 'moment';
 
@@ -18,13 +18,13 @@ import AddCommentIcon from '@material-ui/icons/AddComment';
 import PersonIcon from '@material-ui/icons/Person';
 
 // Svgs
-import NoCommentSvg from '../../../styles/svgs/no_comment.svg';
+import NoCommentSvg from '../../../../styles/svgs/no_comment.svg';
 
 // Modules
-import { BoardDetailComment } from '../../modules/boardDetail';
+import { BoardDetailComment } from '../../../modules/boardDetail';
 
 // Custom Hooks
-import useBoardDetailComment from '../../hooks/useBoardDetailComment';
+import useBoardDetailComment from '../../../hooks/useBoardDetailComment';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -226,7 +226,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function Comment() {
+function CommentList() {
 	const classes = useStyles();
 	const {
 		data, pending, count, row, onHandleCommentRow
@@ -446,62 +446,62 @@ function Comment() {
 						</Grow>
 					)}
 					{!pending
-						&& data.map((item: BoardDetailComment) => (
-							<Grow key={`board-comment-${item.id}`} in>
-								<Box>
-									<Box className={classes.commentListBox}>
-										<Box className={classes.commentListItemWriterBox} display={'flex'} alignItems={'center'}>
+					&& data.map((item: BoardDetailComment) => (
+						<Grow key={`board-comment-${item.id}`} in>
+							<Box>
+								<Box className={classes.commentListBox}>
+									<Box className={classes.commentListItemWriterBox} display={'flex'} alignItems={'center'}>
+										<Box display={'flex'} alignItems={'center'}>
+											<Avatar className={classes.commentListItemWriterAvatar}>
+												<PersonIcon />
+											</Avatar>
+											<Box className={classes.commentListItemWriterNickname} component={'span'}>
+												{item.nickname}
+											</Box>
+											<Box component={'span'} ml={0.5}>
+												{`${item.ip && `(${item.ip})`}`}
+											</Box>
+										</Box>
+										<Hidden mdDown>
+											<Box>{moment(item.register_date).format('YYYY. MM. DD HH:mm:ss')}</Box>
+										</Hidden>
+									</Box>
+									<Box className={classes.commentListItemContent}>{item.content}</Box>
+									<Hidden lgUp>
+										<Box className={classes.commentListItemDate}>
+											{moment(item.register_date).format('YYYY. MM. DD HH:mm:ss')}
+										</Box>
+									</Hidden>
+								</Box>
+								{item.commentReplyList.map((child) => (
+									<Box key={`board-comment-reply-${child.id}`} className={classes.replyBox}>
+										<Box className={classes.replyBoxItemWriterBox} display={'flex'} alignItems={'center'}>
 											<Box display={'flex'} alignItems={'center'}>
-												<Avatar className={classes.commentListItemWriterAvatar}>
+												<Avatar className={classes.replyBoxItemWriterAvatar}>
 													<PersonIcon />
 												</Avatar>
-												<Box className={classes.commentListItemWriterNickname} component={'span'}>
-													{item.nickname}
+												<Box className={classes.replyBoxItemWriterNickname} component={'span'}>
+													{child.nickname}
 												</Box>
 												<Box component={'span'} ml={0.5}>
-													{`${item.ip && `(${item.ip})`}`}
+													{`${child.ip && `(${item.ip})`}`}
 												</Box>
 											</Box>
 											<Hidden mdDown>
-												<Box>{moment(item.register_date).format('YYYY. MM. DD HH:mm:ss')}</Box>
+												<Box>{moment(child.register_date).format('YYYY. MM. DD HH:mm:ss')}</Box>
 											</Hidden>
 										</Box>
-										<Box className={classes.commentListItemContent}>{item.content}</Box>
+										<Box className={classes.replyBoxItemContent}>{child.content}</Box>
 										<Hidden lgUp>
-											<Box className={classes.commentListItemDate}>
-												{moment(item.register_date).format('YYYY. MM. DD HH:mm:ss')}
+											<Box className={classes.replyBoxItemWriterDate}>
+												{moment(child.register_date).format('YYYY. MM. DD HH:mm:ss')}
 											</Box>
 										</Hidden>
 									</Box>
-									{item.commentReplyList.map((child) => (
-										<Box key={`board-comment-reply-${child.id}`} className={classes.replyBox}>
-											<Box className={classes.replyBoxItemWriterBox} display={'flex'} alignItems={'center'}>
-												<Box display={'flex'} alignItems={'center'}>
-													<Avatar className={classes.replyBoxItemWriterAvatar}>
-														<PersonIcon />
-													</Avatar>
-													<Box className={classes.replyBoxItemWriterNickname} component={'span'}>
-														{child.nickname}
-													</Box>
-													<Box component={'span'} ml={0.5}>
-														{`${child.ip && `(${item.ip})`}`}
-													</Box>
-												</Box>
-												<Hidden mdDown>
-													<Box>{moment(child.register_date).format('YYYY. MM. DD HH:mm:ss')}</Box>
-												</Hidden>
-											</Box>
-											<Box className={classes.replyBoxItemContent}>{child.content}</Box>
-											<Hidden lgUp>
-												<Box className={classes.replyBoxItemWriterDate}>
-													{moment(child.register_date).format('YYYY. MM. DD HH:mm:ss')}
-												</Box>
-											</Hidden>
-										</Box>
-									))}
-								</Box>
-							</Grow>
-						))}
+								))}
+							</Box>
+						</Grow>
+					))}
 					{!pending && data.length === 0 && (
 						<Grow in>
 							<Box className={classes.emptyCommentBox}>
@@ -528,4 +528,4 @@ function Comment() {
 	);
 }
 
-export default Comment;
+export default memo(CommentList);

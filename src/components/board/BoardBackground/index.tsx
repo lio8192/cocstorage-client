@@ -32,10 +32,10 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 
 // Custom Hooks
-import useBoard from '../../hooks/useBoard';
+import useBoard from '../../../hooks/useBoard';
 
 // Snippets
-import { getSearchTypeLabelByType, getCategoryNameByCategoryId } from '../../snippet/board';
+import { getSearchTypeLabelByType, getCategoryNameByCategoryId } from '../../../snippet/board';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -164,7 +164,7 @@ function getCategoryIconByCategoryId(categoryId: string | string[]) {
 	return categoryIcon;
 }
 
-function BackgroundSearch() {
+function BoardBackground() {
 	const classes = useStyles();
 	const {
 		categoryId,
@@ -246,4 +246,4 @@ function BackgroundSearch() {
 	);
 }
 
-export default memo(BackgroundSearch);
+export default memo(BoardBackground);

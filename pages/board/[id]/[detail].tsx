@@ -15,9 +15,9 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { fetchBoardDetail } from '../../../src/modules/boardDetail';
 
 // Components
-import BoardDetail from '../../../src/components/boardDetail/BoardDetail';
+import DetailContent from '../../../src/components/boardDetail/DetailContent';
 import SideBox from '../../../src/components/boardDetail/SideBox';
-import Comment from '../../../src/components/boardDetail/Comment';
+import CommentList from '../../../src/components/boardDetail/CommentList';
 import GoogleAdSense from '../../../src/components/common/GoogleAdSense';
 
 // Custom Hooks
@@ -92,7 +92,7 @@ function Detail({ query }: NextPageContext) {
 			<Container className={classes.root}>
 				<Grid container>
 					<Grid item xs={12} md={9}>
-						<BoardDetail />
+						<DetailContent />
 						{isMobile && (
 							<Box className={classes.adBox}>
 								<GoogleAdSense
@@ -107,7 +107,7 @@ function Detail({ query }: NextPageContext) {
 								/>
 							</Box>
 						)}
-						<Comment />
+						<CommentList />
 					</Grid>
 					<Grid item xs={12} md={3}>
 						<SideBox />

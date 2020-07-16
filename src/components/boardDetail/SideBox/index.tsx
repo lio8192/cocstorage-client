@@ -15,10 +15,10 @@ import EmailIcon from '@material-ui/icons/Email';
 import LinkIcon from '@material-ui/icons/Link';
 
 // Components
-import GoogleAdSense from '../common/GoogleAdSense';
+import GoogleAdSense from '../../common/GoogleAdSense';
 
 // Custom Hooks
-import useBoardDetail from '../../hooks/useBoardDetail';
+import useBoardDetail from '../../../hooks/useBoardDetail';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
