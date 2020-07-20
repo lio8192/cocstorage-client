@@ -104,6 +104,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& iframe': {
 				maxWidth: '100%'
 			},
+			'& embed': {
+				maxWidth: '100%'
+			},
 			[theme.breakpoints.down('md')]: {
 				paddingLeft: theme.spacing(2),
 				paddingRight: theme.spacing(2)
