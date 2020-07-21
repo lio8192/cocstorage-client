@@ -108,6 +108,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& embed': {
 				maxWidth: '100%'
 			},
+			'& .writing_view_box > div': {
+				width: 'auto !important'
+			},
 			[theme.breakpoints.down('md')]: {
 				paddingLeft: theme.spacing(2),
 				paddingRight: theme.spacing(2)
@@ -343,14 +346,6 @@ function DetailContent() {
 										data-slot={'1'}
 									/>
 								</Box>
-								{/* <GoogleAdSense */}
-								{/*	html={ */}
-								{/*		'<ins class="staticpubads89354"\n' */}
-								{/*		+ 'data-sizes-desktop="728x90,700x100,700x90,750x100,640x100,640x90"\n' */}
-								{/*		+ 'data-slot="1">\n' */}
-								{/*		+ '</ins>' */}
-								{/*	} */}
-								{/* /> */}
 							</Hidden>
 						</Box>
 					</Box>
