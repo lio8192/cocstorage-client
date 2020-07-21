@@ -132,4 +132,9 @@ export type BoardDetailState = {
 		error: boolean;
 		errorMessage: string | null;
 	};
+	notification: {
+		modalOpen: boolean;
+		title: string;
+		contentText: string;
+	};
 };

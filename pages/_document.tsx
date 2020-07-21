@@ -14,7 +14,6 @@ export default class CustomDocument extends Document {
 				<Head>
 					<meta name={'viewport'} content={'minimum-scale=1, initial-scale=1, width=device-width'} />
 					<meta name={'theme-color'} content={theme.palette.primary.main} />
-					<script async src={'//get.optad360.io/sf/be221582-5067-46f9-bfa5-50188b564e66/plugin.min.js'} />
 				</Head>
 				<body style={{ backgroundColor: theme.palette.background.default }}>
 					<script async src={'https://www.googletagmanager.com/gtag/js?id=UA-147959622-1'} />

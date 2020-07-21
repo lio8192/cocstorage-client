@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Skeleton from '@material-ui/lab/Skeleton';
+import Hidden from '@material-ui/core/Hidden';
 import Grow from '@material-ui/core/Grow';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
@@ -136,27 +137,27 @@ function getAlterMessageByResponseBody(data: string | null): string | null {
 	let alertMessage: string | null = null;
 
 	switch (data) {
-		case 'up':
-			alertMessage = '추천을 누르셨습니다.';
-			break;
-		case 'up_rollback':
-			alertMessage = '추천을 취소하셨습니다.';
-			break;
-		case 'down':
-			alertMessage = '비추천을 누르셨습니다.';
-			break;
-		case 'down_rollback':
-			alertMessage = '비추천을 취소하셨습니다.';
-			break;
-		case 'Already pressed the up button':
-			alertMessage = '이미 추천을 누르셨습니다.';
-			break;
-		case 'Already pressed the down button':
-			alertMessage = '이미 비추천을 누르셨습니다.';
-			break;
-		default:
-			alertMessage = '알 수 없는 오류입니다.';
-			break;
+	case 'up':
+		alertMessage = '추천을 누르셨습니다.';
+		break;
+	case 'up_rollback':
+		alertMessage = '추천을 취소하셨습니다.';
+		break;
+	case 'down':
+		alertMessage = '비추천을 누르셨습니다.';
+		break;
+	case 'down_rollback':
+		alertMessage = '비추천을 취소하셨습니다.';
+		break;
+	case 'Already pressed the up button':
+		alertMessage = '이미 추천을 누르셨습니다.';
+		break;
+	case 'Already pressed the down button':
+		alertMessage = '이미 비추천을 누르셨습니다.';
+		break;
+	default:
+		alertMessage = '알 수 없는 오류입니다.';
+		break;
 	}
 
 	return alertMessage;
@@ -334,6 +335,23 @@ function DetailContent() {
 									</ButtonGroup>
 								</Box>
 							</Box>
+							<Hidden smDown>
+								<Box mt={1}>
+									<ins
+										className={'staticpubads89354'}
+										data-sizes-desktop={'728x90,700x100,700x90,750x100,640x100,640x90'}
+										data-slot={'1'}
+									/>
+								</Box>
+								{/* <GoogleAdSense */}
+								{/*	html={ */}
+								{/*		'<ins class="staticpubads89354"\n' */}
+								{/*		+ 'data-sizes-desktop="728x90,700x100,700x90,750x100,640x100,640x90"\n' */}
+								{/*		+ 'data-slot="1">\n' */}
+								{/*		+ '</ins>' */}
+								{/*	} */}
+								{/* /> */}
+							</Hidden>
 						</Box>
 					</Box>
 				</Grow>

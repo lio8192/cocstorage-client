@@ -51,6 +51,8 @@ export default function useBoardDetail() {
 		}
 	}, [router, count]);
 
+	const onHandleNotificationModal = useCallback(() => router.push(`/board/${categoryId}`), [router, categoryId]);
+
 	useEffect(() => {
 		if (!boardDetailState.recommend.pending && boardDetailState.recommend.data && !boardDetailState.recommend.error) {
 			setThumbsSnackBarOpen(true);
@@ -75,6 +77,7 @@ export default function useBoardDetail() {
 		onClearGoogleAdSenseLimit,
 		onHandleBoardDetailRecommend,
 		onHandleCloseSnackBar,
-		onHandleExitedSnackBar
+		onHandleExitedSnackBar,
+		onHandleNotificationModal
 	};
 }

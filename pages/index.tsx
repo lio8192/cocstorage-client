@@ -16,6 +16,7 @@ import DailyPopularBoardSwiper from '../src/components/index/DailyPopularBoardSw
 import DailyPopularBoardCardList from '../src/components/index/DailyPopularBoardCardList';
 import LatestBoardCardList from '../src/components/index/LatestBoardCardList';
 import NoticeCard from '../src/components/common/NoticeCard';
+import GoogleAdSense from '../src/components/common/GoogleAdSense';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -64,6 +65,7 @@ function Index() {
 				<link rel={'apple-touch-icon'} href={'/logo_prev.png'} />
 				<link rel={'canonical'} href={'https://www.cocstorage.com'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
+				<script async src={'//get.optad360.io/sf/be221582-5067-46f9-bfa5-50188b564e66/plugin.min.js'} />
 			</Head>
 			<Container className={classes.noticeContainer}>
 				<Box className={classes.noticeCardBox}>
@@ -75,6 +77,13 @@ function Index() {
 			</Hidden>
 			<Hidden implementation={'css'} mdUp>
 				<DailyPopularBoardCardList />
+			</Hidden>
+			<Hidden mdUp>
+				<ins
+					className={'staticpubads89354'}
+					data-sizes-mobile={'300x250,300x300,250x250'}
+					data-slot={'3'}
+				/>
 			</Hidden>
 			<LatestBoardCardList />
 		</>

@@ -9,6 +9,7 @@ import {
 	POST_BOARD_DETAIL_RECOMMEND,
 	fetchBoardDetail,
 	fetchBoardDetailSucceeded,
+	fetchBoardDetailFailed,
 	fetchBoardDetailComments,
 	fetchBoardDetailCommentsSucceeded,
 	postBoardDetailRecommend,
@@ -25,6 +26,7 @@ function* watchFetchBoardDetail({ payload }: ActionType<typeof fetchBoardDetail>
 		yield put(fetchBoardDetailSucceeded(response.data));
 		yield put(handleBoardClickCountState());
 	} catch (error) {
+		yield put(fetchBoardDetailFailed());
 		console.log(error);
 	}
 }

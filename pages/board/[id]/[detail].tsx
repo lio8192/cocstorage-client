@@ -19,6 +19,7 @@ import DetailContent from '../../../src/components/boardDetail/DetailContent';
 import SideBox from '../../../src/components/boardDetail/SideBox';
 import CommentList from '../../../src/components/boardDetail/CommentList';
 import GoogleAdSense from '../../../src/components/common/GoogleAdSense';
+import NotificationModal from '../../../src/components/common/NotificationModal';
 
 // Custom Hooks
 import useBoardDetail from '../../../src/hooks/useBoardDetail';
@@ -53,7 +54,9 @@ function Detail({ query }: NextPageContext) {
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const {
 		board: { data },
-		onClearGoogleAdSenseLimit
+		onClearGoogleAdSenseLimit,
+		notification: { modalOpen, title, contentText },
+		onHandleNotificationModal
 	} = useBoardDetail();
 
 	useEffect(() => {
@@ -88,6 +91,7 @@ function Detail({ query }: NextPageContext) {
 				<link rel={'apple-touch-icon'} href={'/logo_prev.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
+				<script async src={'//get.optad360.io/sf/be221582-5067-46f9-bfa5-50188b564e66/plugin.min.js'} />
 			</Head>
 			<Container className={classes.root}>
 				<Grid container>
@@ -108,12 +112,26 @@ function Detail({ query }: NextPageContext) {
 							</Box>
 						)}
 						<CommentList />
+						<Box>
+							<ins
+								className={'staticpubads89354'}
+								data-sizes-desktop={'fluid'}
+								data-sizes-mobile={'fluid'}
+								data-slot={'2'}
+							/>
+						</Box>
 					</Grid>
 					<Grid item xs={12} md={3}>
 						<SideBox />
 					</Grid>
 				</Grid>
 			</Container>
+			<NotificationModal
+				modalOpen={modalOpen}
+				title={title}
+				contentText={contentText}
+				onHandleNotificationModal={onHandleNotificationModal}
+			/>
 		</>
 	);
 }
