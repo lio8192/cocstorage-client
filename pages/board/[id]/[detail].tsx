@@ -112,14 +112,6 @@ function Detail({ query }: NextPageContext) {
 							</Box>
 						)}
 						<CommentList />
-						<Box>
-							<ins
-								className={'staticpubads89354'}
-								data-sizes-desktop={'fluid'}
-								data-sizes-mobile={'fluid'}
-								data-slot={'2'}
-							/>
-						</Box>
 					</Grid>
 					<Grid item xs={12} md={3}>
 						<SideBox />
