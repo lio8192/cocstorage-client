@@ -23,8 +23,13 @@ import NoCommentSvg from '../../../../styles/svgs/no_comment.svg';
 // Modules
 import { BoardDetailComment } from '../../../modules/boardDetail';
 
-// Custom Hooks
-import useBoardDetailComment from '../../../hooks/useBoardDetailComment';
+type CommentListProps = {
+	data: BoardDetailComment[];
+	pending: boolean;
+	count: number;
+	row: number;
+	onHandleCommentRow: () => void;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -226,11 +231,10 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function CommentList() {
+function CommentList({
+	data, pending, count, row, onHandleCommentRow
+}: CommentListProps) {
 	const classes = useStyles();
-	const {
-		data, pending, count, row, onHandleCommentRow
-	} = useBoardDetailComment();
 
 	return (
 		<Box className={classes.root}>

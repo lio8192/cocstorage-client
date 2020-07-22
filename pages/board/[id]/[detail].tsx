@@ -53,9 +53,19 @@ function Detail({ query }: NextPageContext) {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const {
-		board: { data },
-		onClearGoogleAdSenseLimit,
+		board: { data, pending },
+		comment: { data: commentList, pending: commentPending, count: commentCount },
+		recommend: { data: alertMessage, pending: backdropOpen, errorMessage },
 		notification: { modalOpen, title, contentText },
+		row,
+		thumbsSnackBarOpen,
+		errorThumbsSnackBarOpen,
+		disabledRecommend,
+		onHandleBoardDetailRecommend,
+		onHandleCloseSnackBar,
+		onHandleExitedSnackBar,
+		onClearGoogleAdSenseLimit,
+		onHandleCommentRow,
 		onHandleNotificationModal
 	} = useBoardDetail();
 
@@ -96,7 +106,17 @@ function Detail({ query }: NextPageContext) {
 			<Container className={classes.root}>
 				<Grid container>
 					<Grid item xs={12} md={9}>
-						<DetailContent />
+						<DetailContent
+							board={{ data, pending }}
+							commentCount={commentCount}
+							recommend={{ data: alertMessage, pending: backdropOpen, errorMessage }}
+							thumbsSnackBarOpen={thumbsSnackBarOpen}
+							disabledRecommend={disabledRecommend}
+							errorThumbsSnackBarOpen={errorThumbsSnackBarOpen}
+							onHandleBoardDetailRecommend={onHandleBoardDetailRecommend}
+							onHandleCloseSnackBar={onHandleCloseSnackBar}
+							onHandleExitedSnackBar={onHandleExitedSnackBar}
+						/>
 						{isMobile && (
 							<Box className={classes.adBox}>
 								<GoogleAdSense
@@ -111,7 +131,13 @@ function Detail({ query }: NextPageContext) {
 								/>
 							</Box>
 						)}
-						<CommentList />
+						<CommentList
+							data={commentList}
+							pending={commentPending}
+							count={commentCount}
+							row={row}
+							onHandleCommentRow={onHandleCommentRow}
+						/>
 						<Box>
 							<ins
 								className={'staticpubads89354'}

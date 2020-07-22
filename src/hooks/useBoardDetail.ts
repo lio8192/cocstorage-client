@@ -5,7 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
 // Modules
-import { postBoardDetailRecommend, clearBoardDetailRecommendState } from '../modules/boardDetail';
+import {
+	postBoardDetailRecommend,
+	clearBoardDetailRecommendState,
+	fetchBoardDetailComments
+} from '../modules/boardDetail';
 import { RootState } from '../modules';
 
 export default function useBoardDetail() {
@@ -16,6 +20,7 @@ export default function useBoardDetail() {
 	const [thumbsSnackBarOpen, setThumbsSnackBarOpen] = useState<boolean>(false);
 	const [errorThumbsSnackBarOpen, setErrorThumbsSnackBarOpen] = useState<boolean>(false);
 	const [disabledRecommend, setDisabledRecommend] = useState<boolean>(false);
+	const [row, setRow] = useState<number>(20);
 
 	const { id: categoryId, detail } = useMemo(() => router.query, [router.query]);
 
@@ -51,6 +56,10 @@ export default function useBoardDetail() {
 		}
 	}, [router, count]);
 
+	const onHandleCommentRow = useCallback(() => {
+		setRow(row + 20);
+	}, [row]);
+
 	const onHandleNotificationModal = useCallback(() => router.push(`/board/${categoryId}`), [router, categoryId]);
 
 	useEffect(() => {
@@ -68,16 +77,38 @@ export default function useBoardDetail() {
 		[dispatch]
 	);
 
+	useEffect(() => {
+		if (!boardDetailState.board.pending && boardDetailState.board.data.data_no) {
+			dispatch(
+				fetchBoardDetailComments({
+					id: boardDetailState.board.data.id || 0,
+					boardDataNo: boardDetailState.board.data.data_no,
+					categoryId: router.query.id,
+					row
+				})
+			);
+		}
+	}, [
+		dispatch,
+		router.query,
+		boardDetailState.board.pending,
+		boardDetailState.board.data.id,
+		boardDetailState.board.data.data_no,
+		row
+	]);
+
 	return {
 		...boardDetailState,
 		count,
 		thumbsSnackBarOpen,
 		errorThumbsSnackBarOpen,
 		disabledRecommend,
+		row,
 		onClearGoogleAdSenseLimit,
 		onHandleBoardDetailRecommend,
 		onHandleCloseSnackBar,
 		onHandleExitedSnackBar,
+		onHandleCommentRow,
 		onHandleNotificationModal
 	};
 }

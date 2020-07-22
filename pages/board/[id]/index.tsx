@@ -64,7 +64,20 @@ function Board({ query }: NextPageContext) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-	const { pending } = useBoard();
+	const {
+		categoryId,
+		boardList,
+		pagination,
+		pending,
+		searchState,
+		dialogState,
+		dummyBoardArray,
+		onHandleSearchTypeSelect,
+		onHandleSearchValueInput,
+		onHandleSearchValueInputKey,
+		onHandleDialog,
+		onHandlePagination
+	} = useBoard();
 
 	return (
 		<>
@@ -111,7 +124,20 @@ function Board({ query }: NextPageContext) {
 			<Container className={classes.root} disableGutters={isMobile} maxWidth={isMobile ? 'md' : 'lg'}>
 				<Grid container>
 					<Grid item xs={12} lg={9}>
-						<BoardList />
+						<BoardList
+							categoryId={categoryId}
+							boardList={boardList}
+							pagination={pagination}
+							pending={pending}
+							searchState={searchState}
+							dialogState={dialogState}
+							dummyBoardArray={dummyBoardArray}
+							onHandleSearchTypeSelect={onHandleSearchTypeSelect}
+							onHandleSearchValueInput={onHandleSearchValueInput}
+							onHandleSearchValueInputKey={onHandleSearchValueInputKey}
+							onHandleDialog={onHandleDialog}
+							onHandlePagination={onHandlePagination}
+						/>
 					</Grid>
 					<Grid item xs={12} lg={3}>
 						<Hidden mdDown>

@@ -24,6 +24,12 @@ import DefaultImageSvg from '../../../../styles/svgs/default_image.svg';
 // Modules
 import { Board } from '../../../modules/boardDetail';
 
+type DailyPopularBoardSwiperProps = {
+	dailyPopularList: Array<Board>;
+	pending: boolean;
+	dummyDailyPopularBoardArray: Array<number>;
+};
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
@@ -161,12 +167,6 @@ const config = {
 	},
 	containerClass: 'customized-daily-swiper-container',
 	wrapperClass: 'customized-daily-swiper-wrapper'
-};
-
-type DailyPopularBoardSwiperProps = {
-	dailyPopularList: Array<Board>;
-	pending: boolean;
-	dummyDailyPopularBoardArray: Array<number>;
 };
 
 function DailyPopularBoardSwiper({

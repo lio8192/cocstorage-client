@@ -28,6 +28,12 @@ import { Board } from '../../../modules/boardDetail';
 
 moment.locale('ko');
 
+type LatestBoardCardBoxProps = {
+	boardList: Array<Board>;
+	pending: boolean;
+	dummyBoardArray: Array<number>;
+};
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
@@ -186,12 +192,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		}
 	})
 );
-
-type LatestBoardCardBoxProps = {
-	boardList: Array<Board>;
-	pending: boolean;
-	dummyBoardArray: Array<number>;
-};
 
 function LatestBoardCardBox({ boardList, pending, dummyBoardArray }: LatestBoardCardBoxProps) {
 	const classes = useStyles();

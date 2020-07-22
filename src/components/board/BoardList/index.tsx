@@ -14,8 +14,9 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Hidden from '@material-ui/core/Hidden';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Grow from '@material-ui/core/Grow';
-import Pagination from '@material-ui/lab/Pagination';
+import MuiPagination from '@material-ui/lab/Pagination';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -23,7 +24,6 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -37,16 +37,29 @@ import SearchIcon from '@material-ui/icons/Search';
 // Components
 import GoogleAdSense from '../../common/GoogleAdSense';
 
-// Custom Hooks
-import useBoard from '../../../hooks/useBoard';
-
 // Modules
+import { Pagination, SearchState } from '../../../modules/board';
 import { Board } from '../../../modules/boardDetail';
 
 // Snippets
 import { getSearchTypeLabelByType } from '../../../snippet/board';
 
 moment.locale('ko');
+
+type BoardListProps = {
+	categoryId: string | string[];
+	boardList: Array<Board>;
+	pagination: Pagination;
+	pending: boolean;
+	searchState: SearchState;
+	dialogState: boolean;
+	dummyBoardArray: Array<number>;
+	onHandleSearchTypeSelect: (event: React.ChangeEvent<{ value: unknown }>) => void;
+	onHandleSearchValueInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onHandleSearchValueInputKey: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+	onHandleDialog: () => void;
+	onHandlePagination: (event: React.ChangeEvent<unknown>, value: number) => void;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -290,25 +303,23 @@ function getRegisterDate(date: string | null) {
 	return formattedDate;
 }
 
-function BoardList() {
+function BoardList({
+	categoryId,
+	boardList,
+	pagination,
+	pending,
+	searchState,
+	dialogState,
+	dummyBoardArray,
+	onHandleSearchTypeSelect,
+	onHandleSearchValueInput,
+	onHandleSearchValueInputKey,
+	onHandleDialog,
+	onHandlePagination
+}: BoardListProps) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-	const {
-		categoryId,
-		boardList,
-		pagination,
-		pending,
-		searchState,
-		dialogState,
-		dummyBoardArray,
-		onHandleSearchTypeSelect,
-		onHandleSearchValueInput,
-		onHandleSearchValueInputKey,
-		onHandleDialog,
-		onHandlePagination
-	} = useBoard();
 
 	return (
 		<Box className={classes.root}>
@@ -509,7 +520,7 @@ function BoardList() {
 							</Button>
 						</Grid>
 					</Hidden>
-					<Pagination
+					<MuiPagination
 						className={classes.pagination}
 						page={pagination.page}
 						count={pagination.pageCount}

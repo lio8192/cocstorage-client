@@ -28,6 +28,12 @@ import { Board } from '../../../modules/boardDetail';
 
 moment.locale('ko');
 
+type DailyPopularBoardCardBoxProps = {
+	dailyPopularList: Array<Board>;
+	pending: boolean;
+	dummyDailyPopularBoardArray: Array<number>;
+};
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
@@ -186,12 +192,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		}
 	})
 );
-
-type DailyPopularBoardCardBoxProps = {
-	dailyPopularList: Array<Board>;
-	pending: boolean;
-	dummyDailyPopularBoardArray: Array<number>;
-};
 
 function DailyPopularBoardCardBox({
 	dailyPopularList,

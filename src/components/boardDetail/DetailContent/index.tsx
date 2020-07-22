@@ -29,8 +29,27 @@ import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
 // Components
 import GoogleAdSense from '../../common/GoogleAdSense';
 
-// Custom Hooks
-import useBoardDetail from '../../../hooks/useBoardDetail';
+// Modules
+import { Board } from '../../../modules/boardDetail';
+
+type DetailContentProps = {
+	board: {
+		data: Board;
+		pending: boolean;
+	};
+	commentCount: number;
+	recommend: {
+		data: string | null;
+		pending: boolean;
+		errorMessage: string | null;
+	};
+	thumbsSnackBarOpen: boolean;
+	errorThumbsSnackBarOpen: boolean;
+	disabledRecommend: boolean;
+	onHandleBoardDetailRecommend: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	onHandleCloseSnackBar: () => void;
+	onHandleExitedSnackBar: () => void;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -166,20 +185,18 @@ function getAlterMessageByResponseBody(data: string | null): string | null {
 	return alertMessage;
 }
 
-function DetailContent() {
+function DetailContent({
+	board: { data, pending },
+	commentCount,
+	recommend: { data: alertMessage, pending: backdropOpen, errorMessage },
+	thumbsSnackBarOpen,
+	errorThumbsSnackBarOpen,
+	disabledRecommend,
+	onHandleBoardDetailRecommend,
+	onHandleCloseSnackBar,
+	onHandleExitedSnackBar
+}: DetailContentProps) {
 	const classes = useStyles();
-	const {
-		board: { data, pending },
-		comment: { count: commentCount },
-		recommend: { data: alertMessage, pending: backdropOpen, errorMessage },
-		thumbsSnackBarOpen,
-		errorThumbsSnackBarOpen,
-		disabledRecommend,
-		onHandleBoardDetailRecommend,
-		onHandleCloseSnackBar,
-		onHandleExitedSnackBar
-	} = useBoardDetail();
-
 	const [boardDetailState, setBoardDetailState] = useState<boolean>(false);
 
 	useEffect(() => {

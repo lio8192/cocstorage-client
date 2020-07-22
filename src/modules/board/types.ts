@@ -39,19 +39,21 @@ export type Category = {
 	update_date: string | null;
 };
 
+export type Pagination = {
+	allCount: number;
+	endPage: number;
+	page: number;
+	pageBlock: number;
+	pageCount: number;
+	row: number;
+	startPage: number;
+};
+
 export type BoardState = {
 	boardList: Board[];
 	category: Category;
 	searchState: SearchState;
-	pagination: {
-		allCount: number;
-		endPage: number;
-		page: number;
-		pageBlock: number;
-		pageCount: number;
-		row: number;
-		startPage: number;
-	};
+	pagination: Pagination;
 	count: number;
 	pending: boolean;
 	error: boolean;
