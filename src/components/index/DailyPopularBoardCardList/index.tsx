@@ -20,9 +20,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import MessageIcon from '@material-ui/icons/Message';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
-// Custom Hooks
-import useHome from '../../../hooks/useHome';
-
 // Svgs
 import DefaultImageSvg from '../../../../styles/svgs/default_image.svg';
 
@@ -190,9 +187,18 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function DailyPopularBoardCardBox() {
+type DailyPopularBoardCardBoxProps = {
+	dailyPopularList: Array<Board>;
+	pending: boolean;
+	dummyDailyPopularBoardArray: Array<number>;
+};
+
+function DailyPopularBoardCardBox({
+	dailyPopularList,
+	pending,
+	dummyDailyPopularBoardArray
+}: DailyPopularBoardCardBoxProps) {
 	const classes = useStyles();
-	const { dailyPopularList, pending, dummyDailyPopularBoardArray } = useHome();
 
 	return (
 		<Box className={classes.root}>

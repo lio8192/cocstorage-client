@@ -51,13 +51,7 @@ function Footer() {
 					</Grid>
 					<Grid item xs={12} sm={6}>
 						<Box className={classes.rightBox}>
-							<Chip
-								label={'이용약관'}
-								size={'small'}
-								variant={'outlined'}
-								data-path={'/policy'}
-								onClick={handleChip}
-							/>
+							<Chip label={'이용약관'} size={'small'} variant={'outlined'} data-path={'/policy'} onClick={handleChip} />
 							<Box component={'span'} ml={0.5} />
 							<Chip
 								label={'개인정보처리방침'}

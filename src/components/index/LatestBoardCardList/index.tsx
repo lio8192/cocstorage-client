@@ -20,9 +20,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import MessageIcon from '@material-ui/icons/Message';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
-// Custom Hooks
-import useHome from '../../../hooks/useHome';
-
 // Svgs
 import DefaultImageSvg from '../../../../styles/svgs/default_image.svg';
 
@@ -190,9 +187,14 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function LatestBoardCardBox() {
+type LatestBoardCardBoxProps = {
+	boardList: Array<Board>;
+	pending: boolean;
+	dummyBoardArray: Array<number>;
+};
+
+function LatestBoardCardBox({ boardList, pending, dummyBoardArray }: LatestBoardCardBoxProps) {
 	const classes = useStyles();
-	const { boardList, pending, dummyBoardArray } = useHome();
 
 	return (
 		<Box className={classes.root}>

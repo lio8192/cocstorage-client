@@ -24,9 +24,6 @@ import DefaultImageSvg from '../../../../styles/svgs/default_image.svg';
 // Modules
 import { Board } from '../../../modules/boardDetail';
 
-// Custom Hooks
-import useHome from '../../../hooks/useHome';
-
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
@@ -166,9 +163,18 @@ const config = {
 	wrapperClass: 'customized-daily-swiper-wrapper'
 };
 
-function DailyPopularBoardSwiper() {
+type DailyPopularBoardSwiperProps = {
+	dailyPopularList: Array<Board>;
+	pending: boolean;
+	dummyDailyPopularBoardArray: Array<number>;
+};
+
+function DailyPopularBoardSwiper({
+	dailyPopularList,
+	pending,
+	dummyDailyPopularBoardArray
+}: DailyPopularBoardSwiperProps) {
 	const classes = useStyles();
-	const { dailyPopularList, pending, dummyDailyPopularBoardArray } = useHome();
 
 	return (
 		<Box className={classes.root}>

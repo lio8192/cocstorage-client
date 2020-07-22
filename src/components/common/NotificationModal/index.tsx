@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 // Material UI
 import Box from '@material-ui/core/Box';
@@ -21,7 +21,7 @@ type NotificationModalProps = {
 	onCloseNotificationModal?: () => void;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
 	createStyles({
 		icon: {
 			verticalAlign: 'middle'
@@ -30,25 +30,26 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function NotificationModal({
-	modalOpen, title, contentText, onHandleNotificationModal, onCloseNotificationModal
+	modalOpen,
+	title,
+	contentText,
+	onHandleNotificationModal,
+	onCloseNotificationModal
 }: NotificationModalProps) {
 	const classes = useStyles();
 
 	return (
-		<Dialog
-			open={modalOpen}
-			onClose={onCloseNotificationModal}
-		>
+		<Dialog open={modalOpen} onClose={onCloseNotificationModal}>
 			<DialogTitle>
 				<Box display={'flex'} alignItems={'center'}>
-					<Box><InfoIcon className={classes.icon} fontSize={'large'} color={'primary'} /></Box>
+					<Box>
+						<InfoIcon className={classes.icon} fontSize={'large'} color={'primary'} />
+					</Box>
 					<Box ml={1}>{title}</Box>
 				</Box>
 			</DialogTitle>
 			<DialogContent>
-				<DialogContentText>
-					{contentText}
-				</DialogContentText>
+				<DialogContentText>{contentText}</DialogContentText>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={onHandleNotificationModal} color={'primary'} autoFocus>

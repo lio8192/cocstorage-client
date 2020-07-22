@@ -16,7 +16,9 @@ import DailyPopularBoardSwiper from '../src/components/index/DailyPopularBoardSw
 import DailyPopularBoardCardList from '../src/components/index/DailyPopularBoardCardList';
 import LatestBoardCardList from '../src/components/index/LatestBoardCardList';
 import NoticeCard from '../src/components/common/NoticeCard';
-import GoogleAdSense from '../src/components/common/GoogleAdSense';
+
+// Custom Hooks
+import useHome from '../src/hooks/useHome';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -37,6 +39,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Index() {
 	const classes = useStyles();
+	const {
+		boardList, dailyPopularList, pending, dummyBoardArray, dummyDailyPopularBoardArray
+	} = useHome();
 
 	return (
 		<>
@@ -73,19 +78,23 @@ function Index() {
 				</Box>
 			</Container>
 			<Hidden implementation={'css'} smDown>
-				<DailyPopularBoardSwiper />
-			</Hidden>
-			<Hidden implementation={'css'} mdUp>
-				<DailyPopularBoardCardList />
-			</Hidden>
-			<Hidden mdUp>
-				<ins
-					className={'staticpubads89354'}
-					data-sizes-mobile={'300x250,300x300,250x250'}
-					data-slot={'3'}
+				<DailyPopularBoardSwiper
+					dailyPopularList={dailyPopularList}
+					pending={pending}
+					dummyDailyPopularBoardArray={dummyDailyPopularBoardArray}
 				/>
 			</Hidden>
-			<LatestBoardCardList />
+			<Hidden implementation={'css'} mdUp>
+				<DailyPopularBoardCardList
+					dailyPopularList={dailyPopularList}
+					pending={pending}
+					dummyDailyPopularBoardArray={dummyDailyPopularBoardArray}
+				/>
+			</Hidden>
+			<Hidden mdUp>
+				<ins className={'staticpubads89354'} data-sizes-mobile={'300x250,300x300,250x250'} data-slot={'3'} />
+			</Hidden>
+			<LatestBoardCardList boardList={boardList} pending={pending} dummyBoardArray={dummyBoardArray} />
 		</>
 	);
 }
