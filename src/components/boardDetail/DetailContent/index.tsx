@@ -338,6 +338,15 @@ function DetailContent() {
 									</ButtonGroup>
 								</Box>
 							</Box>
+							<Hidden smDown>
+								<Box mt={1}>
+									<ins
+										className={'staticpubads89354'}
+										data-sizes-desktop={'728x90,700x100,700x90,750x100,640x100,640x90'}
+										data-slot={'1'}
+									/>
+								</Box>
+							</Hidden>
 						</Box>
 					</Box>
 				</Grow>
