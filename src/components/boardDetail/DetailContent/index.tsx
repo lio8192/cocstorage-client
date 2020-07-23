@@ -62,6 +62,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: theme.palette.grey.A700,
 			[theme.breakpoints.down('md')]: {
 				margin: 0,
+				padding: theme.spacing(2, 3, 0, 3)
+			},
+			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(2, 2, 0, 2)
 			}
 		},
@@ -73,6 +76,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		writerInfoBox: {
 			color: theme.palette.grey.A200,
 			[theme.breakpoints.down('md')]: {
+				padding: theme.spacing(1, 3, 0, 3)
+			},
+			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(1, 2, 0, 2)
 			}
 		},
@@ -89,8 +95,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderLeft: 'none',
 			borderRight: 'none',
 			[theme.breakpoints.down('md')]: {
-				paddingLeft: theme.spacing(1),
-				paddingRight: theme.spacing(1)
+				padding: theme.spacing(2, 2)
+			},
+			[theme.breakpoints.down('xs')]: {
+				padding: theme.spacing(2, 1)
 			}
 		},
 		otherInfoSkeletonBox: {
@@ -131,8 +139,10 @@ const useStyles = makeStyles((theme: Theme) =>
 				width: 'auto !important'
 			},
 			[theme.breakpoints.down('md')]: {
-				paddingLeft: theme.spacing(2),
-				paddingRight: theme.spacing(2)
+				padding: theme.spacing(2, 3)
+			},
+			[theme.breakpoints.down('xs')]: {
+				padding: theme.spacing(2, 2)
 			}
 		},
 		recommendButtonGroup: {

@@ -38,12 +38,13 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		commentOrderList: {
 			display: 'flex',
-			paddingTop: theme.spacing(2),
-			paddingBottom: theme.spacing(2),
+			padding: theme.spacing(2, 0),
 			borderBottom: `1px solid ${theme.palette.grey['50']}`,
 			[theme.breakpoints.down('md')]: {
-				paddingLeft: theme.spacing(2),
-				paddingRight: theme.spacing(2)
+				padding: theme.spacing(2, 3)
+			},
+			[theme.breakpoints.down('xs')]: {
+				padding: theme.spacing(2, 2)
 			}
 		},
 		commentOrderListItem: {
@@ -95,7 +96,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			wordWrap: 'break-word',
 			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
+				padding: theme.spacing(2, 1),
 				borderBottom: `1px solid ${theme.palette.grey['50']}`
+			},
+			[theme.breakpoints.down('xs')]: {
+				padding: theme.spacing(2, 0)
 			}
 		},
 		commentListItemWriterBox: {
@@ -154,7 +159,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: theme.spacing(2),
 			backgroundColor: '#fafafa',
 			[theme.breakpoints.down('md')]: {
+				padding: theme.spacing(2, 3),
 				borderBottom: `1px solid ${theme.palette.grey['50']}`
+			},
+			[theme.breakpoints.down('xs')]: {
+				padding: theme.spacing(2)
 			}
 		},
 		replyBoxItemWriterBox: {
@@ -261,7 +270,7 @@ function CommentList({
 												<Skeleton animation={'wave'} width={35} />
 											</Box>
 										</Box>
-										<Hidden implementation={'css'} mdDown>
+										<Hidden mdDown>
 											<Box>
 												<Skeleton animation={'wave'} width={100} />
 											</Box>
@@ -272,7 +281,7 @@ function CommentList({
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden implementation={'css'} lgUp>
+									<Hidden lgUp>
 										<Box className={classes.commentListItemDateSkeleton}>
 											<Skeleton animation={'wave'} width={100} />
 										</Box>
@@ -289,7 +298,7 @@ function CommentList({
 												<Skeleton animation={'wave'} width={35} />
 											</Box>
 										</Box>
-										<Hidden implementation={'css'} mdDown>
+										<Hidden mdDown>
 											<Box>
 												<Skeleton animation={'wave'} width={100} />
 											</Box>
@@ -300,7 +309,7 @@ function CommentList({
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden implementation={'css'} lgUp>
+									<Hidden lgUp>
 										<Box className={classes.replyBoxItemWriterDateSkeleton}>
 											<Skeleton animation={'wave'} width={100} />
 										</Box>
@@ -317,7 +326,7 @@ function CommentList({
 												<Skeleton animation={'wave'} width={35} />
 											</Box>
 										</Box>
-										<Hidden implementation={'css'} mdDown>
+										<Hidden mdDown>
 											<Box>
 												<Skeleton animation={'wave'} width={100} />
 											</Box>
@@ -328,7 +337,7 @@ function CommentList({
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden implementation={'css'} lgUp>
+									<Hidden lgUp>
 										<Box className={classes.commentListItemDateSkeleton}>
 											<Skeleton animation={'wave'} width={100} />
 										</Box>
@@ -345,7 +354,7 @@ function CommentList({
 												<Skeleton animation={'wave'} width={35} />
 											</Box>
 										</Box>
-										<Hidden implementation={'css'} mdDown>
+										<Hidden mdDown>
 											<Box>
 												<Skeleton animation={'wave'} width={100} />
 											</Box>
@@ -356,7 +365,7 @@ function CommentList({
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden implementation={'css'} lgUp>
+									<Hidden lgUp>
 										<Box className={classes.commentListItemDateSkeleton}>
 											<Skeleton animation={'wave'} width={100} />
 										</Box>
@@ -373,7 +382,7 @@ function CommentList({
 												<Skeleton animation={'wave'} width={35} />
 											</Box>
 										</Box>
-										<Hidden implementation={'css'} mdDown>
+										<Hidden mdDown>
 											<Box>
 												<Skeleton animation={'wave'} width={100} />
 											</Box>
@@ -384,7 +393,7 @@ function CommentList({
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden implementation={'css'} lgUp>
+									<Hidden lgUp>
 										<Box className={classes.replyBoxItemWriterDateSkeleton}>
 											<Skeleton animation={'wave'} width={100} />
 										</Box>
@@ -401,7 +410,7 @@ function CommentList({
 												<Skeleton animation={'wave'} width={35} />
 											</Box>
 										</Box>
-										<Hidden implementation={'css'} mdDown>
+										<Hidden mdDown>
 											<Box>
 												<Skeleton animation={'wave'} width={100} />
 											</Box>
@@ -412,7 +421,7 @@ function CommentList({
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden implementation={'css'} lgUp>
+									<Hidden lgUp>
 										<Box className={classes.replyBoxItemWriterDateSkeleton}>
 											<Skeleton animation={'wave'} width={100} />
 										</Box>
@@ -429,7 +438,7 @@ function CommentList({
 												<Skeleton animation={'wave'} width={35} />
 											</Box>
 										</Box>
-										<Hidden implementation={'css'} mdDown>
+										<Hidden mdDown>
 											<Box>
 												<Skeleton animation={'wave'} width={100} />
 											</Box>
@@ -440,7 +449,7 @@ function CommentList({
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden implementation={'css'} lgUp>
+									<Hidden lgUp>
 										<Box className={classes.commentListItemDateSkeleton}>
 											<Skeleton animation={'wave'} width={100} />
 										</Box>
@@ -466,12 +475,12 @@ function CommentList({
 													{`${item.ip && `(${item.ip})`}`}
 												</Box>
 											</Box>
-											<Hidden implementation={'css'} mdDown>
+											<Hidden mdDown>
 												<Box>{moment(item.register_date).format('YYYY. MM. DD HH:mm:ss')}</Box>
 											</Hidden>
 										</Box>
 										<Box className={classes.commentListItemContent}>{item.content}</Box>
-										<Hidden implementation={'css'} lgUp>
+										<Hidden lgUp>
 											<Box className={classes.commentListItemDate}>
 												{moment(item.register_date).format('YYYY. MM. DD HH:mm:ss')}
 											</Box>
@@ -491,12 +500,12 @@ function CommentList({
 														{`${child.ip && `(${item.ip})`}`}
 													</Box>
 												</Box>
-												<Hidden implementation={'css'} mdDown>
+												<Hidden mdDown>
 													<Box>{moment(child.register_date).format('YYYY. MM. DD HH:mm:ss')}</Box>
 												</Hidden>
 											</Box>
 											<Box className={classes.replyBoxItemContent}>{child.content}</Box>
-											<Hidden implementation={'css'} lgUp>
+											<Hidden lgUp>
 												<Box className={classes.replyBoxItemWriterDate}>
 													{moment(child.register_date).format('YYYY. MM. DD HH:mm:ss')}
 												</Box>
