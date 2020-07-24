@@ -34,7 +34,10 @@ import AdWords from '../../../styles/svgs/adwords.svg';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: 'white'
+			backgroundColor: 'white',
+			[theme.breakpoints.down('md')]: {
+				padding: 0
+			}
 		},
 		box: {
 			margin: theme.spacing(1, 0, 1, 1)
@@ -121,7 +124,7 @@ function Board({ query }: NextPageContext) {
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
 			<BoardBackground />
-			<Container className={classes.root} disableGutters={isMobile} maxWidth={isMobile ? 'md' : 'lg'}>
+			<Container className={classes.root} maxWidth={isMobile ? 'md' : 'lg'}>
 				<Grid container>
 					<Grid item xs={12} lg={9}>
 						<BoardList

@@ -31,7 +31,10 @@ import { getCategoryNameByCategoryId } from '../../../src/snippet/board';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: 'white'
+			backgroundColor: 'white',
+			[theme.breakpoints.down('md')]: {
+				padding: 0
+			}
 		},
 		adBox: {
 			textAlign: 'center',
@@ -102,7 +105,7 @@ function Detail({ query }: NextPageContext) {
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 				<script async src={'//get.optad360.io/sf/be221582-5067-46f9-bfa5-50188b564e66/plugin.min.js'} />
 			</Head>
-			<Container className={classes.root} disableGutters={isMobile} maxWidth={isMobile ? 'md' : 'lg'}>
+			<Container className={classes.root} maxWidth={isMobile ? 'md' : 'lg'}>
 				<Grid container>
 					<Grid item xs={12} sm={12} md={12} lg={9}>
 						<DetailContent
