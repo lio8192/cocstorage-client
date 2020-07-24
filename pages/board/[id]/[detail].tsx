@@ -116,7 +116,7 @@ function Detail({ query }: NextPageContext) {
 							onHandleCloseSnackBar={onHandleCloseSnackBar}
 							onHandleExitedSnackBar={onHandleExitedSnackBar}
 						/>
-						<Hidden mdDown>
+						<Hidden mdUp>
 							<Box className={classes.adBox}>
 								<GoogleAdSense
 									html={
