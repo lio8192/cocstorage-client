@@ -24,10 +24,10 @@ import DefaultImageSvg from '../../../../styles/svgs/default_image.svg';
 // Modules
 import { Board } from '../../../modules/boardDetail';
 
-type DailyPopularBoardSwiperProps = {
-	dailyPopularList: Array<Board>;
+type BoardCardListSwiperProps = {
+	boardList: Array<Board>;
 	pending: boolean;
-	dummyDailyPopularBoardArray: Array<number>;
+	dummyBoardArray: Array<number>;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -169,11 +169,11 @@ const config = {
 	wrapperClass: 'customized-daily-swiper-wrapper'
 };
 
-function DailyPopularBoardSwiper({
-	dailyPopularList,
+function BoardCardListSwiper({
+	boardList,
 	pending,
-	dummyDailyPopularBoardArray
-}: DailyPopularBoardSwiperProps) {
+	dummyBoardArray
+}: BoardCardListSwiperProps) {
 	const classes = useStyles();
 
 	return (
@@ -188,7 +188,7 @@ function DailyPopularBoardSwiper({
 					<Grow in>
 						<Box>
 							<Swiper {...config}>
-								{dummyDailyPopularBoardArray.map((index) => (
+								{dummyBoardArray.map((index) => (
 									<Card key={`dummy-daily-popular-board-${index}`} square elevation={0}>
 										<Box className={classes.cardWrapper}>
 											<Box className={classes.cardWrapperInner} />
@@ -218,7 +218,7 @@ function DailyPopularBoardSwiper({
 				)}
 				{!pending && (
 					<Swiper {...config}>
-						{dailyPopularList.map((item: Board) => (
+						{boardList.map((item: Board) => (
 							<Grow key={`daily-popular-board-${item.id}`} in>
 								<Card square>
 									<Link href={'/board/[id]/[detail]'} as={`/board/${item.category_id}/${item.id}`}>
@@ -278,4 +278,4 @@ function DailyPopularBoardSwiper({
 	);
 }
 
-export default memo(DailyPopularBoardSwiper);
+export default memo(BoardCardListSwiper);

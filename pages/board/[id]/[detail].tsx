@@ -140,14 +140,6 @@ function Detail({ query }: NextPageContext) {
 							row={row}
 							onHandleCommentRow={onHandleCommentRow}
 						/>
-						<Box>
-							<ins
-								className={'staticpubads89354'}
-								data-sizes-desktop={'fluid'}
-								data-sizes-mobile={'fluid'}
-								data-slot={'2'}
-							/>
-						</Box>
 					</Grid>
 					<Grid item xs={12} md={12} lg={3}>
 						<Hidden smDown>

@@ -12,9 +12,8 @@ import Hidden from '@material-ui/core/Hidden';
 import { fetchMainContents } from '../src/modules/home';
 
 // Components
-import DailyPopularBoardSwiper from '../src/components/index/DailyPopularBoardSwiper';
-import DailyPopularBoardCardList from '../src/components/index/DailyPopularBoardCardList';
-import LatestBoardCardList from '../src/components/index/LatestBoardCardList';
+import BoardCardListSwiper from '../src/components/index/BoardCardListSwiper';
+import BoardCardList from '../src/components/index/BoardCardList';
 import NoticeCard from '../src/components/common/NoticeCard';
 
 // Custom Hooks
@@ -78,23 +77,23 @@ function Index() {
 				</Box>
 			</Container>
 			<Hidden implementation={'css'} smDown>
-				<DailyPopularBoardSwiper
-					dailyPopularList={dailyPopularList}
+				<BoardCardListSwiper
+					boardList={dailyPopularList}
 					pending={pending}
-					dummyDailyPopularBoardArray={dummyDailyPopularBoardArray}
+					dummyBoardArray={dummyDailyPopularBoardArray}
 				/>
 			</Hidden>
 			<Hidden implementation={'css'} mdUp>
-				<DailyPopularBoardCardList
-					dailyPopularList={dailyPopularList}
+				<BoardCardList
+					boardList={dailyPopularList}
 					pending={pending}
-					dummyDailyPopularBoardArray={dummyDailyPopularBoardArray}
+					dummyBoardArray={dummyDailyPopularBoardArray}
 				/>
 			</Hidden>
 			<Hidden mdUp>
 				<ins className={'staticpubads89354'} data-sizes-mobile={'300x250,300x300,250x250'} data-slot={'3'} />
 			</Hidden>
-			<LatestBoardCardList boardList={boardList} pending={pending} dummyBoardArray={dummyBoardArray} />
+			<BoardCardList boardList={boardList} pending={pending} dummyBoardArray={dummyBoardArray} />
 		</>
 	);
 }

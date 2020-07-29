@@ -28,17 +28,17 @@ import { Board } from '../../../modules/boardDetail';
 
 moment.locale('ko');
 
-type DailyPopularBoardCardBoxProps = {
-	dailyPopularList: Array<Board>;
+type BoardCardListProps = {
+	boardList: Array<Board>;
 	pending: boolean;
-	dummyDailyPopularBoardArray: Array<number>;
+	dummyBoardArray: Array<number>;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			margin: theme.spacing(1, 0),
-			padding: theme.spacing(1, 0),
+			padding: theme.spacing(1, 0, 0),
 			backgroundColor: 'white'
 		},
 		title: {
@@ -193,25 +193,21 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function DailyPopularBoardCardBox({
-	dailyPopularList,
-	pending,
-	dummyDailyPopularBoardArray
-}: DailyPopularBoardCardBoxProps) {
+function BoardCardList({ boardList, pending, dummyBoardArray }: BoardCardListProps) {
 	const classes = useStyles();
 
 	return (
 		<Box className={classes.root}>
 			<Container>
 				<Typography className={classes.title} variant={'h6'} component={'h6'}>
-					{'일간 개념글'}
+					{'새로운 개념글'}
 				</Typography>
 			</Container>
 			<Container className={classes.container}>
 				<Box className={classes.containerBox}>
 					{pending && (
 						<Grid container>
-							{dummyDailyPopularBoardArray.map((index) => (
+							{dummyBoardArray.map((index) => (
 								<Grid key={`dummy-new-board-${index}`} className={classes.gridItemSkeleton} item xs={12} md={6}>
 									<Grow in>
 										<List>
@@ -262,7 +258,7 @@ function DailyPopularBoardCardBox({
 					)}
 					{!pending && (
 						<Grid container>
-							{dailyPopularList.map((item: Board) => (
+							{boardList.map((item: Board) => (
 								<Grid key={`board-${item.id}`} className={classes.gridItem} item xs={12} md={6}>
 									<Grow in>
 										<List>
@@ -324,4 +320,4 @@ function DailyPopularBoardCardBox({
 	);
 }
 
-export default memo(DailyPopularBoardCardBox);
+export default memo(BoardCardList);
