@@ -11,6 +11,7 @@ export default function useBoard() {
 	const dispatch = useDispatch();
 	const boardState = useSelector((state: RootState) => state.board);
 
+	const [adSenseCount, setAdSenseCount] = useState<number>(0);
 	const [dialogState, setDialogState] = useState<boolean>(false);
 	const [dummyBoardArray] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
 
@@ -18,9 +19,10 @@ export default function useBoard() {
 
 	const onHandlePagination = useCallback(
 		(event: React.ChangeEvent<unknown>, value: number) => {
+			setAdSenseCount(adSenseCount + 1);
 			dispatch(fetchBoards({ categoryId, page: value, searchState: boardState.searchState }));
 		},
-		[dispatch, categoryId, boardState.searchState]
+		[dispatch, categoryId, boardState.searchState, adSenseCount]
 	);
 
 	const onHandleSearchTypeSelect = useCallback(
@@ -75,6 +77,7 @@ export default function useBoard() {
 		...boardState,
 		dialogState,
 		dummyBoardArray,
+		adSenseCount,
 		onHandleSearchTypeSelect,
 		onHandleSearchValueInput,
 		onHandleSearchValueInputKey,

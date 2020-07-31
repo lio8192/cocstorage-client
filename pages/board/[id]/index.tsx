@@ -75,6 +75,7 @@ function Board({ query }: NextPageContext) {
 		searchState,
 		dialogState,
 		dummyBoardArray,
+		adSenseCount,
 		onHandleSearchTypeSelect,
 		onHandleSearchValueInput,
 		onHandleSearchValueInputKey,
@@ -145,28 +146,19 @@ function Board({ query }: NextPageContext) {
 					<Grid item xs={12} lg={3}>
 						<Hidden mdDown>
 							<Box className={classes.box}>
-								{!pending && (
-									<Fade in>
-										<GoogleAdSense
-											html={
-												'<ins class="adsbygoogle"'
-												+ 'style="display:block"'
-												+ 'data-ad-client="ca-pub-5809905264951057"'
-												+ 'data-ad-slot="3880285784"'
-												+ 'data-ad-format="auto"'
-												+ 'data-full-width-responsive="true">'
-												+ '</ins>'
-											}
-										/>
-									</Fade>
-								)}
-								{pending && (
-									<Fade in>
-										<Box className={classes.adPendingBox}>
-											<img src={AdWords} alt={'Advertisement Pending Img'} />
-										</Box>
-									</Fade>
-								)}
+								<Fade key={`adSense-${adSenseCount}`} in>
+									<GoogleAdSense
+										html={
+											'<ins class="adsbygoogle"'
+											+ 'style="display:block"'
+											+ 'data-ad-client="ca-pub-5809905264951057"'
+											+ 'data-ad-slot="3880285784"'
+											+ 'data-ad-format="auto"'
+											+ 'data-full-width-responsive="true">'
+											+ '</ins>'
+										}
+									/>
+								</Fade>
 							</Box>
 						</Hidden>
 					</Grid>
