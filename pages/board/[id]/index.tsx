@@ -71,7 +71,7 @@ function Board({ query }: NextPageContext) {
 		pending,
 		searchState,
 		dummyBoardArray,
-		count,
+		adSenseCount,
 		onHandleSearchTypeMenuSelect,
 		onHandleSearchValueInput,
 		onHandleSearchValueInputKey,
@@ -145,7 +145,7 @@ function Board({ query }: NextPageContext) {
 					<Grid item xs={12} lg={3}>
 						<Hidden mdDown>
 							<Box className={classes.box}>
-								<Fade key={`adSense-${count}`} in>
+								<Fade key={`adSense-${adSenseCount}`} in>
 									<GoogleAdSense
 										html={
 											'<ins class="adsbygoogle"'

@@ -11,15 +11,17 @@ export default function useBoard() {
 	const dispatch = useDispatch();
 	const boardState = useSelector((state: RootState) => state.board);
 
+	const [adSenseCount, setAdSenseCount] = useState<number>(0);
 	const [dummyBoardArray] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
 
 	const { id: categoryId } = useMemo(() => router.query, [router.query]);
 
 	const onHandlePagination = useCallback(
 		(event: React.ChangeEvent<unknown>, value: number) => {
+			setAdSenseCount(adSenseCount + 1);
 			dispatch(fetchBoards({ categoryId, page: value, searchState: boardState.searchState }));
 		},
-		[dispatch, categoryId, boardState.searchState]
+		[dispatch, categoryId, boardState.searchState, adSenseCount]
 	);
 
 	const onHandleSearchTypeMenuSelect = useCallback(
@@ -53,6 +55,7 @@ export default function useBoard() {
 	const onHandleSearchValueInputKey = useCallback(
 		(event: React.KeyboardEvent<HTMLInputElement>) => {
 			if (event.key === 'Enter') {
+				setAdSenseCount(adSenseCount + 1);
 				const nextSearchState: SearchState = {
 					...boardState.searchState,
 					handle: true
@@ -69,6 +72,7 @@ export default function useBoard() {
 		categoryId,
 		...boardState,
 		dummyBoardArray,
+		adSenseCount,
 		onHandleSearchTypeMenuSelect,
 		onHandleSearchValueInput,
 		onHandleSearchValueInputKey,
