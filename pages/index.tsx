@@ -84,11 +84,7 @@ function Index() {
 				/>
 			</Hidden>
 			<Hidden implementation={'css'} mdUp>
-				<BoardCardList
-					boardList={dailyPopularList}
-					pending={pending}
-					dummyBoardArray={dummyDailyPopularBoardArray}
-				/>
+				<BoardCardList boardList={dailyPopularList} pending={pending} dummyBoardArray={dummyDailyPopularBoardArray} />
 			</Hidden>
 			<Hidden mdUp>
 				<ins className={'staticpubads89354'} data-sizes-mobile={'300x250,300x300,250x250'} data-slot={'3'} />

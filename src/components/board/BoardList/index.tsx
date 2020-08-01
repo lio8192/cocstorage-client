@@ -1,4 +1,6 @@
-import React, { memo } from 'react';
+import React, {
+	useState, useCallback, useRef, memo
+} from 'react';
 import Link from 'next/link';
 import {
 	createStyles, fade, makeStyles, Theme, useTheme
@@ -12,17 +14,10 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import Hidden from '@material-ui/core/Hidden';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Grow from '@material-ui/core/Grow';
 import MuiPagination from '@material-ui/lab/Pagination';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
-import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
 
 // Material UI Labs
@@ -35,6 +30,10 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import SearchIcon from '@material-ui/icons/Search';
 
 // Components
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import MenuList from '@material-ui/core/MenuList';
 import GoogleAdSense from '../../common/GoogleAdSense';
 
 // Modules
@@ -52,12 +51,10 @@ type BoardListProps = {
 	pagination: Pagination;
 	pending: boolean;
 	searchState: SearchState;
-	dialogState: boolean;
 	dummyBoardArray: Array<number>;
-	onHandleSearchTypeSelect: (event: React.ChangeEvent<{ value: unknown }>) => void;
+	onHandleSearchTypeMenuSelect: (event: React.MouseEvent<HTMLLIElement>) => void;
 	onHandleSearchValueInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onHandleSearchValueInputKey: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-	onHandleDialog: () => void;
 	onHandlePagination: (event: React.ChangeEvent<unknown>, value: number) => void;
 };
 
@@ -286,6 +283,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		input: {
 			padding: theme.spacing(1)
+		},
+		popper: {
+			zIndex: 10
 		}
 	})
 );
@@ -309,17 +309,33 @@ function BoardList({
 	pagination,
 	pending,
 	searchState,
-	dialogState,
 	dummyBoardArray,
-	onHandleSearchTypeSelect,
+	onHandleSearchTypeMenuSelect,
 	onHandleSearchValueInput,
 	onHandleSearchValueInputKey,
-	onHandleDialog,
 	onHandlePagination
 }: BoardListProps) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+	const anchorRef = useRef<HTMLButtonElement>(null);
+	const [open, setOpen] = useState<boolean>(false);
+
+	const handleSearchMenu = useCallback(() => {
+		setOpen(!open);
+	}, [open]);
+
+	const handleCloseSearchMenu = useCallback(() => {
+		setOpen(false);
+	}, []);
+
+	const handleSearchTypeMenuSelect = useCallback(
+		(event: React.MouseEvent<HTMLLIElement>) => {
+			setOpen(false);
+			onHandleSearchTypeMenuSelect(event);
+		},
+		[onHandleSearchTypeMenuSelect]
+	);
 
 	return (
 		<Box className={classes.root}>
@@ -515,9 +531,45 @@ function BoardList({
 								value={searchState.value}
 								placeholder={'검색할 단어를 입력해주세요.'}
 							/>
-							<Button className={classes.searchButton} color={'inherit'} onClick={onHandleDialog}>
+							<Button ref={anchorRef} className={classes.searchButton} color={'inherit'} onClick={handleSearchMenu}>
 								{getSearchTypeLabelByType(searchState.type)}
 							</Button>
+							<Popper
+								className={classes.popper}
+								open={open}
+								anchorEl={anchorRef.current}
+								role={undefined}
+								transition
+								disablePortal
+							>
+								{({ TransitionProps, placement }) => (
+									<Grow
+										{...TransitionProps}
+										style={{
+											transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'
+										}}
+									>
+										<Paper>
+											<ClickAwayListener onClickAway={handleCloseSearchMenu}>
+												<MenuList>
+													<MenuItem data-value={'all'} onClick={handleSearchTypeMenuSelect}>
+														{'전체'}
+													</MenuItem>
+													<MenuItem data-value={'subject'} onClick={handleSearchTypeMenuSelect}>
+														{'제목'}
+													</MenuItem>
+													<MenuItem data-value={'nickname'} onClick={handleSearchTypeMenuSelect}>
+														{'닉네임'}
+													</MenuItem>
+													<MenuItem data-value={'content'} onClick={handleSearchTypeMenuSelect}>
+														{'내용'}
+													</MenuItem>
+												</MenuList>
+											</ClickAwayListener>
+										</Paper>
+									</Grow>
+								)}
+							</Popper>
 						</Grid>
 					</Hidden>
 					<MuiPagination
@@ -532,34 +584,6 @@ function BoardList({
 					/>
 				</>
 			)}
-			<Hidden implementation={'css'} lgUp>
-				<Dialog disableBackdropClick disableEscapeKeyDown open={dialogState} onClose={onHandleDialog}>
-					<DialogTitle>{'검색 조건'}</DialogTitle>
-					<DialogContent>
-						<form className={classes.dialogContainer}>
-							<FormControl className={classes.formControl}>
-								<Select
-									labelId={'demo-dialog-select-label'}
-									id={'demo-dialog-select'}
-									value={searchState.type}
-									onChange={onHandleSearchTypeSelect}
-									input={<Input />}
-								>
-									<MenuItem value={'all'}>{'전체'}</MenuItem>
-									<MenuItem value={'subject'}>{'제목'}</MenuItem>
-									<MenuItem value={'nickname'}>{'닉네임'}</MenuItem>
-									<MenuItem value={'content'}>{'내용'}</MenuItem>
-								</Select>
-							</FormControl>
-						</form>
-					</DialogContent>
-					<DialogActions>
-						<Button onClick={onHandleDialog} color={'primary'}>
-							{'닫기'}
-						</Button>
-					</DialogActions>
-				</Dialog>
-			</Hidden>
 		</Box>
 	);
 }

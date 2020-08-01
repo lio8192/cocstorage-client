@@ -1,4 +1,6 @@
-import React, { memo } from 'react';
+import React, {
+	useState, useCallback, useRef, memo
+} from 'react';
 import {
 	createStyles, fade, makeStyles, Theme
 } from '@material-ui/core/styles';
@@ -9,16 +11,14 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Hidden from '@material-ui/core/Hidden';
+import MenuList from '@material-ui/core/MenuList';
 import InputBase from '@material-ui/core/InputBase';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
 
 // Material UI Icons
 import SearchIcon from '@material-ui/icons/Search';
@@ -31,11 +31,20 @@ import SchoolIcon from '@material-ui/icons/School';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 
-// Custom Hooks
-import useBoard from '../../../hooks/useBoard';
-
 // Snippets
 import { getSearchTypeLabelByType, getCategoryNameByCategoryId } from '../../../snippet/board';
+
+type BoardHeaderProps = {
+	categoryId: string | string[];
+	searchState: {
+		handle: boolean;
+		type: string;
+		value: string;
+	};
+	onHandleSearchTypeMenuSelect: (event: React.MouseEvent<HTMLLIElement>) => void;
+	onHandleSearchValueInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onHandleSearchValueInputKey: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -124,6 +133,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		formControl: {
 			margin: theme.spacing(1),
 			minWidth: 120
+		},
+		popper: {
+			zIndex: 10
 		}
 	})
 );
@@ -164,17 +176,32 @@ function getCategoryIconByCategoryId(categoryId: string | string[]) {
 	return categoryIcon;
 }
 
-function BoardBackground() {
+function BoardHeader({
+	categoryId,
+	searchState,
+	onHandleSearchTypeMenuSelect,
+	onHandleSearchValueInput,
+	onHandleSearchValueInputKey
+}: BoardHeaderProps) {
 	const classes = useStyles();
-	const {
-		categoryId,
-		searchState,
-		dialogState,
-		onHandleSearchTypeSelect,
-		onHandleSearchValueInput,
-		onHandleSearchValueInputKey,
-		onHandleDialog
-	} = useBoard();
+	const anchorRef = useRef<HTMLButtonElement>(null);
+	const [open, setOpen] = useState<boolean>(false);
+
+	const handleSearchMenu = useCallback(() => {
+		setOpen(!open);
+	}, [open]);
+
+	const handleCloseSearchMenu = useCallback(() => {
+		setOpen(false);
+	}, []);
+
+	const handleSearchTypeMenuSelect = useCallback(
+		(event: React.MouseEvent<HTMLLIElement>) => {
+			setOpen(false);
+			onHandleSearchTypeMenuSelect(event);
+		},
+		[onHandleSearchTypeMenuSelect]
+	);
 
 	return (
 		<Box className={classes.root}>
@@ -192,9 +219,45 @@ function BoardBackground() {
 						<Hidden implementation={'css'} mdDown>
 							<Box className={classes.gridBox}>
 								<Box>
-									<Button className={classes.searchButton} color={'inherit'} onClick={onHandleDialog}>
+									<Button ref={anchorRef} className={classes.searchButton} color={'inherit'} onClick={handleSearchMenu}>
 										{getSearchTypeLabelByType(searchState.type)}
 									</Button>
+									<Popper
+										className={classes.popper}
+										open={open}
+										anchorEl={anchorRef.current}
+										role={undefined}
+										transition
+										disablePortal
+									>
+										{({ TransitionProps, placement }) => (
+											<Grow
+												{...TransitionProps}
+												style={{
+													transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'
+												}}
+											>
+												<Paper>
+													<ClickAwayListener onClickAway={handleCloseSearchMenu}>
+														<MenuList>
+															<MenuItem data-value={'all'} onClick={handleSearchTypeMenuSelect}>
+																{'전체'}
+															</MenuItem>
+															<MenuItem data-value={'subject'} onClick={handleSearchTypeMenuSelect}>
+																{'제목'}
+															</MenuItem>
+															<MenuItem data-value={'nickname'} onClick={handleSearchTypeMenuSelect}>
+																{'닉네임'}
+															</MenuItem>
+															<MenuItem data-value={'content'} onClick={handleSearchTypeMenuSelect}>
+																{'내용'}
+															</MenuItem>
+														</MenuList>
+													</ClickAwayListener>
+												</Paper>
+											</Grow>
+										)}
+									</Popper>
 								</Box>
 								<Box className={classes.search}>
 									<Box className={classes.searchIcon}>
@@ -216,34 +279,8 @@ function BoardBackground() {
 					</Grid>
 				</Grid>
 			</Container>
-			<Dialog disableBackdropClick disableEscapeKeyDown open={dialogState} onClose={onHandleDialog}>
-				<DialogTitle>{'검색 조건'}</DialogTitle>
-				<DialogContent>
-					<form className={classes.dialogContainer}>
-						<FormControl className={classes.formControl}>
-							<Select
-								labelId={'demo-dialog-select-label'}
-								id={'demo-dialog-select'}
-								value={searchState.type}
-								onChange={onHandleSearchTypeSelect}
-								input={<Input />}
-							>
-								<MenuItem value={'all'}>{'전체'}</MenuItem>
-								<MenuItem value={'subject'}>{'제목'}</MenuItem>
-								<MenuItem value={'nickname'}>{'닉네임'}</MenuItem>
-								<MenuItem value={'content'}>{'내용'}</MenuItem>
-							</Select>
-						</FormControl>
-					</form>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={onHandleDialog} color={'primary'}>
-						{'닫기'}
-					</Button>
-				</DialogActions>
-			</Dialog>
 		</Box>
 	);
 }
 
-export default memo(BoardBackground);
+export default memo(BoardHeader);

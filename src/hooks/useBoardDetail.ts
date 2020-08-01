@@ -51,7 +51,7 @@ export default function useBoardDetail() {
 	}, []);
 
 	const onClearGoogleAdSenseLimit = useCallback(() => {
-		if (count >= 10) {
+		if (count >= 20) {
 			router.reload();
 		}
 	}, [router, count]);

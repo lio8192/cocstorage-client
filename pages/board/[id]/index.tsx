@@ -17,7 +17,7 @@ import Fade from '@material-ui/core/Fade';
 import { fetchBoards, handleBoardsSearchState } from '../../../src/modules/board';
 
 // Components
-import BoardBackground from '../../../src/components/board/BoardBackground';
+import BoardHeader from '../../../src/components/board/BoardHeader';
 import BoardList from '../../../src/components/board/BoardList';
 import GoogleAdSense from '../../../src/components/common/GoogleAdSense';
 import NoticeCard from '../../../src/components/common/NoticeCard';
@@ -27,9 +27,6 @@ import useBoard from '../../../src/hooks/useBoard';
 
 // Snippets
 import { getCategoryNameByCategoryId } from '../../../src/snippet/board';
-
-// Svgs
-import AdWords from '../../../styles/svgs/adwords.svg';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -73,13 +70,11 @@ function Board({ query }: NextPageContext) {
 		pagination,
 		pending,
 		searchState,
-		dialogState,
 		dummyBoardArray,
-		adSenseCount,
-		onHandleSearchTypeSelect,
+		count,
+		onHandleSearchTypeMenuSelect,
 		onHandleSearchValueInput,
 		onHandleSearchValueInputKey,
-		onHandleDialog,
 		onHandlePagination
 	} = useBoard();
 
@@ -124,7 +119,13 @@ function Board({ query }: NextPageContext) {
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
-			<BoardBackground />
+			<BoardHeader
+				categoryId={categoryId}
+				searchState={searchState}
+				onHandleSearchTypeMenuSelect={onHandleSearchTypeMenuSelect}
+				onHandleSearchValueInput={onHandleSearchValueInput}
+				onHandleSearchValueInputKey={onHandleSearchValueInputKey}
+			/>
 			<Container className={classes.root} maxWidth={isMobile ? 'md' : 'lg'}>
 				<Grid container>
 					<Grid item xs={12} lg={9}>
@@ -134,19 +135,17 @@ function Board({ query }: NextPageContext) {
 							pagination={pagination}
 							pending={pending}
 							searchState={searchState}
-							dialogState={dialogState}
 							dummyBoardArray={dummyBoardArray}
-							onHandleSearchTypeSelect={onHandleSearchTypeSelect}
+							onHandleSearchTypeMenuSelect={onHandleSearchTypeMenuSelect}
 							onHandleSearchValueInput={onHandleSearchValueInput}
 							onHandleSearchValueInputKey={onHandleSearchValueInputKey}
-							onHandleDialog={onHandleDialog}
 							onHandlePagination={onHandlePagination}
 						/>
 					</Grid>
 					<Grid item xs={12} lg={3}>
 						<Hidden mdDown>
 							<Box className={classes.box}>
-								<Fade key={`adSense-${adSenseCount}`} in>
+								<Fade key={`adSense-${count}`} in>
 									<GoogleAdSense
 										html={
 											'<ins class="adsbygoogle"'

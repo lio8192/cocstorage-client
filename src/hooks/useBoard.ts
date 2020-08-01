@@ -11,23 +11,20 @@ export default function useBoard() {
 	const dispatch = useDispatch();
 	const boardState = useSelector((state: RootState) => state.board);
 
-	const [adSenseCount, setAdSenseCount] = useState<number>(0);
-	const [dialogState, setDialogState] = useState<boolean>(false);
 	const [dummyBoardArray] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
 
 	const { id: categoryId } = useMemo(() => router.query, [router.query]);
 
 	const onHandlePagination = useCallback(
 		(event: React.ChangeEvent<unknown>, value: number) => {
-			setAdSenseCount(adSenseCount + 1);
 			dispatch(fetchBoards({ categoryId, page: value, searchState: boardState.searchState }));
 		},
-		[dispatch, categoryId, boardState.searchState, adSenseCount]
+		[dispatch, categoryId, boardState.searchState]
 	);
 
-	const onHandleSearchTypeSelect = useCallback(
-		(event: React.ChangeEvent<{ value: unknown }>) => {
-			const type = String(event.target.value);
+	const onHandleSearchTypeMenuSelect = useCallback(
+		(event: React.MouseEvent<HTMLLIElement>) => {
+			const type: string = event.currentTarget.getAttribute('data-value') || '';
 
 			dispatch(
 				handleBoardsSearchState({
@@ -68,20 +65,13 @@ export default function useBoard() {
 		[dispatch, categoryId, boardState.searchState]
 	);
 
-	const onHandleDialog = useCallback(() => {
-		setDialogState(!dialogState);
-	}, [dialogState]);
-
 	return {
 		categoryId,
 		...boardState,
-		dialogState,
 		dummyBoardArray,
-		adSenseCount,
-		onHandleSearchTypeSelect,
+		onHandleSearchTypeMenuSelect,
 		onHandleSearchValueInput,
 		onHandleSearchValueInputKey,
-		onHandleDialog,
 		onHandlePagination
 	};
 }

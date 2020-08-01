@@ -3,7 +3,11 @@ import { ActionType } from 'typesafe-actions';
 
 // Modules
 import {
-	FETCH_BOARDS, CLEAR_BOARDS_RELATED_STATE, fetchBoards, fetchBoardsSucceeded
+	FETCH_BOARDS,
+	CLEAR_BOARDS_RELATED_STATE,
+	fetchBoards,
+	fetchBoardsSucceeded,
+	handleBoardClickCountState
 } from '../modules/board/actions';
 
 // Service
@@ -20,6 +24,7 @@ function* watchFetchBoards({ payload }: ActionType<typeof fetchBoards>) {
 
 		const response = yield call(searchState?.handle ? Service.fetchSearchBoards : Service.fetchBoards, payload);
 		yield put(fetchBoardsSucceeded(response.data));
+		yield put(handleBoardClickCountState());
 	} catch (error) {
 		console.log(error);
 	}

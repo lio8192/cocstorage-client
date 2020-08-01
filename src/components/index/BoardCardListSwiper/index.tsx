@@ -169,11 +169,7 @@ const config = {
 	wrapperClass: 'customized-daily-swiper-wrapper'
 };
 
-function BoardCardListSwiper({
-	boardList,
-	pending,
-	dummyBoardArray
-}: BoardCardListSwiperProps) {
+function BoardCardListSwiper({ boardList, pending, dummyBoardArray }: BoardCardListSwiperProps) {
 	const classes = useStyles();
 
 	return (
