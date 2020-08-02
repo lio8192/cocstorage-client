@@ -170,13 +170,23 @@ function Board({ query }: NextPageContext) {
 	);
 }
 
-Board.getInitialProps = async ({ store, query }: NextPageContext) => {
+Board.getInitialProps = async ({ req, store, query }: NextPageContext) => {
 	let {
 		board: { searchState }
 	} = store.getState();
+	const { board: { pending } } = store.getState();
+	const isServerSide = req && true;
 	let page = 1;
 
-	if (typeof window !== 'undefined') {
+	if (isServerSide) {
+		store.dispatch(
+			fetchBoards({
+				categoryId: query.id,
+				searchState,
+				page
+			})
+		);
+	} else if (!pending) {
 		page = Number(window.localStorage.getItem('coc-page') || 1);
 
 		const searchStateHistory = window.localStorage.getItem('coc-searchState');
@@ -184,15 +194,15 @@ Board.getInitialProps = async ({ store, query }: NextPageContext) => {
 			searchState = JSON.parse(searchStateHistory);
 			store.dispatch(handleBoardsSearchState(searchState));
 		}
-	}
 
-	store.dispatch(
-		fetchBoards({
-			categoryId: query.id,
-			searchState,
-			page
-		})
-	);
+		store.dispatch(
+			fetchBoards({
+				categoryId: query.id,
+				searchState,
+				page
+			})
+		);
+	}
 
 	return {
 		query

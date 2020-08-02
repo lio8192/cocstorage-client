@@ -19,9 +19,12 @@ export default function useBoard() {
 	const onHandlePagination = useCallback(
 		(event: React.ChangeEvent<unknown>, value: number) => {
 			setAdSenseCount(adSenseCount + 1);
-			dispatch(fetchBoards({ categoryId, page: value, searchState: boardState.searchState }));
+
+			if (!boardState.pending) {
+				dispatch(fetchBoards({ categoryId, page: value, searchState: boardState.searchState }));
+			}
 		},
-		[dispatch, categoryId, boardState.searchState, adSenseCount]
+		[dispatch, categoryId, boardState.searchState, boardState.pending, adSenseCount]
 	);
 
 	const onHandleSearchTypeMenuSelect = useCallback(
@@ -61,11 +64,13 @@ export default function useBoard() {
 					handle: true
 				};
 
-				dispatch(handleBoardsSearchState(nextSearchState));
-				dispatch(fetchBoards({ categoryId, page: 1, searchState: nextSearchState }));
+				if (!boardState.pending) {
+					dispatch(handleBoardsSearchState(nextSearchState));
+					dispatch(fetchBoards({ categoryId, page: 1, searchState: nextSearchState }));
+				}
 			}
 		},
-		[dispatch, categoryId, boardState.searchState]
+		[dispatch, categoryId, boardState.searchState, boardState.pending]
 	);
 
 	return {
