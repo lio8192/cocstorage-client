@@ -35,7 +35,7 @@ const initialState: BoardDetailState = {
 			register_date: null,
 			commentCount: 0
 		},
-		pending: true,
+		pending: false,
 		error: false,
 		errorMessage: null
 	},
@@ -43,7 +43,7 @@ const initialState: BoardDetailState = {
 		data: [],
 		count: 0,
 		loadedCount: 0,
-		pending: true,
+		pending: false,
 		error: false,
 		errorMessage: null
 	},

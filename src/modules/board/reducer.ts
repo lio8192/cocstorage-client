@@ -31,7 +31,7 @@ const initialState: BoardState = {
 		endPage: 0
 	},
 	count: 0,
-	pending: true,
+	pending: false,
 	error: false,
 	errorMessage: null
 };
