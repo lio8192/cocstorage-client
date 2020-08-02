@@ -95,7 +95,11 @@ function Index() {
 }
 
 Index.getInitialProps = async ({ store }: NextPageContext) => {
-	store.dispatch(fetchMainContents());
+	const { home: { pending } } = store.getState();
+
+	if (!pending) {
+		store.dispatch(fetchMainContents());
+	}
 
 	return {
 		store
