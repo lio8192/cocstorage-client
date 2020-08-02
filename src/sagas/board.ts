@@ -7,6 +7,7 @@ import {
 	CLEAR_BOARDS_RELATED_STATE,
 	fetchBoards,
 	fetchBoardsSucceeded,
+	fetchBoardsFailed,
 	handleBoardClickCountState
 } from '../modules/board/actions';
 
@@ -26,6 +27,7 @@ function* watchFetchBoards({ payload }: ActionType<typeof fetchBoards>) {
 		yield put(fetchBoardsSucceeded(response.data));
 		yield put(handleBoardClickCountState());
 	} catch (error) {
+		yield put(fetchBoardsFailed());
 		console.log(error);
 	}
 }

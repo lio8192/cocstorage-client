@@ -4,7 +4,7 @@ import {
 	FETCH_BOARDS_SUCCEEDED,
 	HANDLE_BOARDS_SEARCH_STATE,
 	HANDLE_BOARDS_CLICK_COUNT_STATE,
-	CLEAR_BOARDS_RELATED_STATE
+	CLEAR_BOARDS_RELATED_STATE, FETCH_BOARDS_FAILED
 } from './actions';
 import { BoardAction, BoardState } from './types';
 
@@ -49,6 +49,12 @@ const board = createReducer<BoardState, BoardAction>(initialState, {
 		pending: false,
 		error: false,
 		errorMessage: null
+	}),
+	[FETCH_BOARDS_FAILED]: (state) => ({
+		...state,
+		pending: false,
+		error: true,
+		errorMessage: '알 수 없는 오류입니다.'
 	}),
 	[HANDLE_BOARDS_SEARCH_STATE]: (state, { payload }) => ({
 		...state,
