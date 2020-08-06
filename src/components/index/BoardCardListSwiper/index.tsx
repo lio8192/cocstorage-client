@@ -185,7 +185,7 @@ function BoardCardListSwiper({ boardList, pending, dummyBoardArray }: BoardCardL
 						<Box>
 							<Swiper {...config}>
 								{dummyBoardArray.map((index) => (
-									<Card key={`dummy-daily-popular-board-${index}`} square elevation={0}>
+									<Card key={`dummy-swiper-board-card-${index}`} square elevation={0}>
 										<Box className={classes.cardWrapper}>
 											<Box className={classes.cardWrapperInner} />
 											<Box className={classes.cardBackgroundSkeleton}>
@@ -215,7 +215,7 @@ function BoardCardListSwiper({ boardList, pending, dummyBoardArray }: BoardCardL
 				{!pending && (
 					<Swiper {...config}>
 						{boardList.map((item: Board) => (
-							<Grow key={`daily-popular-board-${item.id}`} in>
+							<Grow key={`swiper-board-card-${item.id}`} in>
 								<Card square>
 									<Link href={'/board/[id]/[detail]'} as={`/board/${item.category_id}/${item.id}`}>
 										<a>

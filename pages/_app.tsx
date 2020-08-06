@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { AppContext, AppProps } from 'next/app';
+import moment from 'moment';
 
 // Redux
 import withRedux from 'next-redux-wrapper';
@@ -30,12 +31,39 @@ import '../styles/common/swiper.scss';
 // Components
 import Layout from '../src/components/common/Layout';
 
+moment.locale('ko');
+
 function App({ Component, pageProps, store }: AppProps | any) {
 	useEffect(() => {
 		const jssStyles = document.querySelector('#jss-server-side');
 		if (jssStyles && jssStyles.parentElement) {
 			jssStyles.parentElement.removeChild(jssStyles);
 		}
+
+		const welcomeConsoleLogTitleStyle: string = [
+			'padding: 20px 0',
+			'font-size: 60px',
+			'font-weight: 700',
+			'font-family: NanumSquareRound',
+			'color: #8EC5FC'
+		].join(';');
+		const welcomeConsoleLogSubTitleStyle: string = [
+			'padding: 10px 20px',
+			'font-size: 14px',
+			'font-weight: 500',
+			'font-family: NanumSquareRound',
+			'color: rgba(0, 0, 0, .5)'
+		].join(';');
+		const welcomeConsoleLogEasterEggStyle: string = [
+			'padding: 10px 20px',
+			'font-size: 14px',
+			'font-weight: 500',
+			'font-family: NanumSquareRound',
+			'color: rgba(0, 0, 0, .5)'
+		].join(';');
+		console.log('%c 개념글 저장소', welcomeConsoleLogTitleStyle);
+		console.log('%c ⓒ 개념글 저장소 All Rights Reserved.', welcomeConsoleLogSubTitleStyle);
+		console.log(`%c 나만의 저장소 (D-${moment('2020-09-12').diff(moment('2020-08-07'), 'days')})`, welcomeConsoleLogEasterEggStyle);
 	}, []);
 
 	return (

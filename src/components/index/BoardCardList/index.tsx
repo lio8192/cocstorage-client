@@ -208,7 +208,7 @@ function BoardCardList({ boardList, pending, dummyBoardArray }: BoardCardListPro
 					{pending && (
 						<Grid container>
 							{dummyBoardArray.map((index) => (
-								<Grid key={`dummy-new-board-${index}`} className={classes.gridItemSkeleton} item xs={12} md={6}>
+								<Grid key={`dummy-board-card-${index}`} className={classes.gridItemSkeleton} item xs={12} md={6}>
 									<Grow in>
 										<List>
 											<ListItem>
@@ -259,7 +259,7 @@ function BoardCardList({ boardList, pending, dummyBoardArray }: BoardCardListPro
 					{!pending && (
 						<Grid container>
 							{boardList.map((item: Board) => (
-								<Grid key={`board-${item.id}`} className={classes.gridItem} item xs={12} md={6}>
+								<Grid key={`board-card-${item.id}`} className={classes.gridItem} item xs={12} md={6}>
 									<Grow in>
 										<List>
 											<ListItem>
