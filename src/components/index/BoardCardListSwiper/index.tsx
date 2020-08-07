@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import Link from 'next/link';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Material UI
@@ -153,7 +153,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
+SwiperCore.use([Navigation]);
 
 function BoardCardListSwiper({ boardList, pending }: BoardCardListSwiperProps) {
 	const classes = useStyles();
