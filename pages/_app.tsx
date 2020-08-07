@@ -15,18 +15,17 @@ import createSagaMiddleware from 'redux-saga';
 // Material UI
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from '../src/theme';
+import theme from 'theme';
 
 // RootReducer
-import rootReducer from '../src/modules';
+import rootReducer from 'modules';
 
 // RootSaga
-import rootSaga from '../src/sagas';
+import rootSaga from 'sagas';
 
 // Global SCSS
-import '../styles/index.scss';
+import 'styles/index.scss';
 import 'swiper/swiper.scss';
-import '../styles/common/swiper.scss';
 
 // Components
 import Layout from '../src/components/common/Layout';
@@ -63,7 +62,10 @@ function App({ Component, pageProps, store }: AppProps | any) {
 		].join(';');
 		console.log('%c 개념글 저장소', welcomeConsoleLogTitleStyle);
 		console.log('%c ⓒ 개념글 저장소 All Rights Reserved.', welcomeConsoleLogSubTitleStyle);
-		console.log(`%c 나만의 저장소 (D-${moment('2020-09-12').diff(moment('2020-08-07'), 'days')})`, welcomeConsoleLogEasterEggStyle);
+		console.log(
+			`%c 나만의 저장소 (D-${moment('2020-09-12').diff(moment('2020-08-07'), 'days')})`,
+			welcomeConsoleLogEasterEggStyle
+		);
 	}, []);
 
 	return (

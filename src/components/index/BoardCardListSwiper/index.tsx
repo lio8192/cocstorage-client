@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import Link from 'next/link';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Swiper from 'react-id-swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import Grow from '@material-ui/core/Grow';
+import NoSsr from '@material-ui/core/NoSsr';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -19,15 +20,14 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 
 // Svgs
-import DefaultImageSvg from '../../../../styles/svgs/default_image.svg';
+import DefaultImageSvg from 'styles/svgs/default_image.svg';
 
 // Modules
-import { Board } from '../../../modules/boardDetail';
+import { Board } from 'modules/boardDetail';
 
 type BoardCardListSwiperProps = {
 	boardList: Array<Board>;
 	pending: boolean;
-	dummyBoardArray: Array<number>;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -85,7 +85,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		cardBackground: {
 			position: 'absolute',
-			padding: theme.spacing(1.5),
 			top: 0,
 			left: 0,
 			width: '100%',
@@ -111,21 +110,24 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		cardTitle: {
+			padding: theme.spacing(1),
 			color: 'white',
 			[theme.breakpoints.down('md')]: {
 				fontSize: 16
 			}
 		},
 		cardDescription: {
+			padding: theme.spacing(0, 1),
+			display: 'box',
+			boxOrient: 'vertical',
+			lineClamp: 2,
+			fontSize: '12px',
 			textOverflow: 'ellipsis',
 			overflow: 'hidden',
-			display: '-webkit-box',
-			webkitBoxOrient: 'vertical',
-			webkitLineClamp: 2,
-			fontSize: '12px',
 			color: '#888'
 		},
 		cardInfo: {
+			padding: theme.spacing(1),
 			color: '#888'
 		},
 		cardInfoViewCount: {
@@ -137,39 +139,14 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		cardInfoViewCountSkeleton: {
 			marginLeft: 'auto'
+		},
+		swiperContainer: {
+			paddingLeft: 'calc(50% - 616px)'
 		}
 	})
 );
 
-const config = {
-	slidesPerView: 'auto',
-	spaceBetween: 15,
-	breakpoints: {
-		1200: {
-			slidesPerView: 5
-		},
-		1024: {
-			slidesPerView: 4
-		},
-		768: {
-			slidesPerView: 3
-		},
-		640: {
-			slidesPerView: 3
-		},
-		320: {
-			slidesPerView: 2
-		}
-	},
-	autoplay: {
-		delay: 2000,
-		disableOnInteraction: false
-	},
-	containerClass: 'customized-daily-swiper-container',
-	wrapperClass: 'customized-daily-swiper-wrapper'
-};
-
-function BoardCardListSwiper({ boardList, pending, dummyBoardArray }: BoardCardListSwiperProps) {
+function BoardCardListSwiper({ boardList, pending }: BoardCardListSwiperProps) {
 	const classes = useStyles();
 
 	return (
@@ -181,11 +158,32 @@ function BoardCardListSwiper({ boardList, pending, dummyBoardArray }: BoardCardL
 			</Container>
 			<Box className={classes.box}>
 				{pending && (
-					<Grow in>
-						<Box>
-							<Swiper {...config}>
-								{dummyBoardArray.map((index) => (
-									<Card key={`dummy-swiper-board-card-${index}`} square elevation={0}>
+					<Swiper
+						className={classes.swiperContainer}
+						spaceBetween={15}
+						slidesPerView={'auto'}
+						breakpoints={{
+							1200: {
+								slidesPerView: 5
+							},
+							1024: {
+								slidesPerView: 4
+							},
+							768: {
+								slidesPerView: 3
+							},
+							640: {
+								slidesPerView: 3
+							},
+							320: {
+								slidesPerView: 2
+							}
+						}}
+					>
+						{Array.from({ length: 7 }).map((index) => (
+							<SwiperSlide key={`dummy-swiper-board-card-${index}`}>
+								<Grow in>
+									<Card square elevation={0}>
 										<Box className={classes.cardWrapper}>
 											<Box className={classes.cardWrapperInner} />
 											<Box className={classes.cardBackgroundSkeleton}>
@@ -193,7 +191,7 @@ function BoardCardListSwiper({ boardList, pending, dummyBoardArray }: BoardCardL
 												<Typography noWrap className={classes.cardTitle} variant={'h6'} component={'h6'}>
 													<Skeleton animation={'wave'} />
 												</Typography>
-												<Typography noWrap className={classes.cardTitle} variant={'h6'} component={'h6'}>
+												<Typography className={classes.cardTitle} variant={'h6'} component={'h6'}>
 													<Skeleton animation={'wave'} />
 												</Typography>
 												<Grid container justify={'center'} className={classes.cardInfo}>
@@ -207,68 +205,93 @@ function BoardCardListSwiper({ boardList, pending, dummyBoardArray }: BoardCardL
 											</Box>
 										</Box>
 									</Card>
-								))}
-							</Swiper>
-						</Box>
-					</Grow>
-				)}
-				{!pending && (
-					<Swiper {...config}>
-						{boardList.map((item: Board) => (
-							<Grow key={`swiper-board-card-${item.id}`} in>
-								<Card square>
-									<Link href={'/board/[id]/[detail]'} as={`/board/${item.category_id}/${item.id}`}>
-										<a>
-											<Box className={classes.cardWrapper}>
-												<Box className={classes.cardWrapperInner}>
-													<Box className={classes.cardCentered}>
-														{item.image ? (
-															<img src={item.image} alt={'Thumbnail'} />
-														) : (
-															<img
-																className={classes.cardCenteredDefaultImage}
-																src={DefaultImageSvg}
-																alt={'Default Thumbnail'}
-															/>
-														)}
-														{item.image ? (
-															<img src={item.image} alt={'Thumbnail'} />
-														) : (
-															<img
-																className={classes.cardCenteredDefaultImage}
-																src={DefaultImageSvg}
-																alt={'Default Thumbnail'}
-															/>
-														)}
-													</Box>
-												</Box>
-												<Box className={classes.cardBackground}>
-													<Typography noWrap className={classes.cardTitle} variant={'h6'} component={'h6'}>
-														{item.subject}
-													</Typography>
-													<Typography noWrap className={classes.cardDescription} variant={'subtitle1'}>
-														{item.description}
-													</Typography>
-													<Grid container justify={'space-between'} className={classes.cardInfo}>
-														<Grid item>{item.nickname}</Grid>
-														<Grid item className={classes.cardInfoViewCount}>
-															<Box component={'span'} marginRight={1} fontSize={12}>
-																<ThumbUpAltIcon fontSize={'small'} /> {Number(item.up).toLocaleString()}
-															</Box>
-															<Box component={'span'} fontSize={12}>
-																<VisibilityIcon fontSize={'small'} /> {Number(item.view).toLocaleString()}
-															</Box>
-														</Grid>
-													</Grid>
-												</Box>
-											</Box>
-										</a>
-									</Link>
-								</Card>
-							</Grow>
+								</Grow>
+							</SwiperSlide>
 						))}
 					</Swiper>
 				)}
+				<NoSsr>
+					{!pending && (
+						<Swiper
+							className={classes.swiperContainer}
+							spaceBetween={15}
+							slidesPerView={'auto'}
+							breakpoints={{
+								1200: {
+									slidesPerView: 5
+								},
+								1024: {
+									slidesPerView: 4
+								},
+								768: {
+									slidesPerView: 3
+								},
+								640: {
+									slidesPerView: 3
+								},
+								320: {
+									slidesPerView: 2
+								}
+							}}
+						>
+							{boardList.map((item: Board) => (
+								<SwiperSlide key={`swiper-board-card-${item.id}`}>
+									<Grow in>
+										<Card square>
+											<Link href={'/board/[id]/[detail]'} as={`/board/${item.category_id}/${item.id}`}>
+												<a>
+													<Box className={classes.cardWrapper}>
+														<Box className={classes.cardWrapperInner}>
+															<Box className={classes.cardCentered}>
+																{item.image ? (
+																	<img src={item.image} alt={'Thumbnail'} />
+																) : (
+																	<img
+																		className={classes.cardCenteredDefaultImage}
+																		src={DefaultImageSvg}
+																		alt={'Default Thumbnail'}
+																	/>
+																)}
+																{item.image ? (
+																	<img src={item.image} alt={'Thumbnail'} />
+																) : (
+																	<img
+																		className={classes.cardCenteredDefaultImage}
+																		src={DefaultImageSvg}
+																		alt={'Default Thumbnail'}
+																	/>
+																)}
+															</Box>
+														</Box>
+														<Box className={classes.cardBackground}>
+															<Typography noWrap className={classes.cardTitle} variant={'h6'} component={'h6'}>
+																{item.subject}
+															</Typography>
+															<Typography className={classes.cardDescription} variant={'subtitle1'}>
+																{item.description}
+															</Typography>
+															<Grid container justify={'space-between'} className={classes.cardInfo}>
+																<Grid item>{item.nickname}</Grid>
+																<Grid item className={classes.cardInfoViewCount}>
+																	<Box component={'span'} marginRight={1} fontSize={12}>
+																		<ThumbUpAltIcon fontSize={'small'} /> {Number(item.up).toLocaleString()}
+																	</Box>
+																	<Box component={'span'} fontSize={12}>
+																		<VisibilityIcon fontSize={'small'} /> {Number(item.view).toLocaleString()}
+																	</Box>
+																</Grid>
+															</Grid>
+														</Box>
+													</Box>
+												</a>
+											</Link>
+										</Card>
+									</Grow>
+								</SwiperSlide>
+							))}
+						</Swiper>
+					)}
+				</NoSsr>
 			</Box>
 		</Box>
 	);

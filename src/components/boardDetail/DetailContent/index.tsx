@@ -27,10 +27,10 @@ import ThumbDownAltSharpIcon from '@material-ui/icons/ThumbDownAltSharp';
 import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
 
 // Components
-import GoogleAdSense from '../../common/GoogleAdSense';
+import GoogleAdSense from 'components/common/GoogleAdSense';
 
 // Modules
-import { Board } from '../../../modules/boardDetail';
+import { Board } from 'modules/boardDetail';
 
 type DetailContentProps = {
 	board: {

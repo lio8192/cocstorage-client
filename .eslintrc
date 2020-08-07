@@ -32,6 +32,7 @@
         "jsx": "never"
       }
     ],
+    "import/no-unresolved": [2, { "ignore": [".png$", ".svg$", ".scss"] }],
     "quotes": ["error", "single"],
     "comma-dangle": ["error", "never"],
     "jsx-a11y/anchor-is-valid": "off",

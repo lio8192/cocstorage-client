@@ -9,15 +9,15 @@ import Container from '@material-ui/core/Container';
 import Hidden from '@material-ui/core/Hidden';
 
 // Modules
-import { fetchMainContents } from '../src/modules/home';
+import { fetchMainContents } from 'modules/home';
 
 // Components
-import BoardCardListSwiper from '../src/components/index/BoardCardListSwiper';
-import BoardCardList from '../src/components/index/BoardCardList';
-import NoticeCard from '../src/components/common/NoticeCard';
+import BoardCardListSwiper from 'components/index/BoardCardListSwiper';
+import BoardCardList from 'components/index/BoardCardList';
+import NoticeCard from 'components/common/NoticeCard';
 
 // Custom Hooks
-import useHome from '../src/hooks/useHome';
+import useHome from 'hooks/useHome';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -38,9 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Index() {
 	const classes = useStyles();
-	const {
-		boardList, dailyPopularList, pending, dummyBoardArray, dummyDailyPopularBoardArray
-	} = useHome();
+	const { boardList, dailyPopularList, pending } = useHome();
 
 	return (
 		<>
@@ -77,25 +75,23 @@ function Index() {
 				</Box>
 			</Container>
 			<Hidden implementation={'css'} smDown>
-				<BoardCardListSwiper
-					boardList={dailyPopularList}
-					pending={pending}
-					dummyBoardArray={dummyDailyPopularBoardArray}
-				/>
+				<BoardCardListSwiper boardList={dailyPopularList} pending={pending} />
 			</Hidden>
 			<Hidden implementation={'css'} mdUp>
-				<BoardCardList boardList={dailyPopularList} pending={pending} dummyBoardArray={dummyDailyPopularBoardArray} />
+				<BoardCardList boardList={dailyPopularList} pending={pending} />
 			</Hidden>
 			<Hidden mdUp>
 				<ins className={'staticpubads89354'} data-sizes-mobile={'300x250,300x300,250x250'} data-slot={'3'} />
 			</Hidden>
-			<BoardCardList boardList={boardList} pending={pending} dummyBoardArray={dummyBoardArray} />
+			<BoardCardList boardList={boardList} pending={pending} />
 		</>
 	);
 }
 
 Index.getInitialProps = async ({ store }: NextPageContext) => {
-	const { home: { pending } } = store.getState();
+	const {
+		home: { pending }
+	} = store.getState();
 
 	if (!pending) {
 		store.dispatch(fetchMainContents());

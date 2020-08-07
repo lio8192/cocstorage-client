@@ -6,9 +6,9 @@ import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 
 // Common Components
-import Header from '../Header';
-import MobileHeader from '../MobileHeader';
-import Footer from '../Footer';
+import Header from 'components/common/Header';
+import MobileHeader from 'components/common/MobileHeader';
+import Footer from 'components/common/Footer';
 
 type LayoutProps = {
 	children: JSX.Element | JSX.Element[];

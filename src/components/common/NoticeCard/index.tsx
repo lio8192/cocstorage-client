@@ -6,7 +6,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
 // Images
-import NoticeImg from '../../../../public/notice.png';
+import NoticeImg from 'public/notice.png';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

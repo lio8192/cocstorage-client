@@ -18,10 +18,10 @@ import AddCommentIcon from '@material-ui/icons/AddComment';
 import PersonIcon from '@material-ui/icons/Person';
 
 // Svgs
-import NoCommentSvg from '../../../../styles/svgs/no_comment.svg';
+import NoCommentSvg from 'styles/svgs/no_comment.svg';
 
 // Modules
-import { BoardDetailComment } from '../../../modules/boardDetail';
+import { BoardDetailComment } from 'modules/boardDetail';
 
 type CommentListProps = {
 	data: BoardDetailComment[];

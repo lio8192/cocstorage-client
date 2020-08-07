@@ -21,17 +21,16 @@ import MessageIcon from '@material-ui/icons/Message';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
 // Svgs
-import DefaultImageSvg from '../../../../styles/svgs/default_image.svg';
+import DefaultImageSvg from 'styles/svgs/default_image.svg';
 
 // Modules
-import { Board } from '../../../modules/boardDetail';
+import { Board } from 'modules/boardDetail';
 
 moment.locale('ko');
 
 type BoardCardListProps = {
 	boardList: Array<Board>;
 	pending: boolean;
-	dummyBoardArray: Array<number>;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -193,7 +192,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function BoardCardList({ boardList, pending, dummyBoardArray }: BoardCardListProps) {
+function BoardCardList({ boardList, pending }: BoardCardListProps) {
 	const classes = useStyles();
 
 	return (
@@ -207,7 +206,7 @@ function BoardCardList({ boardList, pending, dummyBoardArray }: BoardCardListPro
 				<Box className={classes.containerBox}>
 					{pending && (
 						<Grid container>
-							{dummyBoardArray.map((index) => (
+							{Array.from({ length: 6 }).map((index) => (
 								<Grid key={`dummy-board-card-${index}`} className={classes.gridItemSkeleton} item xs={12} md={6}>
 									<Grow in>
 										<List>

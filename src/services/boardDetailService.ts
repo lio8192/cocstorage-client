@@ -1,11 +1,11 @@
 import { AxiosRequestConfig } from 'axios';
-import axios from '.';
 
 // Modules
-import { FetchBoardDetailPayload, FetchBoardDetailCommentPayload } from '../modules/boardDetail';
+import { FetchBoardDetailPayload, FetchBoardDetailCommentPayload } from 'modules/boardDetail';
 
 // Snippets
-import { getOrderTypeByCategoryId, getBoardDataNoByCategoryId } from '../snippet/boardDetail';
+import { getOrderTypeByCategoryId, getBoardDataNoByCategoryId } from 'snippet/boardDetail';
+import axios from '.';
 
 export function fetchBoardDetail({ id, categoryId }: FetchBoardDetailPayload) {
 	const config: AxiosRequestConfig = {

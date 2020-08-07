@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
 // Modules
-import { fetchBoards, handleBoardsSearchState, SearchState } from '../modules/board';
-import { RootState } from '../modules';
+import { fetchBoards, handleBoardsSearchState, SearchState } from 'modules/board';
+import { RootState } from 'modules';
 
 export default function useBoard() {
 	const router = useRouter();
@@ -12,7 +12,6 @@ export default function useBoard() {
 	const boardState = useSelector((state: RootState) => state.board);
 
 	const [adSenseCount, setAdSenseCount] = useState<number>(0);
-	const [dummyBoardArray] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
 
 	const { id: categoryId } = useMemo(() => router.query, [router.query]);
 
@@ -70,13 +69,12 @@ export default function useBoard() {
 				}
 			}
 		},
-		[dispatch, categoryId, boardState.searchState, boardState.pending]
+		[dispatch, categoryId, boardState.searchState, boardState.pending, adSenseCount]
 	);
 
 	return {
 		categoryId,
 		...boardState,
-		dummyBoardArray,
 		adSenseCount,
 		onHandleSearchTypeMenuSelect,
 		onHandleSearchValueInput,

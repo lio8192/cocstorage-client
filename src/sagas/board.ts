@@ -9,10 +9,10 @@ import {
 	fetchBoardsSucceeded,
 	fetchBoardsFailed,
 	handleBoardClickCountState
-} from '../modules/board/actions';
+} from 'modules/board/actions';
 
 // Service
-import * as Service from '../services/boardService';
+import * as Service from 'services/boardService';
 
 function* watchFetchBoards({ payload }: ActionType<typeof fetchBoards>) {
 	const { searchState, page } = payload;

@@ -1,10 +1,10 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 
 // Modules
-import { FETCH_MAIN_CONTENTS, fetchMainContentsSucceeded, fetchMainContentsFailed } from '../modules/home';
+import { FETCH_MAIN_CONTENTS, fetchMainContentsSucceeded, fetchMainContentsFailed } from 'modules/home';
 
 // Service
-import * as Service from '../services/homeService';
+import * as Service from 'services/homeService';
 
 function* watchMainContents() {
 	try {

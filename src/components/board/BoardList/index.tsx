@@ -19,6 +19,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Grow from '@material-ui/core/Grow';
 import MuiPagination from '@material-ui/lab/Pagination';
 import TextField from '@material-ui/core/TextField';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import MenuList from '@material-ui/core/MenuList';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -30,18 +34,14 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import SearchIcon from '@material-ui/icons/Search';
 
 // Components
-import Popper from '@material-ui/core/Popper';
-import Paper from '@material-ui/core/Paper';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import MenuList from '@material-ui/core/MenuList';
-import GoogleAdSense from '../../common/GoogleAdSense';
+import GoogleAdSense from 'components/common/GoogleAdSense';
 
 // Modules
-import { Pagination, SearchState } from '../../../modules/board';
-import { Board } from '../../../modules/boardDetail';
+import { Pagination, SearchState } from 'modules/board';
+import { Board } from 'modules/boardDetail';
 
 // Snippets
-import { getSearchTypeLabelByType } from '../../../snippet/board';
+import { getSearchTypeLabelByType } from 'snippet/board';
 
 moment.locale('ko');
 
@@ -51,7 +51,6 @@ type BoardListProps = {
 	pagination: Pagination;
 	pending: boolean;
 	searchState: SearchState;
-	dummyBoardArray: Array<number>;
 	onHandleSearchTypeMenuSelect: (event: React.MouseEvent<HTMLLIElement>) => void;
 	onHandleSearchValueInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onHandleSearchValueInputKey: (event: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -309,7 +308,6 @@ function BoardList({
 	pagination,
 	pending,
 	searchState,
-	dummyBoardArray,
 	onHandleSearchTypeMenuSelect,
 	onHandleSearchValueInput,
 	onHandleSearchValueInputKey,
@@ -342,7 +340,7 @@ function BoardList({
 			{pending && (
 				<Grow in>
 					<Box>
-						{dummyBoardArray.map((index) => (
+						{Array.from({ length: 20 }).map((index) => (
 							<Grid key={`dummy-board-${index}`} className={classes.gridSkeleton} container>
 								<Grid item xs={12} md={7}>
 									<Box display={'flex'} alignItems={'center'} pb={0.5}>

@@ -9,8 +9,8 @@ import {
 	postBoardDetailRecommend,
 	clearBoardDetailRecommendState,
 	fetchBoardDetailComments
-} from '../modules/boardDetail';
-import { RootState } from '../modules';
+} from 'modules/boardDetail';
+import { RootState } from 'modules';
 
 export default function useBoardDetail() {
 	const dispatch = useDispatch();

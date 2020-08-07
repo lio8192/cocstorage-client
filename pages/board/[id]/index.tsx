@@ -14,19 +14,19 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Fade from '@material-ui/core/Fade';
 
 // Modules
-import { fetchBoards, handleBoardsSearchState } from '../../../src/modules/board';
+import { fetchBoards, handleBoardsSearchState } from 'modules/board';
 
 // Components
-import BoardHeader from '../../../src/components/board/BoardHeader';
-import BoardList from '../../../src/components/board/BoardList';
-import GoogleAdSense from '../../../src/components/common/GoogleAdSense';
-import NoticeCard from '../../../src/components/common/NoticeCard';
+import BoardHeader from 'components/board/BoardHeader';
+import BoardList from 'components/board/BoardList';
+import GoogleAdSense from 'components/common/GoogleAdSense';
+import NoticeCard from 'components/common/NoticeCard';
 
 // Custom Hooks
-import useBoard from '../../../src/hooks/useBoard';
+import useBoard from 'hooks/useBoard';
 
 // Snippets
-import { getCategoryNameByCategoryId } from '../../../src/snippet/board';
+import { getCategoryNameByCategoryId } from 'snippet/board';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -70,7 +70,6 @@ function Board({ query }: NextPageContext) {
 		pagination,
 		pending,
 		searchState,
-		dummyBoardArray,
 		adSenseCount,
 		onHandleSearchTypeMenuSelect,
 		onHandleSearchValueInput,
@@ -135,7 +134,6 @@ function Board({ query }: NextPageContext) {
 							pagination={pagination}
 							pending={pending}
 							searchState={searchState}
-							dummyBoardArray={dummyBoardArray}
 							onHandleSearchTypeMenuSelect={onHandleSearchTypeMenuSelect}
 							onHandleSearchValueInput={onHandleSearchValueInput}
 							onHandleSearchValueInputKey={onHandleSearchValueInputKey}
@@ -174,7 +172,9 @@ Board.getInitialProps = async ({ req, store, query }: NextPageContext) => {
 	let {
 		board: { searchState }
 	} = store.getState();
-	const { board: { pending } } = store.getState();
+	const {
+		board: { pending }
+	} = store.getState();
 	const isServerSide = req && true;
 	let page = 1;
 

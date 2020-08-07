@@ -13,20 +13,20 @@ import Hidden from '@material-ui/core/Hidden';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Modules
-import { fetchBoardDetail } from '../../../src/modules/boardDetail';
+import { fetchBoardDetail } from 'modules/boardDetail';
 
 // Components
-import DetailContent from '../../../src/components/boardDetail/DetailContent';
-import SideBox from '../../../src/components/boardDetail/SideBox';
-import CommentList from '../../../src/components/boardDetail/CommentList';
-import GoogleAdSense from '../../../src/components/common/GoogleAdSense';
-import NotificationModal from '../../../src/components/common/NotificationModal';
+import DetailContent from 'components/boardDetail/DetailContent';
+import SideBox from 'components/boardDetail/SideBox';
+import CommentList from 'components/boardDetail/CommentList';
+import GoogleAdSense from 'components/common/GoogleAdSense';
+import NotificationModal from 'components/common/NotificationModal';
+import { getCategoryNameByCategoryId } from 'snippet/board';
 
 // Custom Hooks
-import useBoardDetail from '../../../src/hooks/useBoardDetail';
+import useBoardDetail from 'hooks/useBoardDetail';
 
 // Snippets
-import { getCategoryNameByCategoryId } from '../../../src/snippet/board';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

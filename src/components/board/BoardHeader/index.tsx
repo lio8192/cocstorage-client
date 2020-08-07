@@ -32,7 +32,7 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 
 // Snippets
-import { getSearchTypeLabelByType, getCategoryNameByCategoryId } from '../../../snippet/board';
+import { getSearchTypeLabelByType, getCategoryNameByCategoryId } from 'snippet/board';
 
 type BoardHeaderProps = {
 	categoryId: string | string[];

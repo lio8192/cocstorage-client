@@ -5,7 +5,7 @@ import Document, {
 
 // Material UI
 import { ServerStyleSheets } from '@material-ui/core/styles';
-import theme from '../src/theme';
+import theme from 'theme';
 
 export default class CustomDocument extends Document {
 	render() {
