@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import Link from 'next/link';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Material UI
@@ -141,10 +142,18 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginLeft: 'auto'
 		},
 		swiperContainer: {
-			paddingLeft: 'calc(50% - 616px)'
+			paddingLeft: 'calc(50% - 616px)',
+			[theme.breakpoints.down('md')]: {
+				paddingLeft: theme.spacing(3)
+			},
+			'& .swiper-button-prev, .swiper-button-next': {
+				color: theme.palette.primary.main
+			}
 		}
 	})
 );
+
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 function BoardCardListSwiper({ boardList, pending }: BoardCardListSwiperProps) {
 	const classes = useStyles();
@@ -233,6 +242,9 @@ function BoardCardListSwiper({ boardList, pending }: BoardCardListSwiperProps) {
 									slidesPerView: 2
 								}
 							}}
+							navigation
+							pagination={{ clickable: true }}
+							scrollbar={{ draggable: true }}
 						>
 							{boardList.map((item: Board) => (
 								<SwiperSlide key={`swiper-board-card-${item.id}`}>

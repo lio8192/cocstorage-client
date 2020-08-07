@@ -26,6 +26,7 @@ import rootSaga from 'sagas';
 // Global SCSS
 import 'styles/index.scss';
 import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
 
 // Components
 import Layout from '../src/components/common/Layout';
