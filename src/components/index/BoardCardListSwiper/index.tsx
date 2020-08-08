@@ -117,6 +117,9 @@ const useStyles = makeStyles((theme: Theme) =>
 				fontSize: 16
 			}
 		},
+		cardTitleSkeleton: {
+			padding: theme.spacing(1, 0)
+		},
 		cardDescription: {
 			padding: theme.spacing(0, 1),
 			display: 'box',
@@ -146,6 +149,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				paddingLeft: theme.spacing(3)
 			},
+			'& .swiper-slide': {
+				width: '23% !important'
+			},
 			'& .swiper-button-prev, .swiper-button-next': {
 				color: theme.palette.primary.main
 			}
@@ -171,23 +177,6 @@ function BoardCardListSwiper({ boardList, pending }: BoardCardListSwiperProps) {
 						className={classes.swiperContainer}
 						spaceBetween={15}
 						slidesPerView={'auto'}
-						breakpoints={{
-							1200: {
-								slidesPerView: 5
-							},
-							1024: {
-								slidesPerView: 4
-							},
-							768: {
-								slidesPerView: 3
-							},
-							640: {
-								slidesPerView: 3
-							},
-							320: {
-								slidesPerView: 2
-							}
-						}}
 					>
 						{Array.from({ length: 7 }).map((index) => (
 							<SwiperSlide key={`dummy-swiper-board-card-${index}`}>
@@ -197,13 +186,14 @@ function BoardCardListSwiper({ boardList, pending }: BoardCardListSwiperProps) {
 											<Box className={classes.cardWrapperInner} />
 											<Box className={classes.cardBackgroundSkeleton}>
 												<Skeleton variant={'rect'} width={'100%'} height={'100%'} animation={'wave'} />
-												<Typography noWrap className={classes.cardTitle} variant={'h6'} component={'h6'}>
+												<Typography noWrap className={classes.cardTitleSkeleton} variant={'h6'} component={'h6'}>
 													<Skeleton animation={'wave'} />
 												</Typography>
-												<Typography className={classes.cardTitle} variant={'h6'} component={'h6'}>
-													<Skeleton animation={'wave'} />
+												<Typography variant={'h6'} component={'h6'}>
+													<Skeleton animation={'wave'} height={15} />
+													<Skeleton animation={'wave'} height={15} />
 												</Typography>
-												<Grid container justify={'center'} className={classes.cardInfo}>
+												<Grid container justify={'center'}>
 													<Grid item xs={6}>
 														<Skeleton width={50} animation={'wave'} />
 													</Grid>
@@ -225,23 +215,6 @@ function BoardCardListSwiper({ boardList, pending }: BoardCardListSwiperProps) {
 							className={classes.swiperContainer}
 							spaceBetween={15}
 							slidesPerView={'auto'}
-							breakpoints={{
-								1200: {
-									slidesPerView: 5
-								},
-								1024: {
-									slidesPerView: 4
-								},
-								768: {
-									slidesPerView: 3
-								},
-								640: {
-									slidesPerView: 3
-								},
-								320: {
-									slidesPerView: 2
-								}
-							}}
 							navigation
 							pagination={{ clickable: true }}
 							scrollbar={{ draggable: true }}
