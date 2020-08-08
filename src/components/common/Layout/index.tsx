@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { SnackbarProvider } from 'notistack';
 
 // Material UI
 import Box from '@material-ui/core/Box';
@@ -28,7 +29,7 @@ function Layout({ children }: LayoutProps) {
 	const classes = useStyles();
 
 	return (
-		<>
+		<SnackbarProvider maxSnack={3}>
 			<Hidden implementation={'css'} mdDown>
 				<Header />
 			</Hidden>
@@ -39,7 +40,7 @@ function Layout({ children }: LayoutProps) {
 				{children}
 			</Box>
 			<Footer />
-		</>
+		</SnackbarProvider>
 	);
 }
 

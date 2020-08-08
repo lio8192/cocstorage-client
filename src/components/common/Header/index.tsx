@@ -1,7 +1,8 @@
 import React, { useCallback, useMemo, memo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { useSnackbar, VariantType } from 'notistack';
 
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -34,6 +35,7 @@ import { getCategoryNameByCategoryId } from 'snippet/board';
 
 // Logo Image
 import Logo from 'public/logo.png';
+import { RootState } from 'modules';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -131,7 +133,9 @@ function getCategoryIconByCategoryId(categoryId: string | string[]) {
 function Header() {
 	const classes = useStyles();
 	const dispatch = useDispatch();
+	const { pending } = useSelector((state: RootState) => state.board);
 	const router = useRouter();
+	const { enqueueSnackbar } = useSnackbar();
 	const {
 		route,
 		asPath,
@@ -144,32 +148,37 @@ function Header() {
 
 	const handleTabChange = useCallback(
 		(event: React.ChangeEvent<{}>, newValue: string) => {
-			const isIndexRoute: boolean = newValue === '/' && true;
-			dispatch(clearBoardsRelatedState());
+			if (!pending) {
+				const isIndexRoute: boolean = newValue === '/' && true;
+				dispatch(clearBoardsRelatedState());
 
-			if (isIndexRoute) {
-				router
-					.push({
-						pathname: '/'
-					})
-					.then();
+				if (isIndexRoute) {
+					router
+						.push({
+							pathname: '/'
+						})
+						.then();
+				} else {
+					const boardId: string = newValue.split('/')[2];
+
+					router
+						.push(
+							{
+								pathname: '/board/[id]',
+								query: {
+									id: boardId
+								}
+							},
+							newValue
+						)
+						.then();
+				}
 			} else {
-				const boardId: string = newValue.split('/')[2];
-
-				router
-					.push(
-						{
-							pathname: '/board/[id]',
-							query: {
-								id: boardId
-							}
-						},
-						newValue
-					)
-					.then();
+				const variant: VariantType = 'warning';
+				enqueueSnackbar('잠시 후 다시 시도해주세요.', { variant });
 			}
 		},
-		[dispatch, router]
+		[dispatch, router, pending]
 	);
 
 	const handleChip = useCallback(() => {
