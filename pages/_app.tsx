@@ -64,7 +64,7 @@ function App({ Component, pageProps, store }: AppProps | any) {
 		console.log('%c 개념글 저장소', welcomeConsoleLogTitleStyle);
 		console.log('%c ⓒ 개념글 저장소 All Rights Reserved.', welcomeConsoleLogSubTitleStyle);
 		console.log(
-			`%c 나만의 저장소 (D-${moment('2020-09-12').diff(moment('2020-08-07'), 'days')})`,
+			`%c 나만의 저장소 (D-${moment('2020-09-12').diff(moment(), 'days')})`,
 			welcomeConsoleLogEasterEggStyle
 		);
 	}, []);
