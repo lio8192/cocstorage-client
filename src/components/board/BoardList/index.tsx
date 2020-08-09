@@ -340,7 +340,7 @@ function BoardList({
 			{pending && (
 				<Grow in>
 					<Box>
-						{Array.from({ length: 20 }).map((index) => (
+						{Array.from({ length: 20 }, (value, index) => index).map((index) => (
 							<Grid key={`dummy-board-${index}`} className={classes.gridSkeleton} container>
 								<Grid item xs={12} md={7}>
 									<Box display={'flex'} alignItems={'center'} pb={0.5}>

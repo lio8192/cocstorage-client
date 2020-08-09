@@ -178,7 +178,7 @@ function BoardCardListSwiper({ boardList, pending }: BoardCardListSwiperProps) {
 						spaceBetween={15}
 						slidesPerView={'auto'}
 					>
-						{Array.from({ length: 7 }).map((index) => (
+						{Array.from({ length: 7 }, (value, index) => index).map((index) => (
 							<SwiperSlide key={`dummy-swiper-board-card-${index}`}>
 								<Grow in>
 									<Card square elevation={0}>

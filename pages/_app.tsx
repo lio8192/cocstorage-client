@@ -29,7 +29,7 @@ import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 
 // Components
-import Layout from '../src/components/common/Layout';
+import Layout from 'components/common/Layout';
 
 moment.locale('ko');
 
@@ -64,7 +64,7 @@ function App({ Component, pageProps, store }: AppProps | any) {
 		console.log('%c 개념글 저장소', welcomeConsoleLogTitleStyle);
 		console.log('%c ⓒ 개념글 저장소 All Rights Reserved.', welcomeConsoleLogSubTitleStyle);
 		console.log(
-			`%c 나만의 저장소 (D-${moment('2020-09-12').diff(moment(), 'days')})`,
+			`%c 내가 만드는 저장소 (D-${moment('2020-09-12').diff(moment(), 'days')})`,
 			welcomeConsoleLogEasterEggStyle
 		);
 	}, []);
