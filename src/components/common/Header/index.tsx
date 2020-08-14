@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useSnackbar, VariantType } from 'notistack';
+import moment from 'moment';
 
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -35,6 +36,7 @@ import { getCategoryNameByCategoryId } from 'snippet/board';
 
 // Logo Image
 import Logo from 'public/logo.png';
+import Taegeukgi from 'public/taegeukgi.png';
 import { RootState } from 'modules';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -215,6 +217,7 @@ function Header() {
 						<Box className={classes.logoBox}>
 							<Box component={'span'} onClick={handleLogo}>
 								<img className={classes.logo} src={Logo} alt={'Logo'} />
+								{moment().format('YYYY-MM-DD') === '2020-08-15' && <img className={classes.logo} src={Taegeukgi} width={45} alt={'Taegeukgi'} />}
 							</Box>
 						</Box>
 					</Container>
@@ -228,6 +231,7 @@ function Header() {
 									<Box className={classes.logoBox}>
 										<Box component={'span'} onClick={handleLogo}>
 											<img className={classes.logo} src={Logo} alt={'Logo'} />
+											{moment().format('YYYY-MM-DD') === '2020-08-15' && <img className={classes.logo} src={Taegeukgi} width={45} alt={'Taegeukgi'} />}
 										</Box>
 										<Chip
 											className={classes.chip}

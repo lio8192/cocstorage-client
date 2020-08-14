@@ -4,6 +4,7 @@ import React, {
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import moment from 'moment';
 
 // Material UI
 import Toolbar from '@material-ui/core/Toolbar';
@@ -36,6 +37,7 @@ import { clearBoardsRelatedState } from 'modules/board';
 
 // Images
 import Logo from 'public/logo.png';
+import Taegeukgi from 'public/taegeukgi.png';
 
 // Snippets
 import { getCategoryNameByCategoryId } from 'snippet/board';
@@ -244,6 +246,7 @@ function MobileHeader() {
 							<Box>
 								<Box component={'span'} onClick={handleLogo}>
 									<img className={classes.appBarLogo} src={Logo} alt={'Logo'} />
+									{moment().format('YYYY-MM-DD') === '2020-08-15' && <img className={classes.appBarLogo} src={Taegeukgi} width={40} alt={'Taegeukgi'} />}
 								</Box>
 								{isBoardDetail && (
 									<Chip
