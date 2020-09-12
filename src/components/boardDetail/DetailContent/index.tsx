@@ -9,7 +9,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Skeleton from '@material-ui/lab/Skeleton';
-import Hidden from '@material-ui/core/Hidden';
 import Grow from '@material-ui/core/Grow';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
@@ -365,15 +364,6 @@ function DetailContent({
 									</ButtonGroup>
 								</Box>
 							</Box>
-							<Hidden smDown>
-								<Box mt={1}>
-									<ins
-										className={'staticpubads89354'}
-										data-sizes-desktop={'728x90,700x100,700x90,750x100,640x100,640x90'}
-										data-slot={'1'}
-									/>
-								</Box>
-							</Hidden>
 						</Box>
 					</Box>
 				</Grow>

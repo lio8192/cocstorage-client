@@ -80,9 +80,6 @@ function Index() {
 			<Hidden implementation={'css'} mdUp>
 				<BoardCardList boardList={dailyPopularList} pending={pending} />
 			</Hidden>
-			<Hidden mdUp>
-				<ins className={'staticpubads89354'} data-sizes-mobile={'300x250,300x300,250x250'} data-slot={'3'} />
-			</Hidden>
 			<BoardCardList boardList={boardList} pending={pending} />
 		</>
 	);
