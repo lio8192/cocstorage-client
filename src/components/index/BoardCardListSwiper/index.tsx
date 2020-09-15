@@ -173,11 +173,7 @@ function BoardCardListSwiper({ boardList, pending }: BoardCardListSwiperProps) {
 			</Container>
 			<Box className={classes.box}>
 				{pending && (
-					<Swiper
-						className={classes.swiperContainer}
-						spaceBetween={15}
-						slidesPerView={'auto'}
-					>
+					<Swiper className={classes.swiperContainer} spaceBetween={15} slidesPerView={'auto'}>
 						{Array.from({ length: 7 }, (value, index) => index).map((index) => (
 							<SwiperSlide key={`dummy-swiper-board-card-${index}`}>
 								<Grow in>

@@ -103,7 +103,6 @@ function Detail({ query }: NextPageContext) {
 				<link rel={'apple-touch-icon'} href={'/logo_prev.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
-				<script async src={'//get.optad360.io/sf/be221582-5067-46f9-bfa5-50188b564e66/plugin.min.js'} />
 			</Head>
 			<Container className={classes.root} maxWidth={isMobile ? 'md' : 'lg'}>
 				<Grid container>

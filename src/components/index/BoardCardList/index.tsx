@@ -29,6 +29,7 @@ import { Board } from 'modules/boardDetail';
 moment.locale('ko');
 
 type BoardCardListProps = {
+	title: string;
 	boardList: Array<Board>;
 	pending: boolean;
 };
@@ -192,14 +193,14 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function BoardCardList({ boardList, pending }: BoardCardListProps) {
+function BoardCardList({ title, boardList, pending }: BoardCardListProps) {
 	const classes = useStyles();
 
 	return (
 		<Box className={classes.root}>
 			<Container>
 				<Typography className={classes.title} variant={'h6'} component={'h6'}>
-					{'새로운 개념글'}
+					{title}
 				</Typography>
 			</Container>
 			<Container className={classes.container}>

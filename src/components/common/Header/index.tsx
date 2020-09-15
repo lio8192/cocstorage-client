@@ -35,7 +35,6 @@ import { getCategoryNameByCategoryId } from 'snippet/board';
 
 // Logo Image
 import Logo from 'public/logo.png';
-import Taegeukgi from 'public/taegeukgi.png';
 import { RootState } from 'modules';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -179,7 +178,7 @@ function Header() {
 				enqueueSnackbar('잠시 후 다시 시도해주세요.', { variant });
 			}
 		},
-		[dispatch, router, pending]
+		[dispatch, router, pending, enqueueSnackbar]
 	);
 
 	const handleChip = useCallback(() => {

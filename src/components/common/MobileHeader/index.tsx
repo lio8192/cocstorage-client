@@ -36,7 +36,6 @@ import { clearBoardsRelatedState } from 'modules/board';
 
 // Images
 import Logo from 'public/logo.png';
-import Taegeukgi from 'public/taegeukgi.png';
 
 // Snippets
 import { getCategoryNameByCategoryId } from 'snippet/board';

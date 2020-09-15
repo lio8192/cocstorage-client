@@ -67,7 +67,6 @@ function Index() {
 				<link rel={'apple-touch-icon'} href={'/logo_prev.png'} />
 				<link rel={'canonical'} href={'https://www.cocstorage.com'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
-				<script async src={'//get.optad360.io/sf/be221582-5067-46f9-bfa5-50188b564e66/plugin.min.js'} />
 			</Head>
 			<Container className={classes.noticeContainer}>
 				<Box className={classes.noticeCardBox}>
@@ -78,9 +77,9 @@ function Index() {
 				<BoardCardListSwiper boardList={dailyPopularList} pending={pending} />
 			</Hidden>
 			<Hidden implementation={'css'} mdUp>
-				<BoardCardList boardList={dailyPopularList} pending={pending} />
+				<BoardCardList title={'일간 개념글'} boardList={dailyPopularList} pending={pending} />
 			</Hidden>
-			<BoardCardList boardList={boardList} pending={pending} />
+			<BoardCardList title={'새로운 개념글'} boardList={boardList} pending={pending} />
 		</>
 	);
 }
