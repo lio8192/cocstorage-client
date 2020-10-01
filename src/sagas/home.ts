@@ -4,7 +4,7 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import { FETCH_MAIN_CONTENTS, fetchMainContentsSucceeded, fetchMainContentsFailed } from 'modules/home';
 
 // Service
-import * as Service from 'services/homeService';
+import * as Service from 'services/previous/homeService';
 
 function* watchMainContents() {
 	try {

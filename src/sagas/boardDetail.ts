@@ -17,8 +17,8 @@ import {
 } from 'modules/boardDetail';
 
 // Service
-import * as Service from 'services/boardDetailService';
-import { handleBoardClickCountState } from '../modules/board';
+import * as Service from 'services/previous/boardDetailService';
+import { handleBoardClickCountState } from 'modules/board';
 
 function* watchFetchBoardDetail({ payload }: ActionType<typeof fetchBoardDetail>) {
 	try {

@@ -12,7 +12,7 @@ import {
 } from 'modules/board/actions';
 
 // Service
-import * as Service from 'services/boardService';
+import * as Service from 'services/previous/boardService';
 
 function* watchFetchBoards({ payload }: ActionType<typeof fetchBoards>) {
 	const { searchState, page } = payload;

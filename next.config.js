@@ -5,6 +5,8 @@ module.exports = withImages({
 		return config;
 	},
 	env: {
-		API_BASE_URL: 'https://api.cocstorage.com/api'
+		PREVIOUS_API_BASE_URL: process.env.REACT_APP_PREVIOUS_API_BASE_URL,
+		API_BASE_URL: process.env.REACT_APP_API_BASE_URL,
+		X_API_KEY: process.env.REACT_APP_X_API_KEY
 	}
 });

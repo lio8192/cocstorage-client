@@ -1,4 +1,4 @@
-import axios from '.';
+import axios from './index';
 
 export function fetchMainContents() {
 	return axios().get('/main/content');
