@@ -9,7 +9,7 @@ import * as Service from 'services/previous/homeService';
 function* watchMainContents() {
 	try {
 		const response = yield call(Service.fetchMainContents);
-		yield put(fetchMainContentsSucceeded(yield response.data));
+		yield put(fetchMainContentsSucceeded(response.data));
 	} catch (error) {
 		yield put(fetchMainContentsFailed(error));
 	}

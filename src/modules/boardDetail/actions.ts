@@ -1,4 +1,5 @@
 import { createAction } from 'typesafe-actions';
+import { HYDRATE } from 'next-redux-wrapper';
 import {
 	Board,
 	FetchBoardDetailPayload,
@@ -7,6 +8,8 @@ import {
 	PostBoardDetailRecommendPayload,
 	PostBoardDetailRecommendFailedPayload
 } from './types';
+
+export const hydrate = createAction(HYDRATE)<any>();
 
 export const FETCH_BOARD_DETAIL = 'boardDetail/FETCH_BOARD_DETAIL';
 export const FETCH_BOARD_DETAIL_SUCCEEDED = 'boardDetail/FETCH_BOARD_DETAIL_SUCCEEDED';

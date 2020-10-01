@@ -1,8 +1,15 @@
 import { ActionType } from 'typesafe-actions';
-import { fetchMainContents, fetchMainContentsSucceeded, fetchMainContentsFailed } from './actions';
+import {
+	fetchMainContents, fetchMainContentsSucceeded, fetchMainContentsFailed, hydrate
+} from './actions';
 import { Board } from '../boardDetail';
 
-const actions = { fetchMainContents, fetchMainContentsSucceeded, fetchMainContentsFailed };
+const actions = {
+	hydrate,
+	fetchMainContents,
+	fetchMainContentsSucceeded,
+	fetchMainContentsFailed
+};
 
 export type HomeAction = ActionType<typeof actions>;
 
@@ -12,6 +19,7 @@ export type Category = {
 	register_date: string | null;
 	update_date: string | null;
 };
+
 export type Notice = {
 	admin_id: number | null;
 	category_id: string | null;

@@ -1,5 +1,8 @@
 import { createAction } from 'typesafe-actions';
+import { HYDRATE } from 'next-redux-wrapper';
 import { BoardState, SearchState, FetchBoardPayload } from './types';
+
+export const hydrate = createAction(HYDRATE)<any>();
 
 export const FETCH_BOARDS = 'board/FETCH_BOARDS';
 export const FETCH_BOARDS_SUCCEEDED = 'board/FETCH_BOARDS_SUCCEEDED';

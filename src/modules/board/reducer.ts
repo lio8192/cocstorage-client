@@ -1,4 +1,5 @@
 import { createReducer } from 'typesafe-actions';
+import { HYDRATE } from 'next-redux-wrapper';
 import {
 	FETCH_BOARDS,
 	FETCH_BOARDS_SUCCEEDED,
@@ -38,6 +39,10 @@ const initialState: BoardState = {
 };
 
 const board = createReducer<BoardState, BoardAction>(initialState, {
+	[HYDRATE]: (state, { payload }) => ({
+		...state,
+		...payload.board
+	}),
 	[FETCH_BOARDS]: (state) => ({
 		...state,
 		pending: true,

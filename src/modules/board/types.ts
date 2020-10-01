@@ -1,5 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 import {
+	hydrate,
 	fetchBoards,
 	fetchBoardsSucceeded,
 	fetchBoardsFailed,
@@ -10,6 +11,7 @@ import {
 import { Board } from '../boardDetail';
 
 const actions = {
+	hydrate,
 	fetchBoards,
 	fetchBoardsSucceeded,
 	fetchBoardsFailed,

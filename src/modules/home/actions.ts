@@ -1,5 +1,8 @@
 import { createAction } from 'typesafe-actions';
+import { HYDRATE } from 'next-redux-wrapper';
 import { HomeState } from './types';
+
+export const hydrate = createAction(HYDRATE)<any>();
 
 export const FETCH_MAIN_CONTENTS = 'home/FETCH_MAIN_CONTENTS';
 export const FETCH_MAIN_CONTENTS_SUCCEEDED = 'home/FETCH_MAIN_CONTENTS_SUCCEEDED';
