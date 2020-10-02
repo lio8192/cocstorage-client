@@ -40,13 +40,6 @@ function App({ Component, pageProps }: AppProps | any) {
 			'font-family: NanumSquareRound',
 			'color: rgba(0, 0, 0, .5)'
 		].join(';');
-		const welcomeConsoleLogEasterEggStyle: string = [
-			'padding: 10px 20px',
-			'font-size: 14px',
-			'font-weight: 500',
-			'font-family: NanumSquareRound',
-			'color: rgba(0, 0, 0, .5)'
-		].join(';');
 		console.log('%c 개념글 저장소', welcomeConsoleLogTitleStyle);
 		console.log('%c ⓒ 개념글 저장소 All Rights Reserved.', welcomeConsoleLogSubTitleStyle);
 	}, []);

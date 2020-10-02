@@ -1,8 +1,5 @@
 import {
-	applyMiddleware,
-	createStore,
-	Middleware,
-	Store
+	applyMiddleware, createStore, Middleware, Store
 } from 'redux';
 import createSagaMiddleware, { Task } from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';

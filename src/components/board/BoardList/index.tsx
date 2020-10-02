@@ -41,7 +41,7 @@ import { Pagination, SearchState } from 'modules/board';
 import { Board } from 'modules/boardDetail';
 
 // Snippets
-import { getSearchTypeLabelByType } from 'snippet/board';
+import { getSearchTypeLabelByType } from 'snippets/board';
 
 moment.locale('ko');
 

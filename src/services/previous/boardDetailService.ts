@@ -4,7 +4,7 @@ import { AxiosRequestConfig } from 'axios';
 import { FetchBoardDetailPayload, FetchBoardDetailCommentPayload } from 'modules/boardDetail';
 
 // Snippets
-import { getOrderTypeByCategoryId, getBoardDataNoByCategoryId } from 'snippet/boardDetail';
+import { getOrderTypeByCategoryId, getBoardDataNoByCategoryId } from 'snippets/boardDetail';
 import axios from './index';
 
 export function fetchBoardDetail({ id, categoryId }: FetchBoardDetailPayload) {

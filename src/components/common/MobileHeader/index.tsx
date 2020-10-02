@@ -38,7 +38,7 @@ import { clearBoardsRelatedState } from 'modules/board';
 import Logo from 'public/logo.png';
 
 // Snippets
-import { getCategoryNameByCategoryId } from 'snippet/board';
+import { getCategoryNameByCategoryId } from 'snippets/board';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

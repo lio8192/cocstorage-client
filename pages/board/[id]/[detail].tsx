@@ -21,12 +21,12 @@ import SideBox from 'components/boardDetail/SideBox';
 import CommentList from 'components/boardDetail/CommentList';
 import GoogleAdSense from 'components/common/GoogleAdSense';
 import NotificationModal from 'components/common/NotificationModal';
-import { getCategoryNameByCategoryId } from 'snippet/board';
 
 // Custom Hooks
 import useBoardDetail from 'hooks/useBoardDetail';
 
 // Snippets
+import { getCategoryNameByCategoryId } from 'snippets/board';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

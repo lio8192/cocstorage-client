@@ -32,7 +32,7 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 
 // Snippets
-import { getSearchTypeLabelByType, getCategoryNameByCategoryId } from 'snippet/board';
+import { getSearchTypeLabelByType, getCategoryNameByCategoryId } from 'snippets/board';
 
 type BoardHeaderProps = {
 	categoryId: string | string[];
@@ -208,7 +208,7 @@ function BoardHeader({
 			<Container className={classes.container}>
 				<Grid container justify={'space-between'}>
 					<Grid className={classes.gridItem} item xs={6}>
-						<Typography className={classes.typography} variant={'h5'} component={'h5'}>
+						<Typography className={classes.typography} variant={'h5'}>
 							{getCategoryIconByCategoryId(categoryId)}
 							<Box component={'span'} ml={1}>
 								{getCategoryNameByCategoryId(categoryId)}

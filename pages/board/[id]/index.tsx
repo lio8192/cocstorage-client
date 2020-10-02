@@ -26,7 +26,7 @@ import NoticeCard from 'components/common/NoticeCard';
 import useBoard from 'hooks/useBoard';
 
 // Snippets
-import { getCategoryNameByCategoryId } from 'snippet/board';
+import { getCategoryNameByCategoryId } from 'snippets/board';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

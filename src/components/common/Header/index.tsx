@@ -1,8 +1,5 @@
-import React, { useCallback, useMemo, memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import React, { memo } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { useSnackbar, VariantType } from 'notistack';
 
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -11,6 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Toolbar from '@material-ui/core/Toolbar';
 import Chip from '@material-ui/core/Chip';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -27,15 +25,14 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 import HomeIcon from '@material-ui/icons/Home';
 
-// Modules
-import { clearBoardsRelatedState } from 'modules/board';
+// Hooks
+import useHeader from 'hooks/common/useHeader';
 
 // Snippets
-import { getCategoryNameByCategoryId } from 'snippet/board';
+import { getCategoryNameByCategoryId } from 'snippets/board';
 
 // Logo Image
 import Logo from 'public/logo.png';
-import { RootState } from 'modules';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -55,6 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderBottom: `1px solid ${theme.palette.grey['50']}`
 		},
 		logoBox: {
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'space-between',
 			padding: theme.spacing(3, 0)
 		},
 		logo: {
@@ -132,80 +132,20 @@ function getCategoryIconByCategoryId(categoryId: string | string[]) {
 
 function Header() {
 	const classes = useStyles();
-	const dispatch = useDispatch();
-	const { pending } = useSelector((state: RootState) => state.board);
-	const router = useRouter();
-	const { enqueueSnackbar } = useSnackbar();
 	const {
-		route,
-		asPath,
-		query: { id }
-	} = router;
-	const activatedTab = useMemo(() => (route === '/board/[id]' ? asPath : '/'), [route, asPath]);
-	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
-	const isPolicy = useMemo(() => route === '/policy' || route === '/privacy', [route]);
-	const isNotice = useMemo(() => route === '/notice', [route]);
-
-	const handleTabChange = useCallback(
-		(event: React.ChangeEvent<{}>, newValue: string) => {
-			if (!pending) {
-				const isIndexRoute: boolean = newValue === '/' && true;
-				dispatch(clearBoardsRelatedState());
-
-				if (isIndexRoute) {
-					router
-						.push({
-							pathname: '/'
-						})
-						.then();
-				} else {
-					const boardId: string = newValue.split('/')[2];
-
-					router
-						.push(
-							{
-								pathname: '/board/[id]',
-								query: {
-									id: boardId
-								}
-							},
-							newValue
-						)
-						.then();
-				}
-			} else {
-				const variant: VariantType = 'warning';
-				enqueueSnackbar('잠시 후 다시 시도해주세요.', { variant });
-			}
-		},
-		[dispatch, router, pending, enqueueSnackbar]
-	);
-
-	const handleChip = useCallback(() => {
-		const categoryId = typeof id === 'string' ? id : '';
-
-		router
-			.push(
-				{
-					pathname: '/board/[id]',
-					query: {
-						id: categoryId
-					}
-				},
-				`/board/${categoryId}`
-			)
-			.then();
-	}, [router, id]);
-
-	const handleLogo = useCallback(() => {
-		dispatch(clearBoardsRelatedState());
-
-		router
-			.push({
-				pathname: '/'
-			})
-			.then();
-	}, [dispatch, router]);
+		id,
+		pageScope,
+		activatedTab,
+		isBoardDetail,
+		isNotice,
+		isPolicy,
+		isMounted,
+		onHandlePageScope,
+		onHandleTabChange,
+		onHandlePreviousTabChange,
+		onHandleLogo,
+		onHandleChip
+	} = useHeader();
 
 	return (
 		<>
@@ -213,8 +153,27 @@ function Header() {
 				<AppBar className={classes.appBar} position={'static'} color={'inherit'}>
 					<Container>
 						<Box className={classes.logoBox}>
-							<Box component={'span'} onClick={handleLogo}>
-								<img className={classes.logo} src={Logo} alt={'Logo'} />
+							<Box>
+								<Box component={'span'} onClick={onHandleLogo}>
+									<img className={classes.logo} src={Logo} alt={'Logo'} />
+								</Box>
+								<Chip
+									className={classes.chip}
+									color={pageScope === 'storage' ? 'primary' : 'default'}
+									label={'저장소'}
+									onClick={onHandlePageScope}
+									data-page-scope={'storage'}
+								/>
+								<Chip
+									className={classes.chip}
+									color={pageScope === 'previous-storage' ? 'primary' : 'default'}
+									label={'이전 저장소'}
+									onClick={onHandlePageScope}
+									data-page-scope={'previous-storage'}
+								/>
+							</Box>
+							<Box>
+								<Button>{'로그인/회원가입'}</Button>
 							</Box>
 						</Box>
 					</Container>
@@ -226,16 +185,21 @@ function Header() {
 							<Toolbar disableGutters={false}>
 								<Container>
 									<Box className={classes.logoBox}>
-										<Box component={'span'} onClick={handleLogo}>
-											<img className={classes.logo} src={Logo} alt={'Logo'} />
+										<Box>
+											<Box component={'span'} onClick={onHandleLogo}>
+												<img className={classes.logo} src={Logo} alt={'Logo'} />
+											</Box>
+											<Chip
+												className={classes.chip}
+												color={'primary'}
+												label={getCategoryNameByCategoryId(id)}
+												icon={getCategoryIconByCategoryId(id)}
+												onClick={onHandleChip}
+											/>
 										</Box>
-										<Chip
-											className={classes.chip}
-											color={'primary'}
-											label={getCategoryNameByCategoryId(id)}
-											icon={getCategoryIconByCategoryId(id)}
-											onClick={handleChip}
-										/>
+										<Box>
+											<Button>{'로그인/회원가입'}</Button>
+										</Box>
 									</Box>
 								</Container>
 							</Toolbar>
@@ -244,26 +208,39 @@ function Header() {
 					<Toolbar className={classes.toolbar} />
 				</>
 			)}
-			{!isBoardDetail && !isPolicy && !isNotice && (
+			{!isBoardDetail && !isPolicy && !isNotice && isMounted && (
 				<Box>
 					<Paper className={classes.paper} variant={'outlined'} square>
 						<Container>
-							<Tabs
-								indicatorColor={'primary'}
-								textColor={'primary'}
-								value={activatedTab}
-								onChange={handleTabChange}
-								className={classes.indicator}
-							>
-								<Tab icon={<HomeIcon />} value={'/'} />
-								<Tab label={'일간 개념글'} value={'/board/daily_popular'} />
-								<Tab label={'인터넷방송'} value={'/board/ib_new1'} />
-								<Tab label={'스트리머'} value={'/board/stream'} />
-								<Tab label={'이슈'} value={'/board/issuezoom'} />
-								<Tab label={'수능'} value={'/board/exam_new'} />
-								<Tab label={'헬스'} value={'/board/extra'} />
-								<Tab label={'국내야구'} value={'/board/baseball_new9'} />
-							</Tabs>
+							{pageScope === 'storage' ? (
+								<Tabs
+									indicatorColor={'primary'}
+									textColor={'primary'}
+									value={activatedTab}
+									onChange={onHandleTabChange}
+									className={classes.indicator}
+								>
+									<Tab icon={<HomeIcon />} value={'/'} />
+									<Tab label={'저장소 목록'} value={'/storages'} />
+								</Tabs>
+							) : (
+								<Tabs
+									indicatorColor={'primary'}
+									textColor={'primary'}
+									value={activatedTab}
+									onChange={onHandlePreviousTabChange}
+									className={classes.indicator}
+								>
+									<Tab icon={<HomeIcon />} value={'/'} />
+									<Tab label={'일간 개념글'} value={'/board/daily_popular'} />
+									<Tab label={'인터넷방송'} value={'/board/ib_new1'} />
+									<Tab label={'스트리머'} value={'/board/stream'} />
+									<Tab label={'이슈'} value={'/board/issuezoom'} />
+									<Tab label={'수능'} value={'/board/exam_new'} />
+									<Tab label={'헬스'} value={'/board/extra'} />
+									<Tab label={'국내야구'} value={'/board/baseball_new9'} />
+								</Tabs>
+							)}
 						</Container>
 					</Paper>
 				</Box>
