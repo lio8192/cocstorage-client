@@ -139,7 +139,7 @@ function StorageList() {
 						startIcon={<AddBoxIcon />}
 						size={'large'}
 					>
-						{'저장소 등록'}
+						{'새 저장소 등록'}
 					</Button>
 				</Box>
 				<Box mt={2}>
