@@ -88,7 +88,7 @@ function StorageManageDialog() {
 				<Container className={classes.container}>
 					<Box className={classes.box}>
 						<Box>
-							<Avatar className={classes.avatar} onClick={() => console.log('onAvatar')} alt={'Storage Avatar'}>
+							<Avatar className={classes.avatar} onClick={() => console.log('onAvatar')} alt={'Storage Avatar Img'}>
 								<InsertPhotoIcon />
 							</Avatar>
 						</Box>

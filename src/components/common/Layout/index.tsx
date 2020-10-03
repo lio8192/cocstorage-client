@@ -10,6 +10,9 @@ import Hidden from '@material-ui/core/Hidden';
 import Header from 'components/common/Header';
 import MobileHeader from 'components/common/MobileHeader';
 import Footer from 'components/common/Footer';
+import SignInDialog from 'components/common/SignInDialog';
+import SignUpDialog from 'components/common/SignUpDialog';
+import PasswordFinderDialog from 'components/common/PasswordFinderDialog';
 
 type LayoutProps = {
 	children: JSX.Element | JSX.Element[];
@@ -40,6 +43,9 @@ function Layout({ children }: LayoutProps) {
 				{children}
 			</Box>
 			<Footer />
+			<SignInDialog />
+			<SignUpDialog />
+			<PasswordFinderDialog />
 		</SnackbarProvider>
 	);
 }

@@ -109,7 +109,7 @@ function StorageList() {
 												<Avatar
 													className={classes.avatar}
 													src={'https://image.chosun.com/sitedata/image/201908/23/2019082301404_0.png'}
-													alt={'Storage Avatar'}
+													alt={'Storage Avatar Img'}
 												/>
 												<Box mt={1}>
 													<Typography className={classes.typography}>{'라이언 저장소'}</Typography>
