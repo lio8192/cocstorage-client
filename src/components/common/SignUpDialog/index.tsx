@@ -33,11 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		checkbox: {
 			padding: theme.spacing(0)
-		},
-		formControlLabel: {
-			'& .MuiTypography-body1': {
-				fontSize: '0.875rem'
-			}
 		}
 	})
 );
@@ -97,18 +92,20 @@ function SignUpDialog() {
 						/>
 					</Box>
 					<Box flex={1} ml={1}>
-						{'개념글 저장소의'}{' '}
-						<Link href={'https://www.cocstorage.com'} underline={'always'} target={'_blank'}>
-							{'이용약관'}
-						</Link>{' '}
-						{'및'}{' '}
-						<Link href={'https://www.cocstorage.com'} underline={'always'} target={'_blank'}>
-							{'개인정보처리방침'}
-						</Link>{' '}
-						{'에 대한 내용을 모두 확인하였으며, 이에 동의합니다.'}
+						<Typography className={classes.typography} variant={'caption'}>
+							{'개념글 저장소의'}{' '}
+							<Link href={'https://www.cocstorage.com'} underline={'always'} target={'_blank'}>
+								{'이용약관'}
+							</Link>{' '}
+							{'및'}{' '}
+							<Link href={'https://www.cocstorage.com'} underline={'always'} target={'_blank'}>
+								{'개인정보처리방침'}
+							</Link>{' '}
+							{'에 대한 내용을 모두 확인하였으며, 이에 동의합니다.'}
+						</Typography>
 					</Box>
 				</Box>
-				<Box mt={3} mb={3}>
+				<Box mt={2}>
 					<Button
 						className={classes.button}
 						fullWidth
@@ -119,6 +116,11 @@ function SignUpDialog() {
 					>
 						{'가입하기'}
 					</Button>
+				</Box>
+				<Box mt={2} mb={3}>
+					<Typography className={classes.typography} variant={'caption'}>
+						{'ⓒ 개념글 저장소 All Rights Reserved.'}
+					</Typography>
 				</Box>
 			</DialogContent>
 		</Dialog>

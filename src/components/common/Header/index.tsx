@@ -139,6 +139,7 @@ function Header() {
 		isBoardDetail,
 		isNotice,
 		isPolicy,
+		isMyPage,
 		isMounted,
 		onHandlePageScope,
 		onHandleTabChange,
@@ -208,7 +209,7 @@ function Header() {
 					<Toolbar className={classes.toolbar} />
 				</>
 			)}
-			{!isBoardDetail && !isPolicy && !isNotice && isMounted && (
+			{!isBoardDetail && !isPolicy && !isNotice && !isMyPage && isMounted && (
 				<Box>
 					<Paper className={classes.paper} variant={'outlined'} square>
 						<Container>

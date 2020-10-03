@@ -54,7 +54,7 @@ function PasswordFinderDialog() {
 						{'가입한 이메일 주소로 임시 비밀번호를 안내드립니다. 로그인 후 반드시 비밀번호를 변경해주세요!'}
 					</Typography>
 				</Box>
-				<Box mt={2} mb={3}>
+				<Box mt={2}>
 					<Button
 						className={classes.button}
 						fullWidth
@@ -65,6 +65,11 @@ function PasswordFinderDialog() {
 					>
 						{'임시 비밀번호 발송'}
 					</Button>
+				</Box>
+				<Box mt={2} mb={3}>
+					<Typography className={classes.typography} variant={'caption'}>
+						{'ⓒ 개념글 저장소 All Rights Reserved.'}
+					</Typography>
 				</Box>
 			</DialogContent>
 		</Dialog>

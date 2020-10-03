@@ -74,7 +74,7 @@ function SignInDialog() {
 						}}
 					/>
 				</Box>
-				<Box mt={3} mb={3}>
+				<Box mt={2}>
 					<Button
 						className={classes.button}
 						fullWidth
@@ -85,6 +85,11 @@ function SignInDialog() {
 					>
 						{'로그인'}
 					</Button>
+				</Box>
+				<Box mt={2} mb={3}>
+					<Typography className={classes.typography} variant={'caption'}>
+						{'ⓒ 개념글 저장소 All Rights Reserved.'}
+					</Typography>
 				</Box>
 			</DialogContent>
 		</Dialog>

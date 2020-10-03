@@ -28,6 +28,7 @@ export default function useHeader() {
 	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
 	const isPolicy = useMemo(() => route === '/policy' || route === '/privacy', [route]);
 	const isNotice = useMemo(() => route === '/notice', [route]);
+	const isMyPage = useMemo(() => route === '/mypage', [route]);
 
 	const onHandlePageScope = useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
@@ -144,6 +145,7 @@ export default function useHeader() {
 		isBoardDetail,
 		isNotice,
 		isPolicy,
+		isMyPage,
 		isMounted,
 		onHandlePageScope,
 		onHandleTabChange,
