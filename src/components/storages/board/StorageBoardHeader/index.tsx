@@ -1,0 +1,96 @@
+import React, { memo } from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+// Material UI
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+
+// Material UI Icons
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		root: {
+			height: 200,
+			background: `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
+			[theme.breakpoints.down('md')]: {
+				height: 'auto'
+			}
+		},
+		container: {
+			display: 'flex',
+			height: '100%',
+			flexDirection: 'column',
+			justifyContent: 'flex-end'
+		},
+		typography: {
+			color: 'white',
+			fontWeight: 700,
+			[theme.breakpoints.down('md')]: {
+				fontSize: 22
+			},
+			[theme.breakpoints.down('xs')]: {
+				fontSize: 20
+			}
+		},
+		captionTypography: {
+			color: 'white'
+		},
+		box: {
+			display: 'flex',
+			alignItems: 'center',
+			[theme.breakpoints.down('md')]: {
+				padding: theme.spacing(2, 0)
+			}
+		},
+		avatarBox: {
+			marginBottom: theme.spacing(-2),
+			[theme.breakpoints.down('md')]: {
+				marginBottom: theme.spacing(0)
+			}
+		},
+		avatar: {
+			width: theme.spacing(10),
+			height: theme.spacing(10),
+			[theme.breakpoints.down('md')]: {
+				width: theme.spacing(8),
+				height: theme.spacing(8)
+			}
+		},
+		nameBox: {
+			marginLeft: theme.spacing(1),
+			[theme.breakpoints.down('md')]: {
+				marginBottom: theme.spacing(0)
+			}
+		}
+	})
+);
+
+function StorageBoardHeader() {
+	const classes = useStyles();
+	return (
+		<Box className={classes.root}>
+			<Container className={classes.container}>
+				<Box className={classes.box}>
+					<Box className={classes.avatarBox}>
+						<Avatar className={classes.avatar} alt={'Storage Board Avatar Img'}>
+							<InsertPhotoIcon />
+						</Avatar>
+					</Box>
+					<Box className={classes.nameBox}>
+						<Typography className={classes.typography} variant={'h5'}>
+							{'라이언 저장소'}
+						</Typography>
+						<Typography className={classes.captionTypography} variant={'caption'}>
+							{'카카오톡 캐릭터 라이언에 대해 소통해보아요.'}
+						</Typography>
+					</Box>
+				</Box>
+			</Container>
+		</Box>
+	);
+}
+
+export default memo(StorageBoardHeader);
