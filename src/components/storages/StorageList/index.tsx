@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			backgroundColor: 'white'
 		},
 		box: {
-			padding: theme.spacing(2, 0)
+			padding: theme.spacing(2, 0, 0)
 		},
 		cardContentHead: {
 			padding: theme.spacing(3),
@@ -142,18 +142,16 @@ function StorageList() {
 						{'새 저장소 등록'}
 					</Button>
 				</Box>
-				<Box mt={2}>
-					<Pagination
-						className={classes.pagination}
-						page={1}
-						count={10}
-						color={'primary'}
-						shape={'rounded'}
-						onChange={() => console.log('onPagination')}
-						size={isMobile ? 'small' : 'medium'}
-						siblingCount={isMobile ? 0 : 2}
-					/>
-				</Box>
+				<Pagination
+					className={classes.pagination}
+					page={1}
+					count={10}
+					color={'primary'}
+					shape={'rounded'}
+					onChange={() => console.log('onPagination')}
+					size={isMobile ? 'small' : 'medium'}
+					siblingCount={isMobile ? 0 : 2}
+				/>
 			</Box>
 		</Container>
 	);

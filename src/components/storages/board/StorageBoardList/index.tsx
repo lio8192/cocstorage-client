@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import {
-	createStyles, makeStyles, Theme
+	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
 
 // Material UI
@@ -9,8 +9,10 @@ import ListItem from '@material-ui/core/ListItem';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
 import ImageIcon from '@material-ui/icons/Image';
@@ -18,7 +20,6 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import PersonIcon from '@material-ui/icons/Person';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import SubjectIcon from '@material-ui/icons/Subject';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -81,143 +82,65 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function StorageBoardList() {
 	const classes = useStyles();
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
 	return (
 		<List className={classes.root} component={'div'}>
-			<ListItem className={classes.listItem} button>
-				<Box className={classes.listItemBox}>
-					<Box display={'flex'} alignItems={'center'}>
-						<ListItemIcon>
-							<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
-								<Avatar className={classes.avatarNew} variant={'rounded'}>
-									{'N'}
-								</Avatar>
-								<Avatar className={classes.avatar} variant={'rounded'}>
-									<VideocamIcon />
-								</Avatar>
-								<Avatar className={classes.avatar} variant={'rounded'}>
-									<ImageIcon />
-								</Avatar>
-							</AvatarGroup>
-						</ListItemIcon>
-						<Typography noWrap variant={'subtitle2'}>
-							{'안녕하세요 게시글 작성 테스트입니다. 저장소 선점 축하드려요.'}
-						</Typography>
-						<Box className={classes.commentCountBox}>{'[1]'}</Box>
-					</Box>
-					<Box display={'flex'} alignItems={'center'} mt={1}>
-						<Avatar className={classes.avatarUser}>
-							<PersonIcon />
-						</Avatar>
-						<Box className={classes.writerInfoBox} ml={1}>
-							<Typography variant={'caption'}>{'NickName'}</Typography>
-							<Typography variant={'caption'}>{'1분 전'}</Typography>
-							<Box component={'span'}>
-								<Box component={'span'}>
-									<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />
-								</Box>
-								<Box component={'span'} ml={0.5}>
-									<Typography variant={'caption'}>{'10'}</Typography>
-								</Box>
+			{Array.from({ length: 20 }, (value, index) => index).map((item, index) => (
+				<>
+					{isMobile && index === 0 && <Divider />}
+					<ListItem key={`storage-board-${item}`} className={classes.listItem} button>
+						<Box className={classes.listItemBox}>
+							<Box display={'flex'} alignItems={'center'}>
+								<ListItemIcon>
+									<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
+										<Avatar className={classes.avatarNew} variant={'rounded'}>
+											{'N'}
+										</Avatar>
+										<Avatar className={classes.avatar} variant={'rounded'}>
+											<VideocamIcon />
+										</Avatar>
+										<Avatar className={classes.avatar} variant={'rounded'}>
+											<ImageIcon />
+										</Avatar>
+									</AvatarGroup>
+								</ListItemIcon>
+								<Typography noWrap variant={'subtitle2'}>
+									{'안녕하세요 게시글 작성 테스트입니다. 저장소 선점 축하드려요.'}
+								</Typography>
+								<Box className={classes.commentCountBox}>{'[1]'}</Box>
 							</Box>
-							<Box component={'span'}>
-								<Box component={'span'}>
-									<VisibilityIcon className={classes.icon} color={'action'} fontSize={'small'} />
-								</Box>
-								<Box component={'span'} ml={0.5}>
-									<Typography variant={'caption'}>{'1,000'}</Typography>
-								</Box>
-							</Box>
-						</Box>
-					</Box>
-				</Box>
-			</ListItem>
-			<ListItem className={classes.listItem} button>
-				<Box className={classes.listItemBox}>
-					<Box display={'flex'} alignItems={'center'}>
-						<ListItemIcon>
-							<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
-								<Avatar className={classes.avatarNew} variant={'rounded'}>
-									{'N'}
+							<Box display={'flex'} alignItems={'center'} mt={1}>
+								<Avatar className={classes.avatarUser}>
+									<PersonIcon />
 								</Avatar>
-								<Avatar className={classes.avatar} variant={'rounded'}>
-									<SubjectIcon />
-								</Avatar>
-							</AvatarGroup>
-						</ListItemIcon>
-						<Typography noWrap variant={'subtitle2'}>
-							{'안녕하세요 게시글 작성 테스트입니다. 저장소 선점 축하드려요.'}
-						</Typography>
-						<Box className={classes.commentCountBox}>{'[1]'}</Box>
-					</Box>
-					<Box display={'flex'} alignItems={'center'} mt={1}>
-						<Avatar className={classes.avatarUser}>
-							<PersonIcon />
-						</Avatar>
-						<Box className={classes.writerInfoBox} ml={1}>
-							<Typography variant={'caption'}>{'NickName'}</Typography>
-							<Typography variant={'caption'}>{'1분 전'}</Typography>
-							<Box component={'span'}>
-								<Box component={'span'}>
-									<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />
-								</Box>
-								<Box component={'span'} ml={0.5}>
-									<Typography variant={'caption'}>{'10'}</Typography>
-								</Box>
-							</Box>
-							<Box component={'span'}>
-								<Box component={'span'}>
-									<VisibilityIcon className={classes.icon} color={'action'} fontSize={'small'} />
-								</Box>
-								<Box component={'span'} ml={0.5}>
-									<Typography variant={'caption'}>{'1,000'}</Typography>
+								<Box className={classes.writerInfoBox} ml={1}>
+									<Typography variant={'caption'}>{'NickName'}</Typography>
+									<Typography variant={'caption'}>{'1분 전'}</Typography>
+									<Box component={'span'}>
+										<Box component={'span'}>
+											<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />
+										</Box>
+										<Box component={'span'} ml={0.5}>
+											<Typography variant={'caption'}>{'10'}</Typography>
+										</Box>
+									</Box>
+									<Box component={'span'}>
+										<Box component={'span'}>
+											<VisibilityIcon className={classes.icon} color={'action'} fontSize={'small'} />
+										</Box>
+										<Box component={'span'} ml={0.5}>
+											<Typography variant={'caption'}>{'1,000'}</Typography>
+										</Box>
+									</Box>
 								</Box>
 							</Box>
 						</Box>
-					</Box>
-				</Box>
-			</ListItem>
-			<ListItem className={classes.listItem} button>
-				<Box className={classes.listItemBox}>
-					<Box display={'flex'} alignItems={'center'}>
-						<ListItemIcon>
-							<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
-								<Avatar className={classes.avatar} variant={'rounded'}>
-									<SubjectIcon />
-								</Avatar>
-							</AvatarGroup>
-						</ListItemIcon>
-						<Typography noWrap variant={'subtitle2'}>
-							{'안녕하세요 게시글 작성 테스트입니다. 저장소 선점 축하드려요.'}
-						</Typography>
-						<Box className={classes.commentCountBox}>{'[1]'}</Box>
-					</Box>
-					<Box display={'flex'} alignItems={'center'} mt={1}>
-						<Avatar className={classes.avatarUser}>
-							<PersonIcon />
-						</Avatar>
-						<Box className={classes.writerInfoBox} ml={1}>
-							<Typography variant={'caption'}>{'NickName'}</Typography>
-							<Typography variant={'caption'}>{'1분 전'}</Typography>
-							<Box component={'span'}>
-								<Box component={'span'}>
-									<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />
-								</Box>
-								<Box component={'span'} ml={0.5}>
-									<Typography variant={'caption'}>{'10'}</Typography>
-								</Box>
-							</Box>
-							<Box component={'span'}>
-								<Box component={'span'}>
-									<VisibilityIcon className={classes.icon} color={'action'} fontSize={'small'} />
-								</Box>
-								<Box component={'span'} ml={0.5}>
-									<Typography variant={'caption'}>{'1,000'}</Typography>
-								</Box>
-							</Box>
-						</Box>
-					</Box>
-				</Box>
-			</ListItem>
+					</ListItem>
+					{isMobile && index < 19 && <Divider />}
+				</>
+			))}
 		</List>
 	);
 }

@@ -6,7 +6,6 @@ import {
 	createStyles, fade, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
 import moment from 'moment';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI
 import Grid from '@material-ui/core/Grid';
@@ -23,6 +22,7 @@ import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import MenuList from '@material-ui/core/MenuList';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';

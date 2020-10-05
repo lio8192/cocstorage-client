@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			[theme.breakpoints.down('md')]: {
-				marginBottom: theme.spacing(1)
+				marginBottom: 1
 			}
 		},
 		tabs: {
@@ -49,13 +49,14 @@ const useStyles = makeStyles((theme: Theme) =>
 			textAlign: 'right',
 			padding: theme.spacing(2, 0, 0),
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(2, 2, 0)
+				padding: theme.spacing(0)
 			}
 		},
 		button: {
 			color: 'white',
 			[theme.breakpoints.down('md')]: {
-				width: '100%'
+				width: '100%',
+				borderRadius: 0
 			}
 		},
 		pagination: {
