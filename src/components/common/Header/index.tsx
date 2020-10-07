@@ -141,7 +141,8 @@ function Header() {
 		isPolicy,
 		isMyPage,
 		isStorageBoard,
-		isStorageBoardCreate,
+		isStorageBoardWrite,
+		isStorageBoardDetail,
 		isMounted,
 		onHandlePageScope,
 		onHandleTabChange,
@@ -152,7 +153,7 @@ function Header() {
 
 	return (
 		<>
-			{!isBoardDetail ? (
+			{!isBoardDetail && !isStorageBoardDetail ? (
 				<AppBar className={classes.appBar} position={'static'} color={'inherit'}>
 					<Container>
 						<Box className={classes.logoBox}>
@@ -211,7 +212,14 @@ function Header() {
 					<Toolbar className={classes.toolbar} />
 				</>
 			)}
-			{!isBoardDetail && !isPolicy && !isNotice && !isMyPage && !isStorageBoard && !isStorageBoardCreate && isMounted && (
+			{!isBoardDetail
+				&& !isPolicy
+				&& !isNotice
+				&& !isMyPage
+				&& !isStorageBoard
+				&& !isStorageBoardWrite
+				&& !isStorageBoardDetail
+				&& isMounted && (
 				<Box>
 					<Paper className={classes.paper} variant={'outlined'} square>
 						<Container>

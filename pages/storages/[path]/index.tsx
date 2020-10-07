@@ -20,8 +20,8 @@ import CreateIcon from '@material-ui/icons/Create';
 import SearchIcon from '@material-ui/icons/Search';
 
 // Components
-import StorageBoardHeader from 'components/storages/board/StorageBoardHeader';
-import StorageBoardList from 'components/storages/board/StorageBoardList';
+import BoardHeader from 'components/storages/board/BoardHeader';
+import BoardList from 'components/storages/board/BoardList';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -87,7 +87,7 @@ function StorageBoard() {
 
 	return (
 		<>
-			<StorageBoardHeader />
+			<BoardHeader />
 			<Grid className={classes.root} container>
 				<Grid item xs={12}>
 					<Container className={classes.container}>
@@ -102,7 +102,7 @@ function StorageBoard() {
 						</Tabs>
 					</Container>
 					<Container className={classes.container}>
-						<StorageBoardList />
+						<BoardList />
 						<Box className={classes.buttonBox}>
 							<Button
 								className={classes.button}

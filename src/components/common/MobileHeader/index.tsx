@@ -183,6 +183,7 @@ function MobileHeader() {
 			categoryId: 'baseball_new9'
 		}
 	]);
+	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
 	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
 
 	const handleMenuList = (): void => {
@@ -245,7 +246,7 @@ function MobileHeader() {
 								<Box component={'span'} onClick={handleLogo}>
 									<img className={classes.appBarLogo} src={Logo} alt={'Logo'} />
 								</Box>
-								{isBoardDetail && (
+								{(isBoardDetail || isStorageBoardDetail) && (
 									<Chip
 										className={classes.chip}
 										color={'primary'}

@@ -1,14 +1,14 @@
 import React from 'react';
 
 // Components
-import StorageBoardHeader from 'components/storages/board/StorageBoardHeader';
-import StorageBoardWriteForm from 'components/storages/board/write/StorageBoardWriteForm';
+import BoardHeader from 'components/storages/board/BoardHeader';
+import WriteForm from 'components/storages/board/write/WriteForm';
 
 function StorageBoardWrite() {
 	return (
 		<>
-			<StorageBoardHeader />
-			<StorageBoardWriteForm />
+			<BoardHeader />
+			<WriteForm />
 		</>
 	);
 }
