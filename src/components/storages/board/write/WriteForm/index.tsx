@@ -19,6 +19,9 @@ import Visibility from '@material-ui/icons/Visibility';
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+// Components
+import WriterAuthBox from 'components/storages/board/write/WriteForm/WriterAuthBox';
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
@@ -83,6 +86,27 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				marginBottom: theme.spacing(0)
 			}
+		},
+		authenticationBox: {
+			position: 'absolute',
+			top: 0,
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			width: '100%',
+			height: '100%',
+			backgroundColor: 'white',
+			zIndex: 10
+		},
+		icon: {
+			verticalAlign: 'middle'
+		},
+		typography: {
+			color: theme.palette.action.active,
+			fontWeight: 700
+		},
+		submitButton: {
+			color: 'white'
 		}
 	})
 );
@@ -93,79 +117,82 @@ function StorageBoardWriteForm() {
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	return (
-		<Container className={classes.container}>
-			<Grid container spacing={isMobile ? 0 : 1}>
-				<Grid item xs={6}>
+		<Box position={'relative'}>
+			<Container className={classes.container}>
+				<Grid container spacing={isMobile ? 0 : 1}>
+					<Grid item xs={6}>
+						<TextField
+							fullWidth
+							variant={'outlined'}
+							label={isMobile ? null : '닉네임'}
+							placeholder={isMobile ? '닉네임' : undefined}
+							InputProps={{
+								className: classes.nicknameTextFieldInput
+							}}
+						/>
+					</Grid>
+					<Grid item xs={6}>
+						<TextField
+							fullWidth
+							variant={'outlined'}
+							type={'password'}
+							label={isMobile ? null : '비밀번호'}
+							placeholder={isMobile ? '비밀번호' : undefined}
+							InputProps={{
+								className: classes.passwordTextFieldInput,
+								endAdornment: (
+									<InputAdornment position={'end'}>
+										<IconButton edge={'end'}>
+											<Visibility />
+										</IconButton>
+									</InputAdornment>
+								)
+							}}
+						/>
+					</Grid>
+				</Grid>
+				<Box className={classes.subjectBox}>
 					<TextField
 						fullWidth
 						variant={'outlined'}
-						label={isMobile ? null : '닉네임'}
-						placeholder={isMobile ? '닉네임' : undefined}
+						label={isMobile ? null : '제목'}
+						placeholder={isMobile ? '제목을 입력해주세요.' : undefined}
 						InputProps={{
-							className: classes.nicknameTextFieldInput
+							className: classes.subjectTextFieldInput
 						}}
 					/>
+				</Box>
+				<Box className={classes.textEditorBox}>
+					<MUIRichTextEditor defaultValue={''} label={'내용을 입력해주세요.'} />
+				</Box>
+				<Grid className={classes.grid} container spacing={!isMobile ? 1 : 0} justify={'flex-end'}>
+					<Grid item xs={isMobile && 6}>
+						<Button
+							fullWidth={isMobile}
+							className={classes.button}
+							variant={'contained'}
+							size={'large'}
+							startIcon={<ArrowBackIcon />}
+						>
+							{'이전'}
+						</Button>
+					</Grid>
+					<Grid item xs={isMobile && 6}>
+						<Button
+							fullWidth={isMobile}
+							className={classes.button}
+							variant={'contained'}
+							color={'primary'}
+							size={'large'}
+							startIcon={<DoneIcon />}
+						>
+							{'완료'}
+						</Button>
+					</Grid>
 				</Grid>
-				<Grid item xs={6}>
-					<TextField
-						fullWidth
-						variant={'outlined'}
-						type={'password'}
-						label={isMobile ? null : '비밀번호'}
-						placeholder={isMobile ? '비밀번호' : undefined}
-						InputProps={{
-							className: classes.passwordTextFieldInput,
-							endAdornment: (
-								<InputAdornment position={'end'}>
-									<IconButton edge={'end'}>
-										<Visibility />
-									</IconButton>
-								</InputAdornment>
-							)
-						}}
-					/>
-				</Grid>
-			</Grid>
-			<Box className={classes.subjectBox}>
-				<TextField
-					fullWidth
-					variant={'outlined'}
-					label={isMobile ? null : '제목'}
-					placeholder={isMobile ? '제목을 입력해주세요.' : undefined}
-					InputProps={{
-						className: classes.subjectTextFieldInput
-					}}
-				/>
-			</Box>
-			<Box className={classes.textEditorBox}>
-				<MUIRichTextEditor defaultValue={''} label={'내용을 입력해주세요.'} />
-			</Box>
-			<Grid className={classes.grid} container spacing={!isMobile ? 1 : 0} justify={'flex-end'}>
-				<Grid item xs={isMobile && 6}>
-					<Button
-						fullWidth={isMobile}
-						className={classes.button}
-						variant={'contained'}
-						size={'large'}
-						startIcon={<ArrowBackIcon />}
-					>
-						{'이전'}
-					</Button>
-				</Grid>
-				<Grid item xs={isMobile && 6}>
-					<Button
-						fullWidth={isMobile}
-						className={classes.button}
-						variant={'contained'}
-						color={'primary'}
-						size={'large'}
-						startIcon={<DoneIcon />}
-					>
-						{'완료'}
-					</Button>
-				</Grid>
-			</Grid>
-		</Container>
+			</Container>
+			<WriterAuthBox />
+		</Box>
 	);
 }
 
