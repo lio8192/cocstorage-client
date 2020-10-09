@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		box: {
 			padding: theme.spacing(2, 0, 0)
 		},
+		card: {
+			border: '1px solid #EAEAEA'
+		},
 		cardContentHead: {
 			padding: theme.spacing(3),
 			background: 'linear-gradient(rgb(244, 245, 247) 100%, rgb(255, 255, 255) 35%, rgb(255, 255, 255) 100%)'
@@ -67,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function StorageList() {
+function StorageGridList() {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -102,7 +105,7 @@ function StorageList() {
 						{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((item) => (
 							<Grow in>
 								<Grid key={`index-${item}`} item xs={12} sm={4} md={3}>
-									<Card>
+									<Card className={classes.card} elevation={0}>
 										<CardActionArea>
 											<CardContent className={classes.cardContentHead} />
 											<CardContent>
@@ -157,4 +160,4 @@ function StorageList() {
 	);
 }
 
-export default memo(StorageList);
+export default memo(StorageGridList);

@@ -164,7 +164,7 @@ function Header() {
 								<Chip
 									className={classes.chip}
 									color={pageScope === 'storage' ? 'primary' : 'default'}
-									label={'저장소'}
+									label={'새 저장소'}
 									onClick={onHandlePageScope}
 									data-page-scope={'storage'}
 								/>
@@ -232,7 +232,7 @@ function Header() {
 									className={classes.indicator}
 								>
 									<Tab icon={<HomeIcon />} value={'/'} />
-									<Tab label={'저장소 목록'} value={'/storages'} />
+									<Tab label={'저장소'} value={'/storages'} />
 								</Tabs>
 							) : (
 								<Tabs

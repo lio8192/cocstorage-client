@@ -26,7 +26,7 @@ import DefaultImageSvg from 'styles/svgs/default_image.svg';
 // Modules
 import { Board } from 'modules/boardDetail';
 
-type BoardCardListSwiperProps = {
+type HomeBoardCardListSwiperProps = {
 	boardList: Array<Board>;
 	pending: boolean;
 };
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			margin: theme.spacing(1, 0),
-			padding: theme.spacing(1, 0),
+			padding: theme.spacing(1, 0, 0),
 			backgroundColor: 'white'
 		},
 		title: {
@@ -161,14 +161,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 SwiperCore.use([Navigation]);
 
-function BoardCardListSwiper({ boardList, pending }: BoardCardListSwiperProps) {
+function HomeBoardCardListSwiper({ boardList, pending }: HomeBoardCardListSwiperProps) {
 	const classes = useStyles();
-
 	return (
 		<Box className={classes.root}>
 			<Container>
 				<Typography className={classes.title} variant={'h6'} component={'h6'}>
-					{'일간 개념글'}
+					{'이전 저장소 일간 개념글'}
 				</Typography>
 			</Container>
 			<Box className={classes.box}>
@@ -278,4 +277,4 @@ function BoardCardListSwiper({ boardList, pending }: BoardCardListSwiperProps) {
 	);
 }
 
-export default memo(BoardCardListSwiper);
+export default memo(HomeBoardCardListSwiper);

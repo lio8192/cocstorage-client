@@ -28,7 +28,7 @@ import { Board } from 'modules/boardDetail';
 
 moment.locale('ko');
 
-type BoardCardListProps = {
+type HomeBoardCardListProps = {
 	title: string;
 	boardList: Array<Board>;
 	pending: boolean;
@@ -193,9 +193,8 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function BoardCardList({ title, boardList, pending }: BoardCardListProps) {
+function HomeBoardCardList({ title, boardList, pending }: HomeBoardCardListProps) {
 	const classes = useStyles();
-
 	return (
 		<Box className={classes.root}>
 			<Container>
@@ -320,4 +319,4 @@ function BoardCardList({ title, boardList, pending }: BoardCardListProps) {
 	);
 }
 
-export default memo(BoardCardList);
+export default memo(HomeBoardCardList);

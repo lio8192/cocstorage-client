@@ -1,45 +1,24 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
 
 // Material UI Components
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import Hidden from '@material-ui/core/Hidden';
 
 // Modules
 import { fetchMainContents } from 'modules/home';
 
 // Components
-import BoardCardListSwiper from 'components/index/BoardCardListSwiper';
-import BoardCardList from 'components/index/BoardCardList';
-import NoticeCard from 'components/common/NoticeCard';
+import HomeNoticeGridList from 'components/home/HomeNoticeGridList';
+import HomeStorageGridList from 'components/home/HomeStorageGridList';
+import HomeBoardCardListSwiper from 'components/home/HomeBoardCardListSwiper';
+import HomeBoardCardList from 'components/home/HomeBoardCardList';
 
 // Custom Hooks
 import useHome from 'hooks/useHome';
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		noticeContainer: {
-			[theme.breakpoints.down('md')]: {
-				padding: 0
-			}
-		},
-		noticeCardBox: {
-			marginTop: theme.spacing(2),
-			[theme.breakpoints.down('md')]: {
-				marginTop: 0,
-				paddingTop: theme.spacing(1)
-			}
-		}
-	})
-);
-
 function Index() {
-	const classes = useStyles();
 	const { boardList, dailyPopularList, pending } = useHome();
-
 	return (
 		<>
 			<Head>
@@ -68,18 +47,16 @@ function Index() {
 				<link rel={'canonical'} href={'https://www.cocstorage.com'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 			</Head>
-			<Container className={classes.noticeContainer}>
-				<Box className={classes.noticeCardBox}>
-					<NoticeCard />
-				</Box>
-			</Container>
+			<HomeNoticeGridList />
+			<HomeStorageGridList />
+			<HomeBoardCardList title={'새로운 개념글'} boardList={boardList} pending={pending} />
 			<Hidden implementation={'css'} smDown>
-				<BoardCardListSwiper boardList={dailyPopularList} pending={pending} />
+				<HomeBoardCardListSwiper boardList={dailyPopularList} pending={pending} />
 			</Hidden>
 			<Hidden implementation={'css'} mdUp>
-				<BoardCardList title={'일간 개념글'} boardList={dailyPopularList} pending={pending} />
+				<HomeBoardCardList title={'이전 저장소 일간 개념글'} boardList={dailyPopularList} pending={pending} />
 			</Hidden>
-			<BoardCardList title={'새로운 개념글'} boardList={boardList} pending={pending} />
+			<HomeBoardCardList title={'이전 저장소 새로운 개념글'} boardList={boardList} pending={pending} />
 		</>
 	);
 }
