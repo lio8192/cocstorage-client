@@ -14,6 +14,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -30,6 +32,10 @@ import SchoolIcon from '@material-ui/icons/School';
 import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
 import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 import MenuIcon from '@material-ui/icons/Menu';
+import NearMeIcon from '@material-ui/icons/NearMe';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SettingsIcon from '@material-ui/icons/Settings';
+import StorageIcon from '@material-ui/icons/Storage';
 
 // Modules
 import { clearBoardsRelatedState } from 'modules/board';
@@ -75,6 +81,12 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		divider: {
 			backgroundColor: theme.palette.grey['50']
+		},
+		typography: {
+			fontWeight: 700
+		},
+		icon: {
+			verticalAlign: 'middle'
 		}
 	})
 );
@@ -267,6 +279,40 @@ function MobileHeader() {
 			<Toolbar className={classes.toolbar} />
 			<SwipeableDrawer anchor={'right'} onClose={handleMenuList} onOpen={handleMenuList} open={menuListState}>
 				<div className={classes.list} role={'presentation'}>
+					<Box display={'flex'} alignItems={'center'} p={2}>
+						<Box>
+							<Avatar>{'K'}</Avatar>
+						</Box>
+						<Box flex={1} ml={2}>
+							<Typography className={classes.typography} variant={'body1'}>
+								{'닉네임님'}
+							</Typography>
+						</Box>
+						<Box>
+							<IconButton>
+								<SettingsIcon className={classes.icon} color={'action'} />
+							</IconButton>
+						</Box>
+					</Box>
+					<Divider className={classes.divider} />
+					<List>
+						<ListItem button data-category-id={'login'} onClick={handleDrawer}>
+							<ListItemIcon>
+								<ExitToAppIcon />
+							</ListItemIcon>
+							<ListItemText primary={'로그인/회원가입'} />
+						</ListItem>
+					</List>
+					<Divider className={classes.divider} />
+					<List>
+						<ListItem button onClick={handleDrawer}>
+							<ListItemIcon>
+								<StorageIcon />
+							</ListItemIcon>
+							<ListItemText primary={'저장소'} />
+						</ListItem>
+					</List>
+					<Divider className={classes.divider} />
 					<List>
 						{listItems.map((item) => (
 							<ListItem button key={item.label} data-category-id={item.categoryId} onClick={handleDrawer}>
@@ -276,6 +322,14 @@ function MobileHeader() {
 						))}
 					</List>
 					<Divider className={classes.divider} />
+					<List>
+						<ListItem button data-category-id={'notices'} onClick={handleDrawer}>
+							<ListItemIcon>
+								<NearMeIcon />
+							</ListItemIcon>
+							<ListItemText primary={'새로운 소식'} />
+						</ListItem>
+					</List>
 				</div>
 			</SwipeableDrawer>
 		</>

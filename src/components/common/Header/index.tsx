@@ -136,14 +136,8 @@ function Header() {
 		id,
 		pageScope,
 		activatedTab,
-		isBoardDetail,
-		isNotice,
-		isPolicy,
-		isMyPage,
-		isStorageBoard,
-		isStorageBoardWrite,
-		isStorageBoardDetail,
-		isMounted,
+		openNavigationChip,
+		isTabsHidden,
 		onHandlePageScope,
 		onHandleTabChange,
 		onHandlePreviousTabChange,
@@ -153,7 +147,7 @@ function Header() {
 
 	return (
 		<>
-			{!isBoardDetail && !isStorageBoardDetail ? (
+			{!openNavigationChip ? (
 				<AppBar className={classes.appBar} position={'static'} color={'inherit'}>
 					<Container>
 						<Box className={classes.logoBox}>
@@ -212,14 +206,7 @@ function Header() {
 					<Toolbar className={classes.toolbar} />
 				</>
 			)}
-			{!isBoardDetail
-				&& !isPolicy
-				&& !isNotice
-				&& !isMyPage
-				&& !isStorageBoard
-				&& !isStorageBoardWrite
-				&& !isStorageBoardDetail
-				&& isMounted && (
+			{!isTabsHidden && (
 				<Box>
 					<Paper className={classes.paper} variant={'outlined'} square>
 						<Container>
@@ -233,6 +220,7 @@ function Header() {
 								>
 									<Tab icon={<HomeIcon />} value={'/'} />
 									<Tab label={'저장소'} value={'/storages'} />
+									<Tab label={'새로운 소식'} value={'/notices'} />
 								</Tabs>
 							) : (
 								<Tabs

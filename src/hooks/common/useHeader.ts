@@ -32,6 +32,37 @@ export default function useHeader() {
 	const isStorageBoard = useMemo(() => route === '/storages/[path]', [route]);
 	const isStorageBoardWrite = useMemo(() => route === '/storages/[path]/write', [route]);
 	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
+	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
+	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
+	const isTabsHidden = useMemo(
+		() =>
+			(isBoardDetail
+				|| isPolicy
+				|| isNotice
+				|| isMyPage
+				|| isStorageBoard
+				|| isStorageBoardWrite
+				|| isStorageBoardDetail
+				|| isNoticeWrite
+				|| isNoticeDetail)
+			&& isMounted,
+		[
+			isBoardDetail,
+			isPolicy,
+			isNotice,
+			isMyPage,
+			isStorageBoard,
+			isStorageBoardWrite,
+			isStorageBoardDetail,
+			isNoticeWrite,
+			isNoticeDetail,
+			isMounted
+		]
+	);
+	const openNavigationChip = useMemo(
+		() => isBoardDetail || isStorageBoardWrite || isStorageBoardDetail || isNoticeWrite || isNoticeDetail,
+		[isBoardDetail, isStorageBoardWrite, isStorageBoardDetail, isNoticeWrite, isNoticeDetail]
+	);
 
 	const onHandlePageScope = useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
@@ -93,7 +124,7 @@ export default function useHeader() {
 					router
 						.push(
 							{
-								pathname: '/storages'
+								pathname: newValue
 							},
 							newValue
 						)
@@ -145,14 +176,8 @@ export default function useHeader() {
 		id,
 		pageScope,
 		activatedTab,
-		isBoardDetail,
-		isNotice,
-		isPolicy,
-		isMyPage,
-		isStorageBoard,
-		isStorageBoardWrite,
-		isStorageBoardDetail,
-		isMounted,
+		openNavigationChip,
+		isTabsHidden,
 		onHandlePageScope,
 		onHandleTabChange,
 		onHandlePreviousTabChange,

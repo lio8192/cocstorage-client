@@ -142,7 +142,7 @@ function StorageGridList() {
 						startIcon={<AddBoxIcon />}
 						size={'large'}
 					>
-						{'새 저장소 등록'}
+						{'새 저장소 생성'}
 					</Button>
 				</Box>
 				<Pagination

@@ -5,7 +5,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import StorageIcon from '@material-ui/icons/Storage';
+
+// Material UI Icons
+import NearMeIcon from '@material-ui/icons/NearMe';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -32,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function StorageHeader() {
+function NoticeHeader() {
 	const classes = useStyles();
 	return (
 		<Box className={classes.root}>
@@ -40,21 +42,23 @@ function StorageHeader() {
 				<Box className={classes.box}>
 					<Box display={'flex'} alignItems={'center'}>
 						<Box>
-							<StorageIcon className={classes.icon} fontSize={'large'} />
+							<NearMeIcon className={classes.icon} fontSize={'large'} />
 						</Box>
 						<Box ml={0.5}>
 							<Typography className={classes.typography} variant={'h5'}>
-								{'저장소'}
+								{'새로운 소식'}
 							</Typography>
 						</Box>
 					</Box>
-					<Typography className={classes.typography} variant={'caption'}>
-						{'다양한 주제의 저장소를 이용해보거나 자신만의 저장소를 운영해보세요!'}
-					</Typography>
+					<Box>
+						<Typography className={classes.typography} variant={'caption'}>
+							{'개념글 저장소의 새로운 소식을 확인해보세요!'}
+						</Typography>
+					</Box>
 				</Box>
 			</Container>
 		</Box>
 	);
 }
 
-export default memo(StorageHeader);
+export default memo(NoticeHeader);

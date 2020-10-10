@@ -13,6 +13,7 @@ import Footer from 'components/common/Footer';
 import SignInDialog from 'components/common/SignInDialog';
 import SignUpDialog from 'components/common/SignUpDialog';
 import PasswordFinderDialog from 'components/common/PasswordFinderDialog';
+import MobileBottomNavigation from 'components/common/MobileBottomNavigation';
 
 type LayoutProps = {
 	children: JSX.Element | JSX.Element[];
@@ -42,7 +43,12 @@ function Layout({ children }: LayoutProps) {
 			<Box maxWidth={'lg'} className={classes.root}>
 				{children}
 			</Box>
-			<Footer />
+			<Hidden mdDown>
+				<Footer />
+			</Hidden>
+			<Hidden lgUp>
+				<MobileBottomNavigation />
+			</Hidden>
 			<SignInDialog />
 			<SignUpDialog />
 			<PasswordFinderDialog />

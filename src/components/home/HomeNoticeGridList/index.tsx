@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+	createStyles, makeStyles, Theme, useTheme
+} from '@material-ui/core/styles';
 
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -14,24 +16,25 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Avatar from '@material-ui/core/Avatar';
 import Hidden from '@material-ui/core/Hidden';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Grow from '@material-ui/core/Grow';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PersonIcon from '@material-ui/icons/Person';
 import NearMeIcon from '@material-ui/icons/NearMe';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 // Images
 import UpdateImg from 'images/update.png';
-import Button from '@material-ui/core/Button';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0, 0, 0.5)
+				padding: theme.spacing(0)
 			}
 		},
 		titleBox: {
@@ -118,7 +121,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		listBox: {
-			width: '100%',
+			maxWidth: '100%',
 			height: '100%',
 			border: '1px solid #EAEAEA',
 			[theme.breakpoints.down('md')]: {
@@ -128,7 +131,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		listItemBox: {
 			display: 'flex',
 			alignItems: 'center',
-			width: '100%'
+			maxWidth: '100%'
 		},
 		subjectBox: {
 			display: 'flex',
@@ -166,6 +169,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function HomeNoticeGridList() {
 	const classes = useStyles();
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	return (
 		<Container className={classes.root}>
 			<Box className={classes.box}>
@@ -177,7 +182,7 @@ function HomeNoticeGridList() {
 						<Button endIcon={<NavigateNextIcon color={'action'} />}>{'더 보기'}</Button>
 					</Box>
 				</Box>
-				<Grid className={classes.grid} container spacing={1}>
+				<Grid className={classes.grid} container spacing={isMobile ? 0 : 1}>
 					<Hidden mdDown>
 						<Grow in>
 							<Grid item lg={6}>

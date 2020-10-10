@@ -19,9 +19,6 @@ import Visibility from '@material-ui/icons/Visibility';
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-// Components
-import WriterAuthBox from 'components/storages/board/write/WriteForm/WriterAuthBox';
-
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
@@ -191,7 +188,6 @@ function WriteForm() {
 					</Grid>
 				</Grid>
 			</Container>
-			<WriterAuthBox />
 		</Box>
 	);
 }

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0, 0, 0.5)
+				padding: 0
 			}
 		},
 		box: {
@@ -107,37 +107,39 @@ function HomeStorageGridList() {
 						<Button endIcon={<NavigateNextIcon color={'action'} />}>{'더 보기'}</Button>
 					</Box>
 				</Box>
-				<Grid className={classes.grid} container spacing={1}>
-					{[1, 2, 3, 4].map((item, index) => (
-						<Grow in timeout={(index + 1) * 200}>
-							<Grid key={`index-${item}`} item xs={12} sm={6} md={6} lg={3}>
-								<Card className={classes.card} elevation={0} square>
-									<CardActionArea>
-										<CardContent className={classes.cardContentHead} />
-										<CardContent>
-											<Avatar
-												className={classes.avatar}
-												src={'https://image.chosun.com/sitedata/image/201908/23/2019082301404_0.png'}
-												alt={'Storage Avatar Img'}
-											/>
-											<Box mt={1}>
-												<Typography className={classes.typography}>{'라이언 저장소'}</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
-												<Box>
-													<TodayIcon className={classes.icon} color={'action'} />
+				<Box className={classes.grid}>
+					<Grid container spacing={1}>
+						{[1, 2, 3, 4].map((item, index) => (
+							<Grow in timeout={(index + 1) * 200}>
+								<Grid key={`index-${item}`} item xs={12} sm={6} md={6} lg={3}>
+									<Card className={classes.card} elevation={0} square>
+										<CardActionArea>
+											<CardContent className={classes.cardContentHead} />
+											<CardContent>
+												<Avatar
+													className={classes.avatar}
+													src={'https://image.chosun.com/sitedata/image/201908/23/2019082301404_0.png'}
+													alt={'Storage Avatar Img'}
+												/>
+												<Box mt={1}>
+													<Typography className={classes.typography}>{'라이언 저장소'}</Typography>
 												</Box>
-												<Box ml={0.5}>
-													<Typography variant={'caption'}>{'30분 전'}</Typography>
+												<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
+													<Box>
+														<TodayIcon className={classes.icon} color={'action'} />
+													</Box>
+													<Box ml={0.5}>
+														<Typography variant={'caption'}>{'30분 전 생성'}</Typography>
+													</Box>
 												</Box>
-											</Box>
-										</CardContent>
-									</CardActionArea>
-								</Card>
-							</Grid>
-						</Grow>
-					))}
-				</Grid>
+											</CardContent>
+										</CardActionArea>
+									</Card>
+								</Grid>
+							</Grow>
+						))}
+					</Grid>
+				</Box>
 			</Box>
 		</Container>
 	);
