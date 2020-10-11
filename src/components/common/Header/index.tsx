@@ -142,7 +142,8 @@ function Header() {
 		onHandleTabChange,
 		onHandlePreviousTabChange,
 		onHandleLogo,
-		onHandleChip
+		onHandleChip,
+		onHandleSignInDialog
 	} = useHeader();
 
 	return (
@@ -171,7 +172,7 @@ function Header() {
 								/>
 							</Box>
 							<Box>
-								<Button>{'로그인/회원가입'}</Button>
+								<Button onClick={onHandleSignInDialog}>{'로그인/회원가입'}</Button>
 							</Box>
 						</Box>
 					</Container>

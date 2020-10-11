@@ -21,6 +21,13 @@ import Visibility from '@material-ui/icons/Visibility';
 // Images
 import Logo from 'public/logo.png';
 
+type SignInDialogProps = {
+	open: boolean;
+	onHandleSignInDialog: () => void;
+	onHandleSignUpDialog: () => void;
+	onHandlePasswordFinderDialog: () => void;
+};
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		button: {
@@ -32,13 +39,17 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function SignInDialog() {
+function SignInDialog({
+	open,
+	onHandleSignInDialog,
+	onHandleSignUpDialog,
+	onHandlePasswordFinderDialog
+}: SignInDialogProps) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
 	return (
-		<Dialog fullScreen={fullScreen} fullWidth maxWidth={'xs'} open={false} onClose={() => console.log('onClose')}>
+		<Dialog fullScreen={fullScreen} fullWidth maxWidth={'xs'} open={open} onClose={onHandleSignInDialog}>
 			<DialogTitle>
 				<img src={Logo} alt={'SignInDialog Logo Img'} />
 				<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={1}>
@@ -48,8 +59,8 @@ function SignInDialog() {
 						</Typography>
 					</Box>
 					<Box>
-						<Button>{'간편 회원가입'}</Button>
-						<Button>{'비밀번호 찾기'}</Button>
+						<Button onClick={onHandleSignUpDialog}>{'간편 회원가입'}</Button>
+						<Button onClick={onHandlePasswordFinderDialog}>{'비밀번호 찾기'}</Button>
 					</Box>
 				</Box>
 			</DialogTitle>

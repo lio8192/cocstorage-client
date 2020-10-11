@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useSnackbar, VariantType } from 'notistack';
 
 // Modules
-import { handlePageScope } from 'modules/common';
+import { handlePageScope, handleSignInDialog } from 'modules/common';
 import { RootState } from 'modules';
 import { clearBoardsRelatedState } from 'modules/board';
 
@@ -34,6 +34,7 @@ export default function useHeader() {
 	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
 	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
 	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
+	const isUserAuthenticationUUID = useMemo(() => route === '/users/authentication/[uuid]', [route]);
 	const isTabsHidden = useMemo(
 		() =>
 			(isBoardDetail
@@ -44,7 +45,8 @@ export default function useHeader() {
 				|| isStorageBoardWrite
 				|| isStorageBoardDetail
 				|| isNoticeWrite
-				|| isNoticeDetail)
+				|| isNoticeDetail
+				|| isUserAuthenticationUUID)
 			&& isMounted,
 		[
 			isBoardDetail,
@@ -56,6 +58,7 @@ export default function useHeader() {
 			isStorageBoardDetail,
 			isNoticeWrite,
 			isNoticeDetail,
+			isUserAuthenticationUUID,
 			isMounted
 		]
 	);
@@ -164,6 +167,8 @@ export default function useHeader() {
 			.then();
 	}, [dispatch, router]);
 
+	const onHandleSignInDialog = useCallback(() => dispatch(handleSignInDialog()), [dispatch]);
+
 	useEffect(() => {
 		if (asPath.indexOf('board') !== -1) {
 			dispatch(handlePageScope('previous-storage'));
@@ -182,6 +187,7 @@ export default function useHeader() {
 		onHandleTabChange,
 		onHandlePreviousTabChange,
 		onHandleLogo,
-		onHandleChip
+		onHandleChip,
+		onHandleSignInDialog
 	};
 }

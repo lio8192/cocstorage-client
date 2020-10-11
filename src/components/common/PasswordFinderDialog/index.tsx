@@ -16,6 +16,12 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 // Images
 import Logo from 'public/logo.png';
 
+type PasswordFinderDialogProps = {
+	open: boolean;
+	onHandleSignInDialog: () => void;
+	onHandlePasswordFinderDialog: () => void;
+};
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		button: {
@@ -27,19 +33,23 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function PasswordFinderDialog() {
+function PasswordFinderDialog({ open, onHandleSignInDialog, onHandlePasswordFinderDialog }: PasswordFinderDialogProps) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
 	return (
-		<Dialog fullScreen={fullScreen} fullWidth maxWidth={'xs'} open={false} onClose={() => console.log('onClose')}>
+		<Dialog fullScreen={fullScreen} fullWidth maxWidth={'xs'} open={open} onClose={onHandlePasswordFinderDialog}>
 			<DialogTitle>
-				<img src={Logo} alt={'SignInDialog Logo Img'} />
-				<Box mt={1}>
-					<Typography className={classes.typography} variant={'h5'}>
-						{'비밀번호 찾기'}
-					</Typography>
+				<img src={Logo} alt={'PasswordFinderDialog Logo Img'} />
+				<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={1}>
+					<Box>
+						<Typography className={classes.typography} variant={'h5'}>
+							{'비밀번호 찾기'}
+						</Typography>
+					</Box>
+					<Box>
+						<Button onClick={onHandleSignInDialog}>{'로그인하기'}</Button>
+					</Box>
 				</Box>
 			</DialogTitle>
 			<DialogContent>

@@ -10,11 +10,10 @@ import Container from '@material-ui/core/Container';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Components
-import NotificationModal from 'components/common/NotificationModal';
+import DetailContent from 'components/storages/board/detail/DetailContent';
+import DetailSideBox from 'components/storages/board/detail/DetailSideBox';
 import CommentList from 'components/common/CommentList';
 import CommentWriteForm from 'components/common/CommentWriteForm';
-import DetailSideBox from 'components/storages/board/detail/DetailSideBox';
-import DetailContent from 'components/storages/board/detail/DetailContent';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -51,12 +50,6 @@ function StorageBoardDetail() {
 					</Hidden>
 				</Grid>
 			</Grid>
-			<NotificationModal
-				modalOpen={false}
-				title={'안내'}
-				contentText={'이미 삭제된 개념글입니다.'}
-				onHandleNotificationModal={() => console.log('onHandle')}
-			/>
 		</Container>
 	);
 }

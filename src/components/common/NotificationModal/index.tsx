@@ -1,5 +1,6 @@
-import React, { memo } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import React, { useCallback, memo } from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { useRouter } from 'next/router';
 
 // Material UI
 import Box from '@material-ui/core/Box';
@@ -12,38 +13,67 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 // Material UI Icons
 import InfoIcon from '@material-ui/icons/Info';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import WarningIcon from '@material-ui/icons/Warning';
+import ErrorIcon from '@material-ui/icons/Error';
 
 type NotificationModalProps = {
-	modalOpen: boolean;
+	open: boolean;
 	title: string;
 	contentText: string;
-	onHandleNotificationModal: () => void;
-	onCloseNotificationModal?: () => void;
+	severity: string;
+	route: string;
+	onCloseNotificationModal: () => void;
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		icon: {
 			verticalAlign: 'middle'
+		},
+		successIcon: {
+			verticalAlign: 'middle',
+			color: theme.palette.success.main
+		},
+		warningIcon: {
+			verticalAlign: 'middle',
+			color: theme.palette.warning.main
+		},
+		errorIcon: {
+			verticalAlign: 'middle',
+			color: theme.palette.error.main
 		}
 	})
 );
 
 function NotificationModal({
-	modalOpen,
+	open,
 	title,
 	contentText,
-	onHandleNotificationModal,
+	severity,
+	route,
 	onCloseNotificationModal
 }: NotificationModalProps) {
 	const classes = useStyles();
+	const router = useRouter();
+
+	const handleNotificationModal = useCallback(() => {
+		if (route) {
+			router.push(route).then(() => router.reload());
+		} else {
+			onCloseNotificationModal();
+		}
+	}, [router, route, onCloseNotificationModal]);
 
 	return (
-		<Dialog open={modalOpen} onClose={onCloseNotificationModal}>
+		<Dialog open={open} onClose={handleNotificationModal}>
 			<DialogTitle>
 				<Box display={'flex'} alignItems={'center'}>
 					<Box>
-						<InfoIcon className={classes.icon} fontSize={'large'} color={'primary'} />
+						{severity === 'info' && <InfoIcon className={classes.icon} fontSize={'large'} color={'primary'} />}
+						{severity === 'success' && <CheckCircleIcon className={classes.successIcon} fontSize={'large'} />}
+						{severity === 'warning' && <WarningIcon className={classes.warningIcon} fontSize={'large'} />}
+						{severity === 'error' && <ErrorIcon className={classes.errorIcon} fontSize={'large'} />}
 					</Box>
 					<Box ml={1}>{title}</Box>
 				</Box>
@@ -52,7 +82,7 @@ function NotificationModal({
 				<DialogContentText>{contentText}</DialogContentText>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={onHandleNotificationModal} color={'primary'} autoFocus>
+				<Button onClick={handleNotificationModal} color={'primary'} autoFocus>
 					{'확인'}
 				</Button>
 			</DialogActions>

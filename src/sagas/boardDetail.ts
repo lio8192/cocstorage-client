@@ -8,17 +8,17 @@ import {
 	POST_BOARD_DETAIL_RECOMMEND,
 	fetchBoardDetail,
 	fetchBoardDetailSucceeded,
-	fetchBoardDetailFailed,
 	fetchBoardDetailComments,
 	fetchBoardDetailCommentsSucceeded,
 	postBoardDetailRecommend,
 	postBoardDetailRecommendSucceeded,
 	postBoardDetailRecommendFailed
 } from 'modules/boardDetail';
+import { handleBoardClickCountState } from 'modules/board';
+import { handleNotificationModal } from 'modules/common';
 
 // Service
 import * as Service from 'services/previous/boardDetailService';
-import { handleBoardClickCountState } from 'modules/board';
 
 function* watchFetchBoardDetail({ payload }: ActionType<typeof fetchBoardDetail>) {
 	try {
@@ -26,7 +26,15 @@ function* watchFetchBoardDetail({ payload }: ActionType<typeof fetchBoardDetail>
 		yield put(fetchBoardDetailSucceeded(response.data));
 		yield put(handleBoardClickCountState());
 	} catch (error) {
-		yield put(fetchBoardDetailFailed());
+		yield put(
+			handleNotificationModal({
+				open: true,
+				title: '안내',
+				contentText: '존재하지 않거나 이미 삭제된 개념글입니다.',
+				severity: 'info',
+				route: `/board/${payload.categoryId}`
+			})
+		);
 		console.log(error);
 	}
 }

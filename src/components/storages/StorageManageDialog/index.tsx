@@ -22,10 +22,19 @@ import { TransitionProps } from '@material-ui/core/transitions';
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
+type StorageManageDialogProps = {
+	open: boolean;
+	onHandleStorageManageDialogOpen: () => void;
+};
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
+		root: {
+			paddingRight: 0
+		},
 		appBar: {
 			position: 'relative',
+			paddingRight: '0 !important',
 			backgroundColor: 'white'
 		},
 		title: {
@@ -62,13 +71,19 @@ const Transition = React.forwardRef(
 	)
 );
 
-function StorageManageDialog() {
+function StorageManageDialog({ open, onHandleStorageManageDialogOpen }: StorageManageDialogProps) {
 	const classes = useStyles();
 	return (
-		<Dialog fullScreen open={false} onClose={() => console.log('onClose')} TransitionComponent={Transition}>
+		<Dialog
+			className={classes.root}
+			fullScreen
+			open={open}
+			onClose={onHandleStorageManageDialogOpen}
+			TransitionComponent={Transition}
+		>
 			<AppBar className={classes.appBar}>
 				<Toolbar>
-					<IconButton edge={'start'} color={'inherit'} onClick={() => console.log('onClose')}>
+					<IconButton edge={'start'} color={'inherit'} onClick={onHandleStorageManageDialogOpen}>
 						<CloseIcon />
 					</IconButton>
 					<Typography variant={'h6'} className={classes.title}>
@@ -78,9 +93,9 @@ function StorageManageDialog() {
 						className={classes.button}
 						variant={'contained'}
 						color={'primary'}
-						onClick={() => console.log('onClose')}
+						onClick={onHandleStorageManageDialogOpen}
 					>
-						{'등록'}
+						{'생성'}
 					</Button>
 				</Toolbar>
 			</AppBar>
@@ -115,12 +130,7 @@ function StorageManageDialog() {
 						<Box mt={1}>
 							<Grid container spacing={1}>
 								<Grid item xs={12} md={6}>
-									<TextField
-										fullWidth
-										variant={'outlined'}
-										value={'https://www.cocstorage.com/storages/path'}
-										disabled
-									/>
+									<TextField fullWidth variant={'outlined'} value={'https://www.cocstorage.com/storages/[]'} disabled />
 								</Grid>
 								<Grid item xs={12} md={6}>
 									<TextField fullWidth variant={'outlined'} placeholder={'주소를 입력해주세요.'} />

@@ -7,9 +7,6 @@ import Box from '@material-ui/core/Box';
 // Components
 import GoogleAdSense from 'components/common/GoogleAdSense';
 
-// Custom Hooks
-import useBoardDetail from 'hooks/useBoardDetail';
-
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		box: {
@@ -34,12 +31,8 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function SideBox() {
+function DetailSideBox() {
 	const classes = useStyles();
-	const {
-		board: { data }
-	} = useBoardDetail();
-
 	return (
 		<Box position={'relative'}>
 			<Box width={'100%'} maxWidth={308} position={'fixed'}>
@@ -60,4 +53,4 @@ function SideBox() {
 	);
 }
 
-export default memo(SideBox);
+export default memo(DetailSideBox);

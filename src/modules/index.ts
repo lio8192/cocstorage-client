@@ -5,12 +5,14 @@ import common from './common';
 import home from './home';
 import board from './board';
 import boardDetail from './boardDetail';
+import storages from './storages';
 
 const rootReducer = combineReducers({
 	common,
 	home,
 	board,
-	boardDetail
+	boardDetail,
+	storages
 });
 
 export default rootReducer;

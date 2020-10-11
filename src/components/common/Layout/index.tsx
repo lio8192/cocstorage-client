@@ -14,6 +14,10 @@ import SignInDialog from 'components/common/SignInDialog';
 import SignUpDialog from 'components/common/SignUpDialog';
 import PasswordFinderDialog from 'components/common/PasswordFinderDialog';
 import MobileBottomNavigation from 'components/common/MobileBottomNavigation';
+import NotificationModal from 'components/common/NotificationModal';
+
+// Custom Hooks
+import useLayout from 'hooks/common/useLayout';
 
 type LayoutProps = {
 	children: JSX.Element | JSX.Element[];
@@ -31,6 +35,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Layout({ children }: LayoutProps) {
 	const classes = useStyles();
+	const {
+		signIn,
+		signUp,
+		passwordFinder,
+		postSignUpBody,
+		notification: {
+			open, title, contentText, severity, route
+		},
+		onHandleSignInDialog,
+		onHandleSignUpDialog,
+		onHandlePasswordFinderDialog,
+		onHandleSignUpDialogTextField,
+		onHandleSignUpDialogCheckbox,
+		onShowSignUpDialogPassword,
+		onPostSignUp,
+		onCloseNotificationModal
+	} = useLayout();
 
 	return (
 		<SnackbarProvider maxSnack={3}>
@@ -49,9 +70,36 @@ function Layout({ children }: LayoutProps) {
 			<Hidden lgUp>
 				<MobileBottomNavigation />
 			</Hidden>
-			<SignInDialog />
-			<SignUpDialog />
-			<PasswordFinderDialog />
+			<SignInDialog
+				open={signIn.open}
+				onHandleSignInDialog={onHandleSignInDialog}
+				onHandleSignUpDialog={onHandleSignUpDialog}
+				onHandlePasswordFinderDialog={onHandlePasswordFinderDialog}
+			/>
+			<SignUpDialog
+				open={signUp.open}
+				pending={signUp.pending}
+				postSignUpBody={postSignUpBody}
+				onHandleSignInDialog={onHandleSignInDialog}
+				onHandleSignUpDialog={onHandleSignUpDialog}
+				onHandleSignUpDialogTextField={onHandleSignUpDialogTextField}
+				onHandleSignUpDialogCheckbox={onHandleSignUpDialogCheckbox}
+				onShowSignUpDialogPassword={onShowSignUpDialogPassword}
+				onPostSignUp={onPostSignUp}
+			/>
+			<PasswordFinderDialog
+				open={passwordFinder.open}
+				onHandleSignInDialog={onHandleSignInDialog}
+				onHandlePasswordFinderDialog={onHandlePasswordFinderDialog}
+			/>
+			<NotificationModal
+				open={open}
+				title={title}
+				contentText={contentText}
+				severity={severity}
+				route={route}
+				onCloseNotificationModal={onCloseNotificationModal}
+			/>
 		</SnackbarProvider>
 	);
 }

@@ -1,19 +1,18 @@
 import React, { memo } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 // Material UI
 import Toolbar from '@material-ui/core/Toolbar';
-import Paper from '@material-ui/core/Paper';
-
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import Paper from '@material-ui/core/Paper';
 
 // Material UI Icons
 import StorageIcon from '@material-ui/icons/Storage';
 import InboxIcon from '@material-ui/icons/Inbox';
 import PersonIcon from '@material-ui/icons/Person';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
 	createStyles({
 		root: {
 			position: 'fixed',
@@ -37,11 +36,7 @@ function MobileBottomNavigation() {
 	const classes = useStyles();
 	return (
 		<>
-			<Paper
-				className={classes.root}
-				square
-				elevation={3}
-			>
+			<Paper className={classes.root} square elevation={3}>
 				<BottomNavigation
 					className={classes.bottomNavigation}
 					value={0}

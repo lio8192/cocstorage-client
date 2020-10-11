@@ -3,7 +3,6 @@ import { HYDRATE } from 'next-redux-wrapper';
 import {
 	FETCH_BOARD_DETAIL,
 	FETCH_BOARD_DETAIL_SUCCEEDED,
-	FETCH_BOARD_DETAIL_FAILED,
 	FETCH_BOARD_DETAIL_COMMENTS,
 	FETCH_BOARD_DETAIL_COMMENTS_SUCCEEDED,
 	POST_BOARD_DETAIL_RECOMMEND,
@@ -53,11 +52,6 @@ const initialState: BoardDetailState = {
 		pending: false,
 		error: false,
 		errorMessage: null
-	},
-	notification: {
-		modalOpen: false,
-		title: '안내',
-		contentText: '이미 삭제된 개념글입니다.'
 	}
 };
 
@@ -88,17 +82,6 @@ const boardDetail = createReducer<BoardDetailState, BoardDetailAction>(initialSt
 			pending: false,
 			error: false,
 			errorMessage: null
-		},
-		notification: {
-			...state.notification,
-			modalOpen: false
-		}
-	}),
-	[FETCH_BOARD_DETAIL_FAILED]: (state) => ({
-		...state,
-		notification: {
-			...state.notification,
-			modalOpen: true
 		}
 	}),
 	[FETCH_BOARD_DETAIL_COMMENTS]: (state) => ({

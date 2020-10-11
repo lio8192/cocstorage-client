@@ -20,7 +20,6 @@ import DetailContent from 'components/boardDetail/DetailContent';
 import SideBox from 'components/boardDetail/SideBox';
 import CommentList from 'components/boardDetail/CommentList';
 import GoogleAdSense from 'components/common/GoogleAdSense';
-import NotificationModal from 'components/common/NotificationModal';
 
 // Custom Hooks
 import useBoardDetail from 'hooks/useBoardDetail';
@@ -58,7 +57,6 @@ function Detail({ query }: NextPageContext) {
 		board: { data, pending },
 		comment: { data: commentList, pending: commentPending, count: commentCount },
 		recommend: { data: alertMessage, pending: backdropOpen, errorMessage },
-		notification: { modalOpen, title, contentText },
 		row,
 		thumbsSnackBarOpen,
 		errorThumbsSnackBarOpen,
@@ -67,8 +65,7 @@ function Detail({ query }: NextPageContext) {
 		onHandleCloseSnackBar,
 		onHandleExitedSnackBar,
 		onClearGoogleAdSenseLimit,
-		onHandleCommentRow,
-		onHandleNotificationModal
+		onHandleCommentRow
 	} = useBoardDetail();
 
 	useEffect(() => {
@@ -147,12 +144,6 @@ function Detail({ query }: NextPageContext) {
 					</Grid>
 				</Grid>
 			</Container>
-			<NotificationModal
-				modalOpen={modalOpen}
-				title={title}
-				contentText={contentText}
-				onHandleNotificationModal={onHandleNotificationModal}
-			/>
 		</>
 	);
 }

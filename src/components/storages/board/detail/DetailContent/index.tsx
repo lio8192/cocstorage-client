@@ -10,6 +10,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Grow from '@material-ui/core/Grow';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
@@ -28,7 +29,6 @@ import ThumbDownAltSharpIcon from '@material-ui/icons/ThumbDownAltSharp';
 
 // Components
 import GoogleAdSense from 'components/common/GoogleAdSense';
-import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

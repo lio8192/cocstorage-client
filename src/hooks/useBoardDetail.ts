@@ -60,8 +60,6 @@ export default function useBoardDetail() {
 		setRow(row + 20);
 	}, [row]);
 
-	const onHandleNotificationModal = useCallback(() => router.push(`/board/${categoryId}`), [router, categoryId]);
-
 	useEffect(() => {
 		if (!boardDetailState.recommend.pending && boardDetailState.recommend.data && !boardDetailState.recommend.error) {
 			setThumbsSnackBarOpen(true);
@@ -108,7 +106,6 @@ export default function useBoardDetail() {
 		onHandleBoardDetailRecommend,
 		onHandleCloseSnackBar,
 		onHandleExitedSnackBar,
-		onHandleCommentRow,
-		onHandleNotificationModal
+		onHandleCommentRow
 	};
 }
