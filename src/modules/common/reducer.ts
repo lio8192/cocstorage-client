@@ -12,11 +12,14 @@ import {
 	HANDLE_NOTIFICATION_MODAL,
 	PUT_USER_AUTHENTICATION,
 	PUT_USER_AUTHENTICATION_SUCCEEDED,
-	PUT_USER_AUTHENTICATION_FAILED
+	PUT_USER_AUTHENTICATION_FAILED,
+	POST_PASSWORD_FINDER,
+	POST_PASSWORD_FINDER_SUCCEEDED,
+	POST_PASSWORD_FINDER_FAILED
 } from './actions';
 
 const initialState: CommonState = {
-	pageScope: 'storage',
+	pageScope: '',
 	signIn: {
 		open: false,
 		pending: false
@@ -139,6 +142,27 @@ const common = createReducer<CommonState, CommonActions>(initialState, {
 			pending: false,
 			error: true,
 			helperText: value
+		}
+	}),
+	[POST_PASSWORD_FINDER]: (state) => ({
+		...state,
+		passwordFinder: {
+			...state.passwordFinder,
+			pending: true
+		}
+	}),
+	[POST_PASSWORD_FINDER_SUCCEEDED]: (state) => ({
+		...state,
+		passwordFinder: {
+			open: false,
+			pending: false
+		}
+	}),
+	[POST_PASSWORD_FINDER_FAILED]: (state) => ({
+		...state,
+		passwordFinder: {
+			...state.passwordFinder,
+			pending: false
 		}
 	})
 });

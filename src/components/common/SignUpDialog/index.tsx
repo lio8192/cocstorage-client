@@ -24,23 +24,11 @@ import Fade from '@material-ui/core/Fade';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-// @types
-import { PostSignUpBody } from 'hooks/common/useLayout';
+// Custom Hooks
+import useSignUp from 'hooks/common/useSignUp';
 
 // Images
 import Logo from 'public/logo.png';
-
-type SignUpDialogProps = {
-	open: boolean;
-	pending: boolean;
-	postSignUpBody: PostSignUpBody;
-	onHandleSignInDialog: () => void;
-	onHandleSignUpDialog: () => void;
-	onHandleSignUpDialogTextField: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	onHandleSignUpDialogCheckbox: () => void;
-	onShowSignUpDialogPassword: () => void;
-	onPostSignUp: () => void;
-};
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -63,22 +51,23 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function SignUpDialog({
-	open,
-	pending,
-	postSignUpBody: {
-		name, email, password, policy, showPassword
-	},
-	onHandleSignInDialog,
-	onHandleSignUpDialog,
-	onHandleSignUpDialogTextField,
-	onHandleSignUpDialogCheckbox,
-	onShowSignUpDialogPassword,
-	onPostSignUp
-}: SignUpDialogProps) {
+function SignUpDialog() {
 	const classes = useStyles();
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+	const {
+		open,
+		pending,
+		postSignUpBody: {
+			name, email, password, policy, showPassword
+		},
+		onHandleSignInDialog,
+		onHandleSignUpDialog,
+		onHandleSignUpDialogTextField,
+		onHandleSignUpDialogCheckbox,
+		onShowSignUpDialogPassword,
+		onPostSignUp
+	} = useSignUp();
 	return (
 		<Dialog
 			className={classes.root}

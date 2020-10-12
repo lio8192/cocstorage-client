@@ -12,33 +12,58 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Fade from '@material-ui/core/Fade';
+
+// Custom Hooks
+import usePasswordFinder from 'hooks/common/usePasswordFinder';
 
 // Images
 import Logo from 'public/logo.png';
 
-type PasswordFinderDialogProps = {
-	open: boolean;
-	onHandleSignInDialog: () => void;
-	onHandlePasswordFinderDialog: () => void;
-};
-
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
+		root: {
+			position: 'relative'
+		},
 		button: {
 			color: 'white'
 		},
 		typography: {
 			color: theme.palette.action.active
+		},
+		linearProgress: {
+			position: 'absolute',
+			width: '100%'
 		}
 	})
 );
 
-function PasswordFinderDialog({ open, onHandleSignInDialog, onHandlePasswordFinderDialog }: PasswordFinderDialogProps) {
+function PasswordFinderDialog() {
 	const classes = useStyles();
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+	const {
+		open,
+		pending,
+		postPasswordFinderBody: { name, email },
+		onHandleSignInDialog,
+		onHandlePasswordFinderDialog,
+		onHandlePasswordFinderDialogTextField,
+		onPostPasswordFinder
+	} = usePasswordFinder();
 	return (
-		<Dialog fullScreen={fullScreen} fullWidth maxWidth={'xs'} open={open} onClose={onHandlePasswordFinderDialog}>
+		<Dialog
+			className={classes.root}
+			fullScreen={fullScreen}
+			fullWidth
+			maxWidth={'xs'}
+			open={open}
+			onClose={onHandlePasswordFinderDialog}
+		>
+			<Fade in={pending}>
+				<LinearProgress className={classes.linearProgress} color={'primary'} />
+			</Fade>
 			<DialogTitle>
 				<img src={Logo} alt={'PasswordFinderDialog Logo Img'} />
 				<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={1}>
@@ -54,10 +79,28 @@ function PasswordFinderDialog({ open, onHandleSignInDialog, onHandlePasswordFind
 			</DialogTitle>
 			<DialogContent>
 				<Box>
-					<TextField fullWidth variant={'outlined'} label={'이름'} />
+					<TextField
+						fullWidth
+						variant={'outlined'}
+						label={'이름'}
+						name={'name'}
+						onChange={onHandlePasswordFinderDialogTextField}
+						value={name.value}
+						error={name.error}
+						helperText={name.helperText}
+					/>
 				</Box>
 				<Box mt={1}>
-					<TextField fullWidth variant={'outlined'} label={'이메일'} />
+					<TextField
+						fullWidth
+						variant={'outlined'}
+						label={'이메일'}
+						name={'email'}
+						onChange={onHandlePasswordFinderDialogTextField}
+						value={email.value}
+						error={email.error}
+						helperText={email.helperText}
+					/>
 				</Box>
 				<Box mt={2}>
 					<Typography className={classes.typography} variant={'caption'}>
@@ -69,7 +112,7 @@ function PasswordFinderDialog({ open, onHandleSignInDialog, onHandlePasswordFind
 						className={classes.button}
 						fullWidth
 						variant={'contained'}
-						onClick={() => console.log('onClose')}
+						onClick={onPostPasswordFinder}
 						color={'primary'}
 						size={'large'}
 					>

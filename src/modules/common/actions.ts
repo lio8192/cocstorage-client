@@ -16,6 +16,10 @@ export const PUT_USER_AUTHENTICATION = 'common/PUT_USER_AUTHENTICATION';
 export const PUT_USER_AUTHENTICATION_SUCCEEDED = 'common/PUT_USER_AUTHENTICATION_SUCCEEDED';
 export const PUT_USER_AUTHENTICATION_FAILED = 'common/PUT_USER_AUTHENTICATION_FAILED';
 
+export const POST_PASSWORD_FINDER = 'common/POST_PASSWORD_FINDER';
+export const POST_PASSWORD_FINDER_SUCCEEDED = 'common/POST_PASSWORD_FINDER_SUCCEEDED';
+export const POST_PASSWORD_FINDER_FAILED = 'common/POST_PASSWORD_FINDER_FAILED';
+
 export const handlePageScope = createAction(HANDLE_PAGE_SCOPE)<string>();
 export const handleSignInDialog = createAction(HANDLE_SIGN_IN_DIALOG)();
 export const handleSignUpDialog = createAction(HANDLE_SIGN_UP_DIALOG)();
@@ -30,3 +34,7 @@ export const handleNotificationModal = createAction(HANDLE_NOTIFICATION_MODAL)<N
 export const putUserAuthentication = createAction(PUT_USER_AUTHENTICATION)<string>();
 export const putUserAuthenticationSucceeded = createAction(PUT_USER_AUTHENTICATION_SUCCEEDED)();
 export const putUserAuthenticationFailed = createAction(PUT_USER_AUTHENTICATION_FAILED)<string>();
+
+export const postPasswordFinder = createAction(POST_PASSWORD_FINDER)<{ [key: string]: string }>();
+export const postPasswordFinderSucceeded = createAction(POST_PASSWORD_FINDER_SUCCEEDED)();
+export const postPasswordFinderFailed = createAction(POST_PASSWORD_FINDER_FAILED)();

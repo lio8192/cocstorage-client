@@ -82,10 +82,10 @@ function UserAuthenticationUUID() {
 							<Box textAlign={'center'}>
 								<Typography variant={'h5'}>
 									{helperText.split('\n').map((item) => (
-										<>
+										<Box key={`helper-text-${item}`}>
 											{item}
 											<br />
-										</>
+										</Box>
 									))}
 								</Typography>
 							</Box>

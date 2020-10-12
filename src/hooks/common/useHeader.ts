@@ -172,6 +172,8 @@ export default function useHeader() {
 	useEffect(() => {
 		if (asPath.indexOf('board') !== -1) {
 			dispatch(handlePageScope('previous-storage'));
+		} else {
+			dispatch(handlePageScope('storage'));
 		}
 	}, [dispatch, asPath]);
 

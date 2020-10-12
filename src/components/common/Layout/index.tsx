@@ -37,19 +37,12 @@ function Layout({ children }: LayoutProps) {
 	const classes = useStyles();
 	const {
 		signIn,
-		signUp,
-		passwordFinder,
-		postSignUpBody,
 		notification: {
 			open, title, contentText, severity, route
 		},
 		onHandleSignInDialog,
 		onHandleSignUpDialog,
 		onHandlePasswordFinderDialog,
-		onHandleSignUpDialogTextField,
-		onHandleSignUpDialogCheckbox,
-		onShowSignUpDialogPassword,
-		onPostSignUp,
 		onCloseNotificationModal
 	} = useLayout();
 
@@ -76,22 +69,8 @@ function Layout({ children }: LayoutProps) {
 				onHandleSignUpDialog={onHandleSignUpDialog}
 				onHandlePasswordFinderDialog={onHandlePasswordFinderDialog}
 			/>
-			<SignUpDialog
-				open={signUp.open}
-				pending={signUp.pending}
-				postSignUpBody={postSignUpBody}
-				onHandleSignInDialog={onHandleSignInDialog}
-				onHandleSignUpDialog={onHandleSignUpDialog}
-				onHandleSignUpDialogTextField={onHandleSignUpDialogTextField}
-				onHandleSignUpDialogCheckbox={onHandleSignUpDialogCheckbox}
-				onShowSignUpDialogPassword={onShowSignUpDialogPassword}
-				onPostSignUp={onPostSignUp}
-			/>
-			<PasswordFinderDialog
-				open={passwordFinder.open}
-				onHandleSignInDialog={onHandleSignInDialog}
-				onHandlePasswordFinderDialog={onHandlePasswordFinderDialog}
-			/>
+			<SignUpDialog />
+			<PasswordFinderDialog />
 			<NotificationModal
 				open={open}
 				title={title}

@@ -17,6 +17,9 @@ export function getErrorMessageByCode(code: string): string {
 	case 'COC017':
 		errorMessage = '인증 기간이 만료되었습니다. 관리자에게 문의해주세요.';
 		break;
+	case 'COC018':
+		errorMessage = '입력하신 정보로 가입된 계정이 존재하지 않습니다.';
+		break;
 	default:
 		break;
 	}

@@ -10,7 +10,10 @@ import {
 	handleNotificationModal,
 	putUserAuthentication,
 	putUserAuthenticationSucceeded,
-	putUserAuthenticationFailed
+	putUserAuthenticationFailed,
+	postPasswordFinder,
+	postPasswordFinderSucceeded,
+	postPasswordFinderFailed
 } from './actions';
 
 const actions = {
@@ -24,7 +27,10 @@ const actions = {
 	handleNotificationModal,
 	putUserAuthentication,
 	putUserAuthenticationSucceeded,
-	putUserAuthenticationFailed
+	putUserAuthenticationFailed,
+	postPasswordFinder,
+	postPasswordFinderSucceeded,
+	postPasswordFinderFailed
 };
 
 export type CommonActions = ActionType<typeof actions>;

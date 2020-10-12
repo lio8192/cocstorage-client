@@ -207,7 +207,7 @@ function Header() {
 					<Toolbar className={classes.toolbar} />
 				</>
 			)}
-			{!isTabsHidden && (
+			{pageScope && !isTabsHidden && (
 				<Box>
 					<Paper className={classes.paper} variant={'outlined'} square>
 						<Container>

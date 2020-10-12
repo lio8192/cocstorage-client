@@ -17,3 +17,14 @@ export function putUserAuthentication(token: string) {
 	};
 	return axios()(config);
 }
+
+export function postPasswordFinder(data: { [key: string]: string }) {
+	const config: AxiosRequestConfig = {
+		url: '/users/password',
+		method: 'POST',
+		data: {
+			v1_user: data
+		}
+	};
+	return axios()(config);
+}
