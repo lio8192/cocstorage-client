@@ -59,7 +59,7 @@ function NotificationModal({
 
 	const handleNotificationModal = useCallback(() => {
 		if (route) {
-			router.push(route).then(() => router.reload());
+			router.push(route).then();
 		} else {
 			onCloseNotificationModal();
 		}

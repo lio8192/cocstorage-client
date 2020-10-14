@@ -1,5 +1,5 @@
 import { createAction } from 'typesafe-actions';
-import { Notification } from 'modules/common/types';
+import { Notification, User } from 'modules/common/types';
 
 export const HANDLE_PAGE_SCOPE = 'common/HANDLE_PAGE_SCOPE';
 export const HANDLE_SIGN_IN_DIALOG = 'common/HANDLE_SIGN_IN_DIALOG';
@@ -20,6 +20,14 @@ export const POST_PASSWORD_FINDER = 'common/POST_PASSWORD_FINDER';
 export const POST_PASSWORD_FINDER_SUCCEEDED = 'common/POST_PASSWORD_FINDER_SUCCEEDED';
 export const POST_PASSWORD_FINDER_FAILED = 'common/POST_PASSWORD_FINDER_FAILED';
 
+export const POST_SIGN_IN = 'common/POST_SIGN_IN';
+export const POST_SIGN_IN_SUCCEEDED = 'common/POST_SIGN_IN_SUCCEEDED';
+export const POST_SIGN_IN_FAILED = 'common/POST_SIGN_IN_FAILED';
+
+export const DELETE_SIGN_OUT = 'common/DELETE_SIGN_OUT';
+export const DELETE_SIGN_OUT_SUCCEEDED = 'common/DELETE_SIGN_OUT_SUCCEEDED';
+export const DELETE_SIGN_OUT_FAILED = 'common/DELETE_SIGN_OUT_FAILED';
+
 export const handlePageScope = createAction(HANDLE_PAGE_SCOPE)<string>();
 export const handleSignInDialog = createAction(HANDLE_SIGN_IN_DIALOG)();
 export const handleSignUpDialog = createAction(HANDLE_SIGN_UP_DIALOG)();
@@ -38,3 +46,11 @@ export const putUserAuthenticationFailed = createAction(PUT_USER_AUTHENTICATION_
 export const postPasswordFinder = createAction(POST_PASSWORD_FINDER)<{ [key: string]: string }>();
 export const postPasswordFinderSucceeded = createAction(POST_PASSWORD_FINDER_SUCCEEDED)();
 export const postPasswordFinderFailed = createAction(POST_PASSWORD_FINDER_FAILED)();
+
+export const postSignIn = createAction(POST_SIGN_IN)<{ [key: string]: string }>();
+export const postSignInSucceeded = createAction(POST_SIGN_IN_SUCCEEDED)<User>();
+export const postSignInFailed = createAction(POST_SIGN_IN_FAILED)();
+
+export const deleteSignOut = createAction(DELETE_SIGN_OUT)();
+export const deleteSignOutSucceeded = createAction(DELETE_SIGN_OUT_SUCCEEDED)();
+export const deleteSignOutFailed = createAction(DELETE_SIGN_OUT_FAILED)();

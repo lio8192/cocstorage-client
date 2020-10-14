@@ -12,7 +12,13 @@ import {
 	putUserAuthenticationFailed,
 	postPasswordFinder,
 	postPasswordFinderSucceeded,
-	postPasswordFinderFailed
+	postPasswordFinderFailed,
+	postSignIn,
+	postSignInSucceeded,
+	postSignInFailed,
+	deleteSignOut,
+	deleteSignOutSucceeded,
+	deleteSignOutFailed
 } from 'modules/common';
 
 // Service
@@ -88,10 +94,59 @@ function* watchPostPasswordFinder(action: ActionType<typeof postPasswordFinder>)
 	}
 }
 
+function* watchPostSignIn(action: ActionType<typeof postSignIn>) {
+	const { payload } = action;
+	try {
+		const response = yield call(Service.postSignIn, payload);
+		yield put(
+			postSignInSucceeded({
+				id: response.data.id,
+				nickname: response.data.nickname,
+				avatarUrl: response.data.avatarUrl,
+				role: response.data.role,
+				isAuthenticated: response.data.isAuthenticated
+			})
+		);
+		window.localStorage.setItem('coc-jwt', response.headers.authorization);
+	} catch (error) {
+		yield put(postSignInFailed());
+		yield put(
+			handleNotificationModal({
+				open: true,
+				title: '안내',
+				contentText: getErrorMessageByCode(error.response.data.code),
+				severity: 'warning',
+				route: ''
+			})
+		);
+	}
+}
+
+function* watchDeleteSignOut() {
+	try {
+		yield call(Service.deleteSignOut);
+		yield put(deleteSignOutSucceeded());
+		yield window.localStorage.removeItem('coc-jwt');
+	} catch (error) {
+		yield put(deleteSignOutFailed());
+		yield put(
+			handleNotificationModal({
+				open: true,
+				title: '안내',
+				contentText: getErrorMessageByCode(error.response.data.code),
+				severity: 'warning',
+				route: ''
+			})
+		);
+	}
+}
+
 function* commonSaga() {
 	yield takeLatest(postSignUp, watchPostSignUp);
 	yield takeLatest(putUserAuthentication, watchPutUserAuthentication);
 	yield takeLatest(postPasswordFinder, watchPostPasswordFinder);
+	yield takeLatest(postSignIn, watchPostSignIn);
+	yield takeLatest(deleteSignOut, watchDeleteSignOut);
 }
 
 export default commonSaga;

@@ -14,9 +14,15 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Fade from '@material-ui/core/Fade';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // Material UI Icons
 import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
+// Custom Hooks
+import useSignIn from 'hooks/common/useSingIn';
 
 // Images
 import Logo from 'public/logo.png';
@@ -30,26 +36,49 @@ type SignInDialogProps = {
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
+		root: {
+			position: 'relative'
+		},
 		button: {
 			color: 'white'
 		},
 		typography: {
 			color: theme.palette.action.active
+		},
+		linearProgress: {
+			position: 'absolute',
+			width: '100%'
 		}
 	})
 );
 
-function SignInDialog({
-	open,
-	onHandleSignInDialog,
-	onHandleSignUpDialog,
-	onHandlePasswordFinderDialog
-}: SignInDialogProps) {
+function SignInDialog() {
 	const classes = useStyles();
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+	const {
+		open,
+		pending,
+		postSignInBody: { email, password, showPassword },
+		onHandleSignInDialog,
+		onHandleSignUpDialog,
+		onHandlePasswordFinderDialog,
+		onHandleSignInDialogTextField,
+		onShowSignInDialogPassword,
+		onPostSignIn
+	} = useSignIn();
 	return (
-		<Dialog fullScreen={fullScreen} fullWidth maxWidth={'xs'} open={open} onClose={onHandleSignInDialog}>
+		<Dialog
+			className={classes.root}
+			fullScreen={fullScreen}
+			fullWidth
+			maxWidth={'xs'}
+			open={open}
+			onClose={onHandleSignInDialog}
+		>
+			<Fade in={pending}>
+				<LinearProgress className={classes.linearProgress} color={'primary'} />
+			</Fade>
 			<DialogTitle>
 				<img src={Logo} alt={'SignInDialog Logo Img'} />
 				<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={1}>
@@ -66,23 +95,37 @@ function SignInDialog({
 			</DialogTitle>
 			<DialogContent>
 				<Box>
-					<TextField fullWidth variant={'outlined'} label={'이메일'} />
+					<TextField
+						fullWidth
+						variant={'outlined'}
+						label={'이메일'}
+						onChange={onHandleSignInDialogTextField}
+						name={'email'}
+						value={email.value}
+						error={email.error}
+						helperText={email.helperText}
+					/>
 				</Box>
 				<Box mt={1}>
 					<TextField
 						fullWidth
 						variant={'outlined'}
-						type={'password'}
+						type={showPassword ? 'text' : 'password'}
 						label={'비밀번호'}
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position={'end'}>
-									<IconButton edge={'end'}>
-										<Visibility />
+									<IconButton edge={'end'} onClick={onShowSignInDialogPassword}>
+										{showPassword ? <Visibility /> : <VisibilityOff />}
 									</IconButton>
 								</InputAdornment>
 							)
 						}}
+						name={'password'}
+						onChange={onHandleSignInDialogTextField}
+						value={password.value}
+						error={password.error}
+						helperText={password.helperText}
 					/>
 				</Box>
 				<Box mt={2}>
@@ -90,7 +133,7 @@ function SignInDialog({
 						className={classes.button}
 						fullWidth
 						variant={'contained'}
-						onClick={() => console.log('onClose')}
+						onClick={onPostSignIn}
 						color={'primary'}
 						size={'large'}
 					>

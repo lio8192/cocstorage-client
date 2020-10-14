@@ -7,7 +7,7 @@ export function postSignUp(data: { [key: string]: string }) {
 		method: 'POST',
 		data
 	};
-	return axios()(config);
+	return axios(true)(config);
 }
 
 export function putUserAuthentication(token: string) {
@@ -15,7 +15,7 @@ export function putUserAuthentication(token: string) {
 		url: `/users/authentication/${token}`,
 		method: 'PUT'
 	};
-	return axios()(config);
+	return axios(true)(config);
 }
 
 export function postPasswordFinder(data: { [key: string]: string }) {
@@ -25,6 +25,25 @@ export function postPasswordFinder(data: { [key: string]: string }) {
 		data: {
 			v1_user: data
 		}
+	};
+	return axios(true)(config);
+}
+
+export function postSignIn(data: { [key: string]: string }) {
+	const config: AxiosRequestConfig = {
+		url: '/users/sign-in',
+		method: 'POST',
+		data: {
+			v1_user: data
+		}
+	};
+	return axios(true)(config);
+}
+
+export function deleteSignOut() {
+	const config: AxiosRequestConfig = {
+		url: '/users/sign-out',
+		method: 'DELETE'
 	};
 	return axios()(config);
 }

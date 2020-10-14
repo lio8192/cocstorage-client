@@ -13,7 +13,13 @@ import {
 	putUserAuthenticationFailed,
 	postPasswordFinder,
 	postPasswordFinderSucceeded,
-	postPasswordFinderFailed
+	postPasswordFinderFailed,
+	postSignIn,
+	postSignInSucceeded,
+	postSignInFailed,
+	deleteSignOut,
+	deleteSignOutSucceeded,
+	deleteSignOutFailed
 } from './actions';
 
 const actions = {
@@ -30,7 +36,13 @@ const actions = {
 	putUserAuthenticationFailed,
 	postPasswordFinder,
 	postPasswordFinderSucceeded,
-	postPasswordFinderFailed
+	postPasswordFinderFailed,
+	postSignIn,
+	postSignInSucceeded,
+	postSignInFailed,
+	deleteSignOut,
+	deleteSignOutSucceeded,
+	deleteSignOutFailed
 };
 
 export type CommonActions = ActionType<typeof actions>;
@@ -41,6 +53,14 @@ export type Notification = {
 	contentText: string;
 	severity: string;
 	route: string;
+};
+
+export type User = {
+	id: number;
+	nickname: string;
+	avatarUrl: string;
+	role: string;
+	isAuthenticated: boolean;
 };
 
 export type CommonState = {
@@ -63,4 +83,5 @@ export type CommonState = {
 		helperText: string;
 	};
 	notification: Notification;
+	user: User;
 };

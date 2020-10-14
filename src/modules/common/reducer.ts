@@ -1,5 +1,7 @@
 import { createReducer } from 'typesafe-actions';
-import { CommonActions, CommonState } from 'modules/common/types';
+import { CommonActions, CommonState, User } from 'modules/common/types';
+
+import Jwt from 'jsonwebtoken';
 
 import {
 	HANDLE_PAGE_SCOPE,
@@ -15,8 +17,39 @@ import {
 	PUT_USER_AUTHENTICATION_FAILED,
 	POST_PASSWORD_FINDER,
 	POST_PASSWORD_FINDER_SUCCEEDED,
-	POST_PASSWORD_FINDER_FAILED
+	POST_PASSWORD_FINDER_FAILED,
+	POST_SIGN_IN,
+	POST_SIGN_IN_SUCCEEDED,
+	POST_SIGN_IN_FAILED,
+	DELETE_SIGN_OUT_SUCCEEDED
 } from './actions';
+
+export const setUserStateByJsonWebToken = (): User => {
+	let jwt = '';
+
+	if (typeof window !== 'undefined') {
+		jwt = String(window.localStorage.getItem('coc-jwt')).replace('Bearer ', '');
+	}
+
+	let user: User = {
+		id: 0,
+		nickname: '',
+		avatarUrl: '',
+		role: '',
+		isAuthenticated: false
+	};
+	let decodedJsonWebToken: any = null;
+
+	try {
+		decodedJsonWebToken = Jwt.verify(jwt, `${process.env.JWT_SECRET_KEY}`);
+
+		user = decodedJsonWebToken.pyl;
+	} catch (error) {
+		console.log(error);
+	}
+
+	return user;
+};
 
 const initialState: CommonState = {
 	pageScope: '',
@@ -43,7 +76,8 @@ const initialState: CommonState = {
 		pending: false,
 		error: false,
 		helperText: ''
-	}
+	},
+	user: setUserStateByJsonWebToken()
 };
 
 const common = createReducer<CommonState, CommonActions>(initialState, {
@@ -163,6 +197,39 @@ const common = createReducer<CommonState, CommonActions>(initialState, {
 		passwordFinder: {
 			...state.passwordFinder,
 			pending: false
+		}
+	}),
+	[POST_SIGN_IN]: (state) => ({
+		...state,
+		signIn: {
+			...state.signIn,
+			pending: true
+		}
+	}),
+	[POST_SIGN_IN_SUCCEEDED]: (state, { payload: data }) => ({
+		...state,
+		signIn: {
+			...state.signIn,
+			open: false,
+			pending: false
+		},
+		user: data
+	}),
+	[POST_SIGN_IN_FAILED]: (state) => ({
+		...state,
+		signIn: {
+			...state.signIn,
+			pending: false
+		}
+	}),
+	[DELETE_SIGN_OUT_SUCCEEDED]: (state) => ({
+		...state,
+		user: {
+			id: 0,
+			nickname: '',
+			avatarUrl: '',
+			role: '',
+			isAuthenticated: false
 		}
 	})
 });

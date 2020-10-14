@@ -14,6 +14,21 @@ export function getErrorMessageByCode(code: string): string {
 	case 'COC007':
 		errorMessage = '이미 인증된 계정입니다.';
 		break;
+	case 'COC008':
+		errorMessage = '이메일 또는 비밀번호가 올바르지 않습니다.';
+		break;
+	case 'COC009':
+		errorMessage = '이메일 인증 후 로그인을 하실 수 있습니다.';
+		break;
+	case 'COC010':
+		errorMessage = '회원 탈퇴 절차를 진행 중인 계정입니다.';
+		break;
+	case 'COC011':
+		errorMessage = '관리자에 의해 비활성화된 계정입니다.';
+		break;
+	case 'COC012':
+		errorMessage = '회원가입 또는 로그인을 진행해주세요.';
+		break;
 	case 'COC017':
 		errorMessage = '인증 기간이 만료되었습니다. 관리자에게 문의해주세요.';
 		break;

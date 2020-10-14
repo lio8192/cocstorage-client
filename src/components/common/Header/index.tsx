@@ -1,5 +1,6 @@
-import React, { memo } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -9,10 +10,19 @@ import Tab from '@material-ui/core/Tab';
 import Toolbar from '@material-ui/core/Toolbar';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Popper from '@material-ui/core/Popper';
+import MenuList from '@material-ui/core/MenuList';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
+import NoSsr from '@material-ui/core/NoSsr';
 
 // Material UI Icons
 import CastIcon from '@material-ui/icons/Cast';
@@ -24,6 +34,8 @@ import SchoolIcon from '@material-ui/icons/School';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 import HomeIcon from '@material-ui/icons/Home';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PersonIcon from '@material-ui/icons/Person';
 
 // Hooks
 import useHeader from 'hooks/common/useHeader';
@@ -41,7 +53,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderBottom: `1px solid ${theme.palette.grey['50']}`
 		},
 		toolbar: {
-			height: 80
+			height: 84
+		},
+		userToolbar: {
+			height: 100
 		},
 		chip: {
 			marginLeft: theme.spacing(1),
@@ -74,6 +89,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& .MuiTabs-indicator': {
 				height: 5
 			}
+		},
+		typography: {
+			fontWeight: 700
 		}
 	})
 );
@@ -135,6 +153,7 @@ function Header() {
 	const {
 		id,
 		pageScope,
+		user: { nickname, avatarUrl, isAuthenticated },
 		activatedTab,
 		openNavigationChip,
 		isTabsHidden,
@@ -143,8 +162,42 @@ function Header() {
 		onHandlePreviousTabChange,
 		onHandleLogo,
 		onHandleChip,
-		onHandleSignInDialog
+		onHandleSignInDialog,
+		onDeleteSignOut
 	} = useHeader();
+
+	const [open, setOpen] = React.useState(false);
+	const anchorRef = React.useRef<HTMLButtonElement>(null);
+
+	const handleToggle = () => {
+		setOpen((prevOpen) => !prevOpen);
+	};
+
+	const handleClose = (event: React.MouseEvent<EventTarget>) => {
+		if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+			return;
+		}
+
+		setOpen(false);
+	};
+
+	function handleListKeyDown(event: React.KeyboardEvent) {
+		if (event.key === 'Tab') {
+			event.preventDefault();
+			setOpen(false);
+		}
+	}
+
+	// return focus to the button when we transitioned from !open -> open
+	const prevOpen = useRef(open);
+	useEffect(() => {
+		if (prevOpen.current && !open) {
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			anchorRef.current!.focus();
+		}
+
+		prevOpen.current = open;
+	}, [open]);
 
 	return (
 		<>
@@ -172,7 +225,53 @@ function Header() {
 								/>
 							</Box>
 							<Box>
-								<Button onClick={onHandleSignInDialog}>{'로그인/회원가입'}</Button>
+								<NoSsr>
+									{isAuthenticated ? (
+										<Box>
+											<Button ref={anchorRef} onClick={handleToggle}>
+												<Box display={'flex'} alignItems={'center'}>
+													<Box display={'flex'} alignItems={'center'}>
+														<Typography className={classes.typography} variant={'body1'}>
+															{nickname}
+														</Typography>
+													</Box>
+													<Box ml={1}>
+														{avatarUrl ? <Avatar src={avatarUrl} /> : <Avatar>{nickname.charAt(0)}</Avatar>}
+													</Box>
+												</Box>
+											</Button>
+											<Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+												{({ TransitionProps, placement }) => (
+													<Grow
+														{...TransitionProps}
+														style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+													>
+														<Paper>
+															<ClickAwayListener onClickAway={handleClose}>
+																<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
+																	<MenuItem onClick={handleClose}>
+																		<ListItemIcon>
+																			<PersonIcon />
+																		</ListItemIcon>
+																		{'마이페이지'}
+																	</MenuItem>
+																	<MenuItem onClick={onDeleteSignOut}>
+																		<ListItemIcon>
+																			<ExitToAppIcon />
+																		</ListItemIcon>
+																		{'로그아웃'}
+																	</MenuItem>
+																</MenuList>
+															</ClickAwayListener>
+														</Paper>
+													</Grow>
+												)}
+											</Popper>
+										</Box>
+									) : (
+										<Button onClick={onHandleSignInDialog}>{'로그인/회원가입'}</Button>
+									)}
+								</NoSsr>
 							</Box>
 						</Box>
 					</Container>
@@ -197,14 +296,65 @@ function Header() {
 											/>
 										</Box>
 										<Box>
-											<Button>{'로그인/회원가입'}</Button>
+											<NoSsr>
+												{isAuthenticated ? (
+													<Box>
+														<Button ref={anchorRef} onClick={handleToggle}>
+															<Box display={'flex'} alignItems={'center'}>
+																<Box display={'flex'} alignItems={'center'}>
+																	<Typography className={classes.typography} variant={'body1'}>
+																		{nickname}
+																	</Typography>
+																</Box>
+																<Box ml={1}>
+																	{avatarUrl ? <Avatar src={avatarUrl} /> : <Avatar>{nickname.charAt(0)}</Avatar>}
+																</Box>
+															</Box>
+														</Button>
+														<Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+															{({ TransitionProps, placement }) => (
+																<Grow
+																	{...TransitionProps}
+																	style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+																>
+																	<Paper>
+																		<ClickAwayListener onClickAway={handleClose}>
+																			<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
+																				<MenuItem onClick={handleClose}>
+																					<ListItemIcon>
+																						<PersonIcon />
+																					</ListItemIcon>
+																					{'마이페이지'}
+																				</MenuItem>
+																				<MenuItem onClick={onDeleteSignOut}>
+																					<ListItemIcon>
+																						<ExitToAppIcon />
+																					</ListItemIcon>
+																					{'로그아웃'}
+																				</MenuItem>
+																			</MenuList>
+																		</ClickAwayListener>
+																	</Paper>
+																</Grow>
+															)}
+														</Popper>
+													</Box>
+												) : (
+													<Button onClick={onHandleSignInDialog}>{'로그인/회원가입'}</Button>
+												)}
+											</NoSsr>
 										</Box>
 									</Box>
 								</Container>
 							</Toolbar>
 						</AppBar>
 					</HideOnScroll>
-					<Toolbar className={classes.toolbar} />
+					<Toolbar
+						className={clsx({
+							[classes.toolbar]: !isAuthenticated,
+							[classes.userToolbar]: isAuthenticated
+						})}
+					/>
 				</>
 			)}
 			{pageScope && !isTabsHidden && (

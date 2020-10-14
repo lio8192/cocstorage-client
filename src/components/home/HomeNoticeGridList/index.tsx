@@ -90,6 +90,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: 'white'
 		},
 		infoBox: {
+			display: 'flex',
+			alignItems: 'center',
+			marginTop: theme.spacing(0.5),
 			'& span::after': {
 				content: '""',
 				display: 'inline-block',
@@ -100,6 +103,9 @@ const useStyles = makeStyles((theme: Theme) =>
 				borderRadius: '50%',
 				backgroundColor: theme.palette.grey.A200,
 				verticalAlign: 'middle'
+			},
+			'& span:first-child::after': {
+				display: 'none'
 			},
 			'& span:last-child::after': {
 				display: 'none'
@@ -207,6 +213,9 @@ function HomeNoticeGridList() {
 											</Box>
 											<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 												<Box className={classes.infoBox}>
+													<Avatar className={classes.avatar}>
+														<PersonIcon />
+													</Avatar>
 													<Typography variant={'caption'} color={'textSecondary'}>
 														{'관리자'}
 													</Typography>

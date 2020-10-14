@@ -21,6 +21,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
+import NoSsr from '@material-ui/core/NoSsr';
 
 // Material UI Icons
 import WhatshotIcon from '@material-ui/icons/Whatshot';
@@ -39,6 +40,9 @@ import StorageIcon from '@material-ui/icons/Storage';
 
 // Modules
 import { clearBoardsRelatedState } from 'modules/board';
+
+// Custom Hooks
+import useMobileHeader from 'hooks/common/useMobileHeader';
 
 // Images
 import Logo from 'public/logo.png';
@@ -153,6 +157,14 @@ function MobileHeader() {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const router = useRouter();
+
+	const {
+		pageScope,
+		user: { nickname, avatarUrl, isAuthenticated },
+		onHandleSignInDialog,
+		onDeleteSignOut
+	} = useMobileHeader();
+
 	const {
 		route,
 		query: { id }
@@ -279,48 +291,63 @@ function MobileHeader() {
 			<Toolbar className={classes.toolbar} />
 			<SwipeableDrawer anchor={'right'} onClose={handleMenuList} onOpen={handleMenuList} open={menuListState}>
 				<div className={classes.list} role={'presentation'}>
-					<Box display={'flex'} alignItems={'center'} p={2}>
-						<Box>
-							<Avatar>{'K'}</Avatar>
-						</Box>
-						<Box flex={1} ml={2}>
-							<Typography className={classes.typography} variant={'body1'}>
-								{'닉네임님'}
-							</Typography>
-						</Box>
-						<Box>
-							<IconButton>
-								<SettingsIcon className={classes.icon} color={'action'} />
-							</IconButton>
-						</Box>
-					</Box>
+					<NoSsr>
+						{isAuthenticated ? (
+							<Box>
+								<Box display={'flex'} alignItems={'center'} p={2}>
+									<Box>{avatarUrl ? <Avatar src={avatarUrl} /> : <Avatar>{nickname.charAt(0)}</Avatar>}</Box>
+									<Box flex={1} ml={2}>
+										<Typography className={classes.typography} variant={'body1'}>
+											{nickname}
+										</Typography>
+									</Box>
+									<Box>
+										<IconButton>
+											<SettingsIcon className={classes.icon} color={'action'} />
+										</IconButton>
+									</Box>
+								</Box>
+								<Divider className={classes.divider} />
+								<List>
+									<ListItem button onClick={onDeleteSignOut}>
+										<ListItemIcon>
+											<ExitToAppIcon />
+										</ListItemIcon>
+										<ListItemText primary={'로그아웃'} />
+									</ListItem>
+								</List>
+							</Box>
+						) : (
+							<List>
+								<ListItem button onClick={onHandleSignInDialog}>
+									<ListItemIcon>
+										<ExitToAppIcon />
+									</ListItemIcon>
+									<ListItemText primary={'로그인/회원가입'} />
+								</ListItem>
+							</List>
+						)}
+					</NoSsr>
 					<Divider className={classes.divider} />
-					<List>
-						<ListItem button data-category-id={'login'} onClick={handleDrawer}>
-							<ListItemIcon>
-								<ExitToAppIcon />
-							</ListItemIcon>
-							<ListItemText primary={'로그인/회원가입'} />
-						</ListItem>
-					</List>
-					<Divider className={classes.divider} />
-					<List>
-						<ListItem button onClick={handleDrawer}>
-							<ListItemIcon>
-								<StorageIcon />
-							</ListItemIcon>
-							<ListItemText primary={'저장소'} />
-						</ListItem>
-					</List>
-					<Divider className={classes.divider} />
-					<List>
-						{listItems.map((item) => (
-							<ListItem button key={item.label} data-category-id={item.categoryId} onClick={handleDrawer}>
-								<ListItemIcon>{item.icon}</ListItemIcon>
-								<ListItemText primary={item.label} />
+					{pageScope === 'storage' ? (
+						<List>
+							<ListItem button onClick={handleDrawer}>
+								<ListItemIcon>
+									<StorageIcon />
+								</ListItemIcon>
+								<ListItemText primary={'저장소'} />
 							</ListItem>
-						))}
-					</List>
+						</List>
+					) : (
+						<List>
+							{listItems.map((item) => (
+								<ListItem button key={item.label} data-category-id={item.categoryId} onClick={handleDrawer}>
+									<ListItemIcon>{item.icon}</ListItemIcon>
+									<ListItemText primary={item.label} />
+								</ListItem>
+							))}
+						</List>
+					)}
 					<Divider className={classes.divider} />
 					<List>
 						<ListItem button data-category-id={'notices'} onClick={handleDrawer}>

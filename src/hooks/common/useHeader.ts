@@ -6,13 +6,13 @@ import { useRouter } from 'next/router';
 import { useSnackbar, VariantType } from 'notistack';
 
 // Modules
-import { handlePageScope, handleSignInDialog } from 'modules/common';
-import { RootState } from 'modules';
+import { handlePageScope, handleSignInDialog, deleteSignOut } from 'modules/common';
 import { clearBoardsRelatedState } from 'modules/board';
+import { RootState } from 'modules';
 
 export default function useHeader() {
 	const dispatch = useDispatch();
-	const { pageScope } = useSelector((state: RootState) => state.common);
+	const { pageScope, user } = useSelector((state: RootState) => state.common);
 	const { pending } = useSelector((state: RootState) => state.board);
 	const router = useRouter();
 	const { enqueueSnackbar } = useSnackbar();
@@ -169,6 +169,8 @@ export default function useHeader() {
 
 	const onHandleSignInDialog = useCallback(() => dispatch(handleSignInDialog()), [dispatch]);
 
+	const onDeleteSignOut = useCallback(() => dispatch(deleteSignOut()), [dispatch]);
+
 	useEffect(() => {
 		if (asPath.indexOf('board') !== -1) {
 			dispatch(handlePageScope('previous-storage'));
@@ -182,6 +184,7 @@ export default function useHeader() {
 	return {
 		id,
 		pageScope,
+		user,
 		activatedTab,
 		openNavigationChip,
 		isTabsHidden,
@@ -190,6 +193,7 @@ export default function useHeader() {
 		onHandlePreviousTabChange,
 		onHandleLogo,
 		onHandleChip,
-		onHandleSignInDialog
+		onHandleSignInDialog,
+		onDeleteSignOut
 	};
 }

@@ -36,13 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
 function Layout({ children }: LayoutProps) {
 	const classes = useStyles();
 	const {
-		signIn,
 		notification: {
 			open, title, contentText, severity, route
 		},
-		onHandleSignInDialog,
-		onHandleSignUpDialog,
-		onHandlePasswordFinderDialog,
 		onCloseNotificationModal
 	} = useLayout();
 
@@ -63,12 +59,7 @@ function Layout({ children }: LayoutProps) {
 			<Hidden lgUp>
 				<MobileBottomNavigation />
 			</Hidden>
-			<SignInDialog
-				open={signIn.open}
-				onHandleSignInDialog={onHandleSignInDialog}
-				onHandleSignUpDialog={onHandleSignUpDialog}
-				onHandlePasswordFinderDialog={onHandlePasswordFinderDialog}
-			/>
+			<SignInDialog />
 			<SignUpDialog />
 			<PasswordFinderDialog />
 			<NotificationModal
