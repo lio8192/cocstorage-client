@@ -1,12 +1,15 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+
+// Modules
+import { handleStorageManageDialog } from 'modules/storages';
 
 export default function useStorages() {
-	const [open, setOpen] = useState<boolean>(false);
+	const dispatch = useDispatch();
 
-	const onHandleStorageManageDialogOpen = useCallback(() => setOpen(!open), [open]);
+	const onHandleStorageManageDialogOpen = useCallback(() => dispatch(handleStorageManageDialog()), [dispatch]);
 
 	return {
-		open,
 		onHandleStorageManageDialogOpen
 	};
 }

@@ -27,13 +27,6 @@ import useSignIn from 'hooks/common/useSingIn';
 // Images
 import Logo from 'public/logo.png';
 
-type SignInDialogProps = {
-	open: boolean;
-	onHandleSignInDialog: () => void;
-	onHandleSignUpDialog: () => void;
-	onHandlePasswordFinderDialog: () => void;
-};
-
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {

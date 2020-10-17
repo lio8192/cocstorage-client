@@ -1,10 +1,28 @@
 import { ActionType } from 'typesafe-actions';
-import { handlePageScope } from './actions';
+import {
+	hydrate, postStorage, postStorageSucceeded, postStorageFailed, handleStorageManageDialog
+} from './actions';
 
-const actions = { handlePageScope };
+const actions = {
+	hydrate,
+	handleStorageManageDialog,
+	postStorage,
+	postStorageSucceeded,
+	postStorageFailed
+};
 
-export type CommonActions = ActionType<typeof actions>;
+export type StoragesActions = ActionType<typeof actions>;
 
-export type CommonState = {
-	pageScope: string;
+export type PostStoragePayload = {
+	name: string;
+	description: string;
+	path: string;
+	avatar: FileList | null;
+};
+
+export type StoragesState = {
+	manage: {
+		open: boolean;
+		pending: boolean;
+	};
 };

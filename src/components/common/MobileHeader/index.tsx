@@ -207,7 +207,7 @@ function MobileHeader() {
 			categoryId: 'baseball_new9'
 		}
 	]);
-	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
+	const isStorageBoardDetail = useMemo(() => route === '/storage/[path]/[id]', [route]);
 	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
 
 	const handleMenuList = (): void => {

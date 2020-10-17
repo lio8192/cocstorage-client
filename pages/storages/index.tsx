@@ -72,7 +72,7 @@ function Storages() {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-	const { open, onHandleStorageManageDialogOpen } = useStorages();
+	const { onHandleStorageManageDialogOpen } = useStorages();
 	return (
 		<>
 			<StorageHeader />
@@ -88,7 +88,7 @@ function Storages() {
 						size={'large'}
 						onClick={onHandleStorageManageDialogOpen}
 					>
-						{'새 저장소 생성'}
+						{'새 저장소 등록'}
 					</Button>
 				</Box>
 				<Pagination
@@ -102,7 +102,7 @@ function Storages() {
 					siblingCount={isMobile ? 0 : 2}
 				/>
 			</Container>
-			<StorageManageDialog open={open} onHandleStorageManageDialogOpen={onHandleStorageManageDialogOpen} />
+			<StorageManageDialog />
 		</>
 	);
 }

@@ -29,11 +29,26 @@ export function getErrorMessageByCode(code: string): string {
 	case 'COC012':
 		errorMessage = '회원가입 또는 로그인을 진행해주세요.';
 		break;
+	case 'COC016':
+		errorMessage = '이미지가 올바르지 않거나 허용되지 않는 이미지 형식입니다.';
+		break;
 	case 'COC017':
 		errorMessage = '인증 기간이 만료되었습니다. 관리자에게 문의해주세요.';
 		break;
 	case 'COC018':
 		errorMessage = '입력하신 정보로 가입된 계정이 존재하지 않습니다.';
+		break;
+	case 'COC022':
+		errorMessage = '로그인 세션이 만료되었습니다. 다시 로그인해주세요.';
+		break;
+	case 'COC023':
+		errorMessage = '로그인 세션이 만료되었습니다. 다시 로그인해주세요.';
+		break;
+	case 'COC024':
+		errorMessage = '입력하신 주소와 동일한 주소를 가진 저장소가 존재합니다.';
+		break;
+	case 'COC025':
+		errorMessage = '입력하신 저장소명과 동일한 저장소가 존재합니다.';
 		break;
 	default:
 		break;

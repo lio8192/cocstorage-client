@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useCallback, useRef, memo } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI
@@ -11,6 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
@@ -22,14 +23,15 @@ import { TransitionProps } from '@material-ui/core/transitions';
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
-type StorageManageDialogProps = {
-	open: boolean;
-	onHandleStorageManageDialogOpen: () => void;
-};
+// Custom Hooks
+import useStorageManageDialog from 'hooks/storages/useStorageManageDialog';
+import Fade from '@material-ui/core/Fade';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
+			position: 'relative',
 			paddingRight: 0
 		},
 		appBar: {
@@ -61,6 +63,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: theme.spacing(10),
 			height: theme.spacing(10),
 			cursor: 'pointer'
+		},
+		linearProgress: {
+			position: 'absolute',
+			width: '100%',
+			zIndex: 10000
 		}
 	})
 );
@@ -71,8 +78,21 @@ const Transition = React.forwardRef(
 	)
 );
 
-function StorageManageDialog({ open, onHandleStorageManageDialogOpen }: StorageManageDialogProps) {
+function StorageManageDialog() {
 	const classes = useStyles();
+	const {
+		manage: { open, pending },
+		postStorageBody: {
+			name, path, description, avatar, policy
+		},
+		onHandleStorageManageDialogOpen,
+		onHandleStorageManageDialogTextField,
+		onHandleStorageManageDialogCheckBox,
+		onChangeAvatarFile,
+		onPostStorage
+	} = useStorageManageDialog();
+	const avatarRef = useRef({} as HTMLInputElement);
+	const clickAvatar = useCallback(() => avatarRef.current.click(), [avatarRef]);
 	return (
 		<Dialog
 			className={classes.root}
@@ -81,6 +101,9 @@ function StorageManageDialog({ open, onHandleStorageManageDialogOpen }: StorageM
 			onClose={onHandleStorageManageDialogOpen}
 			TransitionComponent={Transition}
 		>
+			<Fade in={pending}>
+				<LinearProgress className={classes.linearProgress} color={'primary'} />
+			</Fade>
 			<AppBar className={classes.appBar}>
 				<Toolbar>
 					<IconButton edge={'start'} color={'inherit'} onClick={onHandleStorageManageDialogOpen}>
@@ -89,13 +112,8 @@ function StorageManageDialog({ open, onHandleStorageManageDialogOpen }: StorageM
 					<Typography variant={'h6'} className={classes.title}>
 						{'새 저장소 등록'}
 					</Typography>
-					<Button
-						className={classes.button}
-						variant={'contained'}
-						color={'primary'}
-						onClick={onHandleStorageManageDialogOpen}
-					>
-						{'생성'}
+					<Button className={classes.button} variant={'contained'} color={'primary'} onClick={onPostStorage}>
+						{'등록'}
 					</Button>
 				</Toolbar>
 			</AppBar>
@@ -103,12 +121,26 @@ function StorageManageDialog({ open, onHandleStorageManageDialogOpen }: StorageM
 				<Container className={classes.container}>
 					<Box className={classes.box}>
 						<Box>
-							<Avatar className={classes.avatar} onClick={() => console.log('onAvatar')} alt={'Storage Avatar Img'}>
-								<InsertPhotoIcon />
+							<Avatar
+								className={classes.avatar}
+								onClick={clickAvatar}
+								src={avatar.url ? avatar.url : ''}
+								alt={'Storage Avatar Img'}
+							>
+								{!avatar.url && <InsertPhotoIcon />}
 							</Avatar>
+							<input ref={avatarRef} type={'file'} style={{ display: 'none' }} onChange={onChangeAvatarFile} />
 						</Box>
 						<Box flex={1} ml={1}>
-							<TextField fullWidth label={'저장소명'} />
+							<TextField
+								fullWidth
+								label={'저장소명'}
+								onChange={onHandleStorageManageDialogTextField}
+								name={'name'}
+								value={name.value}
+								error={name.error}
+								helperText={name.helperText}
+							/>
 						</Box>
 					</Box>
 					<Box>
@@ -118,7 +150,16 @@ function StorageManageDialog({ open, onHandleStorageManageDialogOpen }: StorageM
 							</Typography>
 						</Box>
 						<Box mt={1}>
-							<TextField fullWidth variant={'outlined'} placeholder={'설명을 입력해주세요.'} />
+							<TextField
+								fullWidth
+								variant={'outlined'}
+								placeholder={'설명을 입력해주세요.'}
+								onChange={onHandleStorageManageDialogTextField}
+								name={'description'}
+								value={description.value}
+								error={description.error}
+								helperText={description.helperText}
+							/>
 						</Box>
 					</Box>
 					<Box mt={2}>
@@ -130,10 +171,25 @@ function StorageManageDialog({ open, onHandleStorageManageDialogOpen }: StorageM
 						<Box mt={1}>
 							<Grid container spacing={1}>
 								<Grid item xs={12} md={6}>
-									<TextField fullWidth variant={'outlined'} value={'https://www.cocstorage.com/storages/[]'} disabled />
+									<TextField
+										fullWidth
+										variant={'outlined'}
+										value={`https://www.cocstorage.com/storages/[${path.value}]`}
+										error={path.error}
+										disabled
+									/>
 								</Grid>
 								<Grid item xs={12} md={6}>
-									<TextField fullWidth variant={'outlined'} placeholder={'주소를 입력해주세요.'} />
+									<TextField
+										fullWidth
+										variant={'outlined'}
+										placeholder={'주소를 입력해주세요.'}
+										onChange={onHandleStorageManageDialogTextField}
+										name={'path'}
+										value={path.value}
+										error={path.error}
+										helperText={path.helperText}
+									/>
 								</Grid>
 							</Grid>
 						</Box>
@@ -187,13 +243,13 @@ function StorageManageDialog({ open, onHandleStorageManageDialogOpen }: StorageM
 									value={
 										'저장소 서비스는 이용자분들이 직접 만들고 운영하는 커뮤니티 공간으로 모든 이용자들은 아래 운영원칙을 준수해야 합니다.\n\n'
 										+ '[모든 이용자가 지켜야 하는 원칙]\n\n'
-										+ '모든 이용자는 저장소 주제에 맞는 정상적인 활동을 해주셔야 합니다.\n'
+										+ '모든 이용자는 저장소 주제에 맞는 정상적인 활동을 해주셔야 합니다.\n\n'
 										+ '저장소 서비스에 등록하는 모든 콘텐츠의 저작권은 게시한 이용자 본인에게 있으며, 이로 인해 발생되는 문제에 대해서도 해당 게시물을 게시한 이용자에게 책임이 있습니다.\n'
 										+ '모든 이용자는 이용약관 및 운영원칙을 준수해야 하며, 이를 지키지 않아 발생하는 문제에 대해 일체의 책임을 져야 합니다.\n\n'
 										+ '[관리자가 지켜야 하는 원칙]\n\n'
-										+ '\'관리자\'란 저장소의 운영 권한을 갖는 이용자를 가리키는 단어입니다.\n'
+										+ '\'관리자\'란 저장소의 운영 권한을 갖는 이용자를 가리키는 단어입니다.\n\n'
 										+ '관리자는 저장소를 최초 개설하였거나, 이전 관리자로부터 저장소를 위임받은 이용자로서 해당 저장소를 대표하며, 저장소를 관리할 수 있는 모든 권한과 책임을 갖고 있습니다.\n'
-										+ '관리자는 이용약관, 운영원칙, 법령 등에 위배되는 게시물 또는 이용자의 행동을 방치한 경우 이에 대한 책임을 일차적으로 부담하게 됩니다. 단, 관리자는 이용 제한 사유에 해당하지 않는 글(관리자에 대한 비판글 포함)의 삭제, 이용자 차단, 금지어 설정 등으로 이용자들의 정상적인 활동을 제한해서는 안됩니다.\n'
+										+ '관리자는 이용약관, 운영원칙, 법령 등에 위배되는 게시물 또는 이용자의 행동을 방치한 경우 이에 대한 책임을 일차적으로 부담하게 됩니다. 단, 관리자는 이용 제한 사유에 해당하지 않는 글(관리자에 대한 비판글 포함)의 삭제, 이용자 차단, 금지어 설정 등으로 이용자들의 정상적인 활동을 제한해서는 안됩니다.\n\n'
 										+ '관리자는 저장소가 원활히 운영될 수 있도록 주기적으로 저장소에 방문해 성실하고 공정한 관리를 다해야 합니다. 만약, 장기간(최소 10일 이상) 부재 시 다른 이용자에게 관리자의 책임과 권한이 이관될 수 있습니다.\n'
 										+ '부관리자는 관리자가 임명하고 이를 수락한 이용자로 저장소를 관리할 수 있는 일부 권한과 책임이 있습니다.\n\n'
 										+ '[이용제한 사유에 해당하는 금지 활동]\n\n'
@@ -256,10 +312,18 @@ function StorageManageDialog({ open, onHandleStorageManageDialogOpen }: StorageM
 					</Box>
 					<Box mt={1}>
 						<FormControlLabel
-							control={<Checkbox checked onChange={() => console.log('onChange')} name={'agree'} color={'primary'} />}
+							control={(
+								<Checkbox
+									checked={policy.checked}
+									onChange={onHandleStorageManageDialogCheckBox}
+									name={'policy'}
+									color={'primary'}
+								/>
+							)}
 							label={'저장소 개인정보보호정책 및 운영원칙에 동의합니다.'}
 						/>
 					</Box>
+					{policy.error && <FormHelperText error>{policy.helperText}</FormHelperText>}
 				</Container>
 			</Box>
 		</Dialog>

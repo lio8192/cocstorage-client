@@ -1,7 +1,7 @@
 import { createReducer } from 'typesafe-actions';
 import { HYDRATE } from 'next-redux-wrapper';
 import { FETCH_MAIN_CONTENTS, FETCH_MAIN_CONTENTS_SUCCEEDED, FETCH_MAIN_CONTENTS_FAILED } from './actions';
-import { HomeAction, HomeState } from './types';
+import { HomeActions, HomeState } from './types';
 
 const initialState: HomeState = {
 	category: {
@@ -19,7 +19,7 @@ const initialState: HomeState = {
 	errorMessage: null
 };
 
-const home = createReducer<HomeState, HomeAction>(initialState, {
+const home = createReducer<HomeState, HomeActions>(initialState, {
 	[HYDRATE]: (state, { payload }) => ({
 		...state,
 		...payload.home

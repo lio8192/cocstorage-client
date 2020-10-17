@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 import {
-	fetchMainContents, fetchMainContentsSucceeded, fetchMainContentsFailed, hydrate
+	hydrate, fetchMainContents, fetchMainContentsSucceeded, fetchMainContentsFailed
 } from './actions';
 import { Board } from '../boardDetail';
 
@@ -11,7 +11,7 @@ const actions = {
 	fetchMainContentsFailed
 };
 
-export type HomeAction = ActionType<typeof actions>;
+export type HomeActions = ActionType<typeof actions>;
 
 export type Category = {
 	id: string | null;

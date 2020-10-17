@@ -1,5 +1,5 @@
 import { createAction } from 'typesafe-actions';
-import { Notification, User } from 'modules/common/types';
+import { Notification, User } from './types';
 
 export const HANDLE_PAGE_SCOPE = 'common/HANDLE_PAGE_SCOPE';
 export const HANDLE_SIGN_IN_DIALOG = 'common/HANDLE_SIGN_IN_DIALOG';
