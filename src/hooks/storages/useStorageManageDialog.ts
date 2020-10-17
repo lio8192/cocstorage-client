@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { handleStorageManageDialog, postStorage } from 'modules/storages';
 import { RootState } from 'modules';
 
-export type PostStorageBody = {
+export type PostStorageFormData = {
 	name: {
 		value: string;
 		error: boolean;
@@ -37,7 +37,7 @@ export default function useStorages() {
 
 	const storageState = useSelector((state: RootState) => state.storages);
 
-	const [postStorageBody, setPostStorageBody] = useState<PostStorageBody>({
+	const [postStorageFormData, setPostStorageFormData] = useState<PostStorageFormData>({
 		name: {
 			value: '',
 			error: false,
@@ -71,8 +71,8 @@ export default function useStorages() {
 			const name: string = event.currentTarget.name || '';
 			const value: string = event.currentTarget.value || '';
 
-			setPostStorageBody({
-				...postStorageBody,
+			setPostStorageFormData({
+				...postStorageFormData,
 				[name]: {
 					value,
 					error: false,
@@ -80,16 +80,16 @@ export default function useStorages() {
 				}
 			});
 		},
-		[postStorageBody]
+		[postStorageFormData]
 	);
 
 	const onHandleStorageManageDialogCheckBox = useCallback(
 		() =>
-			setPostStorageBody({
-				...postStorageBody,
-				policy: { ...postStorageBody.policy, checked: !postStorageBody.policy.checked }
+			setPostStorageFormData({
+				...postStorageFormData,
+				policy: { ...postStorageFormData.policy, checked: !postStorageFormData.policy.checked }
 			}),
-		[postStorageBody]
+		[postStorageFormData]
 	);
 
 	const onChangeAvatarFile = useCallback(
@@ -99,8 +99,8 @@ export default function useStorages() {
 			const reader = new FileReader();
 			reader.onload = () => {
 				const base64URL = String(reader.result);
-				setPostStorageBody({
-					...postStorageBody,
+				setPostStorageFormData({
+					...postStorageFormData,
 					avatar: {
 						value: files,
 						url: base64URL.toString()
@@ -116,36 +116,36 @@ export default function useStorages() {
 				console.log(error);
 			}
 		},
-		[postStorageBody]
+		[postStorageFormData]
 	);
 
 	const onPostStorage = useCallback(() => {
 		const {
 			name, description, path, avatar, policy
-		} = postStorageBody;
+		} = postStorageFormData;
 
 		// Initialize PostStorageBody
-		setPostStorageBody({
+		setPostStorageFormData({
 			name: {
-				...postStorageBody.name,
+				...postStorageFormData.name,
 				error: false,
 				helperText: ''
 			},
 			description: {
-				...postStorageBody.description,
+				...postStorageFormData.description,
 				error: false,
 				helperText: ''
 			},
 			path: {
-				...postStorageBody.path,
+				...postStorageFormData.path,
 				error: false,
 				helperText: ''
 			},
 			avatar: {
-				...postStorageBody.avatar
+				...postStorageFormData.avatar
 			},
 			policy: {
-				...postStorageBody.policy,
+				...postStorageFormData.policy,
 				error: false,
 				helperText: ''
 			}
@@ -157,10 +157,10 @@ export default function useStorages() {
 		const specialCharRegExp = '[!@\\#$%^&*(),.?\\":{}|<>]';
 
 		if (!new RegExp(nameRegExp).test(name.value) || new RegExp(specialCharRegExp).test(name.value)) {
-			setPostStorageBody({
-				...postStorageBody,
+			setPostStorageFormData({
+				...postStorageFormData,
 				name: {
-					...postStorageBody.name,
+					...postStorageFormData.name,
 					error: true,
 					helperText: '올바른 저장소명을 입력해주세요.'
 				}
@@ -170,10 +170,10 @@ export default function useStorages() {
 		}
 
 		if (!description.value || description.value.length > 200) {
-			setPostStorageBody({
-				...postStorageBody,
+			setPostStorageFormData({
+				...postStorageFormData,
 				description: {
-					...postStorageBody.description,
+					...postStorageFormData.description,
 					error: true,
 					helperText: '올바른 설명을 입력해주세요.'
 				}
@@ -183,10 +183,10 @@ export default function useStorages() {
 		}
 
 		if (!new RegExp(pathRegExp).test(path.value) || new RegExp(specialCharRegExp).test(path.value)) {
-			setPostStorageBody({
-				...postStorageBody,
+			setPostStorageFormData({
+				...postStorageFormData,
 				path: {
-					...postStorageBody.path,
+					...postStorageFormData.path,
 					error: true,
 					helperText: '올바른 주소를 입력해주세요.'
 				}
@@ -196,10 +196,10 @@ export default function useStorages() {
 		}
 
 		if (!policy.checked) {
-			setPostStorageBody({
-				...postStorageBody,
+			setPostStorageFormData({
+				...postStorageFormData,
 				policy: {
-					...postStorageBody.policy,
+					...postStorageFormData.policy,
 					error: true,
 					helperText: '저장소 개인정보보호정책 및 이용약관에 동의해주세요.'
 				}
@@ -217,11 +217,11 @@ export default function useStorages() {
 			})
 		);
 		return true;
-	}, [dispatch, postStorageBody]);
+	}, [dispatch, postStorageFormData]);
 
 	useEffect(() => {
 		if (!storageState.manage.open) {
-			setPostStorageBody({
+			setPostStorageFormData({
 				name: {
 					value: '',
 					error: false,
@@ -252,7 +252,7 @@ export default function useStorages() {
 
 	return {
 		...storageState,
-		postStorageBody,
+		postStorageFormData,
 		onHandleStorageManageDialogOpen,
 		onHandleStorageManageDialogTextField,
 		onHandleStorageManageDialogCheckBox,

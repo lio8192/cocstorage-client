@@ -3,6 +3,16 @@ import { PostStoragePayload } from 'modules/storages';
 
 import axios from '../index';
 
+export function fetchStorages(params: any) {
+	const config: AxiosRequestConfig = {
+		url: '/storages',
+		method: 'GET',
+		params
+	};
+
+	return axios(true)(config);
+}
+
 export function postStorage(data: PostStoragePayload) {
 	const formData = new FormData();
 	const { avatar } = data;
@@ -25,5 +35,3 @@ export function postStorage(data: PostStoragePayload) {
 	};
 	return axios()(config);
 }
-
-export default postStorage;

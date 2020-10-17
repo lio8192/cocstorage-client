@@ -29,9 +29,9 @@ export default function useHeader() {
 	const isPolicy = useMemo(() => route === '/policy' || route === '/privacy', [route]);
 	const isNotice = useMemo(() => route === '/notice', [route]);
 	const isMyPage = useMemo(() => route === '/mypage', [route]);
-	const isStorageBoard = useMemo(() => route === '/storage/[path]', [route]);
-	const isStorageBoardWrite = useMemo(() => route === '/storage/[path]/write', [route]);
-	const isStorageBoardDetail = useMemo(() => route === '/storage/[path]/[id]', [route]);
+	const isStorageBoard = useMemo(() => route === '/storages/[path]', [route]);
+	const isStorageBoardWrite = useMemo(() => route === '/storages/[path]/write', [route]);
+	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
 	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
 	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
 	const isUserAuthenticationUUID = useMemo(() => route === '/users/authentication/[uuid]', [route]);

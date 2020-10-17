@@ -1,26 +1,34 @@
 import React, { memo } from 'react';
+import Link from 'next/link';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import moment from 'moment';
 
 // Material UI
 import Box from '@material-ui/core/Box';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
-import CheckIcon from '@material-ui/icons/Check';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
-import TodayIcon from '@material-ui/icons/Today';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grow from '@material-ui/core/Grow';
 import Card from '@material-ui/core/Card';
-import TextField from '@material-ui/core/TextField';
+
+// Material UI Icons
+import TodayIcon from '@material-ui/icons/Today';
+import CheckIcon from '@material-ui/icons/Check';
+
+// Components
+import DataEmptyBox from 'components/common/DataEmptyBox';
+
+// Custom Hooks
+import useStorageGridList from 'hooks/storages/useStorageGridList';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			padding: theme.spacing(2, 0, 0)
+			padding: theme.spacing(0, 0, 0)
 		},
 		card: {
 			border: '1px solid #EAEAEA'
@@ -63,23 +71,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function StorageGridList() {
 	const classes = useStyles();
+	const { pending, storages } = useStorageGridList();
 	return (
 		<Box className={classes.root}>
-			<Box>
-				<TextField
-					fullWidth
-					type={'search'}
-					variant={'outlined'}
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position={'start'}>
-								<SearchIcon color={'action'} />
-							</InputAdornment>
-						)
-					}}
-					placeholder={'저장소명으로 검색'}
-				/>
-			</Box>
 			<Box mt={1}>
 				<Button color={'primary'} size={'large'} startIcon={<CheckIcon />}>
 					<Typography className={classes.orderTypography} variant={'body1'}>
@@ -88,37 +82,47 @@ function StorageGridList() {
 				</Button>
 			</Box>
 			<Box mt={1}>
-				<Grid container spacing={2}>
-					{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((item) => (
-						<Grow in>
-							<Grid key={`index-${item}`} item xs={12} sm={4} md={3}>
-								<Card className={classes.card} elevation={0}>
-									<CardActionArea>
-										<CardContent className={classes.cardContentHead} />
-										<CardContent>
-											<Avatar
-												className={classes.avatar}
-												src={'https://image.chosun.com/sitedata/image/201908/23/2019082301404_0.png'}
-												alt={'Storage Avatar Img'}
-											/>
-											<Box mt={1}>
-												<Typography className={classes.typography}>{'라이언 저장소'}</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
-												<Box>
-													<TodayIcon className={classes.icon} color={'action'} />
-												</Box>
-												<Box ml={0.5}>
-													<Typography variant={'caption'}>{'2020. 10. 01'}</Typography>
-												</Box>
-											</Box>
-										</CardContent>
-									</CardActionArea>
-								</Card>
-							</Grid>
-						</Grow>
-					))}
-				</Grid>
+				{!pending && (
+					<Grid container spacing={2}>
+						{storages.map((item) => (
+							<Grow key={`storage-${item.id}`} in>
+								<Grid item xs={12} sm={4} md={3}>
+									<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
+										<Card className={classes.card} elevation={0}>
+											<CardActionArea>
+												<CardContent className={classes.cardContentHead} />
+												<CardContent>
+													<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'} />
+													<Box mt={1}>
+														<Typography className={classes.typography}>{item.name}</Typography>
+													</Box>
+													<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
+														<Box>
+															<TodayIcon className={classes.icon} color={'action'} />
+														</Box>
+														<Box ml={0.5}>
+															<Typography variant={'caption'}>
+																{moment(item.createdAt).format('YYYY. MM. DD')}
+															</Typography>
+														</Box>
+													</Box>
+												</CardContent>
+											</CardActionArea>
+										</Card>
+									</Link>
+								</Grid>
+							</Grow>
+						))}
+					</Grid>
+				)}
+				{pending && (
+					<Grow in>
+						<Box mt={1} pt={20} pb={20} textAlign={'center'}>
+							<CircularProgress size={50} />
+						</Box>
+					</Grow>
+				)}
+				{!pending && storages.length === 0 && <DataEmptyBox message={'저장소가 존재하지 않아요.'} />}
 			</Box>
 		</Box>
 	);

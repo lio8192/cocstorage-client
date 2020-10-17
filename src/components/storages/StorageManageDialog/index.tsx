@@ -82,7 +82,7 @@ function StorageManageDialog() {
 	const classes = useStyles();
 	const {
 		manage: { open, pending },
-		postStorageBody: {
+		postStorageFormData: {
 			name, path, description, avatar, policy
 		},
 		onHandleStorageManageDialogOpen,
