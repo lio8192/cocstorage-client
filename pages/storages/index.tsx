@@ -77,8 +77,9 @@ function Storages() {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 	const {
+		pending,
 		pagination: { totalPages },
-		fetchParams: { page },
+		fetchParams: { page, name },
 		onFetchStorages,
 		onKeyUpStorageSearchTextField,
 		onHandlePagination,
@@ -126,22 +127,25 @@ function Storages() {
 			</Head>
 			<StorageHeader />
 			<Container className={classes.container}>
-				<Box pt={2}>
-					<TextField
-						fullWidth
-						type={'search'}
-						variant={'outlined'}
-						InputProps={{
-							startAdornment: (
-								<InputAdornment position={'start'}>
-									<SearchIcon color={'action'} />
-								</InputAdornment>
-							)
-						}}
-						placeholder={'저장소명으로 검색'}
-						onKeyUp={onKeyUpStorageSearchTextField}
-					/>
-				</Box>
+				{!pending && (
+					<Box pt={2}>
+						<TextField
+							fullWidth
+							type={'search'}
+							variant={'outlined'}
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position={'start'}>
+										<SearchIcon color={'action'} />
+									</InputAdornment>
+								)
+							}}
+							placeholder={'저장소명으로 검색'}
+							onKeyUp={onKeyUpStorageSearchTextField}
+							defaultValue={name}
+						/>
+					</Box>
+				)}
 				<StorageGridList />
 				<Box mt={2} textAlign={'right'}>
 					<Button
@@ -156,16 +160,20 @@ function Storages() {
 						{'새 저장소 등록'}
 					</Button>
 				</Box>
-				<Pagination
-					className={classes.pagination}
-					page={page}
-					count={totalPages || 1}
-					color={'primary'}
-					shape={'rounded'}
-					onChange={onHandlePagination}
-					size={isMobile ? 'small' : 'medium'}
-					siblingCount={isMobile ? 0 : 2}
-				/>
+				{!pending && totalPages > 0 ? (
+					<Pagination
+						className={classes.pagination}
+						page={page}
+						count={totalPages}
+						color={'primary'}
+						shape={'rounded'}
+						onChange={onHandlePagination}
+						size={isMobile ? 'small' : 'medium'}
+						siblingCount={isMobile ? 0 : 2}
+					/>
+				) : (
+					<Box className={classes.pagination} />
+				)}
 			</Container>
 			<StorageManageDialog />
 		</>

@@ -1,9 +1,9 @@
 import { AxiosRequestConfig } from 'axios';
-import { PostStoragePayload } from 'modules/storages';
+import { FetchStoragesPayload, PostStoragePayload } from 'modules/storages';
 
 import axios from '../index';
 
-export function fetchStorages(params: any) {
+export function fetchStorages(params: FetchStoragesPayload) {
 	const config: AxiosRequestConfig = {
 		url: '/storages',
 		method: 'GET',

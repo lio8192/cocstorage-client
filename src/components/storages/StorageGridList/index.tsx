@@ -74,13 +74,15 @@ function StorageGridList() {
 	const { pending, storages } = useStorageGridList();
 	return (
 		<Box className={classes.root}>
-			<Box mt={1}>
-				<Button color={'primary'} size={'large'} startIcon={<CheckIcon />}>
-					<Typography className={classes.orderTypography} variant={'body1'}>
-						{'최신순'}
-					</Typography>
-				</Button>
-			</Box>
+			{!pending && (
+				<Box mt={1}>
+					<Button color={'primary'} size={'large'} startIcon={<CheckIcon />}>
+						<Typography className={classes.orderTypography} variant={'body1'}>
+							{'최신순'}
+						</Typography>
+					</Button>
+				</Box>
+			)}
 			<Box mt={1}>
 				{!pending && (
 					<Grid container spacing={2}>

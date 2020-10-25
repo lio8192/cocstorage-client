@@ -14,6 +14,7 @@ export default function useHeader() {
 	const dispatch = useDispatch();
 	const { pageScope, user } = useSelector((state: RootState) => state.common);
 	const { pending } = useSelector((state: RootState) => state.board);
+	const { storage } = useSelector((state: RootState) => state.storageBoard);
 	const router = useRouter();
 	const { enqueueSnackbar } = useSnackbar();
 	const {
@@ -31,6 +32,7 @@ export default function useHeader() {
 	const isMyPage = useMemo(() => route === '/mypage', [route]);
 	const isStorageBoard = useMemo(() => route === '/storages/[path]', [route]);
 	const isStorageBoardWrite = useMemo(() => route === '/storages/[path]/write', [route]);
+	const isStorageBoardEdit = useMemo(() => route === '/storages/[path]/edit/[id]', [route]);
 	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
 	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
 	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
@@ -43,6 +45,7 @@ export default function useHeader() {
 				|| isMyPage
 				|| isStorageBoard
 				|| isStorageBoardWrite
+				|| isStorageBoardEdit
 				|| isStorageBoardDetail
 				|| isNoticeWrite
 				|| isNoticeDetail
@@ -55,6 +58,7 @@ export default function useHeader() {
 			isMyPage,
 			isStorageBoard,
 			isStorageBoardWrite,
+			isStorageBoardEdit,
 			isStorageBoardDetail,
 			isNoticeWrite,
 			isNoticeDetail,
@@ -63,8 +67,18 @@ export default function useHeader() {
 		]
 	);
 	const openNavigationChip = useMemo(
-		() => isBoardDetail || isStorageBoardWrite || isStorageBoardDetail || isNoticeWrite || isNoticeDetail,
-		[isBoardDetail, isStorageBoardWrite, isStorageBoardDetail, isNoticeWrite, isNoticeDetail]
+		() =>
+			isBoardDetail
+			|| isStorageBoardWrite
+			|| isStorageBoardDetail
+			|| isStorageBoardEdit
+			|| isNoticeWrite
+			|| isNoticeDetail,
+		[isBoardDetail, isStorageBoardWrite, isStorageBoardDetail, isStorageBoardEdit, isNoticeWrite, isNoticeDetail]
+	);
+	const isNewStorage = useMemo(
+		() => isStorageBoardWrite || isStorageBoard || isStorageBoardDetail || isStorageBoardEdit,
+		[isStorageBoardWrite, isStorageBoard, isStorageBoardDetail, isStorageBoardEdit]
 	);
 
 	const onHandlePageScope = useCallback(
@@ -157,6 +171,17 @@ export default function useHeader() {
 			.then();
 	}, [router, id]);
 
+	const onHandleStorageChip = useCallback(() => {
+		router
+			.push(
+				{
+					pathname: '/storages/[path]'
+				},
+				`/storages/${storage.path}`
+			)
+			.then();
+	}, [router, storage.path]);
+
 	const onHandleLogo = useCallback(() => {
 		dispatch(clearBoardsRelatedState());
 
@@ -185,14 +210,17 @@ export default function useHeader() {
 		id,
 		pageScope,
 		user,
+		storage,
 		activatedTab,
 		openNavigationChip,
 		isTabsHidden,
+		isNewStorage,
 		onHandlePageScope,
 		onHandleTabChange,
 		onHandlePreviousTabChange,
 		onHandleLogo,
 		onHandleChip,
+		onHandleStorageChip,
 		onHandleSignInDialog,
 		onDeleteSignOut
 	};

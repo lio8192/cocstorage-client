@@ -32,7 +32,7 @@ export type PostStorageFormData = {
 	};
 };
 
-export default function useStorages() {
+export default function useStorageManageDialog() {
 	const dispatch = useDispatch();
 
 	const storageState = useSelector((state: RootState) => state.storages);

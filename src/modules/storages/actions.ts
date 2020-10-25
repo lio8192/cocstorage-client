@@ -1,7 +1,7 @@
 import { createAction } from 'typesafe-actions';
 import { HYDRATE } from 'next-redux-wrapper';
 import {
-	FetchStoragesPayload, PostStoragePayload, Storage, Pagination
+	FetchStoragesPayload, PostStoragePayload, Storage, Pagination, FetchParams
 } from './types';
 
 export const hydrate = createAction(HYDRATE)<any>();
@@ -13,6 +13,7 @@ export const FETCH_STORAGES_SUCCEEDED = 'storages/FETCH_STORAGES_SUCCEEDED';
 export const FETCH_STORAGES_FAILED = 'storages/FETCH_STORAGES_FAILED';
 
 export const HANDLE_PAGINATION = 'storages/HANDLE_PAGINATION';
+export const HANDLE_FETCH_PARAMS = 'storages/HANDLE_FETCH_PARAMS';
 
 export const POST_STORAGE = 'storages/POST_STORAGE';
 export const POST_STORAGE_SUCCEEDED = 'storages/POST_STORAGE_SUCCEEDED';
@@ -25,6 +26,7 @@ export const fetchStoragesSucceeded = createAction(FETCH_STORAGES_SUCCEEDED)<Sto
 export const fetchStoragesFailed = createAction(FETCH_STORAGES_FAILED)();
 
 export const handlePagination = createAction(HANDLE_PAGINATION)<Pagination>();
+export const handleFetchParams = createAction(HANDLE_FETCH_PARAMS)<FetchParams>();
 
 export const postStorage = createAction(POST_STORAGE)<PostStoragePayload>();
 export const postStorageSucceeded = createAction(POST_STORAGE_SUCCEEDED)();

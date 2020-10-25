@@ -6,6 +6,7 @@ import {
 	fetchStoragesSucceeded,
 	fetchStoragesFailed,
 	handlePagination,
+	handleFetchParams,
 	postStorage,
 	postStorageSucceeded,
 	postStorageFailed
@@ -18,6 +19,7 @@ const actions = {
 	fetchStoragesSucceeded,
 	fetchStoragesFailed,
 	handlePagination,
+	handleFetchParams,
 	postStorage,
 	postStorageSucceeded,
 	postStorageFailed
@@ -38,12 +40,19 @@ export type Storage = {
 };
 
 export type Pagination = {
-	totalPages: number | null;
+	totalPages: number;
 	currentPage: number;
 	prevPage: number | null;
 	nextPage: number | null;
 	perPage: number;
 	isLastPage: boolean;
+};
+
+export type FetchParams = {
+	per: number;
+	page: number;
+	name: string | null;
+	orderBy: string;
 };
 
 export type FetchStoragesPayload = {
@@ -63,6 +72,7 @@ export type PostStoragePayload = {
 export type StoragesState = {
 	storages: Storage[];
 	pagination: Pagination;
+	fetchParams: FetchParams;
 	pending: boolean;
 	manage: {
 		open: boolean;

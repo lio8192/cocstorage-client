@@ -147,6 +147,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		commentListItemContent: {
 			paddingTop: theme.spacing(1),
+			fontSize: '1rem !important',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 2, 0, 2)
 			}
@@ -218,6 +219,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: theme.spacing(1, 0, 0, 3),
 			wordBreak: 'break-all',
 			wordWrap: 'break-word',
+			fontSize: '1rem',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 0, 0, 3)
 			}

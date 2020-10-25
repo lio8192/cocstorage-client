@@ -1,4 +1,5 @@
 import { createReducer } from 'typesafe-actions';
+import { HYDRATE } from 'next-redux-wrapper';
 import { CommonActions, CommonState, User } from 'modules/common/types';
 
 import Jwt from 'jsonwebtoken';
@@ -21,6 +22,7 @@ import {
 	POST_SIGN_IN,
 	POST_SIGN_IN_SUCCEEDED,
 	POST_SIGN_IN_FAILED,
+	SET_USER_AUTHENTICATION,
 	DELETE_SIGN_OUT_SUCCEEDED
 } from './actions';
 
@@ -77,10 +79,20 @@ const initialState: CommonState = {
 		error: false,
 		helperText: ''
 	},
-	user: setUserStateByJsonWebToken()
+	user: {
+		id: 0,
+		nickname: '',
+		avatarUrl: '',
+		role: '',
+		isAuthenticated: false
+	}
 };
 
 const common = createReducer<CommonState, CommonActions>(initialState, {
+	[HYDRATE]: (state, { payload }) => ({
+		...state,
+		...payload.common
+	}),
 	[HANDLE_PAGE_SCOPE]: (state, { payload: value }) => ({
 		...state,
 		pageScope: value
@@ -221,6 +233,10 @@ const common = createReducer<CommonState, CommonActions>(initialState, {
 			...state.signIn,
 			pending: false
 		}
+	}),
+	[SET_USER_AUTHENTICATION]: (state) => ({
+		...state,
+		user: setUserStateByJsonWebToken()
 	}),
 	[DELETE_SIGN_OUT_SUCCEEDED]: (state) => ({
 		...state,

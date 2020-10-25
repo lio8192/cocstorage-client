@@ -21,6 +21,10 @@
   "rules": {
     "no-console": "off",
     "no-tabs": "off",
+    "no-shadow": [2, {
+        "allow": ["item"]
+      }
+    ],
     "indent": [2, "tab"],
     "import/extensions": [
       "error",
@@ -43,6 +47,9 @@
     }],
     "function-paren-newline": "off",
     "max-len": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "no-async-promise-executor": "off",
+    "no-unused-expressions": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-curly-brace-presence": ["error", "always"],
     "react/jsx-indent-props": [2, "tab"],
@@ -58,7 +65,7 @@
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/explicit-function-return-type": "off"
-//    "@typescript-eslint/no-inferrable-types": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-non-null-assertion": "off"
   }
 }

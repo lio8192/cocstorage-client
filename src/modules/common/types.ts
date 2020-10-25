@@ -1,5 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 import {
+	hydrate,
 	handlePageScope,
 	handleSignInDialog,
 	handleSignUpDialog,
@@ -17,12 +18,14 @@ import {
 	postSignIn,
 	postSignInSucceeded,
 	postSignInFailed,
+	setUserAuthentication,
 	deleteSignOut,
 	deleteSignOutSucceeded,
 	deleteSignOutFailed
 } from './actions';
 
 const actions = {
+	hydrate,
 	handlePageScope,
 	handleSignInDialog,
 	handleSignUpDialog,
@@ -40,6 +43,7 @@ const actions = {
 	postSignIn,
 	postSignInSucceeded,
 	postSignInFailed,
+	setUserAuthentication,
 	deleteSignOut,
 	deleteSignOutSucceeded,
 	deleteSignOutFailed

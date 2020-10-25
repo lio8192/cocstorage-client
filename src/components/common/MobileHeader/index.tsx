@@ -1,8 +1,4 @@
-import React, {
-	useState, memo, useCallback, useMemo
-} from 'react';
-import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
+import React, { useState, memo } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI
@@ -38,9 +34,6 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import StorageIcon from '@material-ui/icons/Storage';
 
-// Modules
-import { clearBoardsRelatedState } from 'modules/board';
-
 // Custom Hooks
 import useMobileHeader from 'hooks/common/useMobileHeader';
 
@@ -49,6 +42,7 @@ import Logo from 'public/logo.png';
 
 // Snippets
 import { getCategoryNameByCategoryId } from 'snippets/board';
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -155,21 +149,24 @@ function getCategoryIconByCategoryId(categoryId: string | string[]) {
 
 function MobileHeader() {
 	const classes = useStyles();
-	const dispatch = useDispatch();
-	const router = useRouter();
 
 	const {
 		pageScope,
 		user: { nickname, avatarUrl, isAuthenticated },
+		id,
+		storage,
+		menuListState,
+		isBoardDetail,
+		isNewStorage,
 		onHandleSignInDialog,
-		onDeleteSignOut
+		onDeleteSignOut,
+		onHandleMenuList,
+		onHandleLogo,
+		onHandleStorageChip,
+		onHandleChip,
+		onHandleDrawer
 	} = useMobileHeader();
 
-	const {
-		route,
-		query: { id }
-	} = router;
-	const [menuListState, setMenuListState] = useState<boolean>(false);
 	const [listItems] = useState<ListItemType[]>([
 		{
 			label: '일간 개념글',
@@ -207,58 +204,6 @@ function MobileHeader() {
 			categoryId: 'baseball_new9'
 		}
 	]);
-	const isStorageBoardDetail = useMemo(() => route === '/storage/[path]/[id]', [route]);
-	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
-
-	const handleMenuList = (): void => {
-		setMenuListState(!menuListState);
-	};
-
-	const handleChip = useCallback(() => {
-		const categoryId = typeof id === 'string' ? id : '';
-
-		router
-			.push(
-				{
-					pathname: '/board/[id]',
-					query: {
-						id: categoryId
-					}
-				},
-				`/board/${categoryId}`
-			)
-			.then();
-	}, [router, id]);
-
-	const handleLogo = useCallback(() => {
-		dispatch(clearBoardsRelatedState());
-
-		router.push({
-			pathname: '/'
-		});
-	}, [dispatch, router]);
-
-	const handleDrawer = useCallback(
-		(event: React.MouseEvent<HTMLDivElement>) => {
-			const categoryId: string = event.currentTarget.getAttribute('data-category-id') || '';
-			dispatch(clearBoardsRelatedState());
-
-			router
-				.push(
-					{
-						pathname: '/board/[id]',
-						query: {
-							id: categoryId
-						}
-					},
-					`/board/${categoryId}`
-				)
-				.then();
-
-			setMenuListState(!menuListState);
-		},
-		[dispatch, router, menuListState]
-	);
 
 	return (
 		<>
@@ -267,29 +212,43 @@ function MobileHeader() {
 					<Toolbar className={classes.toolbar}>
 						<Box className={classes.appBarLogoBox}>
 							<Box>
-								<Box component={'span'} onClick={handleLogo}>
+								<Box component={'span'} onClick={onHandleLogo}>
 									<img className={classes.appBarLogo} src={Logo} alt={'Logo'} />
 								</Box>
-								{(isBoardDetail || isStorageBoardDetail) && (
+								{isNewStorage && (
+									<Chip
+										className={classes.chip}
+										color={'primary'}
+										label={storage.name}
+										avatar={(
+											<Avatar src={storage.avatarUrl || ''}>
+												<InsertPhotoIcon className={classes.icon} />
+											</Avatar>
+										)}
+										onClick={onHandleStorageChip}
+										size={'small'}
+									/>
+								)}
+								{isBoardDetail && (
 									<Chip
 										className={classes.chip}
 										color={'primary'}
 										label={getCategoryNameByCategoryId(id)}
 										icon={getCategoryIconByCategoryId(id)}
-										onClick={handleChip}
+										onClick={onHandleChip}
 										size={'small'}
 									/>
 								)}
 							</Box>
 						</Box>
-						<IconButton edge={'end'} color={'inherit'} aria-label={'open drawer'} onClick={handleMenuList}>
+						<IconButton edge={'end'} color={'inherit'} aria-label={'open drawer'} onClick={onHandleMenuList}>
 							<MenuIcon color={'action'} />
 						</IconButton>
 					</Toolbar>
 				</AppBar>
 			</HideOnScroll>
 			<Toolbar className={classes.toolbar} />
-			<SwipeableDrawer anchor={'right'} onClose={handleMenuList} onOpen={handleMenuList} open={menuListState}>
+			<SwipeableDrawer anchor={'right'} onClose={onHandleMenuList} onOpen={onHandleMenuList} open={menuListState}>
 				<div className={classes.list} role={'presentation'}>
 					<NoSsr>
 						{isAuthenticated ? (
@@ -331,7 +290,7 @@ function MobileHeader() {
 					<Divider className={classes.divider} />
 					{pageScope === 'storage' ? (
 						<List>
-							<ListItem button onClick={handleDrawer}>
+							<ListItem button onClick={onHandleDrawer}>
 								<ListItemIcon>
 									<StorageIcon />
 								</ListItemIcon>
@@ -341,7 +300,7 @@ function MobileHeader() {
 					) : (
 						<List>
 							{listItems.map((item) => (
-								<ListItem button key={item.label} data-category-id={item.categoryId} onClick={handleDrawer}>
+								<ListItem button key={item.label} data-category-id={item.categoryId} onClick={onHandleDrawer}>
 									<ListItemIcon>{item.icon}</ListItemIcon>
 									<ListItemText primary={item.label} />
 								</ListItem>
@@ -350,7 +309,7 @@ function MobileHeader() {
 					)}
 					<Divider className={classes.divider} />
 					<List>
-						<ListItem button data-category-id={'notices'} onClick={handleDrawer}>
+						<ListItem button data-category-id={'notices'} onClick={onHandleDrawer}>
 							<ListItemIcon>
 								<NearMeIcon />
 							</ListItemIcon>

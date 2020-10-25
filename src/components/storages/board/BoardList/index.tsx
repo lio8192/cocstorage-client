@@ -1,7 +1,9 @@
 import React, { memo } from 'react';
+import Link from 'next/link';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
+import moment from 'moment';
 
 // Material UI
 import List from '@material-ui/core/List';
@@ -10,16 +12,29 @@ import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Chip from '@material-ui/core/Chip';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Grow from '@material-ui/core/Grow';
 
 // Material UI Icons
 import ImageIcon from '@material-ui/icons/Image';
 import VideocamIcon from '@material-ui/icons/Videocam';
-import PersonIcon from '@material-ui/icons/Person';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import NotesIcon from '@material-ui/icons/Notes';
+
+// Material UI Labs
+import Skeleton from '@material-ui/lab/Skeleton';
+
+// Custom Hooks
+import useBoardList from 'hooks/storages/board/useBoardList';
+
+// Components
+import DataEmptyBox from 'components/common/DataEmptyBox';
+
+moment.locale('ko');
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -31,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			maxWidth: '100%'
 		},
 		listItemBox: {
-			maxWidth: '100%'
+			width: '100%'
 		},
 		icon: {
 			verticalAlign: 'middle'
@@ -45,10 +60,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			height: theme.spacing(3.5),
 			backgroundColor: theme.palette.primary.main
 		},
-		avatarNew: {
+		avatarNote: {
 			width: theme.spacing(3.5),
 			height: theme.spacing(3.5),
-			backgroundColor: '#F15F5F'
+			backgroundColor: theme.palette.action.active
 		},
 		avatarUser: {
 			width: theme.spacing(4),
@@ -76,73 +91,145 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& span:last-child::after': {
 				display: 'none'
 			}
+		},
+		chip: {
+			color: 'white'
 		}
 	})
 );
 
-function StorageBoardList() {
+function BoardList() {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+	const {
+		pending,
+		storage: { path },
+		boards
+	} = useBoardList();
 
 	return (
 		<List className={classes.root} component={'div'}>
-			{Array.from({ length: 20 }, (value, index) => index).map((item, index) => (
-				<>
-					{isMobile && index === 0 && <Divider />}
-					<ListItem key={`storage-board-${item}`} className={classes.listItem} button>
-						<Box className={classes.listItemBox}>
-							<Box display={'flex'} alignItems={'center'}>
-								<ListItemIcon>
-									<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
-										<Avatar className={classes.avatarNew} variant={'rounded'}>
-											{'N'}
-										</Avatar>
-										<Avatar className={classes.avatar} variant={'rounded'}>
-											<VideocamIcon />
-										</Avatar>
-										<Avatar className={classes.avatar} variant={'rounded'}>
-											<ImageIcon />
-										</Avatar>
-									</AvatarGroup>
-								</ListItemIcon>
-								<Typography noWrap variant={'subtitle2'}>
-									{'안녕하세요 게시글 작성 테스트입니다. 저장소 선점 축하드려요.'}
-								</Typography>
-								<Box className={classes.commentCountBox}>{'[1]'}</Box>
-							</Box>
-							<Box display={'flex'} alignItems={'center'} mt={1}>
-								<Avatar className={classes.avatarUser}>
-									<PersonIcon />
-								</Avatar>
-								<Box className={classes.writerInfoBox} ml={1}>
-									<Typography variant={'caption'}>{'NickName'}</Typography>
-									<Typography variant={'caption'}>{'1분 전'}</Typography>
-									<Box component={'span'}>
-										<Box component={'span'}>
-											<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />
+			{pending
+				&& Array.from({ length: 10 }, (value, index) => index).map((item, index) => (
+					<Grow key={`storage-board-dummy-${item}`} in>
+						<Box>
+							{isMobile && index === 0 && <Divider />}
+							<ListItem>
+								<Box width={'100%'}>
+									<Box display={'flex'} alignItems={'center'} flex={1}>
+										<ListItemIcon>
+											<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
+												<Skeleton variant={'rect'} width={30} height={30} />
+												<Skeleton variant={'rect'} width={30} height={30} />
+											</AvatarGroup>
+										</ListItemIcon>
+										<Box width={`${Math.round(Math.random() * 100) + 50}%`}>
+											<Skeleton width={'100%'} />
 										</Box>
-										<Box component={'span'} ml={0.5}>
-											<Typography variant={'caption'}>{'10'}</Typography>
+										<Box ml={1}>
+											<Skeleton width={30} />
 										</Box>
 									</Box>
-									<Box component={'span'}>
-										<Box component={'span'}>
-											<VisibilityIcon className={classes.icon} color={'action'} fontSize={'small'} />
-										</Box>
-										<Box component={'span'} ml={0.5}>
-											<Typography variant={'caption'}>{'1,000'}</Typography>
+									<Box display={'flex'} alignItems={'center'} mt={1}>
+										<Skeleton variant={'circle'} width={35} height={35} />
+										<Box display={'flex'} ml={1}>
+											<Box>
+												<Skeleton width={50} />
+											</Box>
+											<Box ml={1}>
+												<Skeleton width={30} />
+											</Box>
+											<Box ml={1}>
+												<Skeleton width={30} />
+											</Box>
+											<Box ml={1}>
+												<Skeleton width={30} />
+											</Box>
 										</Box>
 									</Box>
 								</Box>
-							</Box>
+							</ListItem>
+							{isMobile && index < 9 && <Divider />}
 						</Box>
-					</ListItem>
-					{isMobile && index < 19 && <Divider />}
-				</>
-			))}
+					</Grow>
+				))}
+			{!pending
+				&& boards.map((item, index) => (
+					<Grow key={`storage-board-${item.id}`} in>
+						<Box>
+							{isMobile && index === 0 && <Divider />}
+							<ListItem key={`storage-boards-${item.id}`} className={classes.listItem} button>
+								<Link href={'/storages/[path]/[id]'} as={`/storages/${path}/${item.id}`}>
+									<Box className={classes.listItemBox}>
+										<Box display={'flex'} alignItems={'center'}>
+											<ListItemIcon>
+												<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
+													{item.hasImage ? (
+														<Avatar className={classes.avatar} variant={'rounded'}>
+															<ImageIcon />
+														</Avatar>
+													) : (
+														<Avatar className={classes.avatarNote} variant={'rounded'}>
+															<NotesIcon />
+														</Avatar>
+													)}
+													{item.hasVideo ? (
+														<Avatar className={classes.avatar} variant={'rounded'}>
+															<VideocamIcon />
+														</Avatar>
+													) : (
+														<Avatar className={classes.avatarNote} variant={'rounded'}>
+															<NotesIcon />
+														</Avatar>
+													)}
+												</AvatarGroup>
+											</ListItemIcon>
+											<Typography noWrap variant={'subtitle2'}>
+												{item.subject}
+											</Typography>
+											<Box className={classes.commentCountBox}>{`[${item.commentTotalCount}]`}</Box>
+											{moment().diff(item.createdAt, 'days') === 0 && (
+												<Box ml={1}>
+													<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
+												</Box>
+											)}
+										</Box>
+										<Box display={'flex'} alignItems={'center'} mt={1}>
+											<Avatar className={classes.avatarUser} src={item.isMember ? item.user.avatarUrl || '' : ''} />
+											<Box className={classes.writerInfoBox} ml={1}>
+												<Typography variant={'caption'}>
+													{item.isMember ? item.user.nickname : item.nickname}
+												</Typography>
+												<Typography variant={'caption'}>{moment(item.createdAt).startOf('day').fromNow()}</Typography>
+												<Box component={'span'}>
+													<Box component={'span'}>
+														<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />
+													</Box>
+													<Box component={'span'} ml={0.5}>
+														<Typography variant={'caption'}>{item.thumbUp}</Typography>
+													</Box>
+												</Box>
+												<Box component={'span'}>
+													<Box component={'span'}>
+														<VisibilityIcon className={classes.icon} color={'action'} fontSize={'small'} />
+													</Box>
+													<Box component={'span'} ml={0.5}>
+														<Typography variant={'caption'}>{item.viewCount}</Typography>
+													</Box>
+												</Box>
+											</Box>
+										</Box>
+									</Box>
+								</Link>
+							</ListItem>
+							{isMobile && index < 19 && <Divider />}
+						</Box>
+					</Grow>
+				))}
+			{!pending && boards.length === 0 && <DataEmptyBox message={'개념글이 존재하지 않아요.'} />}
 		</List>
 	);
 }
 
-export default memo(StorageBoardList);
+export default memo(BoardList);

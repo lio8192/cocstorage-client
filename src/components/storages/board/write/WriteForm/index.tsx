@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import React, { useCallback, useMemo, memo } from 'react';
+import { useRouter } from 'next/router';
 import {
 	makeStyles, createStyles, Theme, useTheme
 } from '@material-ui/core/styles';
@@ -12,15 +13,21 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import NoSsr from '@material-ui/core/NoSsr';
 import MUIRichTextEditor from 'mui-rte';
 
 // Material UI Icons
 import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import BackupIcon from '@material-ui/icons/Backup';
+
+// Custom Hooks
+import useWriteForm from 'hooks/storages/board/write/useWriteForm';
 
 // Components
-import WriterAuthBox from 'components/storages/board/write/WriteForm/WriterAuthBox';
+import UploadImagePopover from './UploadPopover';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -75,6 +82,11 @@ const useStyles = makeStyles((theme: Theme) =>
 				}
 			}
 		},
+		prevButton: {
+			[theme.breakpoints.down('md')]: {
+				borderRadius: 0
+			}
+		},
 		button: {
 			color: 'white',
 			[theme.breakpoints.down('md')]: {
@@ -104,9 +116,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		typography: {
 			color: theme.palette.action.active,
 			fontWeight: 700
-		},
-		submitButton: {
-			color: 'white'
 		}
 	})
 );
@@ -115,42 +124,107 @@ function WriteForm() {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+	const router = useRouter();
+	const {
+		manage: { pending },
+		isAuthenticated,
+		putStorageBoardBody: { nickname, password, subject },
+		showPassword,
+		ref,
+		anchor,
+		setAnchor,
+		onHandleWriteFormTextField,
+		onShowWriteFormPassword,
+		onHandleWriteFormRichEditor,
+		onHandleFileUpload,
+		onPutStorageBoard,
+		onPutNonMemberStorageBoard
+	} = useWriteForm();
+
+	const controls = useMemo<Array<string>>(() => {
+		if (isMobile) {
+			return [
+				'title',
+				'bold',
+				'italic',
+				'strikethrough',
+				'underline',
+				'highlight',
+				'upload-image',
+				'media',
+				'link',
+				'numberList',
+				'bulletList',
+				'quote'
+			];
+		}
+		return [
+			'title',
+			'bold',
+			'italic',
+			'strikethrough',
+			'underline',
+			'highlight',
+			'undo',
+			'redo',
+			'upload-image',
+			'media',
+			'link',
+			'numberList',
+			'bulletList',
+			'quote'
+		];
+	}, [isMobile]);
+
+	const handlePrevButton = useCallback(() => router.back(), [router]);
 
 	return (
 		<Box position={'relative'}>
 			<Container className={classes.container}>
-				<Grid container spacing={isMobile ? 0 : 1}>
-					<Grid item xs={6}>
-						<TextField
-							fullWidth
-							variant={'outlined'}
-							label={isMobile ? null : '닉네임'}
-							placeholder={isMobile ? '닉네임' : undefined}
-							InputProps={{
-								className: classes.nicknameTextFieldInput
-							}}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<TextField
-							fullWidth
-							variant={'outlined'}
-							type={'password'}
-							label={isMobile ? null : '비밀번호'}
-							placeholder={isMobile ? '비밀번호' : undefined}
-							InputProps={{
-								className: classes.passwordTextFieldInput,
-								endAdornment: (
-									<InputAdornment position={'end'}>
-										<IconButton edge={'end'}>
-											<Visibility />
-										</IconButton>
-									</InputAdornment>
-								)
-							}}
-						/>
-					</Grid>
-				</Grid>
+				{!isAuthenticated && (
+					<NoSsr>
+						<Grid container spacing={isMobile ? 0 : 1}>
+							<Grid item xs={6}>
+								<TextField
+									fullWidth
+									variant={'outlined'}
+									label={isMobile ? null : '닉네임'}
+									placeholder={isMobile ? '닉네임' : undefined}
+									InputProps={{
+										className: classes.nicknameTextFieldInput
+									}}
+									onChange={onHandleWriteFormTextField}
+									name={'nickname'}
+									value={nickname || ''}
+									disabled={pending}
+								/>
+							</Grid>
+							<Grid item xs={6}>
+								<TextField
+									fullWidth
+									variant={'outlined'}
+									type={showPassword ? 'text' : 'password'}
+									label={isMobile ? null : '비밀번호'}
+									placeholder={isMobile ? '비밀번호' : undefined}
+									InputProps={{
+										className: classes.passwordTextFieldInput,
+										endAdornment: (
+											<InputAdornment position={'end'}>
+												<IconButton edge={'end'} onClick={onShowWriteFormPassword}>
+													{showPassword ? <VisibilityOff /> : <Visibility />}
+												</IconButton>
+											</InputAdornment>
+										)
+									}}
+									onChange={onHandleWriteFormTextField}
+									name={'password'}
+									value={password || ''}
+									disabled={pending}
+								/>
+							</Grid>
+						</Grid>
+					</NoSsr>
+				)}
 				<Box className={classes.subjectBox}>
 					<TextField
 						fullWidth
@@ -160,19 +234,52 @@ function WriteForm() {
 						InputProps={{
 							className: classes.subjectTextFieldInput
 						}}
+						onChange={onHandleWriteFormTextField}
+						name={'subject'}
+						value={subject}
+						disabled={pending}
 					/>
 				</Box>
 				<Box className={classes.textEditorBox}>
-					<MUIRichTextEditor defaultValue={''} label={'내용을 입력해주세요.'} />
+					<UploadImagePopover
+						anchor={anchor}
+						onSubmit={(data, insert) => {
+							if (insert && data.file) {
+								onHandleFileUpload(data.file);
+							}
+							setAnchor(null);
+						}}
+					/>
+					<MUIRichTextEditor
+						defaultValue={''}
+						ref={ref}
+						inlineToolbar
+						controls={controls}
+						customControls={[
+							{
+								name: 'upload-image',
+								icon: <BackupIcon />,
+								type: 'callback',
+								// eslint-disable-next-line no-shadow
+								onClick: (_editorState, _name, anchor) => {
+									setAnchor(anchor);
+								}
+							}
+						]}
+						label={'내용을 입력해주세요.'}
+						onChange={onHandleWriteFormRichEditor}
+						readOnly={pending}
+					/>
 				</Box>
 				<Grid className={classes.grid} container spacing={!isMobile ? 1 : 0} justify={'flex-end'}>
 					<Grid item xs={isMobile && 6}>
 						<Button
 							fullWidth={isMobile}
-							className={classes.button}
+							className={classes.prevButton}
 							variant={'contained'}
 							size={'large'}
 							startIcon={<ArrowBackIcon />}
+							onClick={handlePrevButton}
 						>
 							{'이전'}
 						</Button>
@@ -185,13 +292,14 @@ function WriteForm() {
 							color={'primary'}
 							size={'large'}
 							startIcon={<DoneIcon />}
+							onClick={isAuthenticated ? onPutStorageBoard : onPutNonMemberStorageBoard}
+							disabled={pending}
 						>
 							{'완료'}
 						</Button>
 					</Grid>
 				</Grid>
 			</Container>
-			<WriterAuthBox />
 		</Box>
 	);
 }

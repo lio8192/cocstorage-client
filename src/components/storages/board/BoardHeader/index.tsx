@@ -10,6 +10,12 @@ import Avatar from '@material-ui/core/Avatar';
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
+// Material UI Labs
+import Skeleton from '@material-ui/lab/Skeleton';
+
+// Custom Hooks
+import useBoardHeader from 'hooks/storages/board/useBoardHeader';
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
@@ -60,6 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		nameBox: {
+			width: '100%',
 			marginLeft: theme.spacing(1),
 			[theme.breakpoints.down('md')]: {
 				marginBottom: theme.spacing(0)
@@ -68,23 +75,28 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function StorageBoardHeader() {
+function BoardHeader() {
 	const classes = useStyles();
+	const {
+		storage: {
+			name, description, avatarUrl, pending
+		}
+	} = useBoardHeader();
 	return (
 		<Box className={classes.root}>
 			<Container className={classes.container}>
 				<Box className={classes.box}>
 					<Box className={classes.avatarBox}>
-						<Avatar className={classes.avatar} alt={'Storage Board Avatar Img'}>
+						<Avatar className={classes.avatar} src={avatarUrl || ''} alt={'Storage Board Avatar Img'}>
 							<InsertPhotoIcon />
 						</Avatar>
 					</Box>
 					<Box className={classes.nameBox}>
 						<Typography className={classes.typography} variant={'h5'}>
-							{'라이언 저장소'}
+							{pending ? <Skeleton width={`${Math.round(Math.random() * 20) + 10}%`} /> : name}
 						</Typography>
 						<Typography className={classes.captionTypography} variant={'caption'}>
-							{'카카오톡 캐릭터 라이언에 대해 소통해보아요.'}
+							{pending ? <Skeleton width={`${Math.round(Math.random() * 30) + 15}%`} /> : description}
 						</Typography>
 					</Box>
 				</Box>
@@ -93,4 +105,4 @@ function StorageBoardHeader() {
 	);
 }
 
-export default memo(StorageBoardHeader);
+export default memo(BoardHeader);

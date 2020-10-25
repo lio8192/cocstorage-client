@@ -29,6 +29,9 @@ export function getErrorMessageByCode(code: string): string {
 	case 'COC012':
 		errorMessage = '회원가입 또는 로그인을 진행해주세요.';
 		break;
+	case 'COC014':
+		errorMessage = '이미지 파일만 업로드할 수 있습니다.';
+		break;
 	case 'COC016':
 		errorMessage = '이미지가 올바르지 않거나 허용되지 않는 이미지 형식입니다.';
 		break;
@@ -49,6 +52,15 @@ export function getErrorMessageByCode(code: string): string {
 		break;
 	case 'COC025':
 		errorMessage = '입력하신 저장소명과 동일한 저장소가 존재합니다.';
+		break;
+	case 'COC027':
+		errorMessage = '비밀번호가 일치하지 않습니다.';
+		break;
+	case 'COC028':
+		errorMessage = '이미 추천을 누르셨습니다.';
+		break;
+	case 'COC029':
+		errorMessage = '이미 비추천을 누르셨습니다.';
 		break;
 	default:
 		break;

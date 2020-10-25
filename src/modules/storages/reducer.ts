@@ -6,6 +6,7 @@ import {
 	FETCH_STORAGES_SUCCEEDED,
 	FETCH_STORAGES_FAILED,
 	HANDLE_PAGINATION,
+	HANDLE_FETCH_PARAMS,
 	HANDLE_STORAGE_MANAGE_DIALOG,
 	POST_STORAGE,
 	POST_STORAGE_SUCCEEDED,
@@ -15,12 +16,18 @@ import {
 const initialState: StoragesState = {
 	storages: [],
 	pagination: {
-		totalPages: null,
+		totalPages: 0,
 		currentPage: 1,
 		prevPage: null,
 		nextPage: null,
 		perPage: 20,
 		isLastPage: true
+	},
+	fetchParams: {
+		per: 4,
+		page: 1,
+		name: null,
+		orderBy: 'latest'
 	},
 	pending: true,
 	manage: {
@@ -50,6 +57,10 @@ const storages = createReducer<StoragesState, StoragesActions>(initialState, {
 	[HANDLE_PAGINATION]: (state, { payload: data }) => ({
 		...state,
 		pagination: data
+	}),
+	[HANDLE_FETCH_PARAMS]: (state, { payload: data }) => ({
+		...state,
+		fetchParams: data
 	}),
 	[HANDLE_STORAGE_MANAGE_DIALOG]: (state) => ({
 		...state,

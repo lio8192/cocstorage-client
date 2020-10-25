@@ -114,6 +114,13 @@ export default function useSignIn() {
 				password: password.value
 			})
 		);
+		setPostSignInBody({
+			...postSignInBody,
+			password: {
+				...postSignInBody.password,
+				value: ''
+			}
+		});
 		return true;
 	}, [dispatch, postSignInBody]);
 

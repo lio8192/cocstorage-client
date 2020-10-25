@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { AppContext, AppProps } from 'next/app';
 
 // Redux-Saga
@@ -8,6 +9,9 @@ import { END } from 'redux-saga';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from 'theme';
+
+// Modules
+import { setUserAuthentication } from 'modules/common';
 
 // Global SCSS
 import 'styles/index.scss';
@@ -20,6 +24,7 @@ import Layout from 'components/common/Layout';
 import wrapper from './store';
 
 function App({ Component, pageProps }: AppProps | any) {
+	const dispatch = useDispatch();
 	useEffect(() => {
 		const jssStyles = document.querySelector('#jss-server-side');
 		if (jssStyles && jssStyles.parentElement) {
@@ -42,7 +47,8 @@ function App({ Component, pageProps }: AppProps | any) {
 		].join(';');
 		console.log('%c 개념글 저장소', welcomeConsoleLogTitleStyle);
 		console.log('%c ⓒ 개념글 저장소 All Rights Reserved.', welcomeConsoleLogSubTitleStyle);
-	}, []);
+		dispatch(setUserAuthentication());
+	}, [dispatch]);
 
 	return (
 		<ThemeProvider theme={theme}>

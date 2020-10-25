@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, memo } from 'react';
+import React, {
+	useEffect, useState, useRef, memo
+} from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
@@ -36,6 +38,7 @@ import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 // Hooks
 import useHeader from 'hooks/common/useHeader';
@@ -92,6 +95,14 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		typography: {
 			fontWeight: 700
+		},
+		icon: {
+			fontSize: 14,
+			color: 'white'
+		},
+		popper: {
+			left: '-27.3px !important',
+			zIndex: 10
 		}
 	})
 );
@@ -154,20 +165,23 @@ function Header() {
 		id,
 		pageScope,
 		user: { nickname, avatarUrl, isAuthenticated },
+		storage,
 		activatedTab,
 		openNavigationChip,
 		isTabsHidden,
+		isNewStorage,
 		onHandlePageScope,
 		onHandleTabChange,
 		onHandlePreviousTabChange,
 		onHandleLogo,
 		onHandleChip,
+		onHandleStorageChip,
 		onHandleSignInDialog,
 		onDeleteSignOut
 	} = useHeader();
 
-	const [open, setOpen] = React.useState(false);
-	const anchorRef = React.useRef<HTMLButtonElement>(null);
+	const [open, setOpen] = useState(false);
+	const anchorRef = useRef<HTMLButtonElement>(null);
 
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen);
@@ -240,7 +254,14 @@ function Header() {
 													</Box>
 												</Box>
 											</Button>
-											<Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+											<Popper
+												className={classes.popper}
+												open={open}
+												anchorEl={anchorRef.current}
+												role={undefined}
+												transition
+												disablePortal
+											>
 												{({ TransitionProps, placement }) => (
 													<Grow
 														{...TransitionProps}
@@ -287,13 +308,27 @@ function Header() {
 											<Box component={'span'} onClick={onHandleLogo}>
 												<img className={classes.logo} src={Logo} alt={'Logo'} />
 											</Box>
-											<Chip
-												className={classes.chip}
-												color={'primary'}
-												label={getCategoryNameByCategoryId(id)}
-												icon={getCategoryIconByCategoryId(id)}
-												onClick={onHandleChip}
-											/>
+											{isNewStorage ? (
+												<Chip
+													className={classes.chip}
+													color={'primary'}
+													label={storage.name}
+													avatar={(
+														<Avatar src={storage.avatarUrl || ''}>
+															<InsertPhotoIcon className={classes.icon} />
+														</Avatar>
+													)}
+													onClick={onHandleStorageChip}
+												/>
+											) : (
+												<Chip
+													className={classes.chip}
+													color={'primary'}
+													label={getCategoryNameByCategoryId(id)}
+													icon={getCategoryIconByCategoryId(id)}
+													onClick={onHandleChip}
+												/>
+											)}
 										</Box>
 										<Box>
 											<NoSsr>
@@ -311,7 +346,14 @@ function Header() {
 																</Box>
 															</Box>
 														</Button>
-														<Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+														<Popper
+															className={classes.popper}
+															open={open}
+															anchorEl={anchorRef.current}
+															role={undefined}
+															transition
+															disablePortal
+														>
 															{({ TransitionProps, placement }) => (
 																<Grow
 																	{...TransitionProps}
