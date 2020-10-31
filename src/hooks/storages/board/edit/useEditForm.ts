@@ -2,6 +2,7 @@ import React, {
 	useEffect, useState, useCallback, useRef
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import { convertToRaw, EditorState } from 'draft-js';
 import { useSnackbar } from 'notistack';
 
@@ -19,7 +20,6 @@ import * as Service from 'services/storages/board';
 
 // Snippets
 import { getErrorMessageByCode } from 'snippets/common';
-import Router from 'next/router';
 
 type PutStorageBoardBody = {
 	nickname: string | null;
@@ -31,6 +31,7 @@ type PutStorageBoardBody = {
 
 export default function useEditForm() {
 	const dispatch = useDispatch();
+	const router = useRouter();
 	const { enqueueSnackbar } = useSnackbar();
 	const {
 		user: { isAuthenticated }
@@ -225,12 +226,12 @@ export default function useEditForm() {
 		dispatch(
 			fetchNonMemberStorageBoardEditDetail({
 				storageId: storageBoardState.storage.id,
-				id: Number(Router.query.id),
+				id: Number(router.query.id),
 				password: String(putStorageBoardBody.password)
 			})
 		);
 		return true;
-	}, [dispatch, storageBoardState.storage.id, putStorageBoardBody.password]);
+	}, [dispatch, router, storageBoardState.storage.id, putStorageBoardBody.password]);
 
 	useEffect(() => {
 		if (storageBoardState.manage.detail.id !== 0) {

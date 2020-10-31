@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function DetailSideBox() {
 	const classes = useStyles();
-
 	return (
 		<Box position={'relative'}>
 			<Box width={'100%'} maxWidth={308} position={'fixed'}>

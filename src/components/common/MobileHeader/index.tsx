@@ -158,11 +158,13 @@ function MobileHeader() {
 		menuListState,
 		isBoardDetail,
 		isNewStorage,
+		isNotices,
 		onHandleSignInDialog,
 		onDeleteSignOut,
 		onHandleMenuList,
 		onHandleLogo,
 		onHandleStorageChip,
+		onHandleNoticeChip,
 		onHandleChip,
 		onHandleDrawer
 	} = useMobileHeader();
@@ -236,6 +238,16 @@ function MobileHeader() {
 										label={getCategoryNameByCategoryId(id)}
 										icon={getCategoryIconByCategoryId(id)}
 										onClick={onHandleChip}
+										size={'small'}
+									/>
+								)}
+								{isNotices && (
+									<Chip
+										className={classes.chip}
+										color={'primary'}
+										label={'새로운 소식'}
+										icon={<NearMeIcon />}
+										onClick={onHandleNoticeChip}
 										size={'small'}
 									/>
 								)}

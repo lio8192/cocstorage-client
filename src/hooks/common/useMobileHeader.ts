@@ -20,10 +20,19 @@ export default function useMobileHeader() {
 	const [menuListState, setMenuListState] = useState<boolean>(false);
 
 	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
+
+	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
+	const isNoticeEdit = useMemo(() => route === '/notices/edit/[id]', [route]);
+	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
+	const isNotices = useMemo(() => isNoticeWrite || isNoticeDetail || isNoticeEdit, [
+		isNoticeWrite,
+		isNoticeDetail,
+		isNoticeEdit
+	]);
+
 	const isStorageBoardWrite = useMemo(() => route === '/storages/[path]/write', [route]);
 	const isStorageBoardEdit = useMemo(() => route === '/storages/[path]/edit/[id]', [route]);
 	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
-
 	const isNewStorage = useMemo(() => isStorageBoardWrite || isStorageBoardDetail || isStorageBoardEdit, [
 		isStorageBoardWrite,
 		isStorageBoardDetail,
@@ -92,6 +101,17 @@ export default function useMobileHeader() {
 			.then();
 	}, [router, storage.path]);
 
+	const onHandleNoticeChip = useCallback(() => {
+		router
+			.push(
+				{
+					pathname: '/notices'
+				},
+				'/notices'
+			)
+			.then();
+	}, [router]);
+
 	return {
 		pageScope,
 		id,
@@ -100,11 +120,13 @@ export default function useMobileHeader() {
 		menuListState,
 		isBoardDetail,
 		isNewStorage,
+		isNotices,
 		onHandleSignInDialog,
 		onDeleteSignOut,
 		onHandleMenuList,
 		onHandleStorageChip,
 		onHandleChip,
+		onHandleNoticeChip,
 		onHandleLogo,
 		onHandleDrawer
 	};

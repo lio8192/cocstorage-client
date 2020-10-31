@@ -124,7 +124,7 @@ function StorageGridList() {
 						</Box>
 					</Grow>
 				)}
-				{!pending && storages.length === 0 && <DataEmptyBox message={'저장소가 존재하지 않아요.'} />}
+				{!pending && storages.length === 0 && <DataEmptyBox message={'첫번째 저장소의 주인공이 되어 보세요!'} />}
 			</Box>
 		</Box>
 	);

@@ -267,11 +267,11 @@ const storageBoardDetail = createReducer<StorageBoardDetailState, StorageBoardDe
 		...state,
 		pending: true
 	}),
-	[PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_SUCCEEDED]: (state) => ({
+	[PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_SUCCEEDED]: (state, { payload: data }) => ({
 		...state,
 		detail: {
 			...state.detail,
-			viewCount: state.detail.viewCount + 1
+			viewCount: data
 		}
 	}),
 	[PUT_STORAGE_BOARD_DETAIL_RECOMMEND]: (state) => ({

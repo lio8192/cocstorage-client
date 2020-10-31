@@ -56,9 +56,9 @@ export type FetchParams = {
 };
 
 export type FetchStoragesPayload = {
-	name: string | null;
 	per: number;
 	page: number;
+	name: string | null;
 	orderBy: string;
 };
 

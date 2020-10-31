@@ -8,7 +8,19 @@ import boardDetail from './boardDetail';
 import storages from './storages';
 import storageBoard from './storages/board';
 import storageBoardDetail from './storages/board/detail';
+import notices from './notices';
+import noticeDetail from './notices/detail';
 
 export default function* rootSaga() {
-	yield all([common(), home(), board(), boardDetail(), storages(), storageBoard(), storageBoardDetail()]);
+	yield all([
+		common(),
+		home(),
+		board(),
+		boardDetail(),
+		storages(),
+		storageBoard(),
+		storageBoardDetail(),
+		notices(),
+		noticeDetail()
+	]);
 }

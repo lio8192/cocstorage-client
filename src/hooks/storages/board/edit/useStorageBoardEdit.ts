@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
 // Modules
 import { fetchStorageBoardEditDetail, clearNonMemberStorageBoardEditAuthenticated } from 'modules/storages/board';
@@ -8,6 +8,7 @@ import { RootState } from 'modules';
 
 export default function useStorageBoardEdit() {
 	const dispatch = useDispatch();
+	const router = useRouter();
 	const {
 		user: { isAuthenticated }
 	} = useSelector((state: RootState) => state.common);
@@ -19,10 +20,10 @@ export default function useStorageBoardEdit() {
 			dispatch(
 				fetchStorageBoardEditDetail({
 					storageId: storageBoardState.storage.id,
-					id: Number(Router.query.id)
+					id: Number(router.query.id)
 				})
 			),
-		[dispatch, storageBoardState.storage.id]
+		[dispatch, router, storageBoardState.storage.id]
 	);
 
 	const onClearNonMemberStorageBoardAuthenticated = useCallback(

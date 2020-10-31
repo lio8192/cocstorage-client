@@ -128,7 +128,7 @@ function SignUpDialog() {
 							endAdornment: (
 								<InputAdornment position={'end'}>
 									<IconButton edge={'end'} onClick={onShowSignUpDialogPassword}>
-										{showPassword ? <VisibilityOff /> : <Visibility />}
+										{showPassword ? <Visibility /> : <VisibilityOff />}
 									</IconButton>
 								</InputAdornment>
 							)

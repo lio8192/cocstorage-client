@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import Head from 'next/head';
 import { NextPageContext } from 'next';
+import Head from 'next/head';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';

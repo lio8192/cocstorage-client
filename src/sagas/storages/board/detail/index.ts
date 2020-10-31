@@ -73,7 +73,7 @@ function* watchFetchStorageDetailAndStorageBoardDetail(
 		const detailResponse = yield call(Service.fetchStorageBoardDetail, response.data.id, id);
 		yield put(fetchStorageDetailAndStorageBoardDetailSucceeded(detailResponse.data));
 		yield call(Service.putStorageBoardDetailViewCount, response.data.id, id);
-		yield put(putStorageBoardDetailViewCountSucceeded());
+		yield put(putStorageBoardDetailViewCountSucceeded(response.data.viewCount));
 	} catch (error) {
 		yield put(fetchStorageDetailAndStorageBoardDetailFailed());
 		if (error.response.status === 404) {
@@ -108,7 +108,7 @@ function* watchFetchStorageBoardDetail(action: ActionType<typeof fetchStorageBoa
 		const response = yield call(Service.fetchStorageBoardDetail, storageId, id);
 		yield put(fetchStorageBoardDetailSucceeded(response.data));
 		yield call(Service.putStorageBoardDetailViewCount, storageId, id);
-		yield put(putStorageBoardDetailViewCountSucceeded());
+		yield put(putStorageBoardDetailViewCountSucceeded(response.data.viewCount));
 	} catch (error) {
 		yield put(fetchStorageBoardDetailFailed());
 		if (error.response.status === 404) {
@@ -196,8 +196,8 @@ function* watchFetchStorageBoardDetailComments(action: ActionType<typeof fetchSt
 function* watchPostStorageBoardDetailComment(action: ActionType<typeof postStorageBoardDetailComment>) {
 	const { payload } = action;
 	try {
-		const response = yield call(Service.postStorageBoardDetailComment, payload);
-		yield put(postStorageBoardDetailCommentSucceeded(response.data.id));
+		yield call(Service.postStorageBoardDetailComment, payload);
+		yield put(postStorageBoardDetailCommentSucceeded());
 		yield put(
 			fetchStorageBoardDetailComments({
 				storageId: payload.storageId,
@@ -226,8 +226,8 @@ function* watchPostNonMemberStorageBoardDetailComment(
 ) {
 	const { payload } = action;
 	try {
-		const response = yield call(Service.postNonMemberStorageBoardDetailComment, payload);
-		yield put(postNonMemberStorageBoardDetailCommentSucceeded(response.data.id));
+		yield call(Service.postNonMemberStorageBoardDetailComment, payload);
+		yield put(postNonMemberStorageBoardDetailCommentSucceeded());
 		yield put(
 			fetchStorageBoardDetailComments({
 				storageId: payload.storageId,

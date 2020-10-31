@@ -39,8 +39,9 @@ import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import NearMeIcon from '@material-ui/icons/NearMe';
 
-// Hooks
+// Custom Hooks
 import useHeader from 'hooks/common/useHeader';
 
 // Snippets
@@ -170,12 +171,14 @@ function Header() {
 		openNavigationChip,
 		isTabsHidden,
 		isNewStorage,
+		isNotices,
 		onHandlePageScope,
 		onHandleTabChange,
 		onHandlePreviousTabChange,
 		onHandleLogo,
 		onHandleChip,
 		onHandleStorageChip,
+		onHandleNoticeChip,
 		onHandleSignInDialog,
 		onDeleteSignOut
 	} = useHeader();
@@ -308,7 +311,7 @@ function Header() {
 											<Box component={'span'} onClick={onHandleLogo}>
 												<img className={classes.logo} src={Logo} alt={'Logo'} />
 											</Box>
-											{isNewStorage ? (
+											{isNewStorage && (
 												<Chip
 													className={classes.chip}
 													color={'primary'}
@@ -320,13 +323,23 @@ function Header() {
 													)}
 													onClick={onHandleStorageChip}
 												/>
-											) : (
+											)}
+											{!isNewStorage && !isNotices && (
 												<Chip
 													className={classes.chip}
 													color={'primary'}
 													label={getCategoryNameByCategoryId(id)}
 													icon={getCategoryIconByCategoryId(id)}
 													onClick={onHandleChip}
+												/>
+											)}
+											{!isNewStorage && isNotices && (
+												<Chip
+													className={classes.chip}
+													color={'primary'}
+													label={'새로운 소식'}
+													icon={<NearMeIcon />}
+													onClick={onHandleNoticeChip}
 												/>
 											)}
 										</Box>

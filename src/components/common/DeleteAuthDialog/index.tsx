@@ -113,7 +113,7 @@ function DeleteAuthDialog({
 							endAdornment: (
 								<InputAdornment position={'end'}>
 									<IconButton edge={'end'} onClick={onShowAuthenticationDialogPassword}>
-										{showPassword ? <VisibilityOff /> : <Visibility />}
+										{showPassword ? <Visibility /> : <VisibilityOff />}
 									</IconButton>
 								</InputAdornment>
 							)

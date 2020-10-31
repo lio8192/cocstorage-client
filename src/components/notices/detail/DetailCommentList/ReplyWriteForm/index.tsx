@@ -6,28 +6,33 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
-import Visibility from '@material-ui/icons/Visibility';
 import Button from '@material-ui/core/Button';
-import CreateIcon from '@material-ui/icons/Create';
 import InputBase from '@material-ui/core/InputBase';
+
+// Material UI Icons
+import CreateIcon from '@material-ui/icons/Create';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
+// Custom Hooks
+import useDetailReplyWriteForm from 'hooks/notices/detail/useDetailReplyWriteForm';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			border: '1px solid #EAEAEA',
 			borderRadius: 4,
+			backgroundColor: 'white',
 			[theme.breakpoints.down('md')]: {
 				marginTop: -1,
-				borderRadius: 0,
-				borderLeft: 'none',
-				borderRight: 'none'
+				borderRadius: 0
 			}
 		},
 		grid: {
-			borderRight: '1px solid #EAEAEA'
+			borderBottom: '1px solid #EAEAEA'
 		},
-		inputContentBox: {
-			borderTop: '1px solid #EAEAEA'
+		inputBaseGrid: {
+			borderRight: '1px solid #EAEAEA'
 		},
 		inputBase: {
 			padding: '18.5px 14px'
@@ -54,29 +59,55 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function ReplyWriteForm() {
 	const classes = useStyles();
+	const {
+		replies: {
+			manage: { pending }
+		},
+		postNoticeDetailReplyBody: { nickname, password, content },
+		showPassword,
+		isAuthenticated,
+		onHandleNoticeDetailReplyTextField,
+		onShowNoticeDetailReplyPassword,
+		onPostNoticeDetailReply,
+		onPostNonMemberNoticeDetailReply
+	} = useDetailReplyWriteForm();
 	return (
 		<Box className={classes.root}>
-			<Grid container>
-				<Grid className={classes.grid} item xs={6}>
-					<InputBase className={classes.inputBase} fullWidth placeholder={'닉네임'} />
+			{!isAuthenticated && (
+				<Grid className={classes.grid} container>
+					<Grid className={classes.inputBaseGrid} item xs={6}>
+						<InputBase
+							className={classes.inputBase}
+							fullWidth
+							placeholder={'닉네임'}
+							onChange={onHandleNoticeDetailReplyTextField}
+							name={'nickname'}
+							value={nickname || ''}
+							disabled={pending}
+						/>
+					</Grid>
+					<Grid item xs={6}>
+						<InputBase
+							className={classes.inputBase}
+							fullWidth
+							type={showPassword ? 'text' : 'password'}
+							placeholder={'비밀번호'}
+							endAdornment={(
+								<InputAdornment position={'end'}>
+									<IconButton edge={'end'} onClick={onShowNoticeDetailReplyPassword}>
+										{showPassword ? <Visibility /> : <VisibilityOff />}
+									</IconButton>
+								</InputAdornment>
+							)}
+							onChange={onHandleNoticeDetailReplyTextField}
+							name={'password'}
+							value={password || ''}
+							disabled={pending}
+						/>
+					</Grid>
 				</Grid>
-				<Grid item xs={6}>
-					<InputBase
-						className={classes.inputBase}
-						fullWidth
-						type={'password'}
-						placeholder={'비밀번호'}
-						endAdornment={(
-							<InputAdornment position={'end'}>
-								<IconButton edge={'end'}>
-									<Visibility />
-								</IconButton>
-							</InputAdornment>
-						)}
-					/>
-				</Grid>
-			</Grid>
-			<Box className={classes.inputContentBox}>
+			)}
+			<Box>
 				<InputBase
 					className={classes.inputBaseMultiline}
 					fullWidth
@@ -84,6 +115,10 @@ function ReplyWriteForm() {
 					rows={5}
 					rowsMin={5}
 					placeholder={'내용을 입력해주세요.'}
+					onChange={onHandleNoticeDetailReplyTextField}
+					name={'content'}
+					value={content}
+					disabled={pending}
 				/>
 			</Box>
 			<Box className={classes.box}>
@@ -93,6 +128,8 @@ function ReplyWriteForm() {
 					color={'primary'}
 					size={'large'}
 					startIcon={<CreateIcon />}
+					onClick={isAuthenticated ? onPostNoticeDetailReply : onPostNonMemberNoticeDetailReply}
+					disabled={pending}
 				>
 					{'등록'}
 				</Button>

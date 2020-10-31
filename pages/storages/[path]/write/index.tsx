@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import Head from 'next/head';
 import { NextPageContext } from 'next';
+import Head from 'next/head';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 // Material UI
-import Grow from '@material-ui/core/Grow';
 import Fade from '@material-ui/core/Fade';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -108,9 +107,7 @@ function StorageBoardWrite() {
 				<LinearProgress className={classes.linearProgress} color={'primary'} />
 			</Fade>
 			<BoardHeader />
-			<Grow in>
-				<WriteForm />
-			</Grow>
+			<WriteForm />
 		</>
 	);
 }

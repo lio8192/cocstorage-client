@@ -1,45 +1,40 @@
-import React, { memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
+import Link from 'next/link';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import moment from 'moment';
 
 // Material UI
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Hidden from '@material-ui/core/Hidden';
-import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
+import Grow from '@material-ui/core/Grow';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Material UI Icons
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MessageIcon from '@material-ui/icons/Message';
 
-// Images
-import UpdateImg from 'images/update.png';
+// Components
+import DataEmptyBox from 'components/common/DataEmptyBox';
+
+// Custom Hooks
+import useNoticeGridList from 'hooks/notices/useNoticeGridList';
+
+// @types
+import { Notice } from 'modules/notices';
+
+moment.locale('ko');
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
-		root: {
-			paddingTop: theme.spacing(2),
-			paddingBottom: theme.spacing(2),
-			backgroundColor: 'white',
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0)
-			}
-		},
-		listItem: {
-			padding: 0,
-			border: '1px solid #EAEAEA',
-			borderTop: 'none',
-			[theme.breakpoints.down('md')]: {
-				border: 'none'
-			}
-		},
 		card: {
 			display: 'flex',
 			width: '100%',
@@ -47,14 +42,13 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		details: {
 			display: 'flex',
-			flexDirection: 'column',
 			flex: 1
 		},
 		content: {
 			flex: '1 0 auto'
 		},
-		cover: {
-			width: 230
+		mediaCover: {
+			minWidth: 230
 		},
 		controls: {
 			display: 'flex',
@@ -63,7 +57,17 @@ const useStyles = makeStyles((theme: Theme) =>
 			paddingBottom: theme.spacing(1)
 		},
 		grid: {
+			'& > .MuiGrid-item:first-child': {
+				borderTop: '1px solid #EAEAEA'
+			}
+		},
+		gridItemFirst: {
 			borderTop: '1px solid #EAEAEA'
+		},
+		gridContainer: {
+			'& > .MuiGrid-item:first-child': {
+				borderTop: '1px solid'
+			}
 		},
 		gridItemContainer: {
 			height: '100%'
@@ -77,8 +81,15 @@ const useStyles = makeStyles((theme: Theme) =>
 				border: 'none'
 			}
 		},
+		gridCardActionArea: {
+			border: '1px solid #EAEAEA',
+			borderTop: 'none'
+		},
 		cardActionArea: {
 			height: '100%'
+		},
+		cardContent: {
+			width: '100%'
 		},
 		media: {
 			height: '55%',
@@ -93,6 +104,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: 'white'
 		},
 		infoBox: {
+			display: 'flex',
+			alignItems: 'center',
 			'& span::after': {
 				content: '""',
 				display: 'inline-block',
@@ -117,631 +130,299 @@ const useStyles = makeStyles((theme: Theme) =>
 		descriptionTypography: {
 			display: 'box',
 			boxOrient: 'vertical',
-			lineClamp: 2,
+			lineClamp: 1,
 			textOverflow: 'ellipsis',
 			overflow: 'hidden'
 		},
-		buttonBox: {
-			marginTop: theme.spacing(1),
-			[theme.breakpoints.down('md')]: {
-				marginTop: theme.spacing(0)
-			}
-		},
-		button: {
-			color: 'white',
-			[theme.breakpoints.down('md')]: {
-				borderRadius: 0
-			}
+		avatar: {
+			marginRight: theme.spacing(1)
 		}
 	})
 );
 
 function NoticeGridList() {
 	const classes = useStyles();
+	const { pending, notices } = useNoticeGridList();
+
+	const [transferNotices, setTransferNotices] = useState<Array<Notice[]>>([]);
+
+	useEffect(() => {
+		if (notices.length !== 0) {
+			const noticeArray = new Array(Math.round(notices.length / 2));
+			notices.forEach((item, index) => {
+				const arrayIndex = Math.round((index + 1) / 2) - 1;
+				if (arrayIndex <= noticeArray.length) {
+					if (noticeArray[arrayIndex] !== undefined) {
+						noticeArray[arrayIndex] = [...noticeArray[arrayIndex], item];
+					} else {
+						noticeArray[arrayIndex] = [item];
+					}
+				}
+			});
+			setTransferNotices(noticeArray);
+		}
+	}, [notices]);
+
 	return (
-		<Container className={classes.root}>
+		<>
+			{pending && transferNotices.length === 0 && (
+				<Grow in>
+					<Box mt={1} pt={20} pb={20} textAlign={'center'}>
+						<CircularProgress size={50} />
+					</Box>
+				</Grow>
+			)}
 			<Grid className={classes.grid} container>
-				<Grid item xs={12} lg={6}>
-					<Hidden xsDown>
-						<Grid container>
-							<Grid item xs={12}>
-								<ListItem className={classes.listItem} disableGutters button>
-									<Card className={classes.card} elevation={0} square>
-										<CardMedia className={classes.cover} image={UpdateImg} />
-										<div className={classes.details}>
-											<CardContent>
-												<Box display={'flex'} alignItems={'center'}>
-													<Box maxWidth={'80%'}>
-														<Typography className={classes.typography} noWrap variant={'body1'}>
-															{'2020년 10월 10일 업데이트 안내'}
-														</Typography>
-													</Box>
-													<Box ml={1}>
-														<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-													</Box>
-												</Box>
-												<Box mt={1}>
-													<Typography
-														className={classes.descriptionTypography}
-														variant={'body2'}
-														color={'textSecondary'}
-													>
-														{
-															'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다. 개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다. 개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'
-														}
-													</Typography>
-												</Box>
-												<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-													<Box className={classes.infoBox}>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'관리자'}
-														</Typography>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'1시간 전'}
-														</Typography>
-													</Box>
-													<Box display={'flex'} alignItems={'center'}>
-														<Box>
-															<VisibilityIcon className={classes.icon} color={'action'} />
-														</Box>
-														<Box ml={0.5}>
-															<Typography variant={'caption'} color={'textSecondary'}>
-																{'1,000'}
-															</Typography>
-														</Box>
-													</Box>
-												</Box>
-											</CardContent>
-										</div>
-									</Card>
-								</ListItem>
+				{transferNotices.map((item, index) => {
+					if ((index + 1) % 2 === 0) {
+						return (
+							<Grid
+								// eslint-disable-next-line react/no-array-index-key
+								key={`notice-section-2-${item.length}-${index}`}
+								className={clsx({
+									[classes.gridItemFirst]: index === 1
+								})}
+								item
+								xs={12}
+								lg={6}
+							>
+								<Grow in>
+									<Grid className={classes.gridItemContainer} container>
+										{item.map((notice) => (
+											<Grid key={`notice-section-2-common-${notice.id}`} item xs={12} lg={6}>
+												<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
+													<Card className={classes.gridCard} square elevation={0}>
+														<CardActionArea className={classes.cardActionArea}>
+															<CardMedia
+																className={classes.media}
+																image={notice.thumbnailUrl || ''}
+																title={'Contemplative Reptile'}
+															/>
+															<CardContent className={classes.cardContent}>
+																<Box display={'flex'} alignItems={'center'}>
+																	<Box maxWidth={'80%'}>
+																		<Typography className={classes.typography} noWrap variant={'body1'}>
+																			{notice.subject}
+																		</Typography>
+																	</Box>
+																	{moment().diff(notice.createdAt, 'days') === 0 && (
+																		<Box ml={1}>
+																			<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
+																		</Box>
+																	)}
+																</Box>
+																<Box mt={1}>
+																	<Typography
+																		className={classes.descriptionTypography}
+																		variant={'body2'}
+																		color={'textSecondary'}
+																	>
+																		{notice.description}
+																	</Typography>
+																</Box>
+																<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
+																	<Box className={classes.infoBox}>
+																		<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
+																		<Typography variant={'caption'} color={'textSecondary'}>
+																			{notice.user.nickname}
+																		</Typography>
+																		<Typography variant={'caption'} color={'textSecondary'}>
+																			{moment(notice.createdAt).startOf('day').fromNow()}
+																		</Typography>
+																	</Box>
+																	<Box display={'flex'} alignItems={'center'}>
+																		<Box display={'flex'} alignItems={'center'}>
+																			<Box>
+																				<MessageIcon className={classes.icon} color={'action'} />
+																			</Box>
+																			<Box ml={0.5}>
+																				<Typography variant={'caption'} color={'textSecondary'}>
+																					{notice.commentTotalCount.toLocaleString()}
+																				</Typography>
+																			</Box>
+																		</Box>
+																		<Box display={'flex'} alignItems={'center'} ml={1}>
+																			<Box>
+																				<VisibilityIcon className={classes.icon} color={'action'} />
+																			</Box>
+																			<Box ml={0.5}>
+																				<Typography variant={'caption'} color={'textSecondary'}>
+																					{notice.viewCount.toLocaleString()}
+																				</Typography>
+																			</Box>
+																		</Box>
+																	</Box>
+																</Box>
+															</CardContent>
+														</CardActionArea>
+													</Card>
+												</Link>
+											</Grid>
+										))}
+									</Grid>
+								</Grow>
 							</Grid>
-							<Grid item xs={12}>
-								<ListItem className={classes.listItem} disableGutters button>
-									<Card className={classes.card} elevation={0} square>
-										<CardMedia className={classes.cover} image={UpdateImg} />
-										<div className={classes.details}>
-											<CardContent>
-												<Box display={'flex'} alignItems={'center'}>
-													<Box maxWidth={'80%'}>
-														<Typography className={classes.typography} noWrap variant={'body1'}>
-															{'2020년 10월 10일 업데이트 안내'}
-														</Typography>
-													</Box>
-													<Box ml={1}>
-														<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-													</Box>
-												</Box>
-												<Box mt={1}>
-													<Typography
-														className={classes.descriptionTypography}
-														variant={'body2'}
-														color={'textSecondary'}
-													>
-														{
-															'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다. 개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다. 개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'
-														}
-													</Typography>
-												</Box>
-												<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-													<Box className={classes.infoBox}>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'관리자'}
-														</Typography>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'1시간 전'}
-														</Typography>
-													</Box>
-													<Box display={'flex'} alignItems={'center'}>
-														<Box>
-															<VisibilityIcon className={classes.icon} color={'action'} />
-														</Box>
-														<Box ml={0.5}>
-															<Typography variant={'caption'} color={'textSecondary'}>
-																{'1,000'}
-															</Typography>
-														</Box>
-													</Box>
-												</Box>
-											</CardContent>
-										</div>
-									</Card>
-								</ListItem>
-							</Grid>
+						);
+					}
+					return (
+						// eslint-disable-next-line react/no-array-index-key
+						<Grid key={`notice-section-1-${item.length}-${index}`} item xs={12} lg={6}>
+							<Hidden xsDown>
+								<Grid container>
+									{item.map((notice) => (
+										<Grid key={`notice-section-1-pc-${notice.id}`} item xs={12}>
+											<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
+												<Grow in>
+													<Card className={classes.card} elevation={0} square>
+														<CardActionArea className={classes.gridCardActionArea}>
+															<Box className={classes.details}>
+																<CardMedia className={classes.mediaCover} image={notice.thumbnailUrl || ''} />
+																<CardContent className={classes.cardContent}>
+																	<Box display={'flex'} alignItems={'center'}>
+																		<Typography className={classes.typography} variant={'body1'}>
+																			{notice.subject}
+																		</Typography>
+																		{moment().diff(notice.createdAt, 'days') === 0 && (
+																			<Box ml={1}>
+																				<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
+																			</Box>
+																		)}
+																	</Box>
+																	<Box mt={1}>
+																		<Typography
+																			className={classes.descriptionTypography}
+																			variant={'body2'}
+																			color={'textSecondary'}
+																		>
+																			{notice.description}
+																		</Typography>
+																	</Box>
+																	<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
+																		<Box className={classes.infoBox}>
+																			<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
+																			<Typography variant={'caption'} color={'textSecondary'}>
+																				{notice.user.nickname}
+																			</Typography>
+																			<Typography variant={'caption'} color={'textSecondary'}>
+																				{moment(notice.createdAt).startOf('day').fromNow()}
+																			</Typography>
+																		</Box>
+																		<Box display={'flex'} alignItems={'center'}>
+																			<Box display={'flex'} alignItems={'center'}>
+																				<Box>
+																					<MessageIcon className={classes.icon} color={'action'} />
+																				</Box>
+																				<Box ml={0.5}>
+																					<Typography variant={'caption'} color={'textSecondary'}>
+																						{notice.commentTotalCount.toLocaleString()}
+																					</Typography>
+																				</Box>
+																			</Box>
+																			<Box display={'flex'} alignItems={'center'} ml={1}>
+																				<Box>
+																					<VisibilityIcon className={classes.icon} color={'action'} />
+																				</Box>
+																				<Box ml={0.5}>
+																					<Typography variant={'caption'} color={'textSecondary'}>
+																						{notice.viewCount.toLocaleString()}
+																					</Typography>
+																				</Box>
+																			</Box>
+																		</Box>
+																	</Box>
+																</CardContent>
+															</Box>
+														</CardActionArea>
+													</Card>
+												</Grow>
+											</Link>
+										</Grid>
+									))}
+								</Grid>
+							</Hidden>
+							<Hidden smUp>
+								<Grid className={classes.gridItemContainer} container>
+									{item.map((notice) => (
+										<Grid key={`notice-section-1-mobile-${notice.id}`} item xs={12} lg={6}>
+											<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
+												<Grow in>
+													<Card className={classes.gridCard} square elevation={0}>
+														<CardActionArea className={classes.cardActionArea}>
+															<CardMedia
+																className={classes.media}
+																image={notice.thumbnailUrl || ''}
+																title={'Contemplative Reptile'}
+															/>
+															<CardContent className={classes.cardContent}>
+																<Box display={'flex'} alignItems={'center'}>
+																	<Box maxWidth={'80%'}>
+																		<Typography className={classes.typography} noWrap variant={'body1'}>
+																			{notice.subject}
+																		</Typography>
+																	</Box>
+																	{moment().diff(notice.createdAt, 'days') === 0 && (
+																		<Box ml={1}>
+																			<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
+																		</Box>
+																	)}
+																</Box>
+																<Box mt={1}>
+																	<Typography
+																		className={classes.descriptionTypography}
+																		variant={'body2'}
+																		color={'textSecondary'}
+																	>
+																		{notice.description}
+																	</Typography>
+																</Box>
+																<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
+																	<Box className={classes.infoBox}>
+																		<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
+																		<Typography variant={'caption'} color={'textSecondary'}>
+																			{notice.user.nickname}
+																		</Typography>
+																		<Typography variant={'caption'} color={'textSecondary'}>
+																			{moment(notice.createdAt).startOf('day').fromNow()}
+																		</Typography>
+																	</Box>
+																	<Box display={'flex'} alignItems={'center'}>
+																		<Box display={'flex'} alignItems={'center'}>
+																			<Box>
+																				<MessageIcon className={classes.icon} color={'action'} />
+																			</Box>
+																			<Box ml={0.5}>
+																				<Typography variant={'caption'} color={'textSecondary'}>
+																					{notice.commentTotalCount.toLocaleString()}
+																				</Typography>
+																			</Box>
+																		</Box>
+																		<Box display={'flex'} alignItems={'center'} ml={1}>
+																			<Box>
+																				<VisibilityIcon className={classes.icon} color={'action'} />
+																			</Box>
+																			<Box ml={0.5}>
+																				<Typography variant={'caption'} color={'textSecondary'}>
+																					{notice.viewCount.toLocaleString()}
+																				</Typography>
+																			</Box>
+																		</Box>
+																	</Box>
+																</Box>
+															</CardContent>
+														</CardActionArea>
+													</Card>
+												</Grow>
+											</Link>
+										</Grid>
+									))}
+								</Grid>
+							</Hidden>
 						</Grid>
-					</Hidden>
-					<Hidden smUp>
-						<Grid className={classes.gridItemContainer} container>
-							<Grid item xs={12} lg={6}>
-								<Card className={classes.gridCard} square elevation={0}>
-									<CardActionArea className={classes.cardActionArea}>
-										<CardMedia className={classes.media} image={UpdateImg} title={'Contemplative Reptile'} />
-										<CardContent>
-											<Box display={'flex'} alignItems={'center'}>
-												<Box maxWidth={'80%'}>
-													<Typography className={classes.typography} noWrap variant={'body1'}>
-														{'2020년 10월 10일 업데이트 안내'}
-													</Typography>
-												</Box>
-												<Box ml={1}>
-													<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-												</Box>
-											</Box>
-											<Box mt={1}>
-												<Typography className={classes.descriptionTypography} variant={'body2'} color={'textSecondary'}>
-													{'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'}
-												</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-												<Box className={classes.infoBox}>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'관리자'}
-													</Typography>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'1시간 전'}
-													</Typography>
-												</Box>
-												<Box display={'flex'} alignItems={'center'}>
-													<Box>
-														<VisibilityIcon className={classes.icon} color={'action'} />
-													</Box>
-													<Box ml={0.5}>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'1,000'}
-														</Typography>
-													</Box>
-												</Box>
-											</Box>
-										</CardContent>
-									</CardActionArea>
-								</Card>
-							</Grid>
-							<Grid item xs={12} lg={6}>
-								<Card className={classes.gridCard} square elevation={0}>
-									<CardActionArea className={classes.cardActionArea}>
-										<CardMedia className={classes.media} image={UpdateImg} title={'Contemplative Reptile'} />
-										<CardContent>
-											<Box display={'flex'} alignItems={'center'}>
-												<Box maxWidth={'80%'}>
-													<Typography className={classes.typography} noWrap variant={'body1'}>
-														{'2020년 10월 10일 업데이트 안내'}
-													</Typography>
-												</Box>
-												<Box ml={1}>
-													<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-												</Box>
-											</Box>
-											<Box mt={1}>
-												<Typography className={classes.descriptionTypography} variant={'body2'} color={'textSecondary'}>
-													{'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'}
-												</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-												<Box className={classes.infoBox}>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'관리자'}
-													</Typography>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'1시간 전'}
-													</Typography>
-												</Box>
-												<Box display={'flex'} alignItems={'center'}>
-													<Box>
-														<VisibilityIcon className={classes.icon} color={'action'} />
-													</Box>
-													<Box ml={0.5}>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'1,000'}
-														</Typography>
-													</Box>
-												</Box>
-											</Box>
-										</CardContent>
-									</CardActionArea>
-								</Card>
-							</Grid>
-						</Grid>
-					</Hidden>
-				</Grid>
-				<Grid item xs={12} lg={6}>
-					<Grid className={classes.gridItemContainer} container>
-						<Grid item xs={12} lg={6}>
-							<Card className={classes.gridCard} square elevation={0}>
-								<CardActionArea className={classes.cardActionArea}>
-									<CardMedia className={classes.media} image={UpdateImg} title={'Contemplative Reptile'} />
-									<CardContent>
-										<Box display={'flex'} alignItems={'center'}>
-											<Box maxWidth={'80%'}>
-												<Typography className={classes.typography} noWrap variant={'body1'}>
-													{'2020년 10월 10일 업데이트 안내'}
-												</Typography>
-											</Box>
-											<Box ml={1}>
-												<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-											</Box>
-										</Box>
-										<Box mt={1}>
-											<Typography className={classes.descriptionTypography} variant={'body2'} color={'textSecondary'}>
-												{'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'}
-											</Typography>
-										</Box>
-										<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-											<Box className={classes.infoBox}>
-												<Typography variant={'caption'} color={'textSecondary'}>
-													{'관리자'}
-												</Typography>
-												<Typography variant={'caption'} color={'textSecondary'}>
-													{'1시간 전'}
-												</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'}>
-												<Box>
-													<VisibilityIcon className={classes.icon} color={'action'} />
-												</Box>
-												<Box ml={0.5}>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'1,000'}
-													</Typography>
-												</Box>
-											</Box>
-										</Box>
-									</CardContent>
-								</CardActionArea>
-							</Card>
-						</Grid>
-						<Grid item xs={12} lg={6}>
-							<Card className={classes.gridCard} square elevation={0}>
-								<CardActionArea className={classes.cardActionArea}>
-									<CardMedia className={classes.media} image={UpdateImg} title={'Contemplative Reptile'} />
-									<CardContent>
-										<Box display={'flex'} alignItems={'center'}>
-											<Box maxWidth={'80%'}>
-												<Typography className={classes.typography} noWrap variant={'body1'}>
-													{'2020년 10월 10일 업데이트 안내'}
-												</Typography>
-											</Box>
-											<Box ml={1}>
-												<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-											</Box>
-										</Box>
-										<Box mt={1}>
-											<Typography className={classes.descriptionTypography} variant={'body2'} color={'textSecondary'}>
-												{'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'}
-											</Typography>
-										</Box>
-										<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-											<Box className={classes.infoBox}>
-												<Typography variant={'caption'} color={'textSecondary'}>
-													{'관리자'}
-												</Typography>
-												<Typography variant={'caption'} color={'textSecondary'}>
-													{'1시간 전'}
-												</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'}>
-												<Box>
-													<VisibilityIcon className={classes.icon} color={'action'} />
-												</Box>
-												<Box ml={0.5}>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'1,000'}
-													</Typography>
-												</Box>
-											</Box>
-										</Box>
-									</CardContent>
-								</CardActionArea>
-							</Card>
-						</Grid>
-					</Grid>
-				</Grid>
-				<Grid item xs={12} lg={6}>
-					<Hidden xsDown>
-						<Grid container>
-							<Grid item xs={12}>
-								<ListItem className={classes.listItem} disableGutters button>
-									<Card className={classes.card} elevation={0} square>
-										<CardMedia className={classes.cover} image={UpdateImg} />
-										<div className={classes.details}>
-											<CardContent>
-												<Box display={'flex'} alignItems={'center'}>
-													<Box maxWidth={'80%'}>
-														<Typography className={classes.typography} noWrap variant={'body1'}>
-															{'2020년 10월 10일 업데이트 안내'}
-														</Typography>
-													</Box>
-													<Box ml={1}>
-														<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-													</Box>
-												</Box>
-												<Box mt={1}>
-													<Typography
-														className={classes.descriptionTypography}
-														variant={'body2'}
-														color={'textSecondary'}
-													>
-														{
-															'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다. 개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다. 개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'
-														}
-													</Typography>
-												</Box>
-												<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-													<Box className={classes.infoBox}>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'관리자'}
-														</Typography>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'1시간 전'}
-														</Typography>
-													</Box>
-													<Box display={'flex'} alignItems={'center'}>
-														<Box>
-															<VisibilityIcon className={classes.icon} color={'action'} />
-														</Box>
-														<Box ml={0.5}>
-															<Typography variant={'caption'} color={'textSecondary'}>
-																{'1,000'}
-															</Typography>
-														</Box>
-													</Box>
-												</Box>
-											</CardContent>
-										</div>
-									</Card>
-								</ListItem>
-							</Grid>
-							<Grid item xs={12}>
-								<ListItem className={classes.listItem} disableGutters button>
-									<Card className={classes.card} elevation={0} square>
-										<CardMedia className={classes.cover} image={UpdateImg} />
-										<div className={classes.details}>
-											<CardContent>
-												<Box display={'flex'} alignItems={'center'}>
-													<Box maxWidth={'80%'}>
-														<Typography className={classes.typography} noWrap variant={'body1'}>
-															{'2020년 10월 10일 업데이트 안내'}
-														</Typography>
-													</Box>
-													<Box ml={1}>
-														<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-													</Box>
-												</Box>
-												<Box mt={1}>
-													<Typography
-														className={classes.descriptionTypography}
-														variant={'body2'}
-														color={'textSecondary'}
-													>
-														{
-															'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다. 개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다. 개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'
-														}
-													</Typography>
-												</Box>
-												<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-													<Box className={classes.infoBox}>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'관리자'}
-														</Typography>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'1시간 전'}
-														</Typography>
-													</Box>
-													<Box display={'flex'} alignItems={'center'}>
-														<Box>
-															<VisibilityIcon className={classes.icon} color={'action'} />
-														</Box>
-														<Box ml={0.5}>
-															<Typography variant={'caption'} color={'textSecondary'}>
-																{'1,000'}
-															</Typography>
-														</Box>
-													</Box>
-												</Box>
-											</CardContent>
-										</div>
-									</Card>
-								</ListItem>
-							</Grid>
-						</Grid>
-					</Hidden>
-					<Hidden smUp>
-						<Grid className={classes.gridItemContainer} container>
-							<Grid item xs={12} lg={6}>
-								<Card className={classes.gridCard} square elevation={0}>
-									<CardActionArea className={classes.cardActionArea}>
-										<CardMedia className={classes.media} image={UpdateImg} title={'Contemplative Reptile'} />
-										<CardContent>
-											<Box display={'flex'} alignItems={'center'}>
-												<Box maxWidth={'80%'}>
-													<Typography className={classes.typography} noWrap variant={'body1'}>
-														{'2020년 10월 10일 업데이트 안내'}
-													</Typography>
-												</Box>
-												<Box ml={1}>
-													<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-												</Box>
-											</Box>
-											<Box mt={1}>
-												<Typography className={classes.descriptionTypography} variant={'body2'} color={'textSecondary'}>
-													{'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'}
-												</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-												<Box className={classes.infoBox}>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'관리자'}
-													</Typography>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'1시간 전'}
-													</Typography>
-												</Box>
-												<Box display={'flex'} alignItems={'center'}>
-													<Box>
-														<VisibilityIcon className={classes.icon} color={'action'} />
-													</Box>
-													<Box ml={0.5}>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'1,000'}
-														</Typography>
-													</Box>
-												</Box>
-											</Box>
-										</CardContent>
-									</CardActionArea>
-								</Card>
-							</Grid>
-							<Grid item xs={12} lg={6}>
-								<Card className={classes.gridCard} square elevation={0}>
-									<CardActionArea className={classes.cardActionArea}>
-										<CardMedia className={classes.media} image={UpdateImg} title={'Contemplative Reptile'} />
-										<CardContent>
-											<Box display={'flex'} alignItems={'center'}>
-												<Box maxWidth={'80%'}>
-													<Typography className={classes.typography} noWrap variant={'body1'}>
-														{'2020년 10월 10일 업데이트 안내'}
-													</Typography>
-												</Box>
-												<Box ml={1}>
-													<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-												</Box>
-											</Box>
-											<Box mt={1}>
-												<Typography className={classes.descriptionTypography} variant={'body2'} color={'textSecondary'}>
-													{'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'}
-												</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-												<Box className={classes.infoBox}>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'관리자'}
-													</Typography>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'1시간 전'}
-													</Typography>
-												</Box>
-												<Box display={'flex'} alignItems={'center'}>
-													<Box>
-														<VisibilityIcon className={classes.icon} color={'action'} />
-													</Box>
-													<Box ml={0.5}>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															{'1,000'}
-														</Typography>
-													</Box>
-												</Box>
-											</Box>
-										</CardContent>
-									</CardActionArea>
-								</Card>
-							</Grid>
-						</Grid>
-					</Hidden>
-				</Grid>
-				<Grid item xs={12} lg={6}>
-					<Grid className={classes.gridItemContainer} container>
-						<Grid item xs={12} lg={6}>
-							<Card className={classes.gridCard} square elevation={0}>
-								<CardActionArea className={classes.cardActionArea}>
-									<CardMedia className={classes.media} image={UpdateImg} title={'Contemplative Reptile'} />
-									<CardContent>
-										<Box display={'flex'} alignItems={'center'}>
-											<Box maxWidth={'80%'}>
-												<Typography className={classes.typography} noWrap variant={'body1'}>
-													{'2020년 10월 10일 업데이트 안내'}
-												</Typography>
-											</Box>
-											<Box ml={1}>
-												<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-											</Box>
-										</Box>
-										<Box mt={1}>
-											<Typography className={classes.descriptionTypography} variant={'body2'} color={'textSecondary'}>
-												{'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'}
-											</Typography>
-										</Box>
-										<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-											<Box className={classes.infoBox}>
-												<Typography variant={'caption'} color={'textSecondary'}>
-													{'관리자'}
-												</Typography>
-												<Typography variant={'caption'} color={'textSecondary'}>
-													{'1시간 전'}
-												</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'}>
-												<Box>
-													<VisibilityIcon className={classes.icon} color={'action'} />
-												</Box>
-												<Box ml={0.5}>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'1,000'}
-													</Typography>
-												</Box>
-											</Box>
-										</Box>
-									</CardContent>
-								</CardActionArea>
-							</Card>
-						</Grid>
-						<Grid item xs={12} lg={6}>
-							<Card className={classes.gridCard} square elevation={0}>
-								<CardActionArea className={classes.cardActionArea}>
-									<CardMedia className={classes.media} image={UpdateImg} title={'Contemplative Reptile'} />
-									<CardContent>
-										<Box display={'flex'} alignItems={'center'}>
-											<Box maxWidth={'80%'}>
-												<Typography className={classes.typography} noWrap variant={'body1'}>
-													{'2020년 10월 10일 업데이트 안내'}
-												</Typography>
-											</Box>
-											<Box ml={1}>
-												<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
-											</Box>
-										</Box>
-										<Box mt={1}>
-											<Typography className={classes.descriptionTypography} variant={'body2'} color={'textSecondary'}>
-												{'개념글 저장소 1주년을 맞이하여 대규모 업데이트가 진행되었습니다.'}
-											</Typography>
-										</Box>
-										<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-											<Box className={classes.infoBox}>
-												<Typography variant={'caption'} color={'textSecondary'}>
-													{'관리자'}
-												</Typography>
-												<Typography variant={'caption'} color={'textSecondary'}>
-													{'1시간 전'}
-												</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'}>
-												<Box>
-													<VisibilityIcon className={classes.icon} color={'action'} />
-												</Box>
-												<Box ml={0.5}>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														{'1,000'}
-													</Typography>
-												</Box>
-											</Box>
-										</Box>
-									</CardContent>
-								</CardActionArea>
-							</Card>
-						</Grid>
-					</Grid>
-				</Grid>
+					);
+				})}
 			</Grid>
-			<Box className={classes.buttonBox}>
-				<Button
-					className={classes.button}
-					fullWidth
-					variant={'contained'}
-					color={'primary'}
-					startIcon={<ExpandMoreIcon />}
-				>
-					{'더 보기'}
-				</Button>
-			</Box>
-		</Container>
+			{!pending && transferNotices.length === 0 && <DataEmptyBox message={'새로운 소직이 존재하지 않습니다.'} />}
+		</>
 	);
 }
 

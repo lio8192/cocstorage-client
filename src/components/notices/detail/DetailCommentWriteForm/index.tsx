@@ -6,10 +6,20 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
-import Visibility from '@material-ui/icons/Visibility';
 import Button from '@material-ui/core/Button';
-import CreateIcon from '@material-ui/icons/Create';
+import Grow from '@material-ui/core/Grow';
 import InputBase from '@material-ui/core/InputBase';
+
+// Material UI Icons
+import CreateIcon from '@material-ui/icons/Create';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
+// Material UI Labs
+import Skeleton from '@material-ui/lab/Skeleton';
+
+// Custom Hooks
+import useDetailCommentWriteForm from 'hooks/notices/detail/useDetailCommentWriteForm';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -24,10 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		grid: {
-			borderRight: '1px solid #EAEAEA'
+			borderBottom: '1px solid #EAEAEA'
 		},
-		inputContentBox: {
-			borderTop: '1px solid #EAEAEA'
+		inputBaseGrid: {
+			borderRight: '1px solid #EAEAEA'
 		},
 		inputBase: {
 			padding: '18.5px 14px'
@@ -54,50 +64,96 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function DetailCommentWriteForm() {
 	const classes = useStyles();
+	const {
+		comments: {
+			pending,
+			manage: { pending: managePending }
+		},
+		postNoticeDetailCommentBody: { nickname, password, content },
+		showPassword,
+		isAuthenticated,
+		onHandleNoticeDetailCommentTextField,
+		onShowNoticeDetailCommentPassword,
+		onPostNoticeDetailComment,
+		onPostNonMemberNoticeDetailComment
+	} = useDetailCommentWriteForm();
 	return (
-		<Box className={classes.root}>
-			<Grid container>
-				<Grid className={classes.grid} item xs={6}>
-					<InputBase className={classes.inputBase} fullWidth placeholder={'닉네임'} />
-				</Grid>
-				<Grid item xs={6}>
-					<InputBase
-						className={classes.inputBase}
-						fullWidth
-						type={'password'}
-						placeholder={'비밀번호'}
-						endAdornment={(
-							<InputAdornment position={'end'}>
-								<IconButton edge={'end'}>
-									<Visibility />
-								</IconButton>
-							</InputAdornment>
+		<>
+			{pending && (
+				<Grow in>
+					<Box textAlign={'center'}>
+						<Skeleton variant={'rect'} animation={'wave'} height={250} />
+					</Box>
+				</Grow>
+			)}
+			{!pending && (
+				<Grow in>
+					<Box className={classes.root}>
+						{!isAuthenticated && (
+							<Grid className={classes.grid} container>
+								<Grid className={classes.inputBaseGrid} item xs={6}>
+									<InputBase
+										className={classes.inputBase}
+										fullWidth
+										placeholder={'닉네임'}
+										onChange={onHandleNoticeDetailCommentTextField}
+										name={'nickname'}
+										value={nickname || ''}
+										disabled={managePending}
+									/>
+								</Grid>
+								<Grid item xs={6}>
+									<InputBase
+										className={classes.inputBase}
+										fullWidth
+										type={showPassword ? 'text' : 'password'}
+										placeholder={'비밀번호'}
+										endAdornment={(
+											<InputAdornment position={'end'}>
+												<IconButton edge={'end'} onClick={onShowNoticeDetailCommentPassword}>
+													{showPassword ? <Visibility /> : <VisibilityOff />}
+												</IconButton>
+											</InputAdornment>
+										)}
+										onChange={onHandleNoticeDetailCommentTextField}
+										name={'password'}
+										value={password || ''}
+										disabled={managePending}
+									/>
+								</Grid>
+							</Grid>
 						)}
-					/>
-				</Grid>
-			</Grid>
-			<Box className={classes.inputContentBox}>
-				<InputBase
-					className={classes.inputBaseMultiline}
-					fullWidth
-					multiline
-					rows={5}
-					rowsMin={5}
-					placeholder={'내용을 입력해주세요.'}
-				/>
-			</Box>
-			<Box className={classes.box}>
-				<Button
-					className={classes.button}
-					variant={'contained'}
-					color={'primary'}
-					size={'large'}
-					startIcon={<CreateIcon />}
-				>
-					{'등록'}
-				</Button>
-			</Box>
-		</Box>
+						<Box>
+							<InputBase
+								className={classes.inputBaseMultiline}
+								fullWidth
+								multiline
+								rows={5}
+								rowsMin={5}
+								placeholder={'내용을 입력해주세요.'}
+								onChange={onHandleNoticeDetailCommentTextField}
+								name={'content'}
+								value={content}
+								disabled={managePending}
+							/>
+						</Box>
+						<Box className={classes.box}>
+							<Button
+								className={classes.button}
+								variant={'contained'}
+								color={'primary'}
+								size={'large'}
+								startIcon={<CreateIcon />}
+								onClick={isAuthenticated ? onPostNoticeDetailComment : onPostNonMemberNoticeDetailComment}
+								disabled={managePending}
+							>
+								{'등록'}
+							</Button>
+						</Box>
+					</Box>
+				</Grow>
+			)}
+		</>
 	);
 }
 

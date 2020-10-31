@@ -8,6 +8,9 @@ import boardDetail from './boardDetail';
 import storages from './storages';
 import storageBoard from './storages/board';
 import storageBoardDetail from './storages/board/detail';
+import notices from './notices';
+import noticeDetail from './notices/detail';
+import mypage from './mypage';
 
 const rootReducer = combineReducers({
 	common,
@@ -16,7 +19,10 @@ const rootReducer = combineReducers({
 	boardDetail,
 	storages,
 	storageBoard,
-	storageBoardDetail
+	storageBoardDetail,
+	notices,
+	noticeDetail,
+	mypage
 });
 
 export default rootReducer;

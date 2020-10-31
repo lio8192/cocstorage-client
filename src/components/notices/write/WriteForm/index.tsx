@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import React, { useCallback, useMemo, memo } from 'react';
+import { useRouter } from 'next/router';
 import {
 	makeStyles, createStyles, Theme, useTheme
 } from '@material-ui/core/styles';
@@ -7,17 +8,22 @@ import {
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Grow from '@material-ui/core/Grow';
 import MUIRichTextEditor from 'mui-rte';
 
 // Material UI Icons
-import Visibility from '@material-ui/icons/Visibility';
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import BackupIcon from '@material-ui/icons/Backup';
+
+// Custom Hooks
+import useWriteForm from 'hooks/notices/write/useWriteForm';
+
+// Components
+import UploadImagePopover from './UploadPopover';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -72,6 +78,11 @@ const useStyles = makeStyles((theme: Theme) =>
 				}
 			}
 		},
+		prevButton: {
+			[theme.breakpoints.down('md')]: {
+				borderRadius: 0
+			}
+		},
 		button: {
 			color: 'white',
 			[theme.breakpoints.down('md')]: {
@@ -101,9 +112,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		typography: {
 			color: theme.palette.action.active,
 			fontWeight: 700
-		},
-		submitButton: {
-			color: 'white'
 		}
 	})
 );
@@ -112,83 +120,137 @@ function WriteForm() {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+	const router = useRouter();
+	const {
+		manage: { pending },
+		putNoticeBody: { subject },
+		ref,
+		anchor,
+		setAnchor,
+		onHandleWriteFormTextField,
+		onHandleWriteFormRichEditor,
+		onHandleFileUpload,
+		onPutNotice
+	} = useWriteForm();
+
+	const controls = useMemo<Array<string>>(() => {
+		if (isMobile) {
+			return [
+				'title',
+				'bold',
+				'italic',
+				'strikethrough',
+				'underline',
+				'highlight',
+				'upload-image',
+				'media',
+				'link',
+				'numberList',
+				'bulletList',
+				'quote'
+			];
+		}
+		return [
+			'title',
+			'bold',
+			'italic',
+			'strikethrough',
+			'underline',
+			'highlight',
+			'undo',
+			'redo',
+			'upload-image',
+			'media',
+			'link',
+			'numberList',
+			'bulletList',
+			'quote'
+		];
+	}, [isMobile]);
+
+	const handlePrevButton = useCallback(() => router.back(), [router]);
 
 	return (
-		<Box position={'relative'}>
-			<Container className={classes.container}>
-				<Grid container spacing={isMobile ? 0 : 1}>
-					<Grid item xs={6}>
+		<Grow in>
+			<Box position={'relative'}>
+				<Container className={classes.container}>
+					<Box className={classes.subjectBox}>
 						<TextField
 							fullWidth
 							variant={'outlined'}
-							label={isMobile ? null : '닉네임'}
-							placeholder={isMobile ? '닉네임' : undefined}
+							label={isMobile ? null : '제목'}
+							placeholder={isMobile ? '제목을 입력해주세요.' : undefined}
 							InputProps={{
-								className: classes.nicknameTextFieldInput
+								className: classes.subjectTextFieldInput
+							}}
+							onChange={onHandleWriteFormTextField}
+							name={'subject'}
+							value={subject}
+							disabled={pending}
+						/>
+					</Box>
+					<Box className={classes.textEditorBox}>
+						<UploadImagePopover
+							anchor={anchor}
+							onSubmit={(data, insert) => {
+								if (insert && data.file) {
+									onHandleFileUpload(data.file);
+								}
+								setAnchor(null);
 							}}
 						/>
-					</Grid>
-					<Grid item xs={6}>
-						<TextField
-							fullWidth
-							variant={'outlined'}
-							type={'password'}
-							label={isMobile ? null : '비밀번호'}
-							placeholder={isMobile ? '비밀번호' : undefined}
-							InputProps={{
-								className: classes.passwordTextFieldInput,
-								endAdornment: (
-									<InputAdornment position={'end'}>
-										<IconButton edge={'end'}>
-											<Visibility />
-										</IconButton>
-									</InputAdornment>
-								)
-							}}
+						<MUIRichTextEditor
+							defaultValue={''}
+							ref={ref}
+							inlineToolbar
+							controls={controls}
+							customControls={[
+								{
+									name: 'upload-image',
+									icon: <BackupIcon />,
+									type: 'callback',
+									// eslint-disable-next-line no-shadow
+									onClick: (_editorState, _name, anchor) => {
+										setAnchor(anchor);
+									}
+								}
+							]}
+							label={'내용을 입력해주세요.'}
+							onChange={onHandleWriteFormRichEditor}
+							readOnly={pending}
 						/>
+					</Box>
+					<Grid className={classes.grid} container spacing={!isMobile ? 1 : 0} justify={'flex-end'}>
+						<Grid item xs={isMobile && 6}>
+							<Button
+								fullWidth={isMobile}
+								className={classes.prevButton}
+								variant={'contained'}
+								size={'large'}
+								startIcon={<ArrowBackIcon />}
+								onClick={handlePrevButton}
+							>
+								{'이전'}
+							</Button>
+						</Grid>
+						<Grid item xs={isMobile && 6}>
+							<Button
+								fullWidth={isMobile}
+								className={classes.button}
+								variant={'contained'}
+								color={'primary'}
+								size={'large'}
+								startIcon={<DoneIcon />}
+								onClick={onPutNotice}
+								disabled={pending}
+							>
+								{'완료'}
+							</Button>
+						</Grid>
 					</Grid>
-				</Grid>
-				<Box className={classes.subjectBox}>
-					<TextField
-						fullWidth
-						variant={'outlined'}
-						label={isMobile ? null : '제목'}
-						placeholder={isMobile ? '제목을 입력해주세요.' : undefined}
-						InputProps={{
-							className: classes.subjectTextFieldInput
-						}}
-					/>
-				</Box>
-				<Box className={classes.textEditorBox}>
-					<MUIRichTextEditor defaultValue={''} label={'내용을 입력해주세요.'} />
-				</Box>
-				<Grid className={classes.grid} container spacing={!isMobile ? 1 : 0} justify={'flex-end'}>
-					<Grid item xs={isMobile && 6}>
-						<Button
-							fullWidth={isMobile}
-							className={classes.button}
-							variant={'contained'}
-							size={'large'}
-							startIcon={<ArrowBackIcon />}
-						>
-							{'이전'}
-						</Button>
-					</Grid>
-					<Grid item xs={isMobile && 6}>
-						<Button
-							fullWidth={isMobile}
-							className={classes.button}
-							variant={'contained'}
-							color={'primary'}
-							size={'large'}
-							startIcon={<DoneIcon />}
-						>
-							{'완료'}
-						</Button>
-					</Grid>
-				</Grid>
-			</Container>
-		</Box>
+				</Container>
+			</Box>
+		</Grow>
 	);
 }
 

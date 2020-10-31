@@ -70,14 +70,6 @@ export const POST_NON_MEMBER_STORAGE_BOARD_DETAIL_REPLY_FAILED =	'storages/board
 
 export const HANDLE_STORAGE_BOARD_DETAIL_DELETE_AUTH_DIALOG =	'storages/board/detail/HANDLE_STORAGE_BOARD_DETAIL_DELETE_AUTH_DIALOG';
 
-export const FETCH_STORAGE_BOARD_EDIT_DETAIL = 'storages/board/detail/FETCH_STORAGE_BOARD_EDIT_DETAIL';
-export const FETCH_STORAGE_BOARD_EDIT_DETAIL_SUCCEEDED =	'storages/board/detail/FETCH_STORAGE_BOARD_EDIT_DETAIL_SUCCEEDED';
-export const FETCH_STORAGE_BOARD_EDIT_DETAIL_FAILED = 'storages/board/detail/FETCH_STORAGE_BOARD_EDIT_DETAIL_FAILED';
-
-export const FETCH_NON_MEMBER_STORAGE_BOARD_EDIT_DETAIL =	'storages/board/detail/FETCH_NON_MEMBER_STORAGE_BOARD_EDIT_DETAIL';
-export const FETCH_NON_MEMBER_STORAGE_BOARD_EDIT_DETAIL_SUCCEEDED =	'storages/board/detail/FETCH_NON_MEMBER_STORAGE_BOARD_EDIT_DETAIL_SUCCEEDED';
-export const FETCH_NON_MEMBER_STORAGE_BOARD_EDIT_DETAIL_FAILED =	'storages/board/detail/FETCH_NON_MEMBER_STORAGE_BOARD_EDIT_DETAIL_FAILED';
-
 export const DELETE_STORAGE_BOARD_DETAIL = 'storages/board/detail/DELETE_STORAGE_BOARD_DETAIL';
 export const DELETE_STORAGE_BOARD_DETAIL_SUCCEEDED = 'storages/board/detail/DELETE_STORAGE_BOARD_DETAIL_SUCCEEDED';
 export const DELETE_STORAGE_BOARD_DETAIL_FAILED = 'storages/board/detail/DELETE_STORAGE_BOARD_DETAIL_FAILED';
@@ -123,7 +115,9 @@ export const putStorageBoardDetailViewCount = createAction(PUT_STORAGE_BOARD_DET
 	storageId: number;
 	id: number;
 }>();
-export const putStorageBoardDetailViewCountSucceeded = createAction(PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_SUCCEEDED)();
+export const putStorageBoardDetailViewCountSucceeded = createAction(PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_SUCCEEDED)<
+	number
+>();
 export const putStorageBoardDetailViewCountFailed = createAction(PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_FAILED)();
 
 export const putStorageBoardDetailRecommend = createAction(PUT_STORAGE_BOARD_DETAIL_RECOMMEND)<
@@ -167,9 +161,7 @@ export const fetchStorageBoardDetailCommentsFailed = createAction(FETCH_STORAGE_
 export const postStorageBoardDetailComment = createAction(POST_STORAGE_BOARD_DETAIL_COMMENT)<
 	PostStorageBoardDetailCommentPayload
 >();
-export const postStorageBoardDetailCommentSucceeded = createAction(POST_STORAGE_BOARD_DETAIL_COMMENT_SUCCEEDED)<
-	number
->();
+export const postStorageBoardDetailCommentSucceeded = createAction(POST_STORAGE_BOARD_DETAIL_COMMENT_SUCCEEDED)();
 export const postStorageBoardDetailCommentFailed = createAction(POST_STORAGE_BOARD_DETAIL_COMMENT_FAILED)();
 
 export const postNonMemberStorageBoardDetailComment = createAction(POST_NON_MEMBER_STORAGE_BOARD_DETAIL_COMMENT)<
@@ -177,7 +169,7 @@ export const postNonMemberStorageBoardDetailComment = createAction(POST_NON_MEMB
 >();
 export const postNonMemberStorageBoardDetailCommentSucceeded = createAction(
 	POST_NON_MEMBER_STORAGE_BOARD_DETAIL_COMMENT_SUCCEEDED
-)<number>();
+)();
 export const postNonMemberStorageBoardDetailCommentFailed = createAction(
 	POST_NON_MEMBER_STORAGE_BOARD_DETAIL_COMMENT_FAILED
 )();

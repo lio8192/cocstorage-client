@@ -35,7 +35,13 @@ export default function useHeader() {
 	const isStorageBoardEdit = useMemo(() => route === '/storages/[path]/edit/[id]', [route]);
 	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
 	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
+	const isNoticeEdit = useMemo(() => route === '/notices/edit/[id]', [route]);
 	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
+	const isNotices = useMemo(() => isNoticeWrite || isNoticeDetail || isNoticeEdit, [
+		isNoticeWrite,
+		isNoticeDetail,
+		isNoticeEdit
+	]);
 	const isUserAuthenticationUUID = useMemo(() => route === '/users/authentication/[uuid]', [route]);
 	const isTabsHidden = useMemo(
 		() =>
@@ -49,6 +55,7 @@ export default function useHeader() {
 				|| isStorageBoardDetail
 				|| isNoticeWrite
 				|| isNoticeDetail
+				|| isNoticeEdit
 				|| isUserAuthenticationUUID)
 			&& isMounted,
 		[
@@ -62,6 +69,7 @@ export default function useHeader() {
 			isStorageBoardDetail,
 			isNoticeWrite,
 			isNoticeDetail,
+			isNoticeEdit,
 			isUserAuthenticationUUID,
 			isMounted
 		]
@@ -73,8 +81,17 @@ export default function useHeader() {
 			|| isStorageBoardDetail
 			|| isStorageBoardEdit
 			|| isNoticeWrite
+			|| isNoticeEdit
 			|| isNoticeDetail,
-		[isBoardDetail, isStorageBoardWrite, isStorageBoardDetail, isStorageBoardEdit, isNoticeWrite, isNoticeDetail]
+		[
+			isBoardDetail,
+			isStorageBoardWrite,
+			isStorageBoardDetail,
+			isStorageBoardEdit,
+			isNoticeWrite,
+			isNoticeDetail,
+			isNoticeEdit
+		]
 	);
 	const isNewStorage = useMemo(
 		() => isStorageBoardWrite || isStorageBoard || isStorageBoardDetail || isStorageBoardEdit,
@@ -182,6 +199,17 @@ export default function useHeader() {
 			.then();
 	}, [router, storage.path]);
 
+	const onHandleNoticeChip = useCallback(() => {
+		router
+			.push(
+				{
+					pathname: '/notices'
+				},
+				'/notices'
+			)
+			.then();
+	}, [router]);
+
 	const onHandleLogo = useCallback(() => {
 		dispatch(clearBoardsRelatedState());
 
@@ -215,12 +243,14 @@ export default function useHeader() {
 		openNavigationChip,
 		isTabsHidden,
 		isNewStorage,
+		isNotices,
 		onHandlePageScope,
 		onHandleTabChange,
 		onHandlePreviousTabChange,
 		onHandleLogo,
 		onHandleChip,
 		onHandleStorageChip,
+		onHandleNoticeChip,
 		onHandleSignInDialog,
 		onDeleteSignOut
 	};

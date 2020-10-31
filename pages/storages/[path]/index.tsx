@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
+import { NextPageContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { NextPageContext } from 'next';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
