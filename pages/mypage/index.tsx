@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
 
 // Material UI
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Hidden from '@material-ui/core/Hidden';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Fade from '@material-ui/core/Fade';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // Components
 import MyPageHeader from 'components/mypage/MyPageHeader';
 import MyPageMenu from 'components/mypage/MyPageMenu';
-import MyPageForm from 'components/mypage/MyPageForm';
+import MyInfoForm from 'components/mypage/MyInfoForm';
+import MyWithdrawalForm from 'components/mypage/MyWithdrawalForm';
+
+// Custom Hooks
+import useMyPage from 'hooks/mypage/useMyPage';
+
+interface TabPanelProps {
+	children?: React.ReactNode;
+	index: any;
+	value: any;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -33,21 +49,100 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		grid: {
 			backgroundColor: 'white'
+		},
+		linearProgress: {
+			position: 'fixed',
+			width: '100%',
+			top: 0,
+			height: 5,
+			zIndex: 10000
 		}
 	})
 );
 
+function TabPanel(props: TabPanelProps) {
+	const {
+		children, value, index, ...other
+	} = props;
+
+	return (
+		<Box role={'tabpanel'} hidden={value !== index} {...other}>
+			{value === index && children}
+		</Box>
+	);
+}
+
 function MyPage() {
 	const classes = useStyles();
+	const router = useRouter();
+	const {
+		pending,
+		activatedTab,
+		user: { isAuthenticated },
+		onChangeMyPageTab,
+		onClearPrivacy
+	} = useMyPage();
+	const { enqueueSnackbar } = useSnackbar();
+
+	const isMounted = useRef(false);
+
+	useEffect(() => {
+		isMounted.current = true;
+	}, []);
+
+	useEffect(() => {
+		if (isMounted.current && !isAuthenticated) {
+			router.push('/', '/').then(() => {
+				enqueueSnackbar('올바르지 않은 접근입니다.', { variant: 'warning' });
+			});
+		}
+	}, [router, enqueueSnackbar, isAuthenticated, isMounted]);
+
+	useEffect(
+		() => () => {
+			onClearPrivacy();
+		},
+		[onClearPrivacy]
+	);
+
 	return (
 		<>
+			<Head>
+				<meta charSet={'utf-8'} />
+				<meta httpEquiv={'content-language'} content={'ko'} />
+				<meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
+				<meta name={'author'} content={'개념글 저장소'} />
+				<meta name={'title'} content={'마이페이지 : 개념글 저장소'} />
+				<meta name={'description'} content={'나와 관련된 모든 것을 관리할 수 있는 공간입니다.'} />
+				<meta property={'og:title'} content={'마이페이지 : 개념글 저장소'} />
+				<meta property={'og:description'} content={'나와 관련된 모든 것을 관리할 수 있는 공간입니다.'} />
+				<meta property={'og:type'} content={'website'} />
+				<meta property={'og:image'} content={'/logo.png'} />
+				<meta property={'og:url'} content={'https://www.cocstorage.com/mypage'} />
+				<meta property={'og:site_name'} content={'마이페이지 : 개념글 저장소'} />
+				<meta property={'og:locale'} content={'ko_KR'} />
+				<meta property={'twitter:title'} content={'마이페이지 : 개념글 저장소'} />
+				<meta property={'twitter:description'} content={'나와 관련된 모든 것을 관리할 수 있는 공간입니다.'} />
+				<meta property={'twitter:image'} content={'/logo.png'} />
+				<meta property={'twitter:url'} content={'https://www.cocstorage.com/notices'} />
+				<meta property={'twitter:card'} content={'summary'} />
+				<meta name={'apple-mobile-web-app-title'} content={'마이페이지 : 개념글 저장소'} />
+				<title>{'마이페이지 : 개념글 저장소'}</title>
+				<link rel={'canonical'} href={'https://www.cocstorage.com/mypage'} />
+				<link rel={'shortcut icon'} href={'/favicon.ico'} />
+				<link rel={'apple-touch-icon'} href={'/logo.png'} />
+				<link rel={'manifest'} href={'/manifest.json'} />
+			</Head>
+			<Fade in={pending}>
+				<LinearProgress className={classes.linearProgress} color={'primary'} />
+			</Fade>
 			<Hidden lgUp>
 				<Tabs
 					className={classes.tabs}
-					value={0}
+					value={activatedTab}
 					indicatorColor={'primary'}
 					textColor={'primary'}
-					onChange={() => console.log('onChange')}
+					onChange={onChangeMyPageTab}
 				>
 					<Tab label={'정보 수정'} />
 					<Tab label={'회원 탈퇴'} />
@@ -60,7 +155,12 @@ function MyPage() {
 						<MyPageMenu />
 					</Grid>
 					<Grid item xs={12} lg={9}>
-						<MyPageForm />
+						<TabPanel index={0} value={activatedTab}>
+							<MyInfoForm />
+						</TabPanel>
+						<TabPanel index={1} value={activatedTab}>
+							<MyWithdrawalForm />
+						</TabPanel>
 					</Grid>
 				</Grid>
 			</Container>

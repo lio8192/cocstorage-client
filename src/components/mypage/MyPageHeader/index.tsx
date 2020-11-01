@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useRef } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI
@@ -6,8 +6,8 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
 
-// Material UI Icons
-import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+// Custom Hooks
+import useMyPageHeader from 'hooks/mypage/useMyPageHeader';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -46,13 +46,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function MyPageHeader() {
 	const classes = useStyles();
+	const {
+		putUserAvatarFormData: { url },
+		onChangeAvatarFile
+	} = useMyPageHeader();
+	const avatarRef = useRef({} as HTMLInputElement);
+	const clickAvatar = useCallback(() => avatarRef.current.click(), [avatarRef]);
 	return (
 		<Box className={classes.root}>
 			<Container className={classes.container}>
 				<Box className={classes.box}>
-					<Avatar className={classes.avatar} alt={'User Avatar Img'}>
-						<InsertPhotoIcon />
-					</Avatar>
+					<Avatar className={classes.avatar} onClick={clickAvatar} src={url || ''} alt={'User Avatar Img'} />
+					<input ref={avatarRef} type={'file'} style={{ display: 'none' }} onChange={onChangeAvatarFile} />
 				</Box>
 			</Container>
 		</Box>

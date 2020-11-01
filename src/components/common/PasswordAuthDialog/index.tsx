@@ -22,9 +22,6 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import LockIcon from '@material-ui/icons/Lock';
 
-// @types
-import { DeleteAuthDialogBody } from 'hooks/storages/board/detail/useStorageBoardDetail';
-
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
@@ -46,29 +43,35 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-type DeleteAuthDialogProps = {
+export type PasswordAuthDialogBody = {
+	password: string;
+	error: boolean;
+	helperText: string;
+};
+
+type PasswordAuthDialogProps = {
 	open: boolean;
 	pending: boolean;
 	subTitle: string;
-	deleteAuthDialogBody: DeleteAuthDialogBody;
+	passwordAuthDialogBody: PasswordAuthDialogBody;
 	showPassword: boolean;
-	onShowAuthenticationDialogPassword: () => void;
-	onHandleDeleteAuthDialogTextField: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	onHandleDeleteAuthDialog: () => void;
-	onDeleteData: () => void;
+	onShowPasswordAuthDialogPassword: () => void;
+	onHandlePasswordAuthDialogTextField: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onHandlePasswordAuthDialog: () => void;
+	onRequestPasswordAuth: () => void;
 };
 
-function DeleteAuthDialog({
+function PasswordAuthDialog({
 	open,
 	pending,
 	subTitle,
-	deleteAuthDialogBody: { password, error, helperText },
+	passwordAuthDialogBody: { password, error, helperText },
 	showPassword,
-	onShowAuthenticationDialogPassword,
-	onHandleDeleteAuthDialogTextField,
-	onHandleDeleteAuthDialog,
-	onDeleteData
-}: DeleteAuthDialogProps) {
+	onShowPasswordAuthDialogPassword,
+	onHandlePasswordAuthDialogTextField,
+	onHandlePasswordAuthDialog,
+	onRequestPasswordAuth
+}: PasswordAuthDialogProps) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -80,7 +83,7 @@ function DeleteAuthDialog({
 			fullWidth
 			maxWidth={'xs'}
 			open={open}
-			onClose={onHandleDeleteAuthDialog}
+			onClose={onHandlePasswordAuthDialog}
 		>
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />
@@ -112,14 +115,14 @@ function DeleteAuthDialog({
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position={'end'}>
-									<IconButton edge={'end'} onClick={onShowAuthenticationDialogPassword}>
+									<IconButton edge={'end'} onClick={onShowPasswordAuthDialogPassword}>
 										{showPassword ? <Visibility /> : <VisibilityOff />}
 									</IconButton>
 								</InputAdornment>
 							)
 						}}
 						name={'password'}
-						onChange={onHandleDeleteAuthDialogTextField}
+						onChange={onHandlePasswordAuthDialogTextField}
 						value={password}
 						error={error}
 						helperText={helperText}
@@ -130,7 +133,7 @@ function DeleteAuthDialog({
 						className={classes.button}
 						fullWidth
 						variant={'contained'}
-						onClick={onDeleteData}
+						onClick={onRequestPasswordAuth}
 						color={'primary'}
 						size={'large'}
 						disabled={pending}
@@ -143,4 +146,4 @@ function DeleteAuthDialog({
 	);
 }
 
-export default memo(DeleteAuthDialog);
+export default memo(PasswordAuthDialog);

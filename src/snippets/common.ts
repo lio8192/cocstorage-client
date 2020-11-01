@@ -21,10 +21,10 @@ export function getErrorMessageByCode(code: string): string {
 		errorMessage = '이메일 인증 후 로그인을 하실 수 있습니다.';
 		break;
 	case 'COC010':
-		errorMessage = '회원 탈퇴 절차를 진행 중인 계정입니다.';
+		errorMessage = '관리자에 의해 비활성화된 계정입니다.';
 		break;
 	case 'COC011':
-		errorMessage = '관리자에 의해 비활성화된 계정입니다.';
+		errorMessage = '회원 탈퇴 절차를 진행 중인 계정입니다.';
 		break;
 	case 'COC012':
 		errorMessage = '회원가입 또는 로그인을 진행해주세요.';

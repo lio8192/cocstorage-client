@@ -123,7 +123,7 @@ export default function useSignUp() {
 		const nameRegExp = /[가-힣]{2,5}/;
 		// eslint-disable-next-line no-useless-escape
 		const emailRegExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-		const specialCharRegExp = '[ !@\\#$%^&*(),.?\\":{}|<>]';
+		const specialCharRegExp = '[!@\\#$%^&*(),.?\\":{}|<>]';
 
 		if (!new RegExp(nameRegExp).test(name.value) || new RegExp(specialCharRegExp).test(name.value)) {
 			setPostSignUpBody({
@@ -167,7 +167,7 @@ export default function useSignUp() {
 				password: {
 					...postSignUpBody.password,
 					error: true,
-					helperText: '비밀번호는 7자 이상으로 입력해주세요.'
+					helperText: '비밀번호는 최소 7자 이상으로 입력해주세요.'
 				}
 			});
 

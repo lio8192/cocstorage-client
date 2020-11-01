@@ -20,7 +20,7 @@ import { fetchNoticeDetail } from 'modules/notices/detail';
 import DetailContent from 'components/notices/detail/DetailContent';
 import DetailCommentList from 'components/notices/detail/DetailCommentList';
 import DetailCommentWriteForm from 'components/notices/detail/DetailCommentWriteForm';
-import DeleteAuthDialog from 'components/common/DeleteAuthDialog';
+import PasswordAuthDialog from 'components/common/PasswordAuthDialog';
 
 // Custom Hooks
 import useNoticeDetail from 'hooks/notices/detail/useNoticeDetail';
@@ -154,16 +154,16 @@ function NoticeDetail() {
 					</Grid>
 				</Grid>
 			</Container>
-			<DeleteAuthDialog
+			<PasswordAuthDialog
 				open={deleteAuthDialogOpen}
 				pending={deleteAuthPending}
 				subTitle={subTitle}
-				deleteAuthDialogBody={deleteAuthDialogBody}
+				passwordAuthDialogBody={deleteAuthDialogBody}
 				showPassword={showPassword}
-				onShowAuthenticationDialogPassword={onShowDeleteAuthDialogPassword}
-				onHandleDeleteAuthDialogTextField={onHandleDeleteAuthDialogTextField}
-				onHandleDeleteAuthDialog={onHandleDeleteAuthDialog}
-				onDeleteData={onDeleteNonMemberNoticeDetail}
+				onShowPasswordAuthDialogPassword={onShowDeleteAuthDialogPassword}
+				onHandlePasswordAuthDialogTextField={onHandleDeleteAuthDialogTextField}
+				onHandlePasswordAuthDialog={onHandleDeleteAuthDialog}
+				onRequestPasswordAuth={onDeleteNonMemberNoticeDetail}
 			/>
 		</>
 	);

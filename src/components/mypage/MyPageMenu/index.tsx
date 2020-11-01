@@ -15,8 +15,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 // Material UI Icons
 import CreateIcon from '@material-ui/icons/Create';
-import SettingsIcon from '@material-ui/icons/Settings';
+import SecurityIcon from '@material-ui/icons/Security';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import CheckIcon from '@material-ui/icons/Check';
+
+// Custom Hooks
+import useMyPageMenu from 'hooks/mypage/useMyPageMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -33,22 +37,42 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function MyPageMenu() {
 	const classes = useStyles();
+	const {
+		pending,
+		activatedTab,
+		user: { nickname },
+		putNicknameBody: {
+			value, error, helperText, editNickname
+		},
+		onChangeMyPageTab,
+		onClickEditNickname,
+		onHandleNicknameTextField,
+		onPutNickname
+	} = useMyPageMenu();
 	return (
 		<>
 			<Box mt={2} mb={2}>
 				<TextField
 					fullWidth
-					value={'닉네임1357'}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position={'end'}>
-								<IconButton edge={'end'}>
-									<CreateIcon />
+								<IconButton
+									edge={'end'}
+									onClick={editNickname ? onPutNickname : onClickEditNickname}
+									disabled={pending}
+								>
+									{editNickname ? <CheckIcon /> : <CreateIcon />}
 								</IconButton>
 							</InputAdornment>
 						)
 					}}
-					disabled
+					onChange={onHandleNicknameTextField}
+					defaultValue={nickname}
+					value={value}
+					error={error}
+					helperText={helperText}
+					disabled={!editNickname || pending}
 				/>
 			</Box>
 			<Hidden mdDown>
@@ -61,13 +85,13 @@ function MyPageMenu() {
 					)}
 					className={classes.list}
 				>
-					<ListItem button selected>
+					<ListItem button selected={activatedTab === 0} onClick={onChangeMyPageTab} data-tab-value={0}>
 						<ListItemIcon>
-							<SettingsIcon />
+							<SecurityIcon />
 						</ListItemIcon>
-						<ListItemText primary={'정보 수정'} />
+						<ListItemText primary={'개인 정보'} />
 					</ListItem>
-					<ListItem button>
+					<ListItem button selected={activatedTab === 1} onClick={onChangeMyPageTab} data-tab-value={1}>
 						<ListItemIcon>
 							<MeetingRoomIcon />
 						</ListItemIcon>

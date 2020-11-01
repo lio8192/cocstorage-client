@@ -31,7 +31,7 @@ import DetailContent from 'components/storages/board/detail/DetailContent';
 import DetailSideBox from 'components/storages/board/detail/DetailSideBox';
 import DetailCommentList from 'components/storages/board/detail/DetailCommentList';
 import DetailCommentWriteForm from 'components/storages/board/detail/DetailCommentWriteForm';
-import DeleteAuthDialog from 'components/common/DeleteAuthDialog';
+import PasswordAuthDialog from 'components/common/PasswordAuthDialog';
 
 // Custom Hooks
 import useStorageBoardDetail from 'hooks/storages/board/detail/useStorageBoardDetail';
@@ -213,16 +213,16 @@ function StorageBoardDetail() {
 					</Grid>
 				</Grid>
 			</Container>
-			<DeleteAuthDialog
+			<PasswordAuthDialog
 				open={deleteAuthDialogOpen}
 				pending={deleteAuthPending}
 				subTitle={subTitle}
-				deleteAuthDialogBody={deleteAuthDialogBody}
+				passwordAuthDialogBody={deleteAuthDialogBody}
 				showPassword={showPassword}
-				onShowAuthenticationDialogPassword={onShowDeleteAuthDialogPassword}
-				onHandleDeleteAuthDialogTextField={onHandleDeleteAuthDialogTextField}
-				onHandleDeleteAuthDialog={onHandleDeleteAuthDialog}
-				onDeleteData={onDeleteNonMemberStorageBoardDetail}
+				onShowPasswordAuthDialogPassword={onShowDeleteAuthDialogPassword}
+				onHandlePasswordAuthDialogTextField={onHandleDeleteAuthDialogTextField}
+				onHandlePasswordAuthDialog={onHandleDeleteAuthDialog}
+				onRequestPasswordAuth={onDeleteNonMemberStorageBoardDetail}
 			/>
 			<Snackbar
 				open={open}

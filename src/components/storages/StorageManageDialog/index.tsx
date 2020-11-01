@@ -20,9 +20,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
 
-// Material UI Icons
-import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
-
 // Custom Hooks
 import useStorageManageDialog from 'hooks/storages/useStorageManageDialog';
 import Fade from '@material-ui/core/Fade';
@@ -124,11 +121,9 @@ function StorageManageDialog() {
 							<Avatar
 								className={classes.avatar}
 								onClick={clickAvatar}
-								src={avatar.url ? avatar.url : ''}
+								src={avatar.url || ''}
 								alt={'Storage Avatar Img'}
-							>
-								{!avatar.url && <InsertPhotoIcon />}
-							</Avatar>
+							/>
 							<input ref={avatarRef} type={'file'} style={{ display: 'none' }} onChange={onChangeAvatarFile} />
 						</Box>
 						<Box flex={1} ml={1}>

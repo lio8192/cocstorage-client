@@ -1,6 +1,7 @@
 import React, {
 	useEffect, useState, useRef, memo
 } from 'react';
+import { useRouter } from 'next/router';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
@@ -162,6 +163,7 @@ function getCategoryIconByCategoryId(categoryId: string | string[]) {
 
 function Header() {
 	const classes = useStyles();
+	const router = useRouter();
 	const {
 		id,
 		pageScope,
@@ -196,6 +198,15 @@ function Header() {
 		}
 
 		setOpen(false);
+	};
+
+	const handleRouterAndClose = (event: React.MouseEvent<EventTarget>) => {
+		if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+			return;
+		}
+
+		setOpen(false);
+		router.push('/mypage', '/mypage').then();
 	};
 
 	function handleListKeyDown(event: React.KeyboardEvent) {
@@ -273,7 +284,7 @@ function Header() {
 														<Paper>
 															<ClickAwayListener onClickAway={handleClose}>
 																<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
-																	<MenuItem onClick={handleClose}>
+																	<MenuItem onClick={handleRouterAndClose}>
 																		<ListItemIcon>
 																			<PersonIcon />
 																		</ListItemIcon>

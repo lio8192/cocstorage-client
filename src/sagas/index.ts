@@ -10,6 +10,7 @@ import storageBoard from './storages/board';
 import storageBoardDetail from './storages/board/detail';
 import notices from './notices';
 import noticeDetail from './notices/detail';
+import mypage from './mypage';
 
 export default function* rootSaga() {
 	yield all([
@@ -21,6 +22,7 @@ export default function* rootSaga() {
 		storageBoard(),
 		storageBoardDetail(),
 		notices(),
-		noticeDetail()
+		noticeDetail(),
+		mypage()
 	]);
 }
