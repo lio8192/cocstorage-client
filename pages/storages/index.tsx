@@ -68,6 +68,9 @@ const useStyles = makeStyles((theme: Theme) =>
 					color: 'white'
 				}
 			}
+		},
+		dummyPagination: {
+			paddingTop: theme.spacing(2)
 		}
 	})
 );
@@ -172,7 +175,7 @@ function Storages() {
 						siblingCount={isMobile ? 0 : 2}
 					/>
 				) : (
-					<Box className={classes.pagination} />
+					<Box className={classes.dummyPagination} />
 				)}
 			</Container>
 			<StorageManageDialog />

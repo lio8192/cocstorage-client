@@ -1,22 +1,42 @@
 import { createReducer } from 'typesafe-actions';
 import { HYDRATE } from 'next-redux-wrapper';
-import { FETCH_MAIN_CONTENTS, FETCH_MAIN_CONTENTS_SUCCEEDED, FETCH_MAIN_CONTENTS_FAILED } from './actions';
 import { HomeActions, HomeState } from './types';
+import {
+	FETCH_MAIN_CONTENTS,
+	FETCH_MAIN_CONTENTS_SUCCEEDED,
+	FETCH_MAIN_CONTENTS_FAILED,
+	FETCH_NOTICES,
+	FETCH_NOTICES_SUCCEEDED,
+	FETCH_NOTICES_FAILED,
+	FETCH_STORAGES,
+	FETCH_STORAGES_SUCCEEDED,
+	FETCH_STORAGES_FAILED
+} from './actions';
 
 const initialState: HomeState = {
-	category: {
-		id: null,
-		name: null,
-		register_date: null,
-		update_date: null
+	previousState: {
+		category: {
+			id: null,
+			name: null,
+			register_date: null,
+			update_date: null
+		},
+		boardList: [],
+		dailyPopularList: [],
+		storageList: [],
+		noticeList: [],
+		pending: false,
+		error: false,
+		errorMessage: null
 	},
-	boardList: [],
-	dailyPopularList: [],
-	storageList: [],
-	noticeList: [],
-	pending: false,
-	error: false,
-	errorMessage: null
+	notices: {
+		data: [],
+		pending: false
+	},
+	storages: {
+		data: [],
+		pending: false
+	}
 };
 
 const home = createReducer<HomeState, HomeActions>(initialState, {
@@ -26,21 +46,72 @@ const home = createReducer<HomeState, HomeActions>(initialState, {
 	}),
 	[FETCH_MAIN_CONTENTS]: (state) => ({
 		...state,
-		pending: true,
-		error: false,
-		errorMessage: null
+		previousState: {
+			...state.previousState,
+			pending: true,
+			error: false,
+			errorMessage: null
+		}
 	}),
 	[FETCH_MAIN_CONTENTS_SUCCEEDED]: (state, { payload }) => ({
-		...payload,
-		pending: false,
-		error: false,
-		errorMessage: null
+		...state,
+		previousState: {
+			...payload,
+			pending: false,
+			error: false,
+			errorMessage: null
+		}
 	}),
 	[FETCH_MAIN_CONTENTS_FAILED]: (state, { payload }) => ({
 		...state,
-		pending: false,
-		error: true,
-		errorMessage: payload
+		previousState: {
+			...state.previousState,
+			pending: false,
+			error: true,
+			errorMessage: payload
+		}
+	}),
+	[FETCH_NOTICES]: (state) => ({
+		...state,
+		notices: {
+			...state.notices,
+			pending: true
+		}
+	}),
+	[FETCH_NOTICES_SUCCEEDED]: (state, { payload: data }) => ({
+		...state,
+		notices: {
+			data,
+			pending: false
+		}
+	}),
+	[FETCH_NOTICES_FAILED]: (state) => ({
+		...state,
+		notices: {
+			...state.notices,
+			pending: false
+		}
+	}),
+	[FETCH_STORAGES]: (state) => ({
+		...state,
+		storages: {
+			...state.storages,
+			pending: true
+		}
+	}),
+	[FETCH_STORAGES_SUCCEEDED]: (state, { payload: data }) => ({
+		...state,
+		storages: {
+			data,
+			pending: false
+		}
+	}),
+	[FETCH_STORAGES_FAILED]: (state) => ({
+		...state,
+		storages: {
+			...state.storages,
+			pending: false
+		}
 	})
 });
 

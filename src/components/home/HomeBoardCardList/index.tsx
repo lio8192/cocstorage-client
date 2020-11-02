@@ -20,11 +20,14 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import MessageIcon from '@material-ui/icons/Message';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
-// Svgs
-import DefaultImageSvg from 'styles/svgs/default_image.svg';
-
 // Modules
 import { Board } from 'modules/boardDetail';
+
+// Components
+import DataEmptyBox from 'components/common/DataEmptyBox';
+
+// Svgs
+import DefaultImageSvg from 'styles/svgs/default_image.svg';
 
 moment.locale('ko');
 
@@ -206,8 +209,8 @@ function HomeBoardCardList({ title, boardList, pending }: HomeBoardCardListProps
 				<Box className={classes.containerBox}>
 					{pending && (
 						<Grid container>
-							{Array.from({ length: 6 }).map((index) => (
-								<Grid key={`dummy-board-card-${index}`} className={classes.gridItemSkeleton} item xs={12} md={6}>
+							{[1, 2, 3, 4, 5, 6].map((item) => (
+								<Grid key={`dummy-board-card-${item}`} className={classes.gridItemSkeleton} item xs={12} md={6}>
 									<Grow in>
 										<List>
 											<ListItem>
@@ -312,6 +315,9 @@ function HomeBoardCardList({ title, boardList, pending }: HomeBoardCardListProps
 								</Grid>
 							))}
 						</Grid>
+					)}
+					{!pending && boardList.length === 0 && (
+						<DataEmptyBox message={`${title}이 존재하지 않아요.`} paddingTop={10} paddingBottom={10} />
 					)}
 				</Box>
 			</Container>

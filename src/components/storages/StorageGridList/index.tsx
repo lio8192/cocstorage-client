@@ -16,7 +16,7 @@ import Grow from '@material-ui/core/Grow';
 import Card from '@material-ui/core/Card';
 
 // Material UI Icons
-import TodayIcon from '@material-ui/icons/Today';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 import CheckIcon from '@material-ui/icons/Check';
 
 // Components
@@ -100,7 +100,7 @@ function StorageGridList() {
 													</Box>
 													<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
 														<Box>
-															<TodayIcon className={classes.icon} color={'action'} />
+															<ScheduleIcon className={classes.icon} color={'action'} />
 														</Box>
 														<Box ml={0.5}>
 															<Typography variant={'caption'}>
@@ -124,7 +124,7 @@ function StorageGridList() {
 						</Box>
 					</Grow>
 				)}
-				{!pending && storages.length === 0 && <DataEmptyBox message={'첫번째 저장소의 주인공이 되어 보세요!'} />}
+				{!pending && storages.length === 0 && <DataEmptyBox message={'첫 저장소 등록의 주인공이 되어 보세요!'} />}
 			</Box>
 		</Box>
 	);

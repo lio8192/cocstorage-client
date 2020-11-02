@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
 
@@ -6,7 +6,7 @@ import Head from 'next/head';
 import Hidden from '@material-ui/core/Hidden';
 
 // Modules
-import { fetchMainContents } from 'modules/home';
+import { fetchNotices, fetchStorages } from 'modules/home';
 
 // Components
 import HomeNoticeGridList from 'components/home/HomeNoticeGridList';
@@ -15,10 +15,18 @@ import HomeBoardCardListSwiper from 'components/home/HomeBoardCardListSwiper';
 import HomeBoardCardList from 'components/home/HomeBoardCardList';
 
 // Custom Hooks
-import useHome from 'hooks/useHome';
+import useHome from 'hooks/home/useHome';
 
 function Index() {
-	const { boardList, dailyPopularList, pending } = useHome();
+	const {
+		previousState: { boardList, dailyPopularList, pending },
+		onFetchMainContents
+	} = useHome();
+
+	useEffect(() => {
+		onFetchMainContents();
+	}, [onFetchMainContents]);
+
 	return (
 		<>
 			<Head>
@@ -49,7 +57,6 @@ function Index() {
 			</Head>
 			<HomeNoticeGridList />
 			<HomeStorageGridList />
-			<HomeBoardCardList title={'새로운 개념글'} boardList={boardList} pending={pending} />
 			<Hidden implementation={'css'} smDown>
 				<HomeBoardCardListSwiper boardList={dailyPopularList} pending={pending} />
 			</Hidden>
@@ -63,11 +70,18 @@ function Index() {
 
 Index.getInitialProps = async ({ store }: NextPageContext) => {
 	const {
-		home: { pending }
+		home: {
+			notices: { pending: noticePending },
+			storages: { pending: storagePending }
+		}
 	} = store.getState();
 
-	if (!pending) {
-		store.dispatch(fetchMainContents());
+	if (!noticePending) {
+		store.dispatch(fetchNotices());
+	}
+
+	if (!storagePending) {
+		store.dispatch(fetchStorages());
 	}
 
 	return {

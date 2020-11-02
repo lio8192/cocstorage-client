@@ -25,6 +25,7 @@ import DefaultImageSvg from 'styles/svgs/default_image.svg';
 
 // Modules
 import { Board } from 'modules/boardDetail';
+import DataEmptyBox from 'components/common/DataEmptyBox';
 
 type HomeBoardCardListSwiperProps = {
 	boardList: Array<Board>;
@@ -270,6 +271,9 @@ function HomeBoardCardListSwiper({ boardList, pending }: HomeBoardCardListSwiper
 								</SwiperSlide>
 							))}
 						</Swiper>
+					)}
+					{!pending && boardList.length === 0 && (
+						<DataEmptyBox message={'이전 저장소 일간 개념글이 존재하지 않아요.'} paddingTop={10} paddingBottom={10} />
 					)}
 				</NoSsr>
 			</Box>

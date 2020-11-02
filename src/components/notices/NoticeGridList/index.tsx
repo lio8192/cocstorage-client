@@ -193,11 +193,15 @@ function NoticeGridList() {
 												<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
 													<Card className={classes.gridCard} square elevation={0}>
 														<CardActionArea className={classes.cardActionArea}>
-															<CardMedia
-																className={classes.media}
-																image={notice.thumbnailUrl || ''}
-																title={'Contemplative Reptile'}
-															/>
+															{notice.thumbnailUrl ? (
+																<CardMedia
+																	className={classes.media}
+																	image={notice.thumbnailUrl}
+																	title={'Contemplative Reptile'}
+																/>
+															) : (
+																<Box className={classes.media} />
+															)}
 															<CardContent className={classes.cardContent}>
 																<Box display={'flex'} alignItems={'center'}>
 																	<Box maxWidth={'80%'}>
@@ -276,7 +280,15 @@ function NoticeGridList() {
 													<Card className={classes.card} elevation={0} square>
 														<CardActionArea className={classes.gridCardActionArea}>
 															<Box className={classes.details}>
-																<CardMedia className={classes.mediaCover} image={notice.thumbnailUrl || ''} />
+																{notice.thumbnailUrl ? (
+																	<CardMedia
+																		className={classes.mediaCover}
+																		image={notice.thumbnailUrl}
+																		title={'Contemplative Reptile'}
+																	/>
+																) : (
+																	<Box className={classes.media} />
+																)}
 																<CardContent className={classes.cardContent}>
 																	<Box display={'flex'} alignItems={'center'}>
 																		<Typography className={classes.typography} variant={'body1'}>
@@ -348,11 +360,15 @@ function NoticeGridList() {
 												<Grow in>
 													<Card className={classes.gridCard} square elevation={0}>
 														<CardActionArea className={classes.cardActionArea}>
-															<CardMedia
-																className={classes.media}
-																image={notice.thumbnailUrl || ''}
-																title={'Contemplative Reptile'}
-															/>
+															{notice.thumbnailUrl ? (
+																<CardMedia
+																	className={classes.media}
+																	image={notice.thumbnailUrl}
+																	title={'Contemplative Reptile'}
+																/>
+															) : (
+																<Box className={classes.media} />
+															)}
 															<CardContent className={classes.cardContent}>
 																<Box display={'flex'} alignItems={'center'}>
 																	<Box maxWidth={'80%'}>

@@ -31,13 +31,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type DataEmptyBoxProps = {
 	message: string;
+	paddingTop?: number;
+	paddingBottom?: number;
 };
 
-function DataEmptyBox({ message }: DataEmptyBoxProps) {
+function DataEmptyBox({ message, paddingTop, paddingBottom }: DataEmptyBoxProps) {
 	const classes = useStyles();
 	return (
 		<Grow in>
-			<Box pt={20} pb={20}>
+			<Box pt={paddingTop || 20} pb={paddingBottom || 20}>
 				<Box textAlign={'center'}>
 					<Avatar className={classes.avatar}>
 						<FilterNoneIcon />

@@ -93,7 +93,7 @@ function BoardHeader() {
 					</Box>
 					<Box className={classes.nameBox}>
 						<Typography className={classes.typography} variant={'h5'}>
-							{pending ? <Skeleton width={`${Math.round(Math.random() * 20) + 10}%`} /> : name}
+							{pending ? <Skeleton width={`${Math.round(Math.random() * 20) + 10}%`} /> : `${name} 저장소`}
 						</Typography>
 						<Typography className={classes.captionTypography} variant={'caption'}>
 							{pending ? <Skeleton width={`${Math.round(Math.random() * 30) + 15}%`} /> : description}

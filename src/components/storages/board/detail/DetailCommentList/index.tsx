@@ -880,7 +880,7 @@ function DetailCommentList() {
 						))}
 					{!pending && data.length === 0 && (
 						<Grow in>
-							<DataEmptyBox message={'첫 댓글의 주인공이 되어보세요!'} />
+							<DataEmptyBox message={'첫 댓글의 주인공이 되어보세요!'} paddingTop={10} paddingBottom={10} />
 						</Grow>
 					)}
 				</ListItem>
