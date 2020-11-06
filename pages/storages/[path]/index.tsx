@@ -236,7 +236,8 @@ function StorageBoard() {
 							textColor={'primary'}
 							onChange={() => console.log('onChange')}
 						>
-							<Tab label={'최신순'} />
+							<Tab label={'최신 개념글'} />
+							<Tab label={'인기 개념글'} />
 						</Tabs>
 					</Container>
 					<Container className={classes.container}>

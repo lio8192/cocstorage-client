@@ -74,7 +74,7 @@ function MyWithdrawalForm() {
 							<Box>
 								<CheckCircleIcon className={classes.icon} color={'primary'} />
 							</Box>
-							<Box ml={1}>{'아이디와 개인정보는 즉시 삭제되며, 복구가 불가능합니다.'}</Box>
+							<Box ml={1}>{'아이디와 개인 정보는 즉시 삭제되며 복구가 불가능합니다.'}</Box>
 						</Box>
 						<Box display={'flex'} alignItems={'center'} mt={1}>
 							<Box>
@@ -86,7 +86,7 @@ function MyWithdrawalForm() {
 							<Box>
 								<CheckCircleIcon className={classes.icon} color={'primary'} />
 							</Box>
-							<Box ml={1}>{'모든 저장소 내에 등록한 게시글, 댓글, 답글은 탈퇴 시 자동으로 모두 삭제됩니다.'}</Box>
+							<Box ml={1}>{'회원 아이디로 등록된 저장소, 개념글, 댓글, 답글은 탈퇴일을 기준으로 7일 후 자동으로 영구 삭제 처리됩니다.'}</Box>
 						</Box>
 						<Box display={'flex'} alignItems={'center'} mt={2}>
 							<Box>

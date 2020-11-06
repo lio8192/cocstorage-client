@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function Storages() {
 	const classes = useStyles();
 	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const {
 		pending,
 		pagination: { totalPages },

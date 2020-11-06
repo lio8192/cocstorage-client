@@ -172,6 +172,7 @@ function SignUpDialog() {
 						onClick={onPostSignUp}
 						color={'primary'}
 						size={'large'}
+						disabled={pending}
 					>
 						{'가입하기'}
 					</Button>

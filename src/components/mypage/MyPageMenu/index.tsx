@@ -68,8 +68,7 @@ function MyPageMenu() {
 						)
 					}}
 					onChange={onHandleNicknameTextField}
-					defaultValue={nickname}
-					value={value}
+					value={value || ''}
 					error={error}
 					helperText={helperText}
 					disabled={!editNickname || pending}

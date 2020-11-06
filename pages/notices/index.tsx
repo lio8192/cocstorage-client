@@ -32,10 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		button: {
-			'& a': {
-				textDecoration: 'none',
-				color: 'white'
-			}
+			color: 'white'
 		},
 		icon: {
 			color: 'white'
@@ -138,17 +135,17 @@ function Notices() {
 			{isAuthenticated && role === 'admin' && (
 				<Container className={classes.adminContainer}>
 					<Box pb={2} textAlign={'right'}>
-						<Button
-							className={classes.button}
-							variant={'contained'}
-							color={'primary'}
-							startIcon={<CreateIcon className={classes.icon} />}
-							size={'large'}
-						>
-							<Link href={'/notices/write'} as={'/notices/write'}>
+						<Link href={'/notices/write'} as={'/notices/write'}>
+							<Button
+								className={classes.button}
+								variant={'contained'}
+								color={'primary'}
+								startIcon={<CreateIcon className={classes.icon} />}
+								size={'large'}
+							>
 								{'새로운 소식 등록'}
-							</Link>
-						</Button>
+							</Button>
+						</Link>
 					</Box>
 				</Container>
 			)}

@@ -1,4 +1,5 @@
 import React, { useState, memo } from 'react';
+import Link from 'next/link';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI
@@ -155,17 +156,18 @@ function MobileHeader() {
 		user: { nickname, avatarUrl, isAuthenticated },
 		id,
 		storage,
-		menuListState,
 		isBoardDetail,
 		isNewStorage,
 		isNotices,
+		drawerOpen,
 		onHandleSignInDialog,
 		onDeleteSignOut,
-		onHandleMenuList,
 		onHandleLogo,
 		onHandleStorageChip,
 		onHandleNoticeChip,
 		onHandleChip,
+		onHandleDrawerMenu,
+		onHandleStorageDrawerMenu,
 		onHandleDrawer
 	} = useMobileHeader();
 
@@ -253,14 +255,14 @@ function MobileHeader() {
 								)}
 							</Box>
 						</Box>
-						<IconButton edge={'end'} color={'inherit'} aria-label={'open drawer'} onClick={onHandleMenuList}>
+						<IconButton edge={'end'} color={'inherit'} onClick={onHandleDrawer}>
 							<MenuIcon color={'action'} />
 						</IconButton>
 					</Toolbar>
 				</AppBar>
 			</HideOnScroll>
 			<Toolbar className={classes.toolbar} />
-			<SwipeableDrawer anchor={'right'} onClose={onHandleMenuList} onOpen={onHandleMenuList} open={menuListState}>
+			<SwipeableDrawer anchor={'right'} onClose={onHandleDrawer} onOpen={onHandleDrawer} open={drawerOpen}>
 				<div className={classes.list} role={'presentation'}>
 					<NoSsr>
 						{isAuthenticated ? (
@@ -302,7 +304,7 @@ function MobileHeader() {
 					<Divider className={classes.divider} />
 					{pageScope === 'storage' ? (
 						<List>
-							<ListItem button onClick={onHandleDrawer}>
+							<ListItem button onClick={onHandleStorageDrawerMenu}>
 								<ListItemIcon>
 									<StorageIcon />
 								</ListItemIcon>
@@ -312,7 +314,7 @@ function MobileHeader() {
 					) : (
 						<List>
 							{listItems.map((item) => (
-								<ListItem button key={item.label} data-category-id={item.categoryId} onClick={onHandleDrawer}>
+								<ListItem button key={item.label} data-category-id={item.categoryId} onClick={onHandleDrawerMenu}>
 									<ListItemIcon>{item.icon}</ListItemIcon>
 									<ListItemText primary={item.label} />
 								</ListItem>
@@ -321,12 +323,14 @@ function MobileHeader() {
 					)}
 					<Divider className={classes.divider} />
 					<List>
-						<ListItem button data-category-id={'notices'} onClick={onHandleDrawer}>
-							<ListItemIcon>
-								<NearMeIcon />
-							</ListItemIcon>
-							<ListItemText primary={'새로운 소식'} />
-						</ListItem>
+						<Link href={'/notices'} as={'/notices'}>
+							<ListItem button>
+								<ListItemIcon>
+									<NearMeIcon />
+								</ListItemIcon>
+								<ListItemText primary={'새로운 소식'} />
+							</ListItem>
+						</Link>
 					</List>
 				</div>
 			</SwipeableDrawer>

@@ -1,4 +1,5 @@
 import React, { useEffect, memo } from 'react';
+import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -56,44 +57,69 @@ function UserAuthenticationUUID() {
 	}, [dispatch, router]);
 
 	return (
-		<Container className={classes.root}>
-			<Box display={'flex'} justifyContent={'center'}>
-				<Box>
-					{pending && (
-						<Box textAlign={'center'}>
-							<CircularProgress color={'primary'} size={50} />
-						</Box>
-					)}
-					{!pending && !error && (
-						<>
+		<>
+			<Head>
+				<meta charSet={'utf-8'} />
+				<meta httpEquiv={'content-language'} content={'ko'} />
+				<meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
+				<meta name={'author'} content={'개념글 저장소'} />
+				<meta name={'title'} content={'회원 인증 : 개념글 저장소'} />
+				<meta property={'og:title'} content={'개념글 저장소'} />
+				<meta property={'og:type'} content={'website'} />
+				<meta property={'og:image'} content={'/logo_prev.png'} />
+				<meta property={'og:url'} content={'https://www.cocstorage.com'} />
+				<meta property={'og:site_name'} content={'개념글 저장소'} />
+				<meta property={'og:locale'} content={'ko_KR'} />
+				<meta property={'twitter:title'} content={'회원 인증 : 개념글 저장소'} />
+				<meta property={'twitter:image'} content={'/logo_prev.png'} />
+				<meta property={'twitter:url'} content={'https://wwww.cocstorage.com'} />
+				<meta property={'twitter:card'} content={'summary'} />
+				<meta name={'apple-mobile-web-app-title'} content={'회원 인증 : 개념글 저장소'} />
+				<title>{'회원 인증 : 개념글 저장소'}</title>
+				<link rel={'shortcut icon'} href={'/favicon.ico'} />
+				<link rel={'apple-touch-icon'} href={'/logo_prev.png'} />
+				<link rel={'canonical'} href={'https://www.cocstorage.com'} />
+				<link rel={'manifest'} href={'/manifest.json'} />
+			</Head>
+			<Container className={classes.root}>
+				<Box display={'flex'} justifyContent={'center'}>
+					<Box>
+						{pending && (
 							<Box textAlign={'center'}>
-								<CheckCircleIcon className={classes.successIcon} />
+								<CircularProgress color={'primary'} size={50} />
 							</Box>
-							<Box>
-								<Typography variant={'h5'}>{'인증이 완료되었습니다.'}</Typography>
-							</Box>
-						</>
-					)}
-					{!pending && error && (
-						<>
-							<Box textAlign={'center'}>
-								<ErrorIcon className={classes.errorIcon} />
-							</Box>
-							<Box textAlign={'center'}>
-								<Typography variant={'h5'}>
-									{helperText.split('\n').map((item) => (
-										<Box key={`helper-text-${item}`}>
-											{item}
-											<br />
-										</Box>
-									))}
-								</Typography>
-							</Box>
-						</>
-					)}
+						)}
+						{!pending && !error && (
+							<>
+								<Box textAlign={'center'}>
+									<CheckCircleIcon className={classes.successIcon} />
+								</Box>
+								<Box>
+									<Typography variant={'h5'}>{'인증이 완료되었습니다.'}</Typography>
+								</Box>
+							</>
+						)}
+						{!pending && error && (
+							<>
+								<Box textAlign={'center'}>
+									<ErrorIcon className={classes.errorIcon} />
+								</Box>
+								<Box textAlign={'center'}>
+									<Typography variant={'h5'}>
+										{helperText.split('\n').map((item) => (
+											<Box key={`helper-text-${item}`}>
+												{item}
+												<br />
+											</Box>
+										))}
+									</Typography>
+								</Box>
+							</>
+						)}
+					</Box>
 				</Box>
-			</Box>
-		</Container>
+			</Container>
+		</>
 	);
 }
 

@@ -12,6 +12,9 @@ import StorageIcon from '@material-ui/icons/Storage';
 import InboxIcon from '@material-ui/icons/Inbox';
 import PersonIcon from '@material-ui/icons/Person';
 
+// Custom Hooks
+import useBottomNavigation from 'hooks/common/useBottomNavigation';
+
 const useStyles = makeStyles(() =>
 	createStyles({
 		root: {
@@ -34,18 +37,37 @@ const useStyles = makeStyles(() =>
 
 function MobileBottomNavigation() {
 	const classes = useStyles();
+	const {
+		pageScope,
+		onHandleMyPage,
+		onChangeBottomNavigation
+	} = useBottomNavigation();
 	return (
 		<>
 			<Paper className={classes.root} square elevation={3}>
 				<BottomNavigation
 					className={classes.bottomNavigation}
-					value={0}
-					onChange={() => console.log('onChange')}
+					value={pageScope}
+					onChange={onChangeBottomNavigation}
 					showLabels
 				>
-					<BottomNavigationAction label={'새 저장소'} icon={<StorageIcon />} />
-					<BottomNavigationAction label={'이전 저장소'} icon={<InboxIcon />} />
-					<BottomNavigationAction label={'마이페이지'} icon={<PersonIcon />} />
+					<BottomNavigationAction
+						label={'새 저장소'}
+						icon={<StorageIcon />}
+						value={'storage'}
+						data-page-scope={'storage'}
+					/>
+					<BottomNavigationAction
+						label={'이전 저장소'}
+						icon={<InboxIcon />}
+						value={'previous-storage'}
+						data-page-scope={'previous-storage'}
+					/>
+					<BottomNavigationAction
+						label={'마이페이지'}
+						icon={<PersonIcon />}
+						value={'storage-mypage'}
+					/>
 				</BottomNavigation>
 			</Paper>
 			<Toolbar className={classes.toolbar} />

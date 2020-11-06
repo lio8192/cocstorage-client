@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Modules
@@ -87,6 +87,15 @@ export default function useMyPageMenu() {
 		});
 		return true;
 	}, [dispatch, user.id, putNicknameBody]);
+
+	useEffect(() => {
+		if (user.nickname && !putNicknameBody.value) {
+			setPutNicknameBody({
+				...putNicknameBody,
+				value: user.nickname
+			});
+		}
+	}, [user.nickname, putNicknameBody]);
 
 	return {
 		...myPageState,

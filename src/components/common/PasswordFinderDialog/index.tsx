@@ -115,6 +115,7 @@ function PasswordFinderDialog() {
 						onClick={onPostPasswordFinder}
 						color={'primary'}
 						size={'large'}
+						disabled={pending}
 					>
 						{'임시 비밀번호 발송'}
 					</Button>

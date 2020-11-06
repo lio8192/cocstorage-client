@@ -72,8 +72,8 @@ function* watchFetchStorageDetailAndStorageBoardDetail(
 		yield put(fetchStorageDetailSucceeded(response.data));
 		const detailResponse = yield call(Service.fetchStorageBoardDetail, response.data.id, id);
 		yield put(fetchStorageDetailAndStorageBoardDetailSucceeded(detailResponse.data));
-		yield call(Service.putStorageBoardDetailViewCount, response.data.id, id);
-		yield put(putStorageBoardDetailViewCountSucceeded(response.data.viewCount));
+		const viewCountResponse = yield call(Service.putStorageBoardDetailViewCount, response.data.id, id);
+		yield put(putStorageBoardDetailViewCountSucceeded(viewCountResponse.data.viewCount));
 	} catch (error) {
 		yield put(fetchStorageDetailAndStorageBoardDetailFailed());
 		if (error.response.status === 404) {

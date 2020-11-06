@@ -129,6 +129,7 @@ function SignInDialog() {
 						onClick={onPostSignIn}
 						color={'primary'}
 						size={'large'}
+						disabled={pending}
 					>
 						{'로그인'}
 					</Button>

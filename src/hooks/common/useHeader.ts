@@ -101,8 +101,8 @@ export default function useHeader() {
 	const onHandlePageScope = useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
 			const value: string = String(event.currentTarget.getAttribute('data-page-scope')) || 'storage';
-
-			router.push('/').then(() => dispatch(handlePageScope(value)));
+			dispatch(handlePageScope(value));
+			router.push('/').then();
 		},
 		[dispatch, router]
 	);

@@ -83,7 +83,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		gridCardActionArea: {
 			border: '1px solid #EAEAEA',
-			borderTop: 'none'
+			borderTop: 'none',
+			[theme.breakpoints.down('md')]: {
+				border: 'none'
+			}
 		},
 		cardActionArea: {
 			height: '100%'
@@ -167,7 +170,7 @@ function NoticeGridList() {
 		<>
 			{pending && transferNotices.length === 0 && (
 				<Grow in>
-					<Box mt={1} pt={20} pb={20} textAlign={'center'}>
+					<Box pt={20} pb={20} textAlign={'center'}>
 						<CircularProgress size={50} />
 					</Box>
 				</Grow>

@@ -23,7 +23,8 @@ import {
 	POST_SIGN_IN_SUCCEEDED,
 	POST_SIGN_IN_FAILED,
 	SET_USER_AUTHENTICATION,
-	DELETE_SIGN_OUT_SUCCEEDED
+	DELETE_SIGN_OUT_SUCCEEDED,
+	HANDLE_DRAWER
 } from './actions';
 
 export const setUserStateByJsonWebToken = (): User => {
@@ -55,6 +56,7 @@ export const setUserStateByJsonWebToken = (): User => {
 
 const initialState: CommonState = {
 	pageScope: '',
+	drawerOpen: false,
 	signIn: {
 		open: false,
 		pending: false
@@ -247,6 +249,10 @@ const common = createReducer<CommonState, CommonActions>(initialState, {
 			role: '',
 			isAuthenticated: false
 		}
+	}),
+	[HANDLE_DRAWER]: (state) => ({
+		...state,
+		drawerOpen: !state.drawerOpen
 	})
 });
 

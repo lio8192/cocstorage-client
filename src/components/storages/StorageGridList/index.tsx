@@ -28,7 +28,8 @@ import useStorageGridList from 'hooks/storages/useStorageGridList';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			padding: theme.spacing(0, 0, 0)
+			padding: 0,
+			backgroundColor: 'white'
 		},
 		card: {
 			border: '1px solid #EAEAEA'
@@ -75,7 +76,7 @@ function StorageGridList() {
 	return (
 		<Box className={classes.root}>
 			{!pending && (
-				<Box mt={1}>
+				<Box pt={1} pb={1}>
 					<Button color={'primary'} size={'large'} startIcon={<CheckIcon />}>
 						<Typography className={classes.orderTypography} variant={'body1'}>
 							{'최신순'}
@@ -83,7 +84,7 @@ function StorageGridList() {
 					</Button>
 				</Box>
 			)}
-			<Box mt={1}>
+			<Box>
 				{!pending && (
 					<Grid container spacing={2}>
 						{storages.map((item) => (
@@ -119,7 +120,7 @@ function StorageGridList() {
 				)}
 				{pending && (
 					<Grow in>
-						<Box mt={1} pt={20} pb={20} textAlign={'center'}>
+						<Box pt={20} pb={20} textAlign={'center'}>
 							<CircularProgress size={50} />
 						</Box>
 					</Grow>

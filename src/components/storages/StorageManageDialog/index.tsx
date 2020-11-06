@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
@@ -19,6 +18,10 @@ import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
+
+// Material UI Icons
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import CloseIcon from '@material-ui/icons/Close';
 
 // Custom Hooks
 import useStorageManageDialog from 'hooks/storages/useStorageManageDialog';
@@ -109,7 +112,13 @@ function StorageManageDialog() {
 					<Typography variant={'h6'} className={classes.title}>
 						{'새 저장소 등록'}
 					</Typography>
-					<Button className={classes.button} variant={'contained'} color={'primary'} onClick={onPostStorage}>
+					<Button
+						className={classes.button}
+						variant={'contained'}
+						color={'primary'}
+						onClick={onPostStorage}
+						disabled={pending}
+					>
 						{'등록'}
 					</Button>
 				</Toolbar>
@@ -123,7 +132,9 @@ function StorageManageDialog() {
 								onClick={clickAvatar}
 								src={avatar.url || ''}
 								alt={'Storage Avatar Img'}
-							/>
+							>
+								<InsertPhotoIcon />
+							</Avatar>
 							<input ref={avatarRef} type={'file'} style={{ display: 'none' }} onChange={onChangeAvatarFile} />
 						</Box>
 						<Box flex={1} ml={1}>

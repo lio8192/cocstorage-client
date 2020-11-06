@@ -33,6 +33,8 @@ export const DELETE_SIGN_OUT = 'common/DELETE_SIGN_OUT';
 export const DELETE_SIGN_OUT_SUCCEEDED = 'common/DELETE_SIGN_OUT_SUCCEEDED';
 export const DELETE_SIGN_OUT_FAILED = 'common/DELETE_SIGN_OUT_FAILED';
 
+export const HANDLE_DRAWER = 'common/HANDLE_DRAWER';
+
 export const handlePageScope = createAction(HANDLE_PAGE_SCOPE)<string>();
 export const handleSignInDialog = createAction(HANDLE_SIGN_IN_DIALOG)();
 export const handleSignUpDialog = createAction(HANDLE_SIGN_UP_DIALOG)();
@@ -61,3 +63,5 @@ export const setUserAuthentication = createAction(SET_USER_AUTHENTICATION)();
 export const deleteSignOut = createAction(DELETE_SIGN_OUT)();
 export const deleteSignOutSucceeded = createAction(DELETE_SIGN_OUT_SUCCEEDED)();
 export const deleteSignOutFailed = createAction(DELETE_SIGN_OUT_FAILED)();
+
+export const handleDrawer = createAction(HANDLE_DRAWER)();

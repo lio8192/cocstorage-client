@@ -21,7 +21,8 @@ import {
 	setUserAuthentication,
 	deleteSignOut,
 	deleteSignOutSucceeded,
-	deleteSignOutFailed
+	deleteSignOutFailed,
+	handleDrawer
 } from './actions';
 
 const actions = {
@@ -46,7 +47,8 @@ const actions = {
 	setUserAuthentication,
 	deleteSignOut,
 	deleteSignOutSucceeded,
-	deleteSignOutFailed
+	deleteSignOutFailed,
+	handleDrawer
 };
 
 export type CommonActions = ActionType<typeof actions>;
@@ -69,6 +71,7 @@ export type User = {
 
 export type CommonState = {
 	pageScope: string;
+	drawerOpen: boolean;
 	signIn: {
 		open: boolean;
 		pending: boolean;

@@ -239,7 +239,7 @@ function Header() {
 								</Box>
 								<Chip
 									className={classes.chip}
-									color={pageScope === 'storage' ? 'primary' : 'default'}
+									color={(pageScope === 'storage' || pageScope === 'storage-mypage') ? 'primary' : 'default'}
 									label={'새 저장소'}
 									onClick={onHandlePageScope}
 									data-page-scope={'storage'}
@@ -427,7 +427,7 @@ function Header() {
 				<Box>
 					<Paper className={classes.paper} variant={'outlined'} square>
 						<Container>
-							{pageScope === 'storage' ? (
+							{(pageScope === 'storage' || pageScope === 'storage-mypage') ? (
 								<Tabs
 									indicatorColor={'primary'}
 									textColor={'primary'}

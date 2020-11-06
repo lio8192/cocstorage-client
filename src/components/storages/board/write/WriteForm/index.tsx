@@ -20,7 +20,7 @@ import MUIRichTextEditor from 'mui-rte';
 // Material UI Icons
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import DoneIcon from '@material-ui/icons/Done';
+import CreateIcon from '@material-ui/icons/Create';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import BackupIcon from '@material-ui/icons/Backup';
 
@@ -293,11 +293,11 @@ function WriteForm() {
 								variant={'contained'}
 								color={'primary'}
 								size={'large'}
-								startIcon={<DoneIcon />}
+								startIcon={<CreateIcon />}
 								onClick={isAuthenticated ? onPutStorageBoard : onPutNonMemberStorageBoard}
 								disabled={pending}
 							>
-								{'완료'}
+								{'등록'}
 							</Button>
 						</Grid>
 					</Grid>
