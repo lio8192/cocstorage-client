@@ -165,6 +165,7 @@ function MobileHeader() {
 		onHandleChip,
 		onHandleDrawerMenu,
 		onHandleStorageDrawerMenu,
+		onHandleMyPageDrawerMenu,
 		onHandleDrawer
 	} = useMobileHeader();
 
@@ -276,7 +277,7 @@ function MobileHeader() {
 										</Typography>
 									</Box>
 									<Box>
-										<IconButton>
+										<IconButton onClick={onHandleMyPageDrawerMenu}>
 											<SettingsIcon className={classes.icon} color={'action'} />
 										</IconButton>
 									</Box>
