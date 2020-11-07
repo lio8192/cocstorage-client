@@ -28,7 +28,6 @@ import { fetchStorageDetailAndStorageBoardDetail, fetchStorageBoardDetail } from
 
 // Components
 import DetailContent from 'components/storages/board/detail/DetailContent';
-import DetailSideBox from 'components/storages/board/detail/DetailSideBox';
 import DetailCommentList from 'components/storages/board/detail/DetailCommentList';
 import DetailCommentWriteForm from 'components/storages/board/detail/DetailCommentWriteForm';
 import PasswordAuthDialog from 'components/common/PasswordAuthDialog';
@@ -195,7 +194,7 @@ function StorageBoardDetail() {
 			</Fade>
 			<Container className={classes.root} maxWidth={isMobile ? 'md' : 'lg'}>
 				<Grid container>
-					<Grid item xs={12} sm={12} md={12} lg={9}>
+					<Grid item xs={12} sm={12} md={12} lg={12}>
 						<DetailContent />
 						<DetailCommentWriteForm />
 						<DetailCommentList />
@@ -211,11 +210,6 @@ function StorageBoardDetail() {
 								siblingCount={isMobile ? 0 : 2}
 							/>
 						)}
-					</Grid>
-					<Grid item xs={12} md={12} lg={3}>
-						<Hidden mdDown>
-							<DetailSideBox />
-						</Hidden>
 					</Grid>
 				</Grid>
 			</Container>
