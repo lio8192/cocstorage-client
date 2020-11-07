@@ -332,7 +332,12 @@ function HomeNoticeGridList() {
 																	</Box>
 																	{moment().diff(item.createdAt, 'days') === 0 && (
 																		<Box ml={1}>
-																			<Chip className={classes.chip} label={'NEW'} color={'primary'} />
+																			<Chip
+																				className={classes.chip}
+																				label={'NEW'}
+																				color={'primary'}
+																				size={isMobile ? 'small' : 'medium'}
+																			/>
 																		</Box>
 																	)}
 																</Box>
@@ -410,7 +415,12 @@ function HomeNoticeGridList() {
 																			</Typography>
 																			{moment().diff(item.createdAt, 'days') === 0 && (
 																				<Box ml={1}>
-																					<Chip className={classes.chip} label={'NEW'} color={'primary'} />
+																					<Chip
+																						className={classes.chip}
+																						label={'NEW'}
+																						color={'primary'}
+																						size={isMobile ? 'small' : 'medium'}
+																					/>
 																				</Box>
 																			)}
 																		</Box>
@@ -468,7 +478,7 @@ function HomeNoticeGridList() {
 																	</Typography>
 																	{moment().diff(item.createdAt, 'days') === 0 && (
 																		<Box ml={1}>
-																			<Chip className={classes.chip} label={'NEW'} color={'primary'} />
+																			<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
 																		</Box>
 																	)}
 																</Box>
