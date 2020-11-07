@@ -16,7 +16,7 @@ import Grow from '@material-ui/core/Grow';
 import Card from '@material-ui/core/Card';
 
 // Material UI Icons
-import ScheduleIcon from '@material-ui/icons/Schedule';
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import CheckIcon from '@material-ui/icons/Check';
 
 // Components
@@ -95,14 +95,13 @@ function StorageGridList() {
 											<CardActionArea>
 												<CardContent className={classes.cardContentHead} />
 												<CardContent>
-													<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'} />
+													<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
+														<InsertPhotoIcon />
+													</Avatar>
 													<Box mt={1}>
 														<Typography className={classes.typography}>{item.name}</Typography>
 													</Box>
 													<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
-														<Box>
-															<ScheduleIcon className={classes.icon} color={'action'} />
-														</Box>
 														<Box ml={0.5}>
 															<Typography variant={'caption'}>
 																{moment(item.createdAt).format('YYYY. MM. DD')}

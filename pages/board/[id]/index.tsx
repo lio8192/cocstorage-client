@@ -20,7 +20,6 @@ import { fetchBoards, handleBoardsSearchState } from 'modules/board';
 import BoardHeader from 'components/board/BoardHeader';
 import BoardList from 'components/board/BoardList';
 import GoogleAdSense from 'components/common/GoogleAdSense';
-import NoticeCard from 'components/common/NoticeCard';
 
 // Custom Hooks
 import useBoard from 'hooks/useBoard';
@@ -95,7 +94,7 @@ function Board({ query }: NextPageContext) {
 					content={`${getCategoryNameByCategoryId(query.id)} 인기 게시글들을 한 눈에 확인해보세요!`}
 				/>
 				<meta property={'og:type'} content={'website'} />
-				<meta property={'og:image'} content={'/logo.png'} />
+				<meta property={'og:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'og:url'} content={`https://www.cocstorage.com/board/${query.id}`} />
 				<meta property={'og:site_name'} content={`${getCategoryNameByCategoryId(query.id)} : 개념글 저장소`} />
 				<meta property={'og:locale'} content={'ko_KR'} />
@@ -104,7 +103,7 @@ function Board({ query }: NextPageContext) {
 					property={'twitter:description'}
 					content={`${getCategoryNameByCategoryId(query.id)} 인기 게시글들을 한 눈에 확인해보세요!`}
 				/>
-				<meta property={'twitter:image'} content={'https://www.cocstorage.com/logo.png'} />
+				<meta property={'twitter:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'twitter:url'} content={`https://www.cocstorage.com/board/${query.id}`} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta
@@ -113,8 +112,8 @@ function Board({ query }: NextPageContext) {
 				/>
 				<title>{`${getCategoryNameByCategoryId(query.id)} : 개념글 저장소`}</title>
 				<link rel={'canonical'} href={`https://www.cocstorage.com/board/${query.id}`} />
-				<link rel={'shortcut icon'} href={'/favicon.ico'} />
-				<link rel={'apple-touch-icon'} href={'/logo_prev.png'} />
+				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />
+				<link rel={'apple-touch-icon'} href={'https://static.cocstorage.com/images/icon.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
@@ -160,9 +159,6 @@ function Board({ query }: NextPageContext) {
 						</Hidden>
 					</Grid>
 				</Grid>
-				<Box className={classes.noticeCardBox}>
-					<NoticeCard />
-				</Box>
 			</Container>
 		</>
 	);

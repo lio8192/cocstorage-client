@@ -1,6 +1,4 @@
-import React, {
-	useEffect, useState, useCallback, useMemo
-} from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useSnackbar, VariantType } from 'notistack';
@@ -23,17 +21,16 @@ export default function useHeader() {
 		query: { id }
 	} = router;
 
-	const [isMounted, setIsMounted] = useState<boolean>(false);
-
 	const activatedTab = useMemo(() => asPath, [asPath]);
+	const isHome = useMemo(() => route === '/', [route]);
+	const isBoard = useMemo(() => route === '/board/[id]', [route]);
 	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
-	const isPolicy = useMemo(() => route === '/policy' || route === '/privacy', [route]);
-	const isNotice = useMemo(() => route === '/notice', [route]);
-	const isMyPage = useMemo(() => route === '/mypage', [route]);
+	const isNewStorages = useMemo(() => route === '/storages', [route]);
 	const isStorageBoard = useMemo(() => route === '/storages/[path]', [route]);
 	const isStorageBoardWrite = useMemo(() => route === '/storages/[path]/write', [route]);
 	const isStorageBoardEdit = useMemo(() => route === '/storages/[path]/edit/[id]', [route]);
 	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
+	const isNewNotices = useMemo(() => route === '/notices', [route]);
 	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
 	const isNoticeEdit = useMemo(() => route === '/notices/edit/[id]', [route]);
 	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
@@ -42,38 +39,12 @@ export default function useHeader() {
 		isNoticeDetail,
 		isNoticeEdit
 	]);
-	const isUserAuthenticationUUID = useMemo(() => route === '/users/authentication/[uuid]', [route]);
-	const isTabsHidden = useMemo(
-		() =>
-			(isBoardDetail
-				|| isPolicy
-				|| isNotice
-				|| isMyPage
-				|| isStorageBoard
-				|| isStorageBoardWrite
-				|| isStorageBoardEdit
-				|| isStorageBoardDetail
-				|| isNoticeWrite
-				|| isNoticeDetail
-				|| isNoticeEdit
-				|| isUserAuthenticationUUID)
-			&& isMounted,
-		[
-			isBoardDetail,
-			isPolicy,
-			isNotice,
-			isMyPage,
-			isStorageBoard,
-			isStorageBoardWrite,
-			isStorageBoardEdit,
-			isStorageBoardDetail,
-			isNoticeWrite,
-			isNoticeDetail,
-			isNoticeEdit,
-			isUserAuthenticationUUID,
-			isMounted
-		]
-	);
+	const openTab = useMemo(() => isHome || isNewStorages || isNewNotices || isBoard, [
+		isHome,
+		isNewStorages,
+		isNewNotices,
+		isBoard
+	]);
 	const openNavigationChip = useMemo(
 		() =>
 			isBoardDetail
@@ -232,8 +203,6 @@ export default function useHeader() {
 		}
 	}, [dispatch, asPath]);
 
-	useEffect(() => setIsMounted(true), []);
-
 	return {
 		id,
 		pageScope,
@@ -241,7 +210,7 @@ export default function useHeader() {
 		storage,
 		activatedTab,
 		openNavigationChip,
-		isTabsHidden,
+		openTab,
 		isNewStorage,
 		isNotices,
 		onHandlePageScope,

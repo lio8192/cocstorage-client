@@ -83,10 +83,12 @@ function Storages() {
 		pending,
 		pagination: { totalPages },
 		fetchParams: { page, name },
+		isAuthenticated,
 		onFetchStorages,
 		onKeyUpStorageSearchTextField,
 		onHandlePagination,
-		onHandleStorageManageDialogOpen
+		onHandleStorageManageDialogOpen,
+		onHandleSignInDialog
 	} = useStorages();
 
 	useEffect(() => {
@@ -108,7 +110,7 @@ function Storages() {
 					content={'다양한 주제의 저장소를 이용해보거나 자신만의 저장소를 운영해보세요!'}
 				/>
 				<meta property={'og:type'} content={'website'} />
-				<meta property={'og:image'} content={'/logo.png'} />
+				<meta property={'og:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'og:url'} content={'https://www.cocstorage.com/storages'} />
 				<meta property={'og:site_name'} content={'저장소 : 개념글 저장소'} />
 				<meta property={'og:locale'} content={'ko_KR'} />
@@ -117,38 +119,37 @@ function Storages() {
 					property={'twitter:description'}
 					content={'다양한 주제의 저장소를 이용해보거나 자신만의 저장소를 운영해보세요!'}
 				/>
-				<meta property={'twitter:image'} content={'https://www.cocstorage.com/logo.png'} />
+				<meta property={'twitter:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'twitter:url'} content={'https://www.cocstorage.com/storages'} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={'저장소 : 개념글 저장소'} />
 				<title>{'저장소 : 개념글 저장소'}</title>
 				<link rel={'canonical'} href={'https://www.cocstorage.com/storages'} />
-				<link rel={'shortcut icon'} href={'/favicon.ico'} />
-				<link rel={'apple-touch-icon'} href={'/logo_prev.png'} />
+				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />
+				<link rel={'apple-touch-icon'} href={'https://static.cocstorage.com/images/icon.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
 			<StorageHeader />
 			<Container className={classes.container}>
-				{!pending && (
-					<Box pt={2}>
-						<TextField
-							fullWidth
-							type={'search'}
-							variant={'outlined'}
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position={'start'}>
-										<SearchIcon color={'action'} />
-									</InputAdornment>
-								)
-							}}
-							placeholder={'저장소명으로 검색'}
-							onKeyUp={onKeyUpStorageSearchTextField}
-							defaultValue={name}
-						/>
-					</Box>
-				)}
+				<Box pt={2}>
+					<TextField
+						fullWidth
+						type={'search'}
+						variant={'outlined'}
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position={'start'}>
+									<SearchIcon color={'action'} />
+								</InputAdornment>
+							)
+						}}
+						placeholder={'저장소명으로 검색'}
+						onKeyUp={onKeyUpStorageSearchTextField}
+						defaultValue={name || ''}
+						disabled={pending}
+					/>
+				</Box>
 				<StorageGridList />
 				<Box mt={2} textAlign={'right'}>
 					<Button
@@ -158,25 +159,23 @@ function Storages() {
 						color={'primary'}
 						startIcon={<AddBoxIcon />}
 						size={'large'}
-						onClick={onHandleStorageManageDialogOpen}
+						onClick={isAuthenticated ? onHandleStorageManageDialogOpen : onHandleSignInDialog}
+						disabled={pending}
 					>
 						{'새 저장소 등록'}
 					</Button>
 				</Box>
-				{!pending && totalPages > 0 ? (
-					<Pagination
-						className={classes.pagination}
-						page={page}
-						count={totalPages}
-						color={'primary'}
-						shape={'rounded'}
-						onChange={onHandlePagination}
-						size={isMobile ? 'small' : 'medium'}
-						siblingCount={isMobile ? 0 : 2}
-					/>
-				) : (
-					<Box className={classes.dummyPagination} />
-				)}
+				<Pagination
+					className={classes.pagination}
+					page={page}
+					count={totalPages}
+					color={'primary'}
+					shape={'rounded'}
+					onChange={onHandlePagination}
+					size={isMobile ? 'small' : 'medium'}
+					siblingCount={isMobile ? 0 : 2}
+					disabled={pending}
+				/>
 			</Container>
 			<StorageManageDialog />
 		</>

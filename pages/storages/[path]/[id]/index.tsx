@@ -146,7 +146,10 @@ function StorageBoardDetail() {
 				<meta property={'og:title'} content={subject ? `${subject} : ${name} 저장소` : '개념글 저장소'} />
 				<meta property={'og:description'} content={description} />
 				<meta property={'og:type'} content={'website'} />
-				<meta property={'og:image'} content={thumbnailUrl || avatarUrl || '/logo.png'} />
+				<meta
+					property={'og:image'}
+					content={thumbnailUrl || avatarUrl || 'https://static.cocstorage.com/images/icon.png'}
+				/>
 				<meta
 					property={'og:url'}
 					content={
@@ -159,7 +162,10 @@ function StorageBoardDetail() {
 				<meta property={'og:locale'} content={'ko_KR'} />
 				<meta property={'twitter:title'} content={subject ? `${subject} : ${name} 저장소` : '개념글 저장소'} />
 				<meta property={'twitter:description'} content={description} />
-				<meta property={'twitter:image'} content={thumbnailUrl || avatarUrl || '/logo.png'} />
+				<meta
+					property={'twitter:image'}
+					content={thumbnailUrl || avatarUrl || 'https://static.cocstorage.com/images/icon.png'}
+				/>
 				<meta
 					property={'twitter:url'}
 					content={
@@ -179,8 +185,8 @@ function StorageBoardDetail() {
 							: 'https://www.cocstorage.com/storages'
 					}
 				/>
-				<link rel={'shortcut icon'} href={avatarUrl || '/favicon.ico'} />
-				<link rel={'apple-touch-icon'} href={avatarUrl || '/logo.png'} />
+				<link rel={'shortcut icon'} href={avatarUrl || 'https://static.cocstorage.com/images/favicon.ico'} />
+				<link rel={'apple-touch-icon'} href={avatarUrl || 'https://static.cocstorage.com/images/icon.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>

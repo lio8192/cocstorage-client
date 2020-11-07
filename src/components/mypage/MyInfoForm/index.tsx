@@ -105,7 +105,7 @@ function MyInfoForm() {
 								onClick={onHandlePrivacyAuthDialog}
 								disabled={pending || privacyPending || !isAuthenticated}
 							>
-								{'개인정보 확인'}
+								{'개인 정보 확인'}
 							</Button>
 						</Box>
 						<Divider className={classes.divider} />

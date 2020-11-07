@@ -21,7 +21,7 @@ import 'swiper/components/navigation/navigation.scss';
 // Components
 import Layout from 'components/common/Layout';
 
-import wrapper from './store';
+import wrapper from 'modules/store';
 
 function App({ Component, pageProps }: AppProps | any) {
 	const dispatch = useDispatch();

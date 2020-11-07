@@ -18,9 +18,6 @@ import Fade from '@material-ui/core/Fade';
 // Custom Hooks
 import usePasswordFinder from 'hooks/common/usePasswordFinder';
 
-// Images
-import Logo from 'public/logo.png';
-
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
@@ -35,6 +32,12 @@ const useStyles = makeStyles((theme: Theme) =>
 		linearProgress: {
 			position: 'absolute',
 			width: '100%'
+		},
+		logo: {
+			maxWidth: 175
+		},
+		icon: {
+			maxWidth: 50
 		}
 	})
 );
@@ -65,7 +68,22 @@ function PasswordFinderDialog() {
 				<LinearProgress className={classes.linearProgress} color={'primary'} />
 			</Fade>
 			<DialogTitle>
-				<img src={Logo} alt={'PasswordFinderDialog Logo Img'} />
+				<Box pt={2} pb={2}>
+					<Box textAlign={'center'}>
+						<img
+							className={classes.icon}
+							src={'https://static.cocstorage.com/images/icon.png'}
+							alt={'PasswordFinder Logo Img'}
+						/>
+					</Box>
+					<Box textAlign={'center'}>
+						<img
+							className={classes.logo}
+							src={'https://static.cocstorage.com/images/logo_text.png'}
+							alt={'PasswordFinder Logo Img'}
+						/>
+					</Box>
+				</Box>
 				<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={1}>
 					<Box>
 						<Typography className={classes.typography} variant={'h5'}>

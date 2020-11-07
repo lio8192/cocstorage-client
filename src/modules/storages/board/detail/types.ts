@@ -142,6 +142,7 @@ export type StorageBoardDetail = {
 	isDraft: boolean;
 	isActive: boolean;
 	isMember: boolean;
+	isPopular: boolean;
 	createdIp: string;
 	createdAt: string;
 	updatedAt: string;

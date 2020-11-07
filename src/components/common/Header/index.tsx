@@ -48,9 +48,6 @@ import useHeader from 'hooks/common/useHeader';
 // Snippets
 import { getCategoryNameByCategoryId } from 'snippets/board';
 
-// Logo Image
-import Logo from 'public/logo.png';
-
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		appBar: {
@@ -78,6 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: theme.spacing(3, 0)
 		},
 		logo: {
+			maxWidth: 180,
 			verticalAlign: 'middle',
 			cursor: 'pointer'
 		},
@@ -171,7 +169,7 @@ function Header() {
 		storage,
 		activatedTab,
 		openNavigationChip,
-		isTabsHidden,
+		openTab,
 		isNewStorage,
 		isNotices,
 		onHandlePageScope,
@@ -235,11 +233,15 @@ function Header() {
 						<Box className={classes.logoBox}>
 							<Box>
 								<Box component={'span'} onClick={onHandleLogo}>
-									<img className={classes.logo} src={Logo} alt={'Logo'} />
+									<img
+										className={classes.logo}
+										src={'https://static.cocstorage.com/images/logo.png'}
+										alt={'Logo Img'}
+									/>
 								</Box>
 								<Chip
 									className={classes.chip}
-									color={(pageScope === 'storage' || pageScope === 'storage-mypage') ? 'primary' : 'default'}
+									color={pageScope === 'storage' || pageScope === 'storage-mypage' ? 'primary' : 'default'}
 									label={'새 저장소'}
 									onClick={onHandlePageScope}
 									data-page-scope={'storage'}
@@ -320,7 +322,11 @@ function Header() {
 									<Box className={classes.logoBox}>
 										<Box>
 											<Box component={'span'} onClick={onHandleLogo}>
-												<img className={classes.logo} src={Logo} alt={'Logo'} />
+												<img
+													className={classes.logo}
+													src={'https://static.cocstorage.com/images/logo.png'}
+													alt={'Logo Img'}
+												/>
 											</Box>
 											{isNewStorage && (
 												<Chip
@@ -423,11 +429,11 @@ function Header() {
 					/>
 				</>
 			)}
-			{pageScope && !isTabsHidden && (
+			{pageScope && openTab && (
 				<Box>
 					<Paper className={classes.paper} variant={'outlined'} square>
 						<Container>
-							{(pageScope === 'storage' || pageScope === 'storage-mypage') ? (
+							{pageScope === 'storage' || pageScope === 'storage-mypage' ? (
 								<Tabs
 									indicatorColor={'primary'}
 									textColor={'primary'}

@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: theme.spacing(0, '14px'),
 			border: '1px solid rgba(0, 0, 0, 0.23)',
 			borderRadius: 4,
+			'& img': {
+				maxWidth: '100%'
+			},
 			[theme.breakpoints.down('md')]: {
 				margin: theme.spacing(0),
 				border: 'none',

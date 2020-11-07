@@ -40,7 +40,6 @@ function MyPageMenu() {
 	const {
 		pending,
 		activatedTab,
-		user: { nickname },
 		putNicknameBody: {
 			value, error, helperText, editNickname
 		},

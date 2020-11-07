@@ -29,6 +29,8 @@ export const POST_SIGN_IN_FAILED = 'common/POST_SIGN_IN_FAILED';
 
 export const SET_USER_AUTHENTICATION = 'common/SET_USER_AUTHENTICATION';
 
+export const UPDATE_USER_AUTHENTICATION = 'common/UPDATE_USER_AUTHENTICATION';
+
 export const DELETE_SIGN_OUT = 'common/DELETE_SIGN_OUT';
 export const DELETE_SIGN_OUT_SUCCEEDED = 'common/DELETE_SIGN_OUT_SUCCEEDED';
 export const DELETE_SIGN_OUT_FAILED = 'common/DELETE_SIGN_OUT_FAILED';
@@ -59,6 +61,8 @@ export const postSignInSucceeded = createAction(POST_SIGN_IN_SUCCEEDED)<User>();
 export const postSignInFailed = createAction(POST_SIGN_IN_FAILED)();
 
 export const setUserAuthentication = createAction(SET_USER_AUTHENTICATION)();
+
+export const updateUserAuthentication = createAction(UPDATE_USER_AUTHENTICATION)<User>();
 
 export const deleteSignOut = createAction(DELETE_SIGN_OUT)();
 export const deleteSignOutSucceeded = createAction(DELETE_SIGN_OUT_SUCCEEDED)();

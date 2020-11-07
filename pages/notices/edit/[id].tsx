@@ -57,20 +57,20 @@ function NoticeEdit() {
 				<meta property={'og:title'} content={'새로운 소식 : 개념글 저장소'} />
 				<meta property={'og:description'} content={'개념글 저장소의 새로운 소식을 확인해보세요!'} />
 				<meta property={'og:type'} content={'website'} />
-				<meta property={'og:image'} content={'/logo.png'} />
+				<meta property={'og:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'og:url'} content={'https://www.cocstorage.com/notices'} />
 				<meta property={'og:site_name'} content={'새로운 소식 : 개념글 저장소'} />
 				<meta property={'og:locale'} content={'ko_KR'} />
 				<meta property={'twitter:title'} content={'새로운 소식 : 개념글 저장소'} />
 				<meta property={'twitter:description'} content={'개념글 저장소의 새로운 소식을 확인해보세요!'} />
-				<meta property={'twitter:image'} content={'/logo.png'} />
+				<meta property={'twitter:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'twitter:url'} content={'https://www.cocstorage.com/notices'} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={'새로운 소식 : 개념글 저장소'} />
 				<title>{'새로운 소식 : 개념글 저장소'}</title>
 				<link rel={'canonical'} href={'https://www.cocstorage.com/notices'} />
-				<link rel={'shortcut icon'} href={'/favicon.ico'} />
-				<link rel={'apple-touch-icon'} href={'/logo.png'} />
+				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />
+				<link rel={'apple-touch-icon'} href={'https://static.cocstorage.com/images/icon.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 			</Head>
 			<Fade in={pending}>

@@ -440,7 +440,7 @@ function NoticeGridList() {
 					);
 				})}
 			</Grid>
-			{!pending && transferNotices.length === 0 && <DataEmptyBox message={'새로운 소직이 존재하지 않습니다.'} />}
+			{!pending && transferNotices.length === 0 && <DataEmptyBox message={'새로운 소식이 존재하지 않습니다.'} />}
 		</>
 	);
 }

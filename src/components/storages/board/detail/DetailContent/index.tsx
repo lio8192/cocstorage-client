@@ -31,6 +31,7 @@ import ThumbUpAltSharpIcon from '@material-ui/icons/ThumbUpAltSharp';
 import ThumbDownAltSharpIcon from '@material-ui/icons/ThumbDownAltSharp';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import StarIcon from '@material-ui/icons/Star';
 
 // Components
 // import GoogleAdSense from 'components/common/GoogleAdSense';
@@ -47,6 +48,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		subjectBox: {
+			display: 'flex',
+			alignItems: 'center',
 			padding: theme.spacing(2, 0, 1, 0),
 			color: theme.palette.grey.A700,
 			[theme.breakpoints.down('md')]: {
@@ -161,6 +164,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('sm')]: {
 				left: '-30px !important'
 			}
+		},
+		avatar: {
+			width: theme.spacing(3.5),
+			height: theme.spacing(3.5),
+			backgroundColor: theme.palette.primary.main
 		}
 	})
 );
@@ -180,6 +188,7 @@ function DetailContent() {
 			thumbDown,
 			viewCount,
 			isMember,
+			isPopular,
 			createdIp,
 			createdAt,
 			commentTotalCount
@@ -237,9 +246,16 @@ function DetailContent() {
 				<Grow in>
 					<Box className={classes.root}>
 						<Box className={classes.subjectBox}>
-							<Typography component={'h5'} variant={'h5'}>
-								<Skeleton animation={'wave'} height={50} />
-							</Typography>
+							{isPopular && (
+								<Box mr={1}>
+									<Skeleton animation={'wave'} width={30} height={50} />
+								</Box>
+							)}
+							<Box flex={1}>
+								<Typography component={'h5'} variant={'h5'}>
+									<Skeleton animation={'wave'} height={50} />
+								</Typography>
+							</Box>
 						</Box>
 						<Box
 							className={classes.writerInfoBox}
@@ -321,9 +337,18 @@ function DetailContent() {
 				<Grow in>
 					<Box className={classes.root}>
 						<Box className={classes.subjectBox}>
-							<Typography className={classes.subjectBoxTypography} variant={'h5'}>
-								{subject}
-							</Typography>
+							{isPopular && (
+								<Box mr={1}>
+									<Avatar className={classes.avatar} variant={'rounded'}>
+										<StarIcon />
+									</Avatar>
+								</Box>
+							)}
+							<Box flex={1}>
+								<Typography className={classes.subjectBoxTypography} variant={'h5'}>
+									{subject}
+								</Typography>
+							</Box>
 						</Box>
 						<Box className={classes.writerInfoBox}>
 							<Grid container alignItems={'center'}>

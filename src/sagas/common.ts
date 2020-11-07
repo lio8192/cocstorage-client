@@ -108,6 +108,7 @@ function* watchPostSignIn(action: ActionType<typeof postSignIn>) {
 			})
 		);
 		window.localStorage.setItem('coc-jwt', response.headers.authorization);
+		window.localStorage.removeItem('coc-info-jwt');
 	} catch (error) {
 		yield put(postSignInFailed());
 		yield put(
@@ -127,6 +128,7 @@ function* watchDeleteSignOut() {
 		yield call(Service.deleteSignOut);
 		yield put(deleteSignOutSucceeded());
 		yield window.localStorage.removeItem('coc-jwt');
+		window.localStorage.removeItem('coc-info-jwt');
 	} catch (error) {
 		yield put(deleteSignOutFailed());
 		yield put(

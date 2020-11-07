@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
@@ -108,23 +108,20 @@ export default function useMobileHeader() {
 			.then();
 	}, [router]);
 
-	const onHandleStorageDrawerMenu = useCallback(
-		() => {
-			dispatch(clearBoardsRelatedState());
+	const onHandleStorageDrawerMenu = useCallback(() => {
+		dispatch(clearBoardsRelatedState());
 
-			router
-				.push(
-					{
-						pathname: '/storages'
-					},
-					'/storages'
-				)
-				.then();
+		router
+			.push(
+				{
+					pathname: '/storages'
+				},
+				'/storages'
+			)
+			.then();
 
-			dispatch(handleDrawer());
-		},
-		[dispatch, router]
-	);
+		dispatch(handleDrawer());
+	}, [dispatch, router]);
 
 	const onHandleDrawer = useCallback(() => dispatch(handleDrawer()), [dispatch]);
 

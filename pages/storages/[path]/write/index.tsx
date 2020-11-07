@@ -62,7 +62,7 @@ function StorageBoardWrite() {
 				/>
 				<meta property={'og:description'} content={storage.description} />
 				<meta property={'og:type'} content={'website'} />
-				<meta property={'og:image'} content={storage.avatarUrl || '/logo.png'} />
+				<meta property={'og:image'} content={storage.avatarUrl || 'https://static.cocstorage.com/images/icon.png'} />
 				<meta
 					property={'og:url'}
 					content={
@@ -79,7 +79,10 @@ function StorageBoardWrite() {
 					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
 				/>
 				<meta property={'twitter:description'} content={storage.description} />
-				<meta property={'twitter:image'} content={storage.avatarUrl || '/logo.png'} />
+				<meta
+					property={'twitter:image'}
+					content={storage.avatarUrl || 'https://static.cocstorage.com/images/icon.png'}
+				/>
 				<meta
 					property={'twitter:url'}
 					content={
@@ -98,8 +101,8 @@ function StorageBoardWrite() {
 						storage.path ? `https://www.cocstorage.com/storages/${storage.path}` : 'https://www.cocstorage.com/storages'
 					}
 				/>
-				<link rel={'shortcut icon'} href={storage.avatarUrl || '/favicon.ico'} />
-				<link rel={'apple-touch-icon'} href={storage.avatarUrl || '/logo.png'} />
+				<link rel={'shortcut icon'} href={storage.avatarUrl || 'https://static.cocstorage.com/images/favicon.ico'} />
+				<link rel={'apple-touch-icon'} href={storage.avatarUrl || 'https://static.cocstorage.com/images/icon.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>

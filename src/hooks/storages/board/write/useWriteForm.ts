@@ -164,7 +164,7 @@ export default function useWriteForm() {
 			nickname, password, subject, content
 		} = putStorageBoardBody;
 
-		const nicknameRegExp = /[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]{2,10}/;
+		const nicknameRegExp = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]{2,10}$/;
 		// eslint-disable-next-line no-useless-escape
 		const specialCharRegExp = '[ !@\\#$%^&*(),.?\\":{}|<>]';
 

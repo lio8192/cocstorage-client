@@ -1,4 +1,4 @@
-import React, { useCallback, memo } from 'react';
+import React, { useCallback, useMemo, memo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
@@ -180,6 +180,13 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& span:last-child::after': {
 				display: 'none'
 			}
+		},
+		descriptionTypography: {
+			textOverflow: 'ellipsis',
+			overflow: 'hidden',
+			display: '-webkit-box',
+			boxOrient: 'vertical',
+			lineClamp: 2
 		}
 	})
 );
@@ -193,6 +200,7 @@ function HomeNoticeGridList() {
 		notices: { data, pending }
 	} = useHomeStorageGridList();
 
+	const skeletonArray = useMemo<Array<number>>(() => (isMobile ? [1, 2, 3, 4] : [1, 2, 3]), [isMobile]);
 	const handleNavigateButtonRoute = useCallback(() => router.push('/notices', '/notices').then(), [router]);
 
 	return (
@@ -257,7 +265,7 @@ function HomeNoticeGridList() {
 							<Grid className={classes.gridItem} item md={12} lg={6}>
 								<Box className={classes.listBox}>
 									<List className={classes.list} disablePadding>
-										{[1, 2, 3].map((item) => (
+										{skeletonArray.map((item) => (
 											<ListItem key={`dummy-notice-${item}`}>
 												<Box width={'100%'}>
 													<Box className={classes.listItemBox}>
@@ -329,7 +337,11 @@ function HomeNoticeGridList() {
 																	)}
 																</Box>
 																<Box mt={1}>
-																	<Typography variant={'body2'} color={'textSecondary'}>
+																	<Typography
+																		className={classes.descriptionTypography}
+																		variant={'body2'}
+																		color={'textSecondary'}
+																	>
 																		{item.description}
 																	</Typography>
 																</Box>

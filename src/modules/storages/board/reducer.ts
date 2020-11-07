@@ -55,13 +55,13 @@ const initialState: StorageBoardState = {
 		currentPage: 1,
 		prevPage: null,
 		nextPage: null,
-		perPage: 20,
+		perPage: 10,
 		isLastPage: true
 	},
 	fetchParams: {
 		storageId: 0,
 		orderBy: 'latest',
-		per: 5,
+		per: 10,
 		page: 1
 	},
 	fetchSearchParams: {
@@ -136,6 +136,16 @@ const storageBoard = createReducer<StorageBoardState, StorageBoardActions>(initi
 		storage: {
 			...data,
 			pending: false
+		},
+		fetchParams: {
+			storageId: 0,
+			orderBy: 'latest',
+			per: 10,
+			page: 1
+		},
+		fetchSearchParams: {
+			type: 'all',
+			value: null
 		}
 	}),
 	[FETCH_STORAGE_DETAIL_FAILED]: (state) => ({

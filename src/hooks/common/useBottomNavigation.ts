@@ -1,10 +1,9 @@
-// import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Modules
 import { RootState } from 'modules';
-import React, { useCallback } from 'react';
 import { handlePageScope, handleDrawer, handleSignInDialog } from 'modules/common';
 
 export default function useBottomNavigation() {
@@ -21,31 +20,25 @@ export default function useBottomNavigation() {
 		[dispatch]
 	);
 
-	const onChangeBottomNavigation = useCallback((event: React.ChangeEvent<{}>, value) => {
-		if (value === 'storage-mypage') {
-			if (commonState.user.isAuthenticated) {
-				router.push('/mypage', '/mypage').then();
+	const onChangeBottomNavigation = useCallback(
+		(event: React.ChangeEvent<{}>, value) => {
+			if (value === 'storage-mypage') {
+				if (commonState.user.isAuthenticated) {
+					router.push('/mypage', '/mypage').then();
+				} else {
+					dispatch(handleSignInDialog());
+				}
 			} else {
-				dispatch(handleSignInDialog());
+				dispatch(handleDrawer());
 			}
-		} else {
-			dispatch(handleDrawer());
-		}
-		dispatch(handlePageScope(value));
-	}, [dispatch, router, commonState.user.isAuthenticated]);
-
-	const onHandleMyPage = useCallback(() => {
-		if (commonState.user.isAuthenticated) {
-			router.push('/mypage', '/mypage').then();
-		} else {
-			dispatch(handleSignInDialog());
-		}
-	}, [dispatch, router, commonState.user.isAuthenticated]);
+			dispatch(handlePageScope(value));
+		},
+		[dispatch, router, commonState.user.isAuthenticated]
+	);
 
 	return {
 		...commonState,
 		onChangeBottomNavigation,
-		onHandlePageScope,
-		onHandleMyPage
+		onHandlePageScope
 	};
 }

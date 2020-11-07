@@ -63,11 +63,15 @@ export default function useMyPageMenu() {
 			helperText: ''
 		});
 
-		if (!value) {
+		const nicknameRegExp = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]{2,10}$/;
+		// eslint-disable-next-line no-useless-escape
+		const specialCharRegExp = '[ !@\\#$%^&*(),.?\\":{}|<>]';
+
+		if (!new RegExp(nicknameRegExp).test(value || '') || new RegExp(specialCharRegExp).test(value || '')) {
 			setPutNicknameBody({
 				...putNicknameBody,
 				error: true,
-				helperText: '닉네임을 입력해주세요.'
+				helperText: '올바른 닉네임을 입력해주세요.'
 			});
 			return false;
 		}
@@ -75,7 +79,7 @@ export default function useMyPageMenu() {
 		dispatch(
 			putNickname({
 				userId: user.id,
-				nickname: value
+				nickname: value || ''
 			})
 		);
 
@@ -89,13 +93,15 @@ export default function useMyPageMenu() {
 	}, [dispatch, user.id, putNicknameBody]);
 
 	useEffect(() => {
-		if (user.nickname && !putNicknameBody.value) {
+		if (user.nickname) {
 			setPutNicknameBody({
-				...putNicknameBody,
-				value: user.nickname
+				value: user.nickname,
+				error: false,
+				helperText: '',
+				editNickname: false
 			});
 		}
-	}, [user.nickname, putNicknameBody]);
+	}, [user.nickname]);
 
 	return {
 		...myPageState,

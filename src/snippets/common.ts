@@ -1,3 +1,6 @@
+import Jwt from 'jsonwebtoken';
+import { User } from 'modules/common';
+
 export function getErrorMessageByCode(code: string): string {
 	let errorMessage = `CODE: ${code || 'NONE'}\n알 수 없는 오류입니다.`;
 
@@ -69,4 +72,50 @@ export function getErrorMessageByCode(code: string): string {
 	return errorMessage;
 }
 
-export default getErrorMessageByCode;
+export const setUserStateByJsonWebToken = (): User => {
+	let jwt = '';
+	let info_jwt = '';
+
+	if (typeof window !== 'undefined') {
+		jwt = String(window.localStorage.getItem('coc-jwt')).replace('Bearer ', '');
+		info_jwt = String(window.localStorage.getItem('coc-info-jwt'));
+	}
+
+	let user: User = {
+		id: 0,
+		nickname: '',
+		avatarUrl: '',
+		role: '',
+		isAuthenticated: false
+	};
+	let decodedJsonWebToken: any = null;
+
+	try {
+		decodedJsonWebToken = Jwt.verify(jwt, `${process.env.JWT_SECRET_KEY}`);
+
+		user = decodedJsonWebToken.pyl;
+
+		if (info_jwt) {
+			user = Jwt.verify(info_jwt, `${process.env.JWT_SECRET_KEY}`) as User;
+			// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+			// @ts-ignore
+			delete user.iat;
+		}
+	} catch (error) {
+		console.log(error);
+	}
+
+	return user;
+};
+
+export const updateUserStateByJsonWebToken = (data: User): User => {
+	try {
+		const signJsonWebToken = Jwt.sign(data, `${process.env.JWT_SECRET_KEY}`);
+
+		window.localStorage.setItem('coc-info-jwt', signJsonWebToken);
+	} catch (error) {
+		console.log(error);
+	}
+
+	return data;
+};

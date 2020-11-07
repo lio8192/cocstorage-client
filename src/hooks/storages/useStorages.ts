@@ -3,10 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Modules
 import { fetchStorages, handleFetchParams, handleStorageManageDialog } from 'modules/storages';
+import { handleSignInDialog } from 'modules/common';
 import { RootState } from 'modules';
 
 export default function useStorages() {
 	const dispatch = useDispatch();
+	const {
+		user: { isAuthenticated }
+	} = useSelector((state: RootState) => state.common);
 	const storagesState = useSelector((state: RootState) => state.storages);
 
 	const onFetchStorages = useCallback(() => dispatch(fetchStorages(storagesState.fetchParams)), [
@@ -45,11 +49,15 @@ export default function useStorages() {
 
 	const onHandleStorageManageDialogOpen = useCallback(() => dispatch(handleStorageManageDialog()), [dispatch]);
 
+	const onHandleSignInDialog = useCallback(() => dispatch(handleSignInDialog()), [dispatch]);
+
 	return {
 		...storagesState,
+		isAuthenticated,
 		onFetchStorages,
 		onKeyUpStorageSearchTextField,
 		onHandlePagination,
-		onHandleStorageManageDialogOpen
+		onHandleStorageManageDialogOpen,
+		onHandleSignInDialog
 	};
 }

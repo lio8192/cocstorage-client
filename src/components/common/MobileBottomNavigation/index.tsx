@@ -37,11 +37,7 @@ const useStyles = makeStyles(() =>
 
 function MobileBottomNavigation() {
 	const classes = useStyles();
-	const {
-		pageScope,
-		onHandleMyPage,
-		onChangeBottomNavigation
-	} = useBottomNavigation();
+	const { pageScope, onChangeBottomNavigation } = useBottomNavigation();
 	return (
 		<>
 			<Paper className={classes.root} square elevation={3}>
@@ -63,11 +59,7 @@ function MobileBottomNavigation() {
 						value={'previous-storage'}
 						data-page-scope={'previous-storage'}
 					/>
-					<BottomNavigationAction
-						label={'마이페이지'}
-						icon={<PersonIcon />}
-						value={'storage-mypage'}
-					/>
+					<BottomNavigationAction label={'마이페이지'} icon={<PersonIcon />} value={'storage-mypage'} />
 				</BottomNavigation>
 			</Paper>
 			<Toolbar className={classes.toolbar} />

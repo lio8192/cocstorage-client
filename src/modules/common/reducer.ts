@@ -1,8 +1,9 @@
 import { createReducer } from 'typesafe-actions';
 import { HYDRATE } from 'next-redux-wrapper';
-import { CommonActions, CommonState, User } from 'modules/common/types';
+import { CommonActions, CommonState } from 'modules/common/types';
 
-import Jwt from 'jsonwebtoken';
+// Snippets
+import { setUserStateByJsonWebToken, updateUserStateByJsonWebToken } from 'snippets/common';
 
 import {
 	HANDLE_PAGE_SCOPE,
@@ -23,36 +24,10 @@ import {
 	POST_SIGN_IN_SUCCEEDED,
 	POST_SIGN_IN_FAILED,
 	SET_USER_AUTHENTICATION,
+	UPDATE_USER_AUTHENTICATION,
 	DELETE_SIGN_OUT_SUCCEEDED,
 	HANDLE_DRAWER
 } from './actions';
-
-export const setUserStateByJsonWebToken = (): User => {
-	let jwt = '';
-
-	if (typeof window !== 'undefined') {
-		jwt = String(window.localStorage.getItem('coc-jwt')).replace('Bearer ', '');
-	}
-
-	let user: User = {
-		id: 0,
-		nickname: '',
-		avatarUrl: '',
-		role: '',
-		isAuthenticated: false
-	};
-	let decodedJsonWebToken: any = null;
-
-	try {
-		decodedJsonWebToken = Jwt.verify(jwt, `${process.env.JWT_SECRET_KEY}`);
-
-		user = decodedJsonWebToken.pyl;
-	} catch (error) {
-		console.log(error);
-	}
-
-	return user;
-};
 
 const initialState: CommonState = {
 	pageScope: '',
@@ -239,6 +214,10 @@ const common = createReducer<CommonState, CommonActions>(initialState, {
 	[SET_USER_AUTHENTICATION]: (state) => ({
 		...state,
 		user: setUserStateByJsonWebToken()
+	}),
+	[UPDATE_USER_AUTHENTICATION]: (state, { payload }) => ({
+		...state,
+		user: updateUserStateByJsonWebToken(payload)
 	}),
 	[DELETE_SIGN_OUT_SUCCEEDED]: (state) => ({
 		...state,

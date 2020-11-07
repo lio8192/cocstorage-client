@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Modules
@@ -9,30 +9,22 @@ export default function useStorageBoard() {
 	const dispatch = useDispatch();
 	const storageBoardState = useSelector((state: RootState) => state.storageBoard);
 
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState<boolean>(false);
+	const [searchValue, setSearchValue] = useState<string>('');
 
 	const onFetchStorageBoards = useCallback(() => {
-		dispatch(
-			handleFetchParams({
-				storageId: storageBoardState.storage.id,
-				orderBy: 'latest',
-				per: 5,
-				page: 1
-			})
-		);
-		dispatch(
-			fetchStorageBoards({
-				storageId: storageBoardState.storage.id,
-				search: {
-					type: 'all',
-					value: null
-				},
-				orderBy: 'latest',
-				per: 5,
-				page: 1
-			})
-		);
-	}, [dispatch, storageBoardState.storage.id]);
+		if (storageBoardState.storage.id !== 0) {
+			dispatch(
+				fetchStorageBoards({
+					...storageBoardState.fetchParams,
+					search: {
+						...storageBoardState.fetchSearchParams
+					},
+					storageId: storageBoardState.storage.id
+				})
+			);
+		}
+	}, [dispatch, storageBoardState.storage.id, storageBoardState.fetchParams, storageBoardState.fetchSearchParams]);
 
 	const onHandlePagination = useCallback(
 		(event: React.ChangeEvent<unknown>, value: number) => {
@@ -42,17 +34,8 @@ export default function useStorageBoard() {
 					page: value
 				})
 			);
-			dispatch(
-				fetchStorageBoards({
-					...storageBoardState.fetchParams,
-					search: {
-						...storageBoardState.fetchSearchParams
-					},
-					page: value
-				})
-			);
 		},
-		[dispatch, storageBoardState.fetchParams, storageBoardState.fetchSearchParams]
+		[dispatch, storageBoardState.fetchParams]
 	);
 
 	const onClickSearchType = useCallback(
@@ -68,40 +51,63 @@ export default function useStorageBoard() {
 		[dispatch, storageBoardState.fetchSearchParams]
 	);
 
+	const onChangeStorageBoardSearchTextField = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+		const value: string = event.currentTarget.value || '';
+
+		setSearchValue(value);
+	}, []);
+
 	const onKeyUpStorageBoardsSearchTextField = useCallback(
 		(event: React.KeyboardEvent<HTMLInputElement>) => {
 			if (event.key === 'Enter') {
 				dispatch(
 					handleFetchSearchParams({
 						...storageBoardState.fetchSearchParams,
-						// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-						// @ts-ignore
-						value: event.target.value || null
-					})
-				);
-				dispatch(
-					fetchStorageBoards({
-						...storageBoardState.fetchParams,
-						search: {
-							...storageBoardState.fetchSearchParams,
-							// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-							// @ts-ignore
-							value: event.target.value || null
-						}
+						value: searchValue || null
 					})
 				);
 			}
 		},
-		[dispatch, storageBoardState.fetchParams, storageBoardState.fetchSearchParams]
+		[dispatch, storageBoardState.fetchSearchParams, searchValue]
 	);
+
+	const onChangeOrderBy = useCallback(
+		(event: React.ChangeEvent<{}>, newValue: string) => {
+			setSearchValue('');
+			dispatch(
+				handleFetchParams({
+					...storageBoardState.fetchParams,
+					orderBy: newValue,
+					per: 10,
+					page: 1
+				})
+			);
+			dispatch(
+				handleFetchSearchParams({
+					type: '',
+					value: null
+				})
+			);
+		},
+		[dispatch, storageBoardState.fetchParams]
+	);
+
+	useEffect(() => {
+		if (storageBoardState.fetchSearchParams.value) {
+			setSearchValue(storageBoardState.fetchSearchParams.value);
+		}
+	}, [storageBoardState.fetchSearchParams.value]);
 
 	return {
 		...storageBoardState,
 		open,
+		searchValue,
 		setOpen,
 		onFetchStorageBoards,
 		onHandlePagination,
 		onClickSearchType,
-		onKeyUpStorageBoardsSearchTextField
+		onKeyUpStorageBoardsSearchTextField,
+		onChangeOrderBy,
+		onChangeStorageBoardSearchTextField
 	};
 }

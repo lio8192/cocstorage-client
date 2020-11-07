@@ -24,6 +24,7 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import NotesIcon from '@material-ui/icons/Notes';
+import StarIcon from '@material-ui/icons/Star';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -68,6 +69,11 @@ const useStyles = makeStyles((theme: Theme) =>
 		avatarUser: {
 			width: theme.spacing(4),
 			height: theme.spacing(4)
+		},
+		avatarStar: {
+			width: theme.spacing(3.5),
+			height: theme.spacing(3.5),
+			backgroundColor: theme.palette.primary.main
 		},
 		commentCountBox: {
 			marginLeft: theme.spacing(0.5),
@@ -165,6 +171,11 @@ function BoardList() {
 										<Box display={'flex'} alignItems={'center'}>
 											<ListItemIcon>
 												<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
+													{item.isPopular && (
+														<Avatar className={classes.avatarStar} variant={'rounded'}>
+															<StarIcon />
+														</Avatar>
+													)}
 													{item.hasImage ? (
 														<Avatar className={classes.avatar} variant={'rounded'}>
 															<ImageIcon />

@@ -20,7 +20,9 @@ import {
 	putAvatarSucceeded,
 	putAvatarFailed
 } from 'modules/mypage';
-import { deleteSignOut, postSignInSucceeded, handleNotificationModal } from 'modules/common';
+import {
+	deleteSignOut, postSignInSucceeded, handleNotificationModal, updateUserAuthentication
+} from 'modules/common';
 
 // Service
 import * as Service from 'services/mypage';
@@ -107,6 +109,7 @@ function* watchPutNickname(action: ActionType<typeof putNickname>) {
 		const response = yield call(Service.putNickname, payload);
 		yield put(putNicknameSucceeded());
 		yield put(postSignInSucceeded(response.data));
+		yield put(updateUserAuthentication(response.data));
 	} catch (error) {
 		yield put(putNicknameFailed());
 		yield put(
@@ -127,6 +130,7 @@ function* watchPutAvatar(action: ActionType<typeof putAvatar>) {
 		const response = yield call(Service.putAvatar, payload);
 		yield put(putAvatarSucceeded());
 		yield put(postSignInSucceeded(response.data));
+		yield put(updateUserAuthentication(response.data));
 	} catch (error) {
 		yield put(putAvatarFailed());
 		yield put(

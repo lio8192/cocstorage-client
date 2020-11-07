@@ -38,9 +38,6 @@ import StorageIcon from '@material-ui/icons/Storage';
 // Custom Hooks
 import useMobileHeader from 'hooks/common/useMobileHeader';
 
-// Images
-import Logo from 'public/logo.png';
-
 // Snippets
 import { getCategoryNameByCategoryId } from 'snippets/board';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
@@ -66,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			flexGrow: 1
 		},
 		appBarLogo: {
-			maxWidth: 130,
+			maxWidth: 120,
 			verticalAlign: 'middle'
 		},
 		list: {
@@ -217,7 +214,11 @@ function MobileHeader() {
 						<Box className={classes.appBarLogoBox}>
 							<Box>
 								<Box component={'span'} onClick={onHandleLogo}>
-									<img className={classes.appBarLogo} src={Logo} alt={'Logo'} />
+									<img
+										className={classes.appBarLogo}
+										src={'https://static.cocstorage.com/images/logo_text.png'}
+										alt={'Logo Img'}
+									/>
 								</Box>
 								{isNewStorage && (
 									<Chip

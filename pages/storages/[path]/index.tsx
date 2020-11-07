@@ -118,14 +118,17 @@ function StorageBoard() {
 		pending,
 		storage,
 		pagination,
-		fetchParams: { page },
-		fetchSearchParams: { type, value },
+		fetchParams: { page, orderBy },
+		fetchSearchParams: { type },
 		open,
+		searchValue,
 		setOpen,
 		onFetchStorageBoards,
 		onHandlePagination,
 		onClickSearchType,
-		onKeyUpStorageBoardsSearchTextField
+		onKeyUpStorageBoardsSearchTextField,
+		onChangeOrderBy,
+		onChangeStorageBoardSearchTextField
 	} = useStorageBoard();
 
 	const anchorRef = React.useRef<HTMLButtonElement>(null);
@@ -161,10 +164,8 @@ function StorageBoard() {
 	}, [open]);
 
 	useEffect(() => {
-		if (storage.id !== 0) {
-			onFetchStorageBoards();
-		}
-	}, [storage.id, onFetchStorageBoards]);
+		onFetchStorageBoards();
+	}, [onFetchStorageBoards]);
 
 	return (
 		<>
@@ -181,7 +182,7 @@ function StorageBoard() {
 				/>
 				<meta property={'og:description'} content={storage.description} />
 				<meta property={'og:type'} content={'website'} />
-				<meta property={'og:image'} content={storage.avatarUrl || '/logo.png'} />
+				<meta property={'og:image'} content={storage.avatarUrl || 'https://static.cocstorage.com/images/icon.png'} />
 				<meta
 					property={'og:url'}
 					content={
@@ -198,7 +199,10 @@ function StorageBoard() {
 					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
 				/>
 				<meta property={'twitter:description'} content={storage.description} />
-				<meta property={'twitter:image'} content={storage.avatarUrl || '/logo.png'} />
+				<meta
+					property={'twitter:image'}
+					content={storage.avatarUrl || 'https://static.cocstorage.com/images/icon.png'}
+				/>
 				<meta
 					property={'twitter:url'}
 					content={
@@ -217,8 +221,8 @@ function StorageBoard() {
 						storage.path ? `https://www.cocstorage.com/storages/${storage.path}` : 'https://www.cocstorage.com/storages'
 					}
 				/>
-				<link rel={'shortcut icon'} href={storage.avatarUrl || '/favicon.ico'} />
-				<link rel={'apple-touch-icon'} href={storage.avatarUrl || '/logo.png'} />
+				<link rel={'shortcut icon'} href={storage.avatarUrl || 'https://static.cocstorage.com/images/favicon.ico'} />
+				<link rel={'apple-touch-icon'} href={storage.avatarUrl || 'https://static.cocstorage.com/images/icon.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
@@ -231,13 +235,13 @@ function StorageBoard() {
 					<Container className={classes.container}>
 						<Tabs
 							className={classes.tabs}
-							value={0}
+							value={orderBy}
 							indicatorColor={'primary'}
 							textColor={'primary'}
-							onChange={() => console.log('onChange')}
+							onChange={onChangeOrderBy}
 						>
-							<Tab label={'최신 개념글'} />
-							<Tab label={'인기 개념글'} />
+							<Tab label={'최신 개념글'} value={'latest'} disabled={pending} />
+							<Tab label={'인기 개념글'} value={'popular'} disabled={pending} />
 						</Tabs>
 					</Container>
 					<Container className={classes.container}>
@@ -250,6 +254,7 @@ function StorageBoard() {
 									color={'primary'}
 									size={'large'}
 									startIcon={<CreateIcon />}
+									disabled={pending}
 								>
 									{'새 개념글 등록'}
 								</Button>
@@ -265,6 +270,7 @@ function StorageBoard() {
 								onChange={onHandlePagination}
 								size={isMobile ? 'small' : 'medium'}
 								siblingCount={isMobile ? 0 : 2}
+								disabled={pending}
 							/>
 						) : (
 							<Box className={classes.pagination} />
@@ -323,7 +329,9 @@ function StorageBoard() {
 									)
 								}}
 								onKeyUp={onKeyUpStorageBoardsSearchTextField}
-								defaultValue={value}
+								onChange={onChangeStorageBoardSearchTextField}
+								value={searchValue}
+								disabled={pending}
 							/>
 						</Box>
 					</Container>

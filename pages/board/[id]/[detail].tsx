@@ -84,20 +84,26 @@ function Detail({ query }: NextPageContext) {
 				<meta property={'og:title'} content={getMetaTagTitle(data, query.id)} />
 				<meta property={'og:description'} content={`${data.description}`} />
 				<meta property={'og:type'} content={'website'} />
-				<meta property={'og:image'} content={data && data.image ? data.image : '/logo.png'} />
+				<meta
+					property={'og:image'}
+					content={data && data.image ? data.image : 'https://static.cocstorage.com/images/icon.png'}
+				/>
 				<meta property={'og:url'} content={`https://www.cocstorage.com/board/${query.id}/${query.detail}`} />
 				<meta property={'og:site_name'} content={getMetaTagTitle(data, query.id)} />
 				<meta property={'og:locale'} content={'ko_KR'} />
 				<meta property={'twitter:title'} content={getMetaTagTitle(data, query.id)} />
 				<meta property={'twitter:description'} content={`${data.description}`} />
-				<meta property={'twitter:image'} content={data && data.image ? data.image : '/logo.png'} />
+				<meta
+					property={'twitter:image'}
+					content={data && data.image ? data.image : 'https://static.cocstorage.com/images/icon.png'}
+				/>
 				<meta property={'twitter:url'} content={`https://www.cocstorage.com/board/${query.id}/${query.detail}`} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={getMetaTagTitle(data, query.id)} />
 				<title>{getMetaTagTitle(data, query.id)}</title>
 				<link rel={'canonical'} href={`https://www.cocstorage.com/board/${query.id}/${query.detail}`} />
-				<link rel={'shortcut icon'} href={'/favicon.ico'} />
-				<link rel={'apple-touch-icon'} href={'/logo_prev.png'} />
+				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />
+				<link rel={'apple-touch-icon'} href={'https://static.cocstorage.com/images/icon.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
