@@ -66,7 +66,7 @@ function MobileBottomNavigation() {
 						value={'previous-storage'}
 						data-page-scope={'previous-storage'}
 					/>
-					{!isMobile && <BottomNavigationAction label={'마이페이지'} icon={<PersonIcon />} value={'mypage'} />}
+					<BottomNavigationAction label={'마이페이지'} icon={<PersonIcon />} value={'mypage'} />
 					{!isMobile && <BottomNavigationAction label={'새로운 소식'} icon={<NearMeIcon />} value={'notice'} />}
 				</BottomNavigation>
 			</Paper>

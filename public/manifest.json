@@ -3,22 +3,22 @@
   "name": "내가 만들어 운영하는 저장소 커뮤니티",
   "icons": [
     {
-      "src": "https//static.cocstorage.com/images/favicon.ico",
+      "src": "images/favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "https//static.cocstorage.com/images/logo192.png",
+      "src": "images/logo192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "https//static.cocstorage.com/images/logo512.png",
+      "src": "images/logo512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://static.cocstorage.com",
   "display": "standalone",
   "theme_color": "#2F436E",
   "background_color": "#ffffff"
