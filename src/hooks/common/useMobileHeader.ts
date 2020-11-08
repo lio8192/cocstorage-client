@@ -123,6 +123,21 @@ export default function useMobileHeader() {
 		dispatch(handleDrawer());
 	}, [dispatch, router]);
 
+	const onHandleNoticeDrawerMenu = useCallback(() => {
+		dispatch(clearBoardsRelatedState());
+
+		router
+			.push(
+				{
+					pathname: '/notices'
+				},
+				'/notices'
+			)
+			.then();
+
+		dispatch(handleDrawer());
+	}, [dispatch, router]);
+
 	const onHandleMyPageDrawerMenu = useCallback(() => {
 		dispatch(clearBoardsRelatedState());
 
@@ -157,6 +172,7 @@ export default function useMobileHeader() {
 		onHandleLogo,
 		onHandleDrawerMenu,
 		onHandleStorageDrawerMenu,
+		onHandleNoticeDrawerMenu,
 		onHandleMyPageDrawerMenu,
 		onHandleDrawer
 	};

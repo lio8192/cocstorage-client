@@ -165,6 +165,7 @@ function MobileHeader() {
 		onHandleChip,
 		onHandleDrawerMenu,
 		onHandleStorageDrawerMenu,
+		onHandleNoticeDrawerMenu,
 		onHandleMyPageDrawerMenu,
 		onHandleDrawer
 	} = useMobileHeader();
@@ -325,14 +326,12 @@ function MobileHeader() {
 					)}
 					<Divider className={classes.divider} />
 					<List>
-						<Link href={'/notices'} as={'/notices'}>
-							<ListItem button>
-								<ListItemIcon>
-									<NearMeIcon />
-								</ListItemIcon>
-								<ListItemText primary={'새로운 소식'} />
-							</ListItem>
-						</Link>
+						<ListItem button onClick={onHandleNoticeDrawerMenu}>
+							<ListItemIcon>
+								<NearMeIcon />
+							</ListItemIcon>
+							<ListItemText primary={'새로운 소식'} />
+						</ListItem>
 					</List>
 				</div>
 			</SwipeableDrawer>
