@@ -215,7 +215,8 @@ function NoticeGridList() {
 																			{notice.subject}
 																		</Typography>
 																	</Box>
-																	{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
+																	{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days')
+																		=== 0 && (
 																		<Box ml={1}>
 																			<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
 																		</Box>
@@ -233,10 +234,7 @@ function NoticeGridList() {
 																<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 																	<Box className={classes.infoBox}>
 																		<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
-																		<Typography
-																			className={classes.nicknameTypography}
-																			variant={'caption'}
-																		>
+																		<Typography className={classes.nicknameTypography} variant={'caption'}>
 																			{notice.user.nickname}
 																		</Typography>
 																		<Typography variant={'caption'} color={'textSecondary'}>
@@ -303,7 +301,8 @@ function NoticeGridList() {
 																		<Typography className={classes.typography} variant={'body1'}>
 																			{notice.subject}
 																		</Typography>
-																		{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
+																		{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days')
+																			=== 0 && (
 																			<Box ml={1}>
 																				<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
 																			</Box>
@@ -321,10 +320,7 @@ function NoticeGridList() {
 																	<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 																		<Box className={classes.infoBox}>
 																			<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
-																			<Typography
-																				className={classes.nicknameTypography}
-																				variant={'caption'}
-																			>
+																			<Typography className={classes.nicknameTypography} variant={'caption'}>
 																				{notice.user.nickname}
 																			</Typography>
 																			<Typography variant={'caption'} color={'textSecondary'}>
@@ -388,7 +384,8 @@ function NoticeGridList() {
 																			{notice.subject}
 																		</Typography>
 																	</Box>
-																	{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
+																	{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days')
+																		=== 0 && (
 																		<Box ml={1}>
 																			<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
 																		</Box>
@@ -406,10 +403,7 @@ function NoticeGridList() {
 																<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 																	<Box className={classes.infoBox}>
 																		<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
-																		<Typography
-																			className={classes.nicknameTypography}
-																			variant={'caption'}
-																		>
+																		<Typography className={classes.nicknameTypography} variant={'caption'}>
 																			{notice.user.nickname}
 																		</Typography>
 																		<Typography variant={'caption'} color={'textSecondary'}>

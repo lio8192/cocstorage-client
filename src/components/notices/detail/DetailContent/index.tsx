@@ -317,9 +317,7 @@ function DetailContent() {
 										<Avatar className={classes.writerAvatar} src={user?.avatarUrl || ''}>
 											{!user?.avatarUrl && user?.nickname.toString().charAt(0)}
 										</Avatar>
-										<Box className={classes.nicknameBox}>
-											{`${user?.nickname}`}
-										</Box>
+										<Box className={classes.nicknameBox}>{`${user?.nickname}`}</Box>
 									</Box>
 								</Grid>
 								<Grid item xs={12} sm={6}>
