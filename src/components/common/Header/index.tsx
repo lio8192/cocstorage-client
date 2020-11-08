@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: theme.spacing(3, 0)
 		},
 		logo: {
-			maxWidth: 145,
+			maxWidth: 140,
 			verticalAlign: 'middle',
 			cursor: 'pointer'
 		},
