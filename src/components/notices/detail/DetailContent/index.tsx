@@ -32,6 +32,8 @@ import EditIcon from '@material-ui/icons/Edit';
 // Custom Hooks
 import useDetailContent from 'hooks/notices/detail/useDetailContent';
 
+moment.locale('ko');
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
@@ -314,7 +316,7 @@ function DetailContent() {
 								</Grid>
 								<Grid item xs={12} sm={6}>
 									<Box textAlign={'right'}>
-										<Box>{moment(createdAt).format('YYYY. MM. DD hh:mm:ss')}</Box>
+										<Box>{moment(createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
 									</Box>
 								</Grid>
 							</Grid>

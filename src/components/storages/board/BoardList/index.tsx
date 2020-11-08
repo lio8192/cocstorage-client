@@ -200,7 +200,7 @@ function BoardList() {
 												{item.subject}
 											</Typography>
 											<Box className={classes.commentCountBox}>{`[${item.commentTotalCount}]`}</Box>
-											{moment().diff(item.createdAt, 'days') === 0 && (
+											{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
 												<Box ml={1}>
 													<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
 												</Box>
@@ -212,7 +212,9 @@ function BoardList() {
 												<Typography variant={'caption'}>
 													{item.isMember ? item.user.nickname : item.nickname}
 												</Typography>
-												<Typography variant={'caption'}>{moment(item.createdAt).startOf('day').fromNow()}</Typography>
+												<Typography variant={'caption'}>
+													{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').startOf('day').fromNow()}
+												</Typography>
 												<Box component={'span'}>
 													<Box component={'span'}>
 														<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />

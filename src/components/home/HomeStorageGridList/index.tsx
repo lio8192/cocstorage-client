@@ -189,7 +189,7 @@ function HomeStorageGridList() {
 															</Box>
 															<Box ml={0.5}>
 																<Typography variant={'caption'}>
-																	{moment(item.createdAt).startOf('day').fromNow()}
+																	{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 																</Typography>
 															</Box>
 														</Box>

@@ -212,13 +212,13 @@ function NoticeGridList() {
 																			{notice.subject}
 																		</Typography>
 																	</Box>
-																	{moment().diff(notice.createdAt, 'days') === 0 && (
+																	{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
 																		<Box ml={1}>
 																			<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
 																		</Box>
 																	)}
 																</Box>
-																<Box mt={1}>
+																<Box mt={1} mb={1}>
 																	<Typography
 																		className={classes.descriptionTypography}
 																		variant={'body2'}
@@ -234,7 +234,7 @@ function NoticeGridList() {
 																			{notice.user.nickname}
 																		</Typography>
 																		<Typography variant={'caption'} color={'textSecondary'}>
-																			{moment(notice.createdAt).startOf('day').fromNow()}
+																			{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 																		</Typography>
 																	</Box>
 																	<Box display={'flex'} alignItems={'center'}>
@@ -297,13 +297,13 @@ function NoticeGridList() {
 																		<Typography className={classes.typography} variant={'body1'}>
 																			{notice.subject}
 																		</Typography>
-																		{moment().diff(notice.createdAt, 'days') === 0 && (
+																		{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
 																			<Box ml={1}>
 																				<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
 																			</Box>
 																		)}
 																	</Box>
-																	<Box mt={1}>
+																	<Box mt={1} mb={1}>
 																		<Typography
 																			className={classes.descriptionTypography}
 																			variant={'body2'}
@@ -319,7 +319,7 @@ function NoticeGridList() {
 																				{notice.user.nickname}
 																			</Typography>
 																			<Typography variant={'caption'} color={'textSecondary'}>
-																				{moment(notice.createdAt).startOf('day').fromNow()}
+																				{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 																			</Typography>
 																		</Box>
 																		<Box display={'flex'} alignItems={'center'}>
@@ -379,13 +379,13 @@ function NoticeGridList() {
 																			{notice.subject}
 																		</Typography>
 																	</Box>
-																	{moment().diff(notice.createdAt, 'days') === 0 && (
+																	{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
 																		<Box ml={1}>
 																			<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
 																		</Box>
 																	)}
 																</Box>
-																<Box mt={1}>
+																<Box mt={1} mb={1}>
 																	<Typography
 																		className={classes.descriptionTypography}
 																		variant={'body2'}
@@ -401,7 +401,7 @@ function NoticeGridList() {
 																			{notice.user.nickname}
 																		</Typography>
 																		<Typography variant={'caption'} color={'textSecondary'}>
-																			{moment(notice.createdAt).startOf('day').fromNow()}
+																			{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 																		</Typography>
 																	</Box>
 																	<Box display={'flex'} alignItems={'center'}>
