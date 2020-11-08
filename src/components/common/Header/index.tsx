@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: theme.spacing(3, 0)
 		},
 		logo: {
-			maxWidth: 180,
+			maxWidth: 145,
 			verticalAlign: 'middle',
 			cursor: 'pointer'
 		},
@@ -124,7 +124,7 @@ function HideOnScroll(props: ScrollProps) {
 }
 
 function getCategoryIconByCategoryId(categoryId: string | string[]) {
-	let categoryIcon = <CastIcon />;
+	let categoryIcon: JSX.Element | null = null;
 
 	switch (categoryId) {
 	case 'daily_popular':
@@ -235,7 +235,7 @@ function Header() {
 								<Box component={'span'} onClick={onHandleLogo}>
 									<img
 										className={classes.logo}
-										src={'https://static.cocstorage.com/images/logo.png'}
+										src={'https://static.cocstorage.com/images/logo_text.png'}
 										alt={'Logo Img'}
 									/>
 								</Box>

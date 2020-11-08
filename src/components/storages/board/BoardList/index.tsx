@@ -213,7 +213,7 @@ function BoardList() {
 													{item.isMember ? item.user.nickname : item.nickname}
 												</Typography>
 												<Typography variant={'caption'}>
-													{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').startOf('day').fromNow()}
+													{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 												</Typography>
 												<Box component={'span'}>
 													<Box component={'span'}>
