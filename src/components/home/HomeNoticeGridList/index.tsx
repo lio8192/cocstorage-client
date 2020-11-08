@@ -330,7 +330,7 @@ function HomeNoticeGridList() {
 																			{item.subject}
 																		</Typography>
 																	</Box>
-																	{moment().diff(item.createdAt, 'days') === 0 && (
+																	{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
 																		<Box ml={1}>
 																			<Chip
 																				className={classes.chip}
@@ -357,7 +357,7 @@ function HomeNoticeGridList() {
 																			{item.user.nickname}
 																		</Typography>
 																		<Typography variant={'caption'} color={'textSecondary'}>
-																			{moment(item.createdAt).startOf('day').fromNow()}
+																			{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 																		</Typography>
 																	</Box>
 																	<Box display={'flex'} alignItems={'center'}>
@@ -413,7 +413,8 @@ function HomeNoticeGridList() {
 																			<Typography variant={'body2'} noWrap>
 																				{item.subject}
 																			</Typography>
-																			{moment().diff(item.createdAt, 'days') === 0 && (
+																			{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days')
+																				=== 0 && (
 																				<Box ml={1}>
 																					<Chip
 																						className={classes.chip}
@@ -432,7 +433,7 @@ function HomeNoticeGridList() {
 																				{item.user.nickname}
 																			</Typography>
 																			<Typography variant={'caption'} color={'textSecondary'}>
-																				{moment(item.createdAt).startOf('day').fromNow()}
+																				{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 																			</Typography>
 																		</Box>
 																		<Box display={'flex'} alignItems={'center'}>
@@ -476,7 +477,7 @@ function HomeNoticeGridList() {
 																	<Typography variant={'body2'} noWrap>
 																		{item.subject}
 																	</Typography>
-																	{moment().diff(item.createdAt, 'days') === 0 && (
+																	{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
 																		<Box ml={1}>
 																			<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
 																		</Box>
@@ -490,7 +491,7 @@ function HomeNoticeGridList() {
 																		{item.user.nickname}
 																	</Typography>
 																	<Typography variant={'caption'} color={'textSecondary'}>
-																		{moment(item.createdAt).startOf('day').fromNow()}
+																		{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 																	</Typography>
 																</Box>
 																<Box display={'flex'} alignItems={'center'}>

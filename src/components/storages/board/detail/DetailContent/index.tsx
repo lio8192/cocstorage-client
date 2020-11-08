@@ -33,11 +33,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import StarIcon from '@material-ui/icons/Star';
 
-// Components
-// import GoogleAdSense from 'components/common/GoogleAdSense';
-
 // Custom Hooks
 import useDetailContent from 'hooks/storages/board/detail/useDetailContent';
+
+moment.locale('ko');
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -373,7 +372,7 @@ function DetailContent() {
 								</Grid>
 								<Grid item xs={12} sm={6}>
 									<Box textAlign={'right'}>
-										<Box>{moment(createdAt).format('YYYY. MM. DD hh:mm:ss')}</Box>
+										<Box>{moment(createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
 									</Box>
 								</Grid>
 							</Grid>

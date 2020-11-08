@@ -25,6 +25,8 @@ import DataEmptyBox from 'components/common/DataEmptyBox';
 // Custom Hooks
 import useStorageGridList from 'hooks/storages/useStorageGridList';
 
+moment.locale('ko');
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {

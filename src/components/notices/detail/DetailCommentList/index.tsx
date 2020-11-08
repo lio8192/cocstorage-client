@@ -49,6 +49,8 @@ interface TransferComment extends NoticeDetailComment {
 	replies: TransferReply[];
 }
 
+moment.locale('ko');
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
