@@ -304,7 +304,7 @@ function MobileHeader() {
 						)}
 					</NoSsr>
 					<Divider className={classes.divider} />
-					{pageScope === 'storage' ? (
+					{pageScope === 'storage' || pageScope === 'storage-mypage' ? (
 						<List>
 							<ListItem button onClick={onHandleStorageDrawerMenu}>
 								<ListItemIcon>

@@ -86,20 +86,14 @@ const useStyles = makeStyles((theme: Theme) =>
 				}
 			}
 		},
-		prevButton: {
-			[theme.breakpoints.down('md')]: {
-				borderRadius: 0
-			}
-		},
 		button: {
-			color: 'white',
-			[theme.breakpoints.down('md')]: {
-				borderRadius: 0
-			}
+			color: 'white'
 		},
 		grid: {
 			marginBottom: theme.spacing(2),
 			[theme.breakpoints.down('md')]: {
+				borderTop: '1px solid #d5d5d5',
+				padding: theme.spacing(1, 2),
 				marginBottom: theme.spacing(0)
 			}
 		},
@@ -276,11 +270,10 @@ function WriteForm() {
 							readOnly={pending}
 						/>
 					</Box>
-					<Grid className={classes.grid} container spacing={!isMobile ? 1 : 0} justify={'flex-end'}>
+					<Grid className={classes.grid} container spacing={1} justify={'flex-end'}>
 						<Grid item xs={isMobile && 6}>
 							<Button
 								fullWidth={isMobile}
-								className={classes.prevButton}
 								variant={'contained'}
 								size={'large'}
 								startIcon={<ArrowBackIcon />}

@@ -24,7 +24,7 @@ import MyWithdrawalForm from 'components/mypage/MyWithdrawalForm';
 import useMyPage from 'hooks/mypage/useMyPage';
 
 interface TabPanelProps {
-	children?: React.ReactNode;
+	children: React.ReactNode;
 	index: any;
 	value: any;
 }

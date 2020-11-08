@@ -58,6 +58,7 @@
       "extensions": ["ts", "tsx", "js", "jsx"]
     }],
     "react/jsx-one-expression-per-line": "off",
+    "react/require-default-props": "off",
     "@typescript-eslint/no-use-before-define": ["error", {
       "functions": false,
       "classes": true

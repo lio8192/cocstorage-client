@@ -69,14 +69,13 @@ const useStyles = makeStyles((theme: Theme) =>
 			textAlign: 'right',
 			padding: theme.spacing(2, 0, 0),
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0)
+				padding: theme.spacing(2, 2, 0)
 			}
 		},
 		button: {
 			color: 'white',
 			[theme.breakpoints.down('md')]: {
-				width: '100%',
-				borderRadius: 0
+				width: '100%'
 			}
 		},
 		pagination: {

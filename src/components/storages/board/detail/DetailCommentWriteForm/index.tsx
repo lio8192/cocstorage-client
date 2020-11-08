@@ -47,16 +47,12 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		box: {
 			textAlign: 'right',
-			padding: theme.spacing(1),
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0)
-			}
+			padding: theme.spacing(1)
 		},
 		button: {
 			color: 'white',
 			[theme.breakpoints.down('md')]: {
-				width: '100%',
-				borderRadius: 0
+				width: '100%'
 			}
 		}
 	})

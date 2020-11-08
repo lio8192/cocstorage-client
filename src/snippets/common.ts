@@ -101,9 +101,8 @@ export const setUserStateByJsonWebToken = (): User => {
 			// @ts-ignore
 			delete user.iat;
 		}
-	} catch (error) {
-		console.log(error);
-	}
+		// eslint-disable-next-line no-empty
+	} catch {}
 
 	return user;
 };
@@ -113,9 +112,8 @@ export const updateUserStateByJsonWebToken = (data: User): User => {
 		const signJsonWebToken = Jwt.sign(data, `${process.env.JWT_SECRET_KEY}`);
 
 		window.localStorage.setItem('coc-info-jwt', signJsonWebToken);
-	} catch (error) {
-		console.log(error);
-	}
+		// eslint-disable-next-line no-empty
+	} catch (error) {}
 
 	return data;
 };

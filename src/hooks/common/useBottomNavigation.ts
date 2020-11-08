@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,6 +10,40 @@ export default function useBottomNavigation() {
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const commonState = useSelector((state: RootState) => state.common);
+	const { route } = router;
+
+	const isHome = useMemo(() => route === '/', [route]);
+	const isBoard = useMemo(() => route === '/board/[id]', [route]);
+	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
+	const isNewNotices = useMemo(() => route === '/notices', [route]);
+	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
+	const isNoticeEdit = useMemo(() => route === '/notices/edit/[id]', [route]);
+	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
+	const isMyPage = useMemo(() => route === '/mypage', [route]);
+
+	const isPreviousStorage = useMemo(() => isBoard || isBoardDetail, [isBoard, isBoardDetail]);
+	const isNotices = useMemo(() => isNewNotices || isNoticeWrite || isNoticeDetail || isNoticeEdit, [
+		isNewNotices,
+		isNoticeWrite,
+		isNoticeDetail,
+		isNoticeEdit
+	]);
+
+	const bottomNavigationTabValue = useMemo(() => {
+		if (isHome) {
+			return 'home';
+		}
+		if (isPreviousStorage) {
+			return 'previous-storage';
+		}
+		if (isNotices) {
+			return 'notice';
+		}
+		if (isMyPage) {
+			return 'mypage';
+		}
+		return 'storage';
+	}, [isHome, isPreviousStorage, isNotices, isMyPage]);
 
 	const onHandlePageScope = useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
@@ -22,12 +56,16 @@ export default function useBottomNavigation() {
 
 	const onChangeBottomNavigation = useCallback(
 		(event: React.ChangeEvent<{}>, value) => {
-			if (value === 'storage-mypage') {
+			if (value === 'mypage') {
 				if (commonState.user.isAuthenticated) {
 					router.push('/mypage', '/mypage').then();
 				} else {
 					dispatch(handleSignInDialog());
 				}
+			} else if (value === 'notice') {
+				router.push('/notices', '/notices').then();
+			} else if (value === 'home') {
+				router.push('/', '/').then();
 			} else {
 				dispatch(handleDrawer());
 			}
@@ -38,6 +76,7 @@ export default function useBottomNavigation() {
 
 	return {
 		...commonState,
+		bottomNavigationTabValue,
 		onChangeBottomNavigation,
 		onHandlePageScope
 	};
