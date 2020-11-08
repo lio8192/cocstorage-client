@@ -77,6 +77,11 @@ const useStyles = makeStyles((theme: Theme) =>
 				padding: theme.spacing(1, 2, 0, 2)
 			}
 		},
+		nicknameBox: {
+			fontSize: 16,
+			fontWeight: 700,
+			color: theme.palette.grey.A700
+		},
 		writerAvatar: {
 			[theme.breakpoints.down('md')]: {
 				width: theme.spacing(4),
@@ -358,14 +363,28 @@ function DetailContent() {
 												<Avatar className={classes.writerAvatar} src={user?.avatarUrl || ''}>
 													{!user?.avatarUrl && user?.nickname.toString().charAt(0)}
 												</Avatar>
-												<Box ml={1}>{`${user?.nickname} (${createdIp})`}</Box>
+												<Box ml={1}>
+													<Box className={classes.nicknameBox} component={'span'}>
+														{user?.nickname}
+													</Box>
+													<Box component={'span'} ml={0.5}>
+														{`(${createdIp})`}
+													</Box>
+												</Box>
 											</>
 										) : (
 											<>
 												<Avatar className={classes.writerAvatar}>
 													{nonMemberNickname && nonMemberNickname.toString().charAt(0)}
 												</Avatar>
-												<Box ml={1}>{`${nonMemberNickname} (${createdIp})`}</Box>
+												<Box ml={1}>
+													<Box className={classes.nicknameBox} component={'span'}>
+														{nonMemberNickname}
+													</Box>
+													<Box component={'span'} ml={0.5}>
+														{`(${createdIp})`}
+													</Box>
+												</Box>
 											</>
 										)}
 									</Box>

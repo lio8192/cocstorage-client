@@ -130,6 +130,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		typography: {
 			fontWeight: 700
 		},
+		nicknameTypography: {
+			fontWeight: 700
+		},
 		descriptionTypography: {
 			display: 'box',
 			boxOrient: 'vertical',
@@ -230,7 +233,10 @@ function NoticeGridList() {
 																<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 																	<Box className={classes.infoBox}>
 																		<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
-																		<Typography variant={'caption'} color={'textSecondary'}>
+																		<Typography
+																			className={classes.nicknameTypography}
+																			variant={'caption'}
+																		>
 																			{notice.user.nickname}
 																		</Typography>
 																		<Typography variant={'caption'} color={'textSecondary'}>
@@ -315,7 +321,10 @@ function NoticeGridList() {
 																	<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 																		<Box className={classes.infoBox}>
 																			<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
-																			<Typography variant={'caption'} color={'textSecondary'}>
+																			<Typography
+																				className={classes.nicknameTypography}
+																				variant={'caption'}
+																			>
 																				{notice.user.nickname}
 																			</Typography>
 																			<Typography variant={'caption'} color={'textSecondary'}>
@@ -397,7 +406,10 @@ function NoticeGridList() {
 																<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 																	<Box className={classes.infoBox}>
 																		<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
-																		<Typography variant={'caption'} color={'textSecondary'}>
+																		<Typography
+																			className={classes.nicknameTypography}
+																			variant={'caption'}
+																		>
 																			{notice.user.nickname}
 																		</Typography>
 																		<Typography variant={'caption'} color={'textSecondary'}>

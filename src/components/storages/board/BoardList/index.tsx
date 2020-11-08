@@ -100,6 +100,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		chip: {
 			color: 'white'
+		},
+		typography: {
+			color: theme.palette.grey.A700
 		}
 	})
 );
@@ -209,7 +212,7 @@ function BoardList() {
 										<Box display={'flex'} alignItems={'center'} mt={1}>
 											<Avatar className={classes.avatarUser} src={item.isMember ? item.user.avatarUrl || '' : ''} />
 											<Box className={classes.writerInfoBox} ml={1}>
-												<Typography variant={'caption'}>
+												<Typography className={classes.typography} variant={'caption'}>
 													{item.isMember ? item.user.nickname : item.nickname}
 												</Typography>
 												<Typography variant={'caption'}>

@@ -187,6 +187,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			display: '-webkit-box',
 			boxOrient: 'vertical',
 			lineClamp: 2
+		},
+		nicknameTypography: {
+			fontWeight: 700,
+			color: theme.palette.grey.A700
 		}
 	})
 );
@@ -353,7 +357,7 @@ function HomeNoticeGridList() {
 																<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 																	<Box className={classes.infoBox}>
 																		<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
-																		<Typography variant={'caption'} color={'textSecondary'}>
+																		<Typography className={classes.nicknameTypography} variant={'caption'}>
 																			{item.user.nickname}
 																		</Typography>
 																		<Typography variant={'caption'} color={'textSecondary'}>
@@ -429,7 +433,7 @@ function HomeNoticeGridList() {
 																	<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 																		<Box className={classes.listInfoBox}>
 																			<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
-																			<Typography variant={'caption'} color={'textSecondary'}>
+																			<Typography className={classes.nicknameTypography} variant={'caption'}>
 																				{item.user.nickname}
 																			</Typography>
 																			<Typography variant={'caption'} color={'textSecondary'}>
@@ -487,7 +491,7 @@ function HomeNoticeGridList() {
 															<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 																<Box className={classes.listInfoBox}>
 																	<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
-																	<Typography variant={'caption'} color={'textSecondary'}>
+																	<Typography className={classes.nicknameTypography} variant={'caption'}>
 																		{item.user.nickname}
 																	</Typography>
 																	<Typography variant={'caption'} color={'textSecondary'}>

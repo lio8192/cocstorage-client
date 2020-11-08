@@ -324,7 +324,7 @@ function Header() {
 											<Box component={'span'} onClick={onHandleLogo}>
 												<img
 													className={classes.logo}
-													src={'https://static.cocstorage.com/images/logo.png'}
+													src={'https://static.cocstorage.com/images/logo_text.png'}
 													alt={'Logo Img'}
 												/>
 											</Box>
