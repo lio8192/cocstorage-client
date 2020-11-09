@@ -398,7 +398,7 @@ function Header() {
 																	<Paper>
 																		<ClickAwayListener onClickAway={handleClose}>
 																			<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
-																				<MenuItem onClick={handleClose}>
+																				<MenuItem onClick={handleRouterAndClose}>
 																					<ListItemIcon>
 																						<PersonIcon />
 																					</ListItemIcon>

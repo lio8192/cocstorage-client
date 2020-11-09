@@ -203,6 +203,13 @@ function SignUpDialog() {
 						<FormHelperText error={policy.error}>{policy.helperText}</FormHelperText>
 					</Box>
 				)}
+				{fullScreen && (
+					<Box mt={1}>
+						<Button fullWidth variant={'contained'} onClick={onHandleSignUpDialog} size={'large'}>
+							{'닫기'}
+						</Button>
+					</Box>
+				)}
 				<Box mt={2} mb={3}>
 					<Typography className={classes.typography} variant={'caption'}>
 						{'ⓒ 개념글 저장소 All Rights Reserved.'}
