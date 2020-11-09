@@ -62,8 +62,7 @@ function SignInDialog() {
 		onHandlePasswordFinderDialog,
 		onHandleSignInDialogTextField,
 		onShowSignInDialogPassword,
-		onPostSignIn,
-		onKeyUpHandleDialog
+		onPostSignIn
 	} = useSignIn();
 	return (
 		<Dialog
@@ -73,7 +72,6 @@ function SignInDialog() {
 			maxWidth={'xs'}
 			open={open}
 			onClose={onHandleSignInDialog}
-			onKeyUp={onKeyUpHandleDialog}
 		>
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />

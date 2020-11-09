@@ -70,8 +70,7 @@ function SignUpDialog() {
 		onHandleSignUpDialogTextField,
 		onHandleSignUpDialogCheckbox,
 		onShowSignUpDialogPassword,
-		onPostSignUp,
-		onKeyUpHandleDialog
+		onPostSignUp
 	} = useSignUp();
 	return (
 		<Dialog
@@ -81,7 +80,6 @@ function SignUpDialog() {
 			maxWidth={'xs'}
 			open={open}
 			onClose={onHandleSignUpDialog}
-			onKeyUp={onKeyUpHandleDialog}
 		>
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />
