@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Head from 'next/head';
 import { AppContext, AppProps } from 'next/app';
 import { useDispatch } from 'react-redux';
 
@@ -52,17 +51,12 @@ function App({ Component, pageProps }: AppProps | any) {
 	}, [dispatch]);
 
 	return (
-		<>
-			<Head>
-				<meta name={'viewport'} content={'minimum-scale=1, initial-scale=1, width=device-width'} />
-			</Head>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
-			</ThemeProvider>
-		</>
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<Layout>
+				<Component {...pageProps} />
+			</Layout>
+		</ThemeProvider>
 	);
 }
 

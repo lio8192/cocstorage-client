@@ -1,6 +1,6 @@
 import React from 'react';
 import Document, {
-	Html, Main, NextScript, DocumentContext
+	Html, Head, Main, NextScript, DocumentContext
 } from 'next/document';
 
 // Material UI
@@ -11,6 +11,7 @@ export default class CustomDocument extends Document {
 	render() {
 		return (
 			<Html lang={'ko'}>
+				<Head />
 				<body style={{ backgroundColor: theme.palette.background.default }}>
 					<script async src={'https://www.googletagmanager.com/gtag/js?id=UA-147959622-1'} />
 					<script
