@@ -111,6 +111,15 @@ export default function usePasswordFinder() {
 		return true;
 	}, [dispatch, postPasswordFinderBody]);
 
+	const onKeyUpHandleDialog = useCallback(
+		(event: React.KeyboardEvent<HTMLDivElement>) => {
+			if (event.key === 'Backspace') {
+				dispatch(handlePasswordFinderDialog());
+			}
+		},
+		[dispatch]
+	);
+
 	useEffect(() => {
 		if (!commonState.passwordFinder.open) {
 			setPostPasswordFinderBody({
@@ -134,6 +143,7 @@ export default function usePasswordFinder() {
 		onHandleSignInDialog,
 		onHandlePasswordFinderDialog,
 		onHandlePasswordFinderDialogTextField,
-		onPostPasswordFinder
+		onPostPasswordFinder,
+		onKeyUpHandleDialog
 	};
 }

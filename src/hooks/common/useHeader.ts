@@ -64,6 +64,7 @@ export default function useHeader() {
 			isNoticeEdit
 		]
 	);
+	const isPreviousStorage = useMemo(() => isBoard || isBoardDetail, [isBoard, isBoardDetail]);
 	const isNewStorage = useMemo(
 		() => isStorageBoardWrite || isStorageBoard || isStorageBoardDetail || isStorageBoardEdit,
 		[isStorageBoardWrite, isStorageBoard, isStorageBoardDetail, isStorageBoardEdit]
@@ -211,6 +212,7 @@ export default function useHeader() {
 		activatedTab,
 		openNavigationChip,
 		openTab,
+		isPreviousStorage,
 		isNewStorage,
 		isNotices,
 		onHandlePageScope,

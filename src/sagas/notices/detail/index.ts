@@ -62,7 +62,7 @@ function* watchFetchNoticeDetail(action: ActionType<typeof fetchNoticeDetail>) {
 					open: true,
 					title: '안내',
 					contentText: '이미 삭제되었거나 존재하지 않는 소식입니다.',
-					severity: 'error',
+					severity: 'info',
 					route: '/notices'
 				})
 			);

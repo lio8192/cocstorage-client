@@ -19,6 +19,7 @@ import Card from '@material-ui/core/Card';
 // Material UI Icons
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import ScheduleIcon from '@material-ui/icons/Schedule';
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -179,7 +180,9 @@ function HomeStorageGridList() {
 												<CardActionArea>
 													<CardContent className={classes.cardContentHead} />
 													<CardContent>
-														<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'} />
+														<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
+															<InsertPhotoIcon />
+														</Avatar>
 														<Box mt={1}>
 															<Typography className={classes.typography}>{item.name}</Typography>
 														</Box>

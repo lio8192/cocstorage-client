@@ -725,13 +725,6 @@ function DetailCommentList() {
 											</Box>
 										</Hidden>
 									</Box>
-									{item.selected && (
-										<Grow in>
-											<Box className={classes.replyBox}>
-												<ReplyWriteForm />
-											</Box>
-										</Grow>
-									)}
 									{item.replies.map((reply) => (
 										<Box key={`notice-detail-comment-reply-${reply.id}`} className={classes.replyBox}>
 											<Grid container alignItems={'center'} justify={'space-between'}>
@@ -768,7 +761,7 @@ function DetailCommentList() {
 															)}
 														</Box>
 														<Hidden mdDown>
-															<Box>{moment(item.createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
+															<Box>{moment(reply.createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
 														</Hidden>
 													</Box>
 												</Grid>
@@ -877,6 +870,13 @@ function DetailCommentList() {
 											</Hidden>
 										</Box>
 									))}
+									{item.selected && (
+										<Grow in>
+											<Box className={classes.replyBox}>
+												<ReplyWriteForm />
+											</Box>
+										</Grow>
+									)}
 								</Box>
 							</Grow>
 						))}

@@ -124,6 +124,15 @@ export default function useSignIn() {
 		return true;
 	}, [dispatch, postSignInBody]);
 
+	const onKeyUpHandleDialog = useCallback(
+		(event: React.KeyboardEvent<HTMLDivElement>) => {
+			if (event.key === 'Backspace') {
+				dispatch(handleSignInDialog());
+			}
+		},
+		[dispatch]
+	);
+
 	useEffect(() => {
 		if (!commonState.signIn.open) {
 			setPostSignInBody({
@@ -150,6 +159,7 @@ export default function useSignIn() {
 		onHandlePasswordFinderDialog,
 		onHandleSignInDialogTextField,
 		onShowSignInDialogPassword,
-		onPostSignIn
+		onPostSignIn,
+		onKeyUpHandleDialog
 	};
 }

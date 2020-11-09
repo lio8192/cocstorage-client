@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		linearProgress: {
 			position: 'absolute',
-			width: '100%'
+			width: '100%',
+			height: 5
 		},
 		button: {
 			color: 'white'
@@ -69,7 +70,8 @@ function SignUpDialog() {
 		onHandleSignUpDialogTextField,
 		onHandleSignUpDialogCheckbox,
 		onShowSignUpDialogPassword,
-		onPostSignUp
+		onPostSignUp,
+		onKeyUpHandleDialog
 	} = useSignUp();
 	return (
 		<Dialog
@@ -79,6 +81,7 @@ function SignUpDialog() {
 			maxWidth={'xs'}
 			open={open}
 			onClose={onHandleSignUpDialog}
+			onKeyUp={onKeyUpHandleDialog}
 		>
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />

@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		linearProgress: {
 			position: 'absolute',
-			width: '100%'
+			width: '100%',
+			height: 5
 		},
 		logo: {
 			maxWidth: 175
@@ -61,7 +62,8 @@ function SignInDialog() {
 		onHandlePasswordFinderDialog,
 		onHandleSignInDialogTextField,
 		onShowSignInDialogPassword,
-		onPostSignIn
+		onPostSignIn,
+		onKeyUpHandleDialog
 	} = useSignIn();
 	return (
 		<Dialog
@@ -71,6 +73,7 @@ function SignInDialog() {
 			maxWidth={'xs'}
 			open={open}
 			onClose={onHandleSignInDialog}
+			onKeyUp={onKeyUpHandleDialog}
 		>
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />

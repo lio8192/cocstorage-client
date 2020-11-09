@@ -1,5 +1,4 @@
 import React, { useState, memo } from 'react';
-import Link from 'next/link';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI

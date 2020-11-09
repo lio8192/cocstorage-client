@@ -50,7 +50,7 @@ function* watchFetchStorageDetail(action: ActionType<typeof fetchStorageDetail>)
 					open: true,
 					title: '안내',
 					contentText: '저장소가 존재하지 않습니다.',
-					severity: 'warning',
+					severity: 'info',
 					route: '/storages'
 				})
 			);
@@ -81,7 +81,7 @@ function* watchFetchStorageBoards(action: ActionType<typeof fetchStorageBoards>)
 					open: true,
 					title: '안내',
 					contentText: '저장소가 존재하지 않습니다.',
-					severity: 'warning',
+					severity: 'info',
 					route: '/storages'
 				})
 			);

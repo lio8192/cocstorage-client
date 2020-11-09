@@ -4,6 +4,7 @@ import {
 } from '@material-ui/core/styles';
 
 // Material UI
+import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -35,7 +36,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		linearProgress: {
 			position: 'absolute',
-			width: '100%'
+			width: '100%',
+			height: 5
 		},
 		icon: {
 			verticalAlign: 'middle'
@@ -129,17 +131,26 @@ function PasswordAuthDialog({
 					/>
 				</Box>
 				<Box mt={2} mb={3}>
-					<Button
-						className={classes.button}
-						fullWidth
-						variant={'contained'}
-						onClick={onRequestPasswordAuth}
-						color={'primary'}
-						size={'large'}
-						disabled={pending}
-					>
-						{'확인'}
-					</Button>
+					<Grid container spacing={1}>
+						<Grid item xs={6}>
+							<Button
+								className={classes.button}
+								fullWidth
+								variant={'contained'}
+								onClick={onRequestPasswordAuth}
+								color={'primary'}
+								size={'large'}
+								disabled={pending}
+							>
+								{'확인'}
+							</Button>
+						</Grid>
+						<Grid item xs={6}>
+							<Button fullWidth variant={'contained'} onClick={onHandlePasswordAuthDialog} size={'large'}>
+								{'닫기'}
+							</Button>
+						</Grid>
+					</Grid>
 				</Box>
 			</DialogContent>
 		</Dialog>

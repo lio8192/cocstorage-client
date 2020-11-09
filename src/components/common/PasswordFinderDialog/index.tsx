@@ -53,7 +53,8 @@ function PasswordFinderDialog() {
 		onHandleSignInDialog,
 		onHandlePasswordFinderDialog,
 		onHandlePasswordFinderDialogTextField,
-		onPostPasswordFinder
+		onPostPasswordFinder,
+		onKeyUpHandleDialog
 	} = usePasswordFinder();
 	return (
 		<Dialog
@@ -63,6 +64,7 @@ function PasswordFinderDialog() {
 			maxWidth={'xs'}
 			open={open}
 			onClose={onHandlePasswordFinderDialog}
+			onKeyUp={onKeyUpHandleDialog}
 		>
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />

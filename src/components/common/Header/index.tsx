@@ -2,7 +2,9 @@ import React, {
 	useEffect, useState, useRef, memo
 } from 'react';
 import { useRouter } from 'next/router';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import {
+	makeStyles, createStyles, Theme, useTheme
+} from '@material-ui/core/styles';
 import clsx from 'clsx';
 
 // Material UI
@@ -47,6 +49,7 @@ import useHeader from 'hooks/common/useHeader';
 
 // Snippets
 import { getCategoryNameByCategoryId } from 'snippets/board';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -170,6 +173,7 @@ function Header() {
 		activatedTab,
 		openNavigationChip,
 		openTab,
+		isPreviousStorage,
 		isNewStorage,
 		isNotices,
 		onHandlePageScope,
@@ -182,6 +186,8 @@ function Header() {
 		onHandleSignInDialog,
 		onDeleteSignOut
 	} = useHeader();
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	const [open, setOpen] = useState(false);
 	const anchorRef = useRef<HTMLButtonElement>(null);
@@ -429,11 +435,11 @@ function Header() {
 					/>
 				</>
 			)}
-			{pageScope && openTab && (
+			{!isMobile && pageScope && openTab && (
 				<Box>
 					<Paper className={classes.paper} variant={'outlined'} square>
 						<Container>
-							{pageScope === 'storage' || pageScope === 'storage-mypage' ? (
+							{!isPreviousStorage && (pageScope === 'storage' || pageScope === 'mypage' || pageScope === 'notice') ? (
 								<Tabs
 									indicatorColor={'primary'}
 									textColor={'primary'}

@@ -39,7 +39,7 @@ function* watchPostStorages(action: ActionType<typeof postStorage>) {
 			handleNotificationModal({
 				open: true,
 				title: '등록 완료',
-				contentText: '저장소가 등록되었습니다.',
+				contentText: '정상적으로 등록되었습니다.',
 				severity: 'success',
 				route: ''
 			})

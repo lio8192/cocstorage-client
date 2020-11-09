@@ -82,7 +82,7 @@ function* watchFetchStorageDetailAndStorageBoardDetail(
 					open: true,
 					title: '안내',
 					contentText: '이미 삭제되었거나 존재하지 않는 개념글입니다.',
-					severity: 'error',
+					severity: 'info',
 					route: `/storages/${storageId}`
 				})
 			);

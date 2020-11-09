@@ -40,9 +40,9 @@ const useStyles = makeStyles(() =>
 
 function MobileBottomNavigation() {
 	const classes = useStyles();
-	const { bottomNavigationTabValue, onChangeBottomNavigation } = useBottomNavigation();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+	const { bottomNavigationTabValue, onChangeBottomNavigation } = useBottomNavigation();
 
 	return (
 		<>
@@ -66,8 +66,20 @@ function MobileBottomNavigation() {
 						value={'previous-storage'}
 						data-page-scope={'previous-storage'}
 					/>
-					<BottomNavigationAction label={'마이페이지'} icon={<PersonIcon />} value={'mypage'} />
-					{!isMobile && <BottomNavigationAction label={'새로운 소식'} icon={<NearMeIcon />} value={'notice'} />}
+					<BottomNavigationAction
+						label={'마이페이지'}
+						icon={<PersonIcon />}
+						value={'mypage'}
+						data-page-scope={'mypage'}
+					/>
+					{!isMobile && (
+						<BottomNavigationAction
+							label={'새로운 소식'}
+							icon={<NearMeIcon />}
+							value={'notice'}
+							data-page-scope={'notice'}
+						/>
+					)}
 				</BottomNavigation>
 			</Paper>
 			<Toolbar className={classes.toolbar} />
