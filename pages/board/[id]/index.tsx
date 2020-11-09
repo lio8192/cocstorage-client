@@ -1,9 +1,10 @@
 import React from 'react';
+import { NextPageContext } from 'next';
+import Head from 'next/head';
+import Link from 'next/link';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
-import { NextPageContext } from 'next';
-import Head from 'next/head';
 
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -55,6 +56,10 @@ const useStyles = makeStyles((theme: Theme) =>
 				margin: 0,
 				borderTop: `1px solid ${theme.palette.grey['50']}`
 			}
+		},
+		img: {
+			maxWidth: '100%',
+			cursor: 'pointer'
 		}
 	})
 );
@@ -159,6 +164,15 @@ function Board({ query }: NextPageContext) {
 						</Hidden>
 					</Grid>
 				</Grid>
+				<Box>
+					<Link href={'/notices/[id]'} as={'/notices/12'}>
+						<img
+							className={classes.img}
+							src={'https://static.cocstorage.com/images/event_banner.png'}
+							alt={'Event Banner Img'}
+						/>
+					</Link>
+				</Box>
 			</Container>
 		</>
 	);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, memo } from 'react';
+import Link from 'next/link';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import moment from 'moment';
 
@@ -156,6 +157,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		backdrop: {
 			zIndex: theme.zIndex.drawer + 1,
 			color: '#fff'
+		},
+		img: {
+			maxWidth: '100%',
+			cursor: 'pointer'
 		}
 	})
 );
@@ -364,6 +369,15 @@ function DetailContent({
 									</ButtonGroup>
 								</Box>
 							</Box>
+						</Box>
+						<Box>
+							<Link href={'/notices/[id]'} as={'/notices/12'}>
+								<img
+									className={classes.img}
+									src={'https://static.cocstorage.com/images/event_banner.png'}
+									alt={'Event Banner Img'}
+								/>
+							</Link>
 						</Box>
 					</Box>
 				</Grow>
