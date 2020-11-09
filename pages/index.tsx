@@ -33,6 +33,7 @@ function Index() {
 		<>
 			<Head>
 				<meta charSet={'utf-8'} />
+				<meta name={'viewport'} content={'minimum-scale=1, initial-scale=1, width=device-width'} />
 				<meta httpEquiv={'content-language'} content={'ko'} />
 				<meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
 				<meta name={'author'} content={'개념글 저장소'} />
