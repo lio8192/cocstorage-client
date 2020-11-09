@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
 
 // Material UI
 import Fade from '@material-ui/core/Fade';
@@ -32,6 +32,7 @@ const useStyles = makeStyles(() =>
 
 function StorageBoardEdit() {
 	const classes = useStyles();
+	const theme = useTheme();
 	const {
 		storage,
 		detail: { isMember },
@@ -100,6 +101,7 @@ function StorageBoardEdit() {
 					name={'apple-mobile-web-app-title'}
 					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
 				/>
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}</title>
 				<link
 					rel={'canonical'}

@@ -1,5 +1,7 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+	createStyles, makeStyles, Theme, useTheme
+} from '@material-ui/core/styles';
 import Head from 'next/head';
 
 // Material UI
@@ -51,6 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Policy() {
 	const classes = useStyles();
+	const theme = useTheme();
 
 	return (
 		<>
@@ -73,8 +76,8 @@ function Policy() {
 				<meta property={'twitter:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'twitter:url'} content={'https://wwww.cocstorage.com/policy'} />
 				<meta property={'twitter:card'} content={'summary'} />
-				<meta name={'theme-color'} content={'#2F436E'} />
 				<meta name={'apple-mobile-web-app-title'} content={'이용약관 : 개념글 저장소'} />
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{'이용약관 : 개념글 저장소'}</title>
 				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />
 				<link rel={'apple-touch-icon'} href={'https://static.cocstorage.com/images/icon.png'} />

@@ -174,6 +174,7 @@ function StorageBoardDetail() {
 				/>
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={subject ? `${subject} : ${name} 저장소` : '개념글 저장소'} />
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{subject ? `${subject} : ${name} 저장소` : '개념글 저장소'}</title>
 				<link
 					rel={'canonical'}

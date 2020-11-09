@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
+import { useTheme } from '@material-ui/core/styles';
 
 // Material UI Components
 import Hidden from '@material-ui/core/Hidden';
@@ -18,6 +19,7 @@ import HomeBoardCardList from 'components/home/HomeBoardCardList';
 import useHome from 'hooks/home/useHome';
 
 function Index() {
+	const theme = useTheme();
 	const {
 		previousState: { boardList, dailyPopularList, pending },
 		onFetchMainContents
@@ -49,6 +51,7 @@ function Index() {
 				<meta property={'twitter:url'} content={'https://wwww.cocstorage.com'} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={'개념글 저장소'} />
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{'개념글 저장소'}</title>
 				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />
 				<link rel={'apple-touch-icon'} href={'https://static.cocstorage.com/images/icon.png'} />

@@ -100,6 +100,7 @@ function Detail({ query }: NextPageContext) {
 				<meta property={'twitter:url'} content={`https://www.cocstorage.com/board/${query.id}/${query.detail}`} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={getMetaTagTitle(data, query.id)} />
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{getMetaTagTitle(data, query.id)}</title>
 				<link rel={'canonical'} href={`https://www.cocstorage.com/board/${query.id}/${query.detail}`} />
 				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />

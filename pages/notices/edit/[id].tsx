@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
 
 // Material UI
 import Fade from '@material-ui/core/Fade';
@@ -30,6 +30,7 @@ const useStyles = makeStyles(() =>
 function NoticeEdit() {
 	const classes = useStyles();
 	const router = useRouter();
+	const theme = useTheme();
 	const {
 		isAuthenticated,
 		role,
@@ -67,6 +68,7 @@ function NoticeEdit() {
 				<meta property={'twitter:url'} content={'https://www.cocstorage.com/notices'} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={'새로운 소식 : 개념글 저장소'} />
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{'새로운 소식 : 개념글 저장소'}</title>
 				<link rel={'canonical'} href={'https://www.cocstorage.com/notices'} />
 				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />

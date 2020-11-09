@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+	createStyles, makeStyles, Theme, useTheme
+} from '@material-ui/core/styles';
 
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -61,6 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Notices() {
 	const classes = useStyles();
+	const theme = useTheme();
 	const {
 		pending,
 		pagination: { totalPages, isLastPage },
@@ -107,6 +110,7 @@ function Notices() {
 				<meta property={'twitter:url'} content={'https://www.cocstorage.com/notices'} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={'새로운 소식 : 개념글 저장소'} />
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{'새로운 소식 : 개념글 저장소'}</title>
 				<link rel={'canonical'} href={'https://www.cocstorage.com/notices'} />
 				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />

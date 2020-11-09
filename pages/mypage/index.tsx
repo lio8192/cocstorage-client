@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+	createStyles, makeStyles, Theme, useTheme
+} from '@material-ui/core/styles';
 import { useSnackbar } from 'notistack';
 
 // Material UI
@@ -75,6 +77,7 @@ function TabPanel(props: TabPanelProps) {
 function MyPage() {
 	const classes = useStyles();
 	const router = useRouter();
+	const theme = useTheme();
 	const {
 		pending,
 		activatedTab,
@@ -127,6 +130,7 @@ function MyPage() {
 				<meta property={'twitter:url'} content={'https://www.cocstorage.com/notices'} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={'마이페이지 : 개념글 저장소'} />
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{'마이페이지 : 개념글 저장소'}</title>
 				<link rel={'canonical'} href={'https://www.cocstorage.com/mypage'} />
 				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />

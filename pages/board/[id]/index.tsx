@@ -115,6 +115,7 @@ function Board({ query }: NextPageContext) {
 					name={'apple-mobile-web-app-title'}
 					content={`${getCategoryNameByCategoryId(query.id)} : 개념글 저장소`}
 				/>
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{`${getCategoryNameByCategoryId(query.id)} : 개념글 저장소`}</title>
 				<link rel={'canonical'} href={`https://www.cocstorage.com/board/${query.id}`} />
 				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />

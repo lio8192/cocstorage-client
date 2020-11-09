@@ -123,6 +123,7 @@ function Storages() {
 				<meta property={'twitter:url'} content={'https://www.cocstorage.com/storages'} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={'저장소 : 개념글 저장소'} />
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{'저장소 : 개념글 저장소'}</title>
 				<link rel={'canonical'} href={'https://www.cocstorage.com/storages'} />
 				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />

@@ -213,6 +213,7 @@ function StorageBoard() {
 					name={'apple-mobile-web-app-title'}
 					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
 				/>
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}</title>
 				<link
 					rel={'canonical'}
