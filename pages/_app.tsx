@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import Head from 'next/head';
 import { AppContext, AppProps } from 'next/app';
+import { useDispatch } from 'react-redux';
 
 // Redux-Saga
 import { END } from 'redux-saga';
@@ -51,12 +52,17 @@ function App({ Component, pageProps }: AppProps | any) {
 	}, [dispatch]);
 
 	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			<Layout>
-				<Component {...pageProps} />
-			</Layout>
-		</ThemeProvider>
+		<>
+			<Head>
+				<meta name={'viewport'} content={'minimum-scale=1, initial-scale=1, width=device-width'} />
+			</Head>
+			<ThemeProvider theme={theme}>
+				<CssBaseline />
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</ThemeProvider>
+		</>
 	);
 }
 

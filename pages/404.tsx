@@ -1,10 +1,12 @@
 import React, { memo } from 'react';
 import Head from 'next/head';
+import { useTheme } from '@material-ui/core/styles';
 
 // Components
 import DataEmptyBox from 'components/common/DataEmptyBox';
 
 function Error404() {
+	const theme = useTheme();
 	return (
 		<>
 			<Head>
@@ -25,6 +27,7 @@ function Error404() {
 				<meta property={'twitter:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={'404 Page Not Found'} />
+				<meta name={'theme-color'} content={theme.palette.primary.main} />
 				<title>{'404 Page Not Found : 개념글 저장소'}</title>
 				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />
 				<link rel={'apple-touch-icon'} href={'https://static.cocstorage.com/images/icon.png'} />
