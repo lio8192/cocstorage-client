@@ -203,7 +203,7 @@ function BoardList() {
 												{item.subject}
 											</Typography>
 											<Box className={classes.commentCountBox}>{`[${item.commentTotalCount}]`}</Box>
-											{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
+											{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
 												<Box ml={1}>
 													<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
 												</Box>
