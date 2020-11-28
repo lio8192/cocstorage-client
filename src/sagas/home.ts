@@ -10,7 +10,13 @@ import {
 	fetchNoticesFailed,
 	fetchStorages,
 	fetchStoragesSucceeded,
-	fetchStoragesFailed
+	fetchStoragesFailed,
+	fetchLatestStorageBoards,
+	fetchPopularStorageBoardsSucceeded,
+	fetchPopularStorageBoardsFailed,
+	fetchPopularStorageBoards,
+	fetchLatestStorageBoardsSucceeded,
+	fetchLatestStorageBoardsFailed
 } from 'modules/home';
 
 // Service
@@ -44,9 +50,29 @@ function* watchFetchStorages() {
 	}
 }
 
+function* watchFetchLatestStorageBoards() {
+	try {
+		const response = yield call(Service.fetchLatestStorageBoards);
+		yield put(fetchLatestStorageBoardsSucceeded(response.data));
+	} catch (error) {
+		yield put(fetchLatestStorageBoardsFailed());
+	}
+}
+
+function* watchFetchPopularStorageBoards() {
+	try {
+		const response = yield call(Service.fetchPopularStorageBoards);
+		yield put(fetchPopularStorageBoardsSucceeded(response.data));
+	} catch (error) {
+		yield put(fetchPopularStorageBoardsFailed());
+	}
+}
+
 function* homeSaga() {
 	yield takeLatest(fetchNotices, watchFetchNotices);
 	yield takeLatest(fetchStorages, watchFetchStorages);
+	yield takeLatest(fetchLatestStorageBoards, watchFetchLatestStorageBoards);
+	yield takeLatest(fetchPopularStorageBoards, watchFetchPopularStorageBoards);
 	yield takeLatest(fetchMainContents, watchMainContents);
 }
 

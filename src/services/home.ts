@@ -30,15 +30,19 @@ export function fetchStorages() {
 	return axios(true)(config);
 }
 
-export function fetchStorageBoards() {
+export function fetchLatestStorageBoards() {
 	const config: AxiosRequestConfig = {
-		url: '/storages',
-		method: 'GET',
-		params: {
-			page: 1,
-			per: 4,
-			orderBy: 'latest'
-		}
+		url: '/storages/boards/latest',
+		method: 'GET'
+	};
+
+	return axios(true)(config);
+}
+
+export function fetchPopularStorageBoards() {
+	const config: AxiosRequestConfig = {
+		url: '/storages/boards/popular',
+		method: 'GET'
 	};
 
 	return axios(true)(config);

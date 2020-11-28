@@ -1,24 +1,50 @@
 import React, { useEffect } from 'react';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
-import { useTheme } from '@material-ui/core/styles';
+import {
+	createStyles, makeStyles, Theme, useTheme
+} from '@material-ui/core/styles';
 
-// Material UI Components
+// Material UI
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 
 // Modules
-import { fetchNotices, fetchStorages } from 'modules/home';
+import {
+	fetchNotices, fetchStorages, fetchLatestStorageBoards, fetchPopularStorageBoards
+} from 'modules/home';
 
 // Components
 import HomeNoticeGridList from 'components/home/HomeNoticeGridList';
 import HomeStorageGridList from 'components/home/HomeStorageGridList';
 import HomeBoardCardListSwiper from 'components/home/HomeBoardCardListSwiper';
 import HomeBoardCardList from 'components/home/HomeBoardCardList';
+import HomeLatestStorageBoardList from 'components/home/HomeLatestStorageBoardList';
+import HomePopularStorageBoardList from 'components/home/HomePopularStorageBoardList';
 
 // Custom Hooks
 import useHome from 'hooks/home/useHome';
 
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		container: {
+			[theme.breakpoints.down('md')]: {
+				padding: 0
+			}
+		},
+		containerBox: {
+			marginTop: theme.spacing(2),
+			[theme.breakpoints.down('md')]: {
+				margin: 0
+			}
+		}
+	})
+);
+
 function Index() {
+	const classes = useStyles();
 	const theme = useTheme();
 	const {
 		previousState: { boardList, dailyPopularList, pending },
@@ -59,8 +85,20 @@ function Index() {
 				<link rel={'canonical'} href={'https://www.cocstorage.com'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 			</Head>
-			<HomeNoticeGridList />
+			<Container className={classes.container}>
+				<Box className={classes.containerBox}>
+					<Grid container spacing={1}>
+						<Grid item xs={12} lg={6}>
+							<HomeLatestStorageBoardList />
+						</Grid>
+						<Grid item xs={12} lg={6}>
+							<HomePopularStorageBoardList />
+						</Grid>
+					</Grid>
+				</Box>
+			</Container>
 			<HomeStorageGridList />
+			<HomeNoticeGridList />
 			<Hidden implementation={'css'} smDown>
 				<HomeBoardCardListSwiper boardList={dailyPopularList} pending={pending} />
 			</Hidden>
@@ -75,17 +113,27 @@ function Index() {
 Index.getInitialProps = async ({ store }: NextPageContext) => {
 	const {
 		home: {
-			notices: { pending: noticePending },
-			storages: { pending: storagePending }
+			notices: { pending: noticesPending },
+			storages: { pending: storagesPending },
+			latestStorageBoards: { pending: latestStorageBoardsPending },
+			popularStorageBoards: { pending: popularStorageBoardsPending }
 		}
 	} = store.getState();
 
-	if (!noticePending) {
+	if (!noticesPending) {
 		store.dispatch(fetchNotices());
 	}
 
-	if (!storagePending) {
+	if (!storagesPending) {
 		store.dispatch(fetchStorages());
+	}
+
+	if (!latestStorageBoardsPending) {
+		store.dispatch(fetchLatestStorageBoards());
+	}
+
+	if (!popularStorageBoardsPending) {
+		store.dispatch(fetchPopularStorageBoards());
 	}
 
 	return {

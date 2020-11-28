@@ -27,7 +27,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 // Material UI Icons
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import MessageIcon from '@material-ui/icons/Message';
-import NearMeIcon from '@material-ui/icons/NearMe';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 // Material UI Labs
@@ -273,9 +272,6 @@ function HomeNoticeGridList() {
 											<ListItem key={`dummy-notice-${item}`}>
 												<Box width={'100%'}>
 													<Box className={classes.listItemBox}>
-														<Box>
-															<Skeleton width={30} height={40} />
-														</Box>
 														<Box className={classes.subjectBox}>
 															<Typography variant={'body2'} noWrap>
 																<Skeleton width={250} />
@@ -410,15 +406,11 @@ function HomeNoticeGridList() {
 															<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
 																<Box width={'100%'}>
 																	<Box className={classes.listItemBox}>
-																		<Box>
-																			<NearMeIcon className={classes.icon} color={'action'} fontSize={'large'} />
-																		</Box>
 																		<Box className={classes.subjectBox}>
 																			<Typography variant={'body2'} noWrap>
 																				{item.subject}
 																			</Typography>
-																			{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days')
-																				=== 0 && (
+																			{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
 																				<Box ml={1}>
 																					<Chip
 																						className={classes.chip}
@@ -474,9 +466,6 @@ function HomeNoticeGridList() {
 													<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
 														<Box width={'100%'}>
 															<Box className={classes.listItemBox}>
-																<Box>
-																	<NearMeIcon className={classes.icon} color={'action'} fontSize={'large'} />
-																</Box>
 																<Box className={classes.subjectBox}>
 																	<Typography variant={'body2'} noWrap>
 																		{item.subject}

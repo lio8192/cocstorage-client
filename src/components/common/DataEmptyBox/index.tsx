@@ -33,13 +33,23 @@ type DataEmptyBoxProps = {
 	message: string;
 	paddingTop?: number;
 	paddingBottom?: number;
+	minHeight?: number;
+	maxHeight?: number;
 };
 
-function DataEmptyBox({ message, paddingTop, paddingBottom }: DataEmptyBoxProps) {
+function DataEmptyBox({
+	message, paddingTop, paddingBottom, minHeight, maxHeight
+}: DataEmptyBoxProps) {
 	const classes = useStyles();
 	return (
 		<Grow in>
-			<Box className={classes.root} pt={paddingTop || 20} pb={paddingBottom || 20}>
+			<Box
+				className={classes.root}
+				pt={paddingTop || 20}
+				pb={paddingBottom || 20}
+				maxHeight={maxHeight || 'auto'}
+				minHeight={minHeight || 'auto'}
+			>
 				<Box textAlign={'center'}>
 					<Avatar className={classes.avatar}>
 						<FilterNoneIcon />

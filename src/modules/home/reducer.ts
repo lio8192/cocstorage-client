@@ -10,7 +10,13 @@ import {
 	FETCH_NOTICES_FAILED,
 	FETCH_STORAGES,
 	FETCH_STORAGES_SUCCEEDED,
-	FETCH_STORAGES_FAILED
+	FETCH_STORAGES_FAILED,
+	FETCH_LATEST_STORAGE_BOARDS,
+	FETCH_LATEST_STORAGE_BOARDS_SUCCEEDED,
+	FETCH_LATEST_STORAGE_BOARDS_FAILED,
+	FETCH_POPULAR_STORAGE_BOARDS,
+	FETCH_POPULAR_STORAGE_BOARDS_SUCCEEDED,
+	FETCH_POPULAR_STORAGE_BOARDS_FAILED
 } from './actions';
 
 const initialState: HomeState = {
@@ -34,6 +40,14 @@ const initialState: HomeState = {
 		pending: false
 	},
 	storages: {
+		data: [],
+		pending: false
+	},
+	latestStorageBoards: {
+		data: [],
+		pending: false
+	},
+	popularStorageBoards: {
 		data: [],
 		pending: false
 	}
@@ -110,6 +124,48 @@ const home = createReducer<HomeState, HomeActions>(initialState, {
 		...state,
 		storages: {
 			...state.storages,
+			pending: false
+		}
+	}),
+	[FETCH_LATEST_STORAGE_BOARDS]: (state) => ({
+		...state,
+		latestStorageBoards: {
+			...state.latestStorageBoards,
+			pending: true
+		}
+	}),
+	[FETCH_LATEST_STORAGE_BOARDS_SUCCEEDED]: (state, { payload: data }) => ({
+		...state,
+		latestStorageBoards: {
+			data,
+			pending: false
+		}
+	}),
+	[FETCH_LATEST_STORAGE_BOARDS_FAILED]: (state) => ({
+		...state,
+		latestStorageBoards: {
+			...state.latestStorageBoards,
+			pending: false
+		}
+	}),
+	[FETCH_POPULAR_STORAGE_BOARDS]: (state) => ({
+		...state,
+		popularStorageBoards: {
+			...state.popularStorageBoards,
+			pending: true
+		}
+	}),
+	[FETCH_POPULAR_STORAGE_BOARDS_SUCCEEDED]: (state, { payload: data }) => ({
+		...state,
+		popularStorageBoards: {
+			data,
+			pending: false
+		}
+	}),
+	[FETCH_POPULAR_STORAGE_BOARDS_FAILED]: (state) => ({
+		...state,
+		popularStorageBoards: {
+			...state.popularStorageBoards,
 			pending: false
 		}
 	})
