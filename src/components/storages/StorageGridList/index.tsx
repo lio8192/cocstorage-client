@@ -1,36 +1,38 @@
 import React, { memo } from 'react';
 import Link from 'next/link';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+	createStyles, makeStyles, Theme, useTheme
+} from '@material-ui/core/styles';
 import moment from 'moment';
 
 // Material UI
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grow from '@material-ui/core/Grow';
 import Card from '@material-ui/core/Card';
 
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
-import CheckIcon from '@material-ui/icons/Check';
 
 // Components
 import DataEmptyBox from 'components/common/DataEmptyBox';
 
 // Custom Hooks
 import useStorageGridList from 'hooks/storages/useStorageGridList';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 moment.locale('ko');
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			padding: 0,
 			backgroundColor: 'white'
 		},
 		card: {
@@ -47,9 +49,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		typography: {
 			fontWeight: 700
-		},
-		orderTypography: {
-			fontFamily: 'NanumSquareRoundEB'
 		},
 		icon: {
 			verticalAlign: 'middle'
@@ -68,30 +67,36 @@ const useStyles = makeStyles((theme: Theme) =>
 					color: 'white'
 				}
 			}
+		},
+		listItem: {
+			padding: theme.spacing(1, 3),
+			[theme.breakpoints.down('xs')]: {
+				padding: theme.spacing(1, 2)
+			}
 		}
 	})
 );
 
 function StorageGridList() {
 	const classes = useStyles();
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const { pending, storages } = useStorageGridList();
 	return (
 		<Box className={classes.root}>
-			{!pending && (
-				<Box pt={1} pb={1}>
-					<Button color={'primary'} size={'large'} startIcon={<CheckIcon />}>
-						<Typography className={classes.orderTypography} variant={'body1'}>
-							{'최신순'}
-						</Typography>
-					</Button>
-				</Box>
-			)}
 			<Box>
-				{!pending && (
-					<Grid container spacing={2}>
+				{pending && (
+					<Grow in>
+						<Box pt={20} pb={20} textAlign={'center'}>
+							<CircularProgress size={50} />
+						</Box>
+					</Grow>
+				)}
+				{!pending && !isMobile && (
+					<Grid container spacing={1}>
 						{storages.map((item) => (
 							<Grow key={`storage-${item.id}`} in>
-								<Grid item xs={12} sm={4} md={3}>
+								<Grid item xs={6} sm={4} md={3}>
 									<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
 										<Card className={classes.card} elevation={0}>
 											<CardActionArea>
@@ -103,13 +108,6 @@ function StorageGridList() {
 													<Box mt={1}>
 														<Typography className={classes.typography}>{item.name}</Typography>
 													</Box>
-													<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
-														<Box ml={0.5}>
-															<Typography variant={'caption'}>
-																{moment(item.createdAt).format('YYYY. MM. DD')}
-															</Typography>
-														</Box>
-													</Box>
 												</CardContent>
 											</CardActionArea>
 										</Card>
@@ -119,12 +117,23 @@ function StorageGridList() {
 						))}
 					</Grid>
 				)}
-				{pending && (
-					<Grow in>
-						<Box pt={20} pb={20} textAlign={'center'}>
-							<CircularProgress size={50} />
-						</Box>
-					</Grow>
+				{!pending && isMobile && (
+					<List disablePadding>
+						{storages.map((item) => (
+							<Grow key={`storage-${item.id}`} in>
+								<Box>
+									<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
+										<ListItem className={classes.listItem} button>
+											<Avatar src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
+												<InsertPhotoIcon />
+											</Avatar>
+											<Box ml={1}>{item.name}</Box>
+										</ListItem>
+									</Link>
+								</Box>
+							</Grow>
+						))}
+					</List>
 				)}
 				{!pending && storages.length === 0 && <DataEmptyBox message={'첫 저장소 등록의 주인공이 되어 보세요!'} />}
 			</Box>

@@ -62,14 +62,14 @@ export default function useBottomNavigation() {
 				} else {
 					dispatch(handleSignInDialog());
 				}
+			} else if (value === 'storage') {
+				router.push('/storages', '/storages').then();
+				dispatch(handlePageScope(value));
 			} else if (value === 'notice') {
 				router.push('/notices', '/notices').then();
 			} else if (value === 'home') {
 				router.push('/', '/').then();
-			} else {
-				dispatch(handleDrawer());
 			}
-			dispatch(handlePageScope(value));
 		},
 		[dispatch, router, commonState.user.isAuthenticated]
 	);

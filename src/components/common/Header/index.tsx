@@ -173,12 +173,9 @@ function Header() {
 		activatedTab,
 		openNavigationChip,
 		openTab,
-		isPreviousStorage,
 		isNewStorage,
 		isNotices,
-		onHandlePageScope,
 		onHandleTabChange,
-		onHandlePreviousTabChange,
 		onHandleLogo,
 		onHandleChip,
 		onHandleStorageChip,
@@ -245,20 +242,6 @@ function Header() {
 										alt={'Logo Img'}
 									/>
 								</Box>
-								<Chip
-									className={classes.chip}
-									color={pageScope === 'storage' || pageScope === 'storage-mypage' ? 'primary' : 'default'}
-									label={'새 저장소'}
-									onClick={onHandlePageScope}
-									data-page-scope={'storage'}
-								/>
-								<Chip
-									className={classes.chip}
-									color={pageScope === 'previous-storage' ? 'primary' : 'default'}
-									label={'이전 저장소'}
-									onClick={onHandlePageScope}
-									data-page-scope={'previous-storage'}
-								/>
 							</Box>
 							<Box>
 								<NoSsr>
@@ -439,36 +422,23 @@ function Header() {
 				<Box>
 					<Paper className={classes.paper} variant={'outlined'} square>
 						<Container>
-							{!isPreviousStorage && (pageScope === 'storage' || pageScope === 'mypage' || pageScope === 'notice') ? (
-								<Tabs
-									indicatorColor={'primary'}
-									textColor={'primary'}
-									value={activatedTab}
-									onChange={onHandleTabChange}
-									className={classes.indicator}
-								>
-									<Tab icon={<HomeIcon />} value={'/'} />
-									<Tab label={'저장소'} value={'/storages'} />
-									<Tab label={'새로운 소식'} value={'/notices'} />
-								</Tabs>
-							) : (
-								<Tabs
-									indicatorColor={'primary'}
-									textColor={'primary'}
-									value={activatedTab}
-									onChange={onHandlePreviousTabChange}
-									className={classes.indicator}
-								>
-									<Tab icon={<HomeIcon />} value={'/'} />
-									<Tab label={'일간 개념글'} value={'/board/daily_popular'} />
-									<Tab label={'인터넷방송'} value={'/board/ib_new1'} />
-									<Tab label={'스트리머'} value={'/board/stream'} />
-									<Tab label={'이슈'} value={'/board/issuezoom'} />
-									<Tab label={'수능'} value={'/board/exam_new'} />
-									<Tab label={'헬스'} value={'/board/extra'} />
-									<Tab label={'국내야구'} value={'/board/baseball_new9'} />
-								</Tabs>
-							)}
+							<Tabs
+								indicatorColor={'primary'}
+								textColor={'primary'}
+								value={
+									activatedTab === '/'
+									|| activatedTab.indexOf('/storages') !== -1
+									|| activatedTab.indexOf('/notices') !== -1
+										? activatedTab
+										: '/storages'
+								}
+								onChange={onHandleTabChange}
+								className={classes.indicator}
+							>
+								<Tab icon={<HomeIcon />} value={'/'} />
+								<Tab label={'저장소'} value={'/storages'} />
+								<Tab label={'새로운 소식'} value={'/notices'} />
+							</Tabs>
 						</Container>
 					</Paper>
 				</Box>

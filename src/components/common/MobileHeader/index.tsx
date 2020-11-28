@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { memo } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI
@@ -91,12 +91,6 @@ type ScrollProps = {
 	children: React.ReactElement;
 };
 
-type ListItemType = {
-	label: string;
-	icon: JSX.Element;
-	categoryId: string;
-};
-
 function HideOnScroll(props: ScrollProps) {
 	const { children, window } = props;
 	const trigger = useScrollTrigger({ target: window ? window() : undefined });
@@ -148,7 +142,6 @@ function MobileHeader() {
 	const classes = useStyles();
 
 	const {
-		pageScope,
 		user: { nickname, avatarUrl, isAuthenticated },
 		id,
 		storage,
@@ -162,50 +155,11 @@ function MobileHeader() {
 		onHandleStorageChip,
 		onHandleNoticeChip,
 		onHandleChip,
-		onHandleDrawerMenu,
 		onHandleStorageDrawerMenu,
 		onHandleNoticeDrawerMenu,
 		onHandleMyPageDrawerMenu,
 		onHandleDrawer
 	} = useMobileHeader();
-
-	const [listItems] = useState<ListItemType[]>([
-		{
-			label: '일간 개념글',
-			icon: <WhatshotIcon className={classes.listItemIcon} />,
-			categoryId: 'daily_popular'
-		},
-		{
-			label: '인터넷방송',
-			icon: <CastIcon className={classes.listItemIcon} />,
-			categoryId: 'ib_new1'
-		},
-		{
-			label: '스트리머',
-			icon: <PlayArrowIcon className={classes.listItemIcon} />,
-			categoryId: 'stream'
-		},
-		{
-			label: '이슈',
-			icon: <CalendarTodayIcon className={classes.listItemIcon} />,
-			categoryId: 'issuezoom'
-		},
-		{
-			label: '헬스',
-			icon: <FitnessCenterIcon className={classes.listItemIcon} />,
-			categoryId: 'extra'
-		},
-		{
-			label: '수능',
-			icon: <SchoolIcon className={classes.listItemIcon} />,
-			categoryId: 'exam_new'
-		},
-		{
-			label: '국내야구',
-			icon: <SportsBaseballIcon className={classes.listItemIcon} />,
-			categoryId: 'baseball_new9'
-		}
-	]);
 
 	return (
 		<>
@@ -304,25 +258,14 @@ function MobileHeader() {
 						)}
 					</NoSsr>
 					<Divider className={classes.divider} />
-					{pageScope === 'storage' || pageScope === 'storage-mypage' ? (
-						<List>
-							<ListItem button onClick={onHandleStorageDrawerMenu}>
-								<ListItemIcon>
-									<StorageIcon />
-								</ListItemIcon>
-								<ListItemText primary={'저장소'} />
-							</ListItem>
-						</List>
-					) : (
-						<List>
-							{listItems.map((item) => (
-								<ListItem button key={item.label} data-category-id={item.categoryId} onClick={onHandleDrawerMenu}>
-									<ListItemIcon>{item.icon}</ListItemIcon>
-									<ListItemText primary={item.label} />
-								</ListItem>
-							))}
-						</List>
-					)}
+					<List>
+						<ListItem button onClick={onHandleStorageDrawerMenu}>
+							<ListItemIcon>
+								<StorageIcon />
+							</ListItemIcon>
+							<ListItemText primary={'저장소'} />
+						</ListItem>
+					</List>
 					<Divider className={classes.divider} />
 					<List>
 						<ListItem button onClick={onHandleNoticeDrawerMenu}>

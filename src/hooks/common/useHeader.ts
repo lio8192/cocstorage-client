@@ -64,54 +64,10 @@ export default function useHeader() {
 			isNoticeEdit
 		]
 	);
-	const isPreviousStorage = useMemo(() => isBoard || isBoardDetail, [isBoard, isBoardDetail]);
+
 	const isNewStorage = useMemo(
 		() => isStorageBoardWrite || isStorageBoard || isStorageBoardDetail || isStorageBoardEdit,
 		[isStorageBoardWrite, isStorageBoard, isStorageBoardDetail, isStorageBoardEdit]
-	);
-
-	const onHandlePageScope = useCallback(
-		(event: React.MouseEvent<HTMLDivElement>) => {
-			const value: string = String(event.currentTarget.getAttribute('data-page-scope')) || 'storage';
-			dispatch(handlePageScope(value));
-			router.push('/').then();
-		},
-		[dispatch, router]
-	);
-
-	const onHandlePreviousTabChange = useCallback(
-		(event: React.ChangeEvent<{}>, newValue: string) => {
-			if (!pending) {
-				const isIndexRoute: boolean = newValue === '/' && true;
-				dispatch(clearBoardsRelatedState());
-
-				if (isIndexRoute) {
-					router
-						.push({
-							pathname: '/'
-						})
-						.then();
-				} else {
-					const boardId: string = newValue.split('/')[2];
-
-					router
-						.push(
-							{
-								pathname: '/board/[id]',
-								query: {
-									id: boardId
-								}
-							},
-							newValue
-						)
-						.then();
-				}
-			} else {
-				const variant: VariantType = 'warning';
-				enqueueSnackbar('잠시 후 다시 시도해주세요.', { variant });
-			}
-		},
-		[dispatch, router, pending, enqueueSnackbar]
 	);
 
 	const onHandleTabChange = useCallback(
@@ -212,12 +168,9 @@ export default function useHeader() {
 		activatedTab,
 		openNavigationChip,
 		openTab,
-		isPreviousStorage,
 		isNewStorage,
 		isNotices,
-		onHandlePageScope,
 		onHandleTabChange,
-		onHandlePreviousTabChange,
 		onHandleLogo,
 		onHandleChip,
 		onHandleStorageChip,

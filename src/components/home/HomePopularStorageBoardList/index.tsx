@@ -83,7 +83,7 @@ function HomePopularStorageBoardList() {
 			<Box className={classes.box}>
 				<Box flex={1}>
 					<Typography className={classes.typography} variant={'h6'}>
-						{'인기 개념글'}
+						{'실시간 인기 개념글'}
 					</Typography>
 				</Box>
 			</Box>
