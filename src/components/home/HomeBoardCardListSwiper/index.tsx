@@ -168,7 +168,7 @@ function HomeBoardCardListSwiper({ boardList, pending }: HomeBoardCardListSwiper
 		<Box className={classes.root}>
 			<Container>
 				<Typography className={classes.title} variant={'h6'} component={'h6'}>
-					{'이전 저장소 일간 개념글'}
+					{'수집 저장소 일간 개념글'}
 				</Typography>
 			</Container>
 			<Box className={classes.box}>
@@ -273,7 +273,7 @@ function HomeBoardCardListSwiper({ boardList, pending }: HomeBoardCardListSwiper
 						</Swiper>
 					)}
 					{!pending && boardList.length === 0 && (
-						<DataEmptyBox message={'이전 저장소 일간 개념글이 존재하지 않아요.'} paddingTop={10} paddingBottom={10} />
+						<DataEmptyBox message={'수집 저장소 일간 개념글이 존재하지 않아요.'} paddingTop={10} paddingBottom={10} />
 					)}
 				</NoSsr>
 			</Box>

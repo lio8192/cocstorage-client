@@ -79,16 +79,16 @@ function Index() {
 				<meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
 				<meta name={'author'} content={'개념글 저장소'} />
 				<meta name={'title'} content={'개념글 저장소'} />
-				<meta name={'description'} content={'내가 만들어 운영하는 저장소 커뮤니티'} />
+				<meta name={'description'} content={'내가 만들어 운영하는 커뮤니티 저장소'} />
 				<meta property={'og:title'} content={'개념글 저장소'} />
-				<meta property={'og:description'} content={'내가 만들어 운영하는 저장소 커뮤니티 '} />
+				<meta property={'og:description'} content={'내가 만들어 운영하는 커뮤니티 저장소'} />
 				<meta property={'og:type'} content={'website'} />
 				<meta property={'og:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'og:url'} content={'https://www.cocstorage.com'} />
 				<meta property={'og:site_name'} content={'개념글 저장소'} />
 				<meta property={'og:locale'} content={'ko_KR'} />
 				<meta property={'twitter:title'} content={'개념글 저장소'} />
-				<meta property={'twitter:description'} content={'내가 만들어 운영하는 저장소 커뮤니티'} />
+				<meta property={'twitter:description'} content={'내가 만들어 운영하는 커뮤니티 저장소'} />
 				<meta property={'twitter:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'twitter:url'} content={'https://wwww.cocstorage.com'} />
 				<meta property={'twitter:card'} content={'summary'} />
@@ -130,9 +130,9 @@ function Index() {
 				<HomeBoardCardListSwiper boardList={dailyPopularList} pending={pending} />
 			</Hidden>
 			<Hidden implementation={'css'} mdUp>
-				<HomeBoardCardList title={'이전 저장소 일간 개념글'} boardList={dailyPopularList} pending={pending} />
+				<HomeBoardCardList title={'수집 저장소 일간 개념글'} boardList={dailyPopularList} pending={pending} />
 			</Hidden>
-			<HomeBoardCardList title={'이전 저장소 새로운 개념글'} boardList={boardList} pending={pending} />
+			<HomeBoardCardList title={'수집 저장소 새로운 개념글'} boardList={boardList} pending={pending} />
 		</>
 	);
 }
