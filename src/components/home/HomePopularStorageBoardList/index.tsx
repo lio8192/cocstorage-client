@@ -142,7 +142,12 @@ function HomePopularStorageBoardList() {
 						</Grow>
 					))}
 				{!pending && data.length === 0 && (
-					<DataEmptyBox message={'인기 개념글이 존재하지 않아요.'} paddingTop={0} paddingBottom={0} maxHeight={400} />
+					<DataEmptyBox
+						message={'실시간 인기 개념글이 존재하지 않아요.'}
+						paddingTop={0}
+						paddingBottom={0}
+						maxHeight={400}
+					/>
 				)}
 			</List>
 		</Box>

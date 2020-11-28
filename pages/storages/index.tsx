@@ -100,7 +100,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		adBox: {
 			border: '1px solid #EAEAEA',
 			borderRadius: 4,
-			backgroundColor: theme.palette.grey['50']
+			backgroundColor: theme.palette.grey['50'],
+			[theme.breakpoints.down('md')]: {
+				border: 'none'
+			}
 		}
 	})
 );
