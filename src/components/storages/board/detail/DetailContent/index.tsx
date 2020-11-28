@@ -367,9 +367,6 @@ function DetailContent() {
 													<Box className={classes.nicknameBox} component={'span'}>
 														{user?.nickname}
 													</Box>
-													<Box component={'span'} ml={0.5}>
-														{`(${createdIp})`}
-													</Box>
 												</Box>
 											</>
 										) : (

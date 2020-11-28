@@ -23,7 +23,7 @@ import { TransitionProps } from '@material-ui/core/transitions';
 import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
 
 // Modules
-import { fetchStorageDetailAndStorageBoardDetail, fetchStorageBoardDetail } from 'modules/storages/board/detail';
+import { fetchStorageDetailAndStorageBoardDetail } from 'modules/storages/board/detail';
 
 // Components
 import DetailContent from 'components/storages/board/detail/DetailContent';
@@ -250,20 +250,8 @@ function StorageBoardDetail() {
 	);
 }
 
-StorageBoardDetail.getInitialProps = async ({ req, store, query }: NextPageContext) => {
-	const {
-		storageBoard: {
-			storage: { id: storageId }
-		}
-	} = store.getState();
-
-	const isServerSide = req && true;
-
-	if (isServerSide) {
-		store.dispatch(fetchStorageDetailAndStorageBoardDetail({ storageId: String(query.path), id: Number(query.id) }));
-	} else {
-		store.dispatch(fetchStorageBoardDetail({ storageId, id: Number(query.id) }));
-	}
+StorageBoardDetail.getInitialProps = async ({ store, query }: NextPageContext) => {
+	store.dispatch(fetchStorageDetailAndStorageBoardDetail({ storageId: String(query.path), id: Number(query.id) }));
 
 	return {};
 };

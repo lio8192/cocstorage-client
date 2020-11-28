@@ -588,9 +588,6 @@ function DetailCommentList() {
 																<Box className={classes.commentListItemWriterNickname} component={'span'}>
 																	{item.user?.nickname}
 																</Box>
-																<Box component={'span'} ml={0.5}>
-																	{`(${item.createdIp})`}
-																</Box>
 															</>
 														) : (
 															<>
@@ -739,9 +736,6 @@ function DetailCommentList() {
 																	</Avatar>
 																	<Box className={classes.commentListItemWriterNickname} component={'span'}>
 																		{reply.user?.nickname}
-																	</Box>
-																	<Box component={'span'} ml={0.5}>
-																		{`(${reply.createdIp})`}
 																	</Box>
 																</>
 															) : (
