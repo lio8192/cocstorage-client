@@ -23,7 +23,6 @@ import HomeBoardCardListSwiper from 'components/home/HomeBoardCardListSwiper';
 import HomeBoardCardList from 'components/home/HomeBoardCardList';
 import HomeLatestStorageBoardList from 'components/home/HomeLatestStorageBoardList';
 import HomePopularStorageBoardList from 'components/home/HomePopularStorageBoardList';
-import GoogleAdSense from 'components/common/GoogleAdSense';
 
 // Custom Hooks
 import useHome from 'hooks/home/useHome';
@@ -39,20 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginTop: theme.spacing(2),
 			[theme.breakpoints.down('md')]: {
 				margin: 0
-			}
-		},
-		adContainer: {
-			marginTop: theme.spacing(1),
-			[theme.breakpoints.down('md')]: {
-				padding: 0
-			}
-		},
-		adBox: {
-			border: '1px solid #EAEAEA',
-			backgroundColor: theme.palette.grey['50'],
-			[theme.breakpoints.down('md')]: {
-				border: 'none',
-				backgroundColor: 'white'
 			}
 		}
 	})
@@ -113,18 +98,6 @@ function Index() {
 				</Box>
 			</Container>
 			<HomeStorageGridList />
-			<Container className={classes.adContainer}>
-				<Box className={classes.adBox}>
-					<GoogleAdSense
-						html={
-							'<ins class="adsbygoogle"\n'
-							+ 'style="display:inline-block;width:728px;height:90px"\n'
-							+ 'data-ad-client="ca-pub-5809905264951057"\n'
-							+ 'data-ad-slot="7469363119"></ins>'
-						}
-					/>
-				</Box>
-			</Container>
 			<HomeNoticeGridList />
 			<Hidden implementation={'css'} smDown>
 				<HomeBoardCardListSwiper boardList={dailyPopularList} pending={pending} />
