@@ -64,7 +64,6 @@ export default function useBottomNavigation() {
 				}
 			} else if (value === 'storage') {
 				router.push('/storages', '/storages').then();
-				dispatch(handlePageScope(value));
 			} else if (value === 'notice') {
 				router.push('/notices', '/notices').then();
 			} else if (value === 'home') {
