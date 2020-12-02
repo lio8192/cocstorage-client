@@ -1,6 +1,8 @@
 import React, { memo } from 'react';
 import Link from 'next/link';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+	createStyles, makeStyles, Theme, useTheme
+} from '@material-ui/core/styles';
 
 // Material UI
 import Box from '@material-ui/core/Box';
@@ -11,6 +13,10 @@ import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import Grow from '@material-ui/core/Grow';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+// Material UI Icons
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -20,11 +26,11 @@ import DataEmptyBox from 'components/common/DataEmptyBox';
 
 // Custom Hooks
 import useHomeLatestStorageBoardList from 'hooks/home/useHomeLatestStorageBoardList';
-import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
+			marginTop: theme.spacing(1),
 			border: `1px solid ${theme.palette.grey['50']}`,
 			backgroundColor: 'white',
 			[theme.breakpoints.down('md')]: {
@@ -80,6 +86,9 @@ function HomeLatestStorageBoardList() {
 	const {
 		latestStorageBoards: { data, pending }
 	} = useHomeLatestStorageBoardList();
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
 	return (
 		<Box className={classes.root}>
 			<Box className={classes.box}>
@@ -89,7 +98,7 @@ function HomeLatestStorageBoardList() {
 					</Typography>
 				</Box>
 			</Box>
-			<Divider />
+			{!isMobile && <Divider />}
 			<List className={classes.list} disablePadding>
 				{pending
 					&& [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (

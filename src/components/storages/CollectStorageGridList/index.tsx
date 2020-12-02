@@ -11,6 +11,9 @@ import Grid from '@material-ui/core/Grid';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
 import Grow from '@material-ui/core/Grow';
 import Card from '@material-ui/core/Card';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -23,8 +26,6 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import SchoolIcon from '@material-ui/icons/School';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -176,6 +177,7 @@ function CollectStorageGridList() {
 											<Box ml={1}>{getCollectStorageNameByCategoryId(item)}</Box>
 										</ListItem>
 									</Link>
+									<Divider />
 								</Box>
 							</Grow>
 						))}

@@ -1,7 +1,9 @@
 import React, { useCallback, memo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+	createStyles, makeStyles, Theme, useTheme
+} from '@material-ui/core/styles';
 import moment from 'moment';
 
 // Material UI
@@ -13,8 +15,11 @@ import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import Grow from '@material-ui/core/Grow';
 import Card from '@material-ui/core/Card';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
@@ -110,6 +115,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		button: {
 			color: 'white'
+		},
+		list: {
+			backgroundColor: 'white'
+		},
+		listItem: {
+			padding: theme.spacing(1, 3),
+			[theme.breakpoints.down('xs')]: {
+				padding: theme.spacing(1, 2)
+			}
 		}
 	})
 );
@@ -120,6 +134,8 @@ function HomeStorageGridList() {
 	const {
 		storages: { data, pending }
 	} = useHomeStorageGridList();
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	const handleNavigateButtonRoute = useCallback(() => router.push('/storages', '/storages').then(), [router]);
 
@@ -169,7 +185,7 @@ function HomeStorageGridList() {
 						</Grid>
 					</Box>
 				)}
-				{!pending && (
+				{!pending && !isMobile && (
 					<Box className={classes.grid}>
 						<Grid container spacing={1}>
 							{data.map((item, index) => (
@@ -205,6 +221,24 @@ function HomeStorageGridList() {
 							))}
 						</Grid>
 					</Box>
+				)}
+				{!pending && isMobile && (
+					<List className={classes.list} disablePadding>
+						{data.map((item) => (
+							<Grow key={`home-storage-${item.id}`} in>
+								<Box>
+									<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
+										<ListItem className={classes.listItem} button>
+											<Avatar src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
+												<InsertPhotoIcon />
+											</Avatar>
+											<Box ml={1}>{item.name}</Box>
+										</ListItem>
+									</Link>
+								</Box>
+							</Grow>
+						))}
+					</List>
 				)}
 				{!pending && data.length === 0 && (
 					<DataEmptyBox message={'첫 저장소 등록의 주인공이 되어 보세요!'} paddingTop={10} paddingBottom={10} />

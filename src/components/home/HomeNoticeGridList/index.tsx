@@ -125,9 +125,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			verticalAlign: 'middle'
 		},
 		list: {
-			display: 'flex',
-			flexDirection: 'column',
-			justifyContent: 'space-between',
 			height: '100%',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0, 1)

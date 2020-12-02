@@ -18,10 +18,16 @@ export default function useHeader() {
 	const {
 		route,
 		asPath,
+		pathname,
 		query: { id }
 	} = router;
 
-	const activatedTab = useMemo(() => asPath, [asPath]);
+	const activatedTab = useMemo(() => {
+		if (pathname.indexOf('/storages') !== -1) {
+			return '/storages';
+		}
+		return pathname;
+	}, [pathname]);
 	const isHome = useMemo(() => route === '/', [route]);
 	const isBoard = useMemo(() => route === '/board/[id]', [route]);
 	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
@@ -39,9 +45,10 @@ export default function useHeader() {
 		isNoticeDetail,
 		isNoticeEdit
 	]);
-	const openTab = useMemo(() => isHome || isNewStorages || isNewNotices || isBoard, [
+	const openTab = useMemo(() => isHome || isNewStorages || isStorageBoard || isNewNotices || isBoard, [
 		isHome,
 		isNewStorages,
+		isStorageBoard,
 		isNewNotices,
 		isBoard
 	]);
@@ -154,7 +161,7 @@ export default function useHeader() {
 
 	useEffect(() => {
 		if (asPath.indexOf('board') !== -1) {
-			dispatch(handlePageScope('previous-storage'));
+			dispatch(handlePageScope('collect-storage'));
 		} else {
 			dispatch(handlePageScope('storage'));
 		}

@@ -14,6 +14,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grow from '@material-ui/core/Grow';
 import Card from '@material-ui/core/Card';
@@ -130,6 +131,7 @@ function StorageGridList() {
 											<Box ml={1}>{item.name}</Box>
 										</ListItem>
 									</Link>
+									<Divider />
 								</Box>
 							</Grow>
 						))}

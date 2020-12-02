@@ -23,7 +23,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import SearchIcon from '@material-ui/icons/Search';
 import ForumIcon from '@material-ui/icons/Forum';
-import InboxIcon from '@material-ui/icons/Inbox';
+import ArchiveIcon from '@material-ui/icons/Archive';
 
 // Components
 import StorageHeader from 'components/storages/StorageHeader';
@@ -205,7 +205,7 @@ function Storages() {
 									color={pageScope === 'collect-storage' ? 'primary' : 'default'}
 									size={'large'}
 									startIcon={(
-										<InboxIcon
+										<ArchiveIcon
 											className={clsx({
 												[classes.icon]: pageScope === 'collect-storage'
 											})}
@@ -238,18 +238,10 @@ function Storages() {
 			</Container>
 			<Container className={classes.storageContainer}>
 				{pageScope === 'storage' ? (
-					<>
-						<StorageGridList />
-						<Hidden lgUp>
-							<Divider />
-						</Hidden>
-					</>
+					<StorageGridList />
 				) : (
 					<Box mb={2}>
 						<CollectStorageGridList />
-						<Hidden lgUp>
-							<Divider />
-						</Hidden>
 						<Box mt={isMobile ? 0 : 2}>
 							<Box className={classes.adBox}>
 								<GoogleAdSense

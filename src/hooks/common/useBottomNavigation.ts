@@ -34,7 +34,7 @@ export default function useBottomNavigation() {
 			return 'home';
 		}
 		if (isPreviousStorage) {
-			return 'previous-storage';
+			return 'storage';
 		}
 		if (isNotices) {
 			return 'notice';
