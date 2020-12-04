@@ -30,10 +30,10 @@ import useHomeLatestStorageBoardList from 'hooks/home/useHomeLatestStorageBoardL
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			marginTop: theme.spacing(1),
 			border: `1px solid ${theme.palette.grey['50']}`,
 			backgroundColor: 'white',
 			[theme.breakpoints.down('md')]: {
+				marginTop: theme.spacing(1),
 				padding: 0,
 				border: 'none'
 			}
