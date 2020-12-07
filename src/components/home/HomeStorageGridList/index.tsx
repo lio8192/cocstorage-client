@@ -155,9 +155,9 @@ function HomeStorageGridList() {
 				{pending && (
 					<Box className={classes.grid}>
 						<Grid container spacing={1}>
-							{[1, 2, 3, 4].map((item, index) => (
+							{[1, 2, 3, 4, 5, 6].map((item, index) => (
 								<Grow key={`dummy-home-storage-${item}`} in timeout={(index + 1) * 200}>
-									<Grid item xs={12} sm={6} md={6} lg={3}>
+									<Grid item xs={12} sm={6} md={6} lg={2}>
 										<Card className={classes.card} elevation={0} square>
 											<CardContent className={classes.cardContentHead} />
 											<CardContent>
@@ -190,7 +190,7 @@ function HomeStorageGridList() {
 						<Grid container spacing={1}>
 							{data.map((item, index) => (
 								<Grow key={`home-storage-${item.id}`} in timeout={(index + 1) * 200}>
-									<Grid item xs={12} sm={6} md={6} lg={3}>
+									<Grid item xs={12} sm={6} md={6} lg={2}>
 										<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
 											<Card className={classes.card} elevation={0} square>
 												<CardActionArea>

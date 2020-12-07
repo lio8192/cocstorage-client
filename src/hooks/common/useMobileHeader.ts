@@ -16,6 +16,7 @@ export default function useMobileHeader() {
 	} = router;
 	const { pageScope, user, drawerOpen } = useSelector((state: RootState) => state.common);
 	const { storage } = useSelector((state: RootState) => state.storageBoard);
+	const { pending } = useSelector((state: RootState) => state.storageBoardDetail);
 
 	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
 
@@ -123,6 +124,21 @@ export default function useMobileHeader() {
 		dispatch(handleDrawer());
 	}, [dispatch, router]);
 
+	const onHandleCollectStorageDrawerMenu = useCallback(() => {
+		dispatch(clearBoardsRelatedState());
+
+		router
+			.push(
+				{
+					pathname: '/board'
+				},
+				'/board'
+			)
+			.then();
+
+		dispatch(handleDrawer());
+	}, [dispatch, router]);
+
 	const onHandleNoticeDrawerMenu = useCallback(() => {
 		dispatch(clearBoardsRelatedState());
 
@@ -160,6 +176,7 @@ export default function useMobileHeader() {
 		id,
 		user,
 		storage,
+		pending,
 		isBoardDetail,
 		isNewStorage,
 		isNotices,
@@ -172,6 +189,7 @@ export default function useMobileHeader() {
 		onHandleLogo,
 		onHandleDrawerMenu,
 		onHandleStorageDrawerMenu,
+		onHandleCollectStorageDrawerMenu,
 		onHandleNoticeDrawerMenu,
 		onHandleMyPageDrawerMenu,
 		onHandleDrawer

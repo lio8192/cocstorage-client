@@ -30,6 +30,7 @@ import useHome from 'hooks/home/useHome';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
+			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
 				padding: 0
 			}

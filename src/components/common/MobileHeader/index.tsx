@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import AppBar from '@material-ui/core/AppBar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -32,7 +33,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NearMeIcon from '@material-ui/icons/NearMe';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
-import StorageIcon from '@material-ui/icons/Storage';
+import ForumIcon from '@material-ui/icons/Forum';
+import ArchiveIcon from '@material-ui/icons/Archive';
 
 // Custom Hooks
 import useMobileHeader from 'hooks/common/useMobileHeader';
@@ -81,6 +83,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			fontWeight: 700
 		},
 		icon: {
+			verticalAlign: 'middle'
+		},
+		circularProgress: {
+			marginLeft: theme.spacing(1),
 			verticalAlign: 'middle'
 		}
 	})
@@ -140,11 +146,11 @@ function getCategoryIconByCategoryId(categoryId: string | string[]) {
 
 function MobileHeader() {
 	const classes = useStyles();
-
 	const {
 		user: { nickname, avatarUrl, isAuthenticated },
 		id,
 		storage,
+		pending,
 		isBoardDetail,
 		isNewStorage,
 		isNotices,
@@ -156,6 +162,7 @@ function MobileHeader() {
 		onHandleNoticeChip,
 		onHandleChip,
 		onHandleStorageDrawerMenu,
+		onHandleCollectStorageDrawerMenu,
 		onHandleNoticeDrawerMenu,
 		onHandleMyPageDrawerMenu,
 		onHandleDrawer
@@ -175,20 +182,23 @@ function MobileHeader() {
 										alt={'Logo Img'}
 									/>
 								</Box>
-								{isNewStorage && (
-									<Chip
-										className={classes.chip}
-										color={'primary'}
-										label={storage.name}
-										avatar={(
-											<Avatar src={storage.avatarUrl || ''}>
-												<InsertPhotoIcon className={classes.icon} />
-											</Avatar>
-										)}
-										onClick={onHandleStorageChip}
-										size={'small'}
-									/>
-								)}
+								{isNewStorage
+									&& (pending ? (
+										<CircularProgress className={classes.circularProgress} color={'primary'} size={20} />
+									) : (
+										<Chip
+											className={classes.chip}
+											color={'primary'}
+											label={storage.name}
+											avatar={(
+												<Avatar src={storage.avatarUrl || ''}>
+													<InsertPhotoIcon className={classes.icon} />
+												</Avatar>
+											)}
+											onClick={onHandleStorageChip}
+											size={'small'}
+										/>
+									))}
 								{isBoardDetail && (
 									<Chip
 										className={classes.chip}
@@ -261,9 +271,18 @@ function MobileHeader() {
 					<List>
 						<ListItem button onClick={onHandleStorageDrawerMenu}>
 							<ListItemIcon>
-								<StorageIcon />
+								<ForumIcon />
 							</ListItemIcon>
-							<ListItemText primary={'저장소'} />
+							<ListItemText primary={'커뮤니티 저장소'} />
+						</ListItem>
+					</List>
+					<Divider className={classes.divider} />
+					<List>
+						<ListItem button onClick={onHandleCollectStorageDrawerMenu}>
+							<ListItemIcon>
+								<ArchiveIcon />
+							</ListItemIcon>
+							<ListItemText primary={'수집 저장소'} />
 						</ListItem>
 					</List>
 					<Divider className={classes.divider} />

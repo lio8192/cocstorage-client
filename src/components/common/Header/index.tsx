@@ -428,6 +428,7 @@ function Header() {
 								value={
 									activatedTab === '/'
 									|| activatedTab.indexOf('/storages') !== -1
+									|| activatedTab.indexOf('/board') !== -1
 									|| activatedTab.indexOf('/notices') !== -1
 										? activatedTab
 										: '/storages'
@@ -436,7 +437,8 @@ function Header() {
 								className={classes.indicator}
 							>
 								<Tab icon={<HomeIcon />} value={'/'} />
-								<Tab label={'저장소'} value={'/storages'} />
+								<Tab label={'커뮤니티 저장소'} value={'/storages'} />
+								<Tab label={'수집 저장소'} value={'/board'} />
 								<Tab label={'새로운 소식'} value={'/notices'} />
 							</Tabs>
 						</Container>

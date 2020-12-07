@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Modules
 import { fetchStorages, handleFetchParams, handleStorageManageDialog } from 'modules/storages';
-import { handlePageScope, handleSignInDialog } from 'modules/common';
+import { handleSignInDialog } from 'modules/common';
 import { RootState } from 'modules';
 
 export default function useStorages() {
 	const dispatch = useDispatch();
 	const {
-		user: { isAuthenticated },
-		pageScope
+		user: { isAuthenticated }
 	} = useSelector((state: RootState) => state.common);
 	const storagesState = useSelector((state: RootState) => state.storages);
 
@@ -52,31 +51,13 @@ export default function useStorages() {
 
 	const onHandleSignInDialog = useCallback(() => dispatch(handleSignInDialog()), [dispatch]);
 
-	const onHandlePageScope = useCallback(
-		(event: React.MouseEvent<HTMLButtonElement>) => {
-			const value: string = String(event.currentTarget.getAttribute('data-page-scope')) || 'storage';
-			dispatch(handlePageScope(value));
-		},
-		[dispatch]
-	);
-
-	const onHandleTabsPageScope = useCallback(
-		(event: React.ChangeEvent<{}>, newValue: string) => {
-			dispatch(handlePageScope(newValue));
-		},
-		[dispatch]
-	);
-
 	return {
 		...storagesState,
 		isAuthenticated,
-		pageScope,
 		onFetchStorages,
 		onKeyUpStorageSearchTextField,
 		onHandlePagination,
 		onHandleStorageManageDialogOpen,
-		onHandleSignInDialog,
-		onHandlePageScope,
-		onHandleTabsPageScope
+		onHandleSignInDialog
 	};
 }

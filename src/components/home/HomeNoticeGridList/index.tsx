@@ -59,10 +59,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: '#3d3d3d',
 			cursor: 'default',
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(1, 3, 0)
+				padding: theme.spacing(1, 3)
 			},
 			[theme.breakpoints.down('xs')]: {
-				padding: theme.spacing(1, 2, 0)
+				padding: theme.spacing(1, 2)
 			}
 		},
 		navigate: {
@@ -126,9 +126,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		list: {
 			height: '100%',
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0, 1)
-			},
 			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(0)
 			}
@@ -141,6 +138,14 @@ const useStyles = makeStyles((theme: Theme) =>
 				border: 'none'
 			}
 		},
+		listItem: {
+			[theme.breakpoints.down('md')]: {
+				padding: theme.spacing(1, 3)
+			},
+			[theme.breakpoints.down('xs')]: {
+				padding: theme.spacing(1, 2)
+			}
+		},
 		listItemBox: {
 			display: 'flex',
 			alignItems: 'center',
@@ -150,7 +155,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			display: 'flex',
 			alignItems: 'center',
 			maxWidth: '92%',
-			marginLeft: theme.spacing(1),
 			[theme.breakpoints.down('xs')]: {
 				maxWidth: '85%'
 			}
@@ -266,7 +270,7 @@ function HomeNoticeGridList() {
 								<Box className={classes.listBox}>
 									<List className={classes.list} disablePadding>
 										{skeletonArray.map((item) => (
-											<ListItem key={`dummy-notice-${item}`}>
+											<ListItem key={`dummy-notice-${item}`} className={classes.listItem}>
 												<Box width={'100%'}>
 													<Box className={classes.listItemBox}>
 														<Box className={classes.subjectBox}>
@@ -399,7 +403,7 @@ function HomeNoticeGridList() {
 											if (index === 0) {
 												return (
 													<Hidden key={`home-notice-m-${item.id}`} lgUp>
-														<ListItem button>
+														<ListItem className={classes.listItem} button>
 															<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
 																<Box width={'100%'}>
 																	<Box className={classes.listItemBox}>
@@ -459,7 +463,7 @@ function HomeNoticeGridList() {
 												);
 											}
 											return (
-												<ListItem key={`home-notice-${item.id}`} button>
+												<ListItem key={`home-notice-${item.id}`} className={classes.listItem} button>
 													<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
 														<Box width={'100%'}>
 															<Box className={classes.listItemBox}>

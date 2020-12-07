@@ -26,10 +26,14 @@ export default function useHeader() {
 		if (pathname.indexOf('/storages') !== -1) {
 			return '/storages';
 		}
+		if (pathname.indexOf('/board') !== -1) {
+			return '/board';
+		}
 		return pathname;
 	}, [pathname]);
 	const isHome = useMemo(() => route === '/', [route]);
-	const isBoard = useMemo(() => route === '/board/[id]', [route]);
+	const isBoard = useMemo(() => route === '/board', [route]);
+	const isBoardList = useMemo(() => route === '/board/[id]', [route]);
 	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
 	const isNewStorages = useMemo(() => route === '/storages', [route]);
 	const isStorageBoard = useMemo(() => route === '/storages/[path]', [route]);
@@ -45,12 +49,13 @@ export default function useHeader() {
 		isNoticeDetail,
 		isNoticeEdit
 	]);
-	const openTab = useMemo(() => isHome || isNewStorages || isStorageBoard || isNewNotices || isBoard, [
+	const openTab = useMemo(() => isHome || isNewStorages || isStorageBoard || isNewNotices || isBoard || isBoardList, [
 		isHome,
 		isNewStorages,
 		isStorageBoard,
 		isNewNotices,
-		isBoard
+		isBoard,
+		isBoardList
 	]);
 	const openNavigationChip = useMemo(
 		() =>

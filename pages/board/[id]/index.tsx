@@ -17,7 +17,7 @@ import Fade from '@material-ui/core/Fade';
 import { fetchBoards, handleBoardsSearchState } from 'modules/board';
 
 // Components
-import BoardHeader from 'components/board/BoardHeader';
+import BoardListHeader from 'components/board/BoardListHeader';
 import BoardList from 'components/board/BoardList';
 import GoogleAdSense from 'components/common/GoogleAdSense';
 
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function Board({ query }: NextPageContext) {
+function CollectBoard({ query }: NextPageContext) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -119,7 +119,7 @@ function Board({ query }: NextPageContext) {
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
-			<BoardHeader
+			<BoardListHeader
 				categoryId={categoryId}
 				searchState={searchState}
 				onHandleSearchTypeMenuSelect={onHandleSearchTypeMenuSelect}
@@ -166,7 +166,7 @@ function Board({ query }: NextPageContext) {
 	);
 }
 
-Board.getInitialProps = async ({ req, store, query }: NextPageContext) => {
+CollectBoard.getInitialProps = async ({ req, store, query }: NextPageContext) => {
 	let {
 		board: { searchState }
 	} = store.getState();
@@ -207,4 +207,4 @@ Board.getInitialProps = async ({ req, store, query }: NextPageContext) => {
 	};
 };
 
-export default Board;
+export default CollectBoard;
