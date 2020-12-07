@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		typography: {
 			display: 'flex',
 			alignItems: 'center',
+			width: '100%',
 			color: 'white',
 			fontWeight: 700,
 			[theme.breakpoints.down('md')]: {

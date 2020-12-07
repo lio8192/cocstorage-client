@@ -61,7 +61,7 @@ function BoardHeader() {
 						</Box>
 					</Box>
 					<Typography className={classes.descriptionTypography} variant={'caption'}>
-						{'다양한 주제의 인기글을 한 눈에 확인해보세요!'}
+						{'다양한 주제의 인기 게시글을 한 눈에 확인해보세요!'}
 					</Typography>
 				</Box>
 			</Container>
