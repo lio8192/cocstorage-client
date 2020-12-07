@@ -137,6 +137,12 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		popper: {
 			zIndex: 10
+		},
+		iconBox: {
+			color: 'white',
+			'& svg': {
+				verticalAlign: 'middle'
+			}
 		}
 	})
 );
@@ -209,12 +215,16 @@ function BoardHeader({
 			<Container className={classes.container}>
 				<Grid container justify={'space-between'}>
 					<Grid className={classes.gridItem} item xs={12} sm={12} md={12} lg={6}>
-						<Typography className={classes.typography} variant={'h5'}>
-							{getCategoryIconByCategoryId(categoryId)}
-							<Box component={'span'} ml={1}>
-								{`${getCategoryNameByCategoryId(categoryId)} 저장소`}
+						<Box display={'flex'} alignItems={'center'} width={'100%'}>
+							<Box className={classes.iconBox}>
+								{getCategoryIconByCategoryId(categoryId)}
 							</Box>
-						</Typography>
+							<Box flex={1} ml={0.5}>
+								<Typography className={classes.typography} variant={'h5'}>
+									{`${getCategoryNameByCategoryId(categoryId)} 저장소`}
+								</Typography>
+							</Box>
+						</Box>
 					</Grid>
 					<Hidden mdDown>
 						<Grid className={classes.gridItem} item xs={2} sm={6}>
