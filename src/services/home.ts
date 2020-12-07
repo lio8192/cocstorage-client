@@ -22,7 +22,7 @@ export function fetchStorages() {
 		method: 'GET',
 		params: {
 			page: 1,
-			per: 4,
+			per: 6,
 			orderBy: 'latest'
 		}
 	};
