@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			backgroundColor: 'white'
 		},
 		title: {
+			width: '100%',
 			paddingBottom: theme.spacing(1),
 			fontWeight: 700,
 			color: '#3d3d3d',
@@ -211,9 +212,11 @@ function HomeNoticeGridList() {
 		<Container className={classes.root}>
 			<Box className={classes.box}>
 				<Box className={classes.titleBox}>
-					<Typography className={classes.title} variant={'h6'} component={'h6'}>
-						{'새로운 소식'}
-					</Typography>
+					<Box flex={1}>
+						<Typography className={classes.title} variant={'h6'} component={'h6'}>
+							{'새로운 소식'}
+						</Typography>
+					</Box>
 					<Box className={classes.navigate}>
 						<Button endIcon={<NavigateNextIcon color={'action'} />} onClick={handleNavigateButtonRoute}>
 							{'더 보기'}

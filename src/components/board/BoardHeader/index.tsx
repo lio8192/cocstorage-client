@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			justifyContent: 'flex-end'
 		},
 		typography: {
+			width: '100%',
 			color: 'white',
 			[theme.breakpoints.down('md')]: {
 				fontSize: 22
@@ -53,7 +54,7 @@ function BoardHeader() {
 						<Box>
 							<ArchiveIcon className={classes.icon} fontSize={'large'} />
 						</Box>
-						<Box ml={0.5}>
+						<Box flex={1} ml={0.5}>
 							<Typography className={classes.typography} variant={'h5'}>
 								{'수집 저장소'}
 							</Typography>
