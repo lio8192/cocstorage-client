@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { NextPageContext } from 'next';
 import Head from 'next/head';
 import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
 
@@ -12,8 +11,9 @@ import BoardHeader from 'components/storages/board/BoardHeader';
 import EditForm from 'components/storages/board/edit/EditForm';
 
 // Modules
-import { fetchStorageDetail } from 'modules/storages/board';
 import { fetchStorageDetailAndStorageBoardDetail } from 'modules/storages/board/detail';
+import { END } from 'redux-saga';
+import wrapper from 'modules/store';
 
 // Custom Hooks
 import useStorageBoardEdit from 'hooks/storages/board/edit/useStorageBoardEdit';
@@ -124,20 +124,15 @@ function StorageBoardEdit() {
 	);
 }
 
-StorageBoardEdit.getInitialProps = async ({ req, store, query }: NextPageContext) => {
-	const {
-		storageBoard: { storage }
-	} = store.getState();
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, query }) => {
+	store.dispatch(fetchStorageDetailAndStorageBoardDetail({ storageId: String(query.path), id: Number(query.id) }));
 
-	const isServerSide = req && true;
+	store.dispatch(END);
+	await (store as any).sagaTask.toPromise();
 
-	if (isServerSide) {
-		store.dispatch(fetchStorageDetailAndStorageBoardDetail({ storageId: String(query.path), id: Number(query.id) }));
-	} else if (!storage.id) {
-		store.dispatch(fetchStorageDetail(String(query.path)));
-	}
-
-	return {};
-};
+	return {
+		props: {}
+	};
+});
 
 export default StorageBoardEdit;

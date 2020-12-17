@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { NextPageContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import {
@@ -36,6 +35,8 @@ import BoardList from 'components/storages/board/BoardList';
 
 // Modules
 import { fetchStorageDetail } from 'modules/storages/board';
+import { END } from 'redux-saga';
+import wrapper from 'modules/store';
 
 // Custom Hooks
 import useStorageBoard from 'hooks/storages/board/useStorageBoard';
@@ -342,16 +343,15 @@ function StorageBoard() {
 	);
 }
 
-StorageBoard.getInitialProps = async ({ store, query }: NextPageContext) => {
-	const {
-		storageBoard: { storage }
-	} = store.getState();
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, query }) => {
+	store.dispatch(fetchStorageDetail(String(query.path)));
 
-	if (storage.path !== String(query.path)) {
-		store.dispatch(fetchStorageDetail(String(query.path)));
-	}
+	store.dispatch(END);
+	await (store as any).sagaTask.toPromise();
 
-	return {};
-};
+	return {
+		props: {}
+	};
+});
 
 export default StorageBoard;

@@ -10,7 +10,7 @@ import { RootState } from 'modules';
 
 export default function useHeader() {
 	const dispatch = useDispatch();
-	const { pageScope, user } = useSelector((state: RootState) => state.common);
+	const { user } = useSelector((state: RootState) => state.common);
 	const { pending } = useSelector((state: RootState) => state.board);
 	const { storage } = useSelector((state: RootState) => state.storageBoard);
 	const router = useRouter();
@@ -174,7 +174,6 @@ export default function useHeader() {
 
 	return {
 		id,
-		pageScope,
 		user,
 		storage,
 		activatedTab,

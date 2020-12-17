@@ -13,7 +13,7 @@ import rootReducer, { RootState } from 'modules';
 import rootSaga from 'sagas';
 
 export interface SagaStore extends Store {
-	sagaTask?: Task;
+	sagaTask: Task;
 }
 
 const bindMiddleware = (middleware: [Middleware]) => {

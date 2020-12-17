@@ -167,7 +167,6 @@ function Header() {
 	const router = useRouter();
 	const {
 		id,
-		pageScope,
 		user: { nickname, avatarUrl, isAuthenticated },
 		storage,
 		activatedTab,
@@ -418,7 +417,7 @@ function Header() {
 					/>
 				</>
 			)}
-			{!isMobile && pageScope && openTab && (
+			{!isMobile && openTab && (
 				<Box>
 					<Paper className={classes.paper} variant={'outlined'} square>
 						<Container>

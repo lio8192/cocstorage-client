@@ -14,6 +14,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Modules
 import { fetchBoardDetail } from 'modules/boardDetail';
+import wrapper from 'modules/store';
 
 // Components
 import DetailContent from 'components/boardDetail/DetailContent';
@@ -26,6 +27,7 @@ import useBoardDetail from 'hooks/useBoardDetail';
 
 // Snippets
 import { getCategoryNameByCategoryId } from 'snippets/board';
+import { END } from 'redux-saga';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -156,7 +158,7 @@ function Detail({ query }: NextPageContext) {
 	);
 }
 
-Detail.getInitialProps = async ({ store, query }: NextPageContext) => {
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, query }) => {
 	const payload = {
 		id: Number(query.detail),
 		categoryId: query.id
@@ -164,9 +166,12 @@ Detail.getInitialProps = async ({ store, query }: NextPageContext) => {
 
 	store.dispatch(fetchBoardDetail(payload));
 
+	store.dispatch(END);
+	await (store as any).sagaTask.toPromise();
+
 	return {
-		query
+		props: { query }
 	};
-};
+});
 
 export default Detail;

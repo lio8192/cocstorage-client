@@ -14,7 +14,9 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Fade from '@material-ui/core/Fade';
 
 // Modules
-import { fetchBoards, handleBoardsSearchState } from 'modules/board';
+import { fetchBoards } from 'modules/board';
+import { END } from 'redux-saga';
+import wrapper from 'modules/store';
 
 // Components
 import BoardListHeader from 'components/board/BoardListHeader';
@@ -166,45 +168,28 @@ function CollectBoard({ query }: NextPageContext) {
 	);
 }
 
-CollectBoard.getInitialProps = async ({ req, store, query }: NextPageContext) => {
-	let {
-		board: { searchState }
-	} = store.getState();
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, query }) => {
 	const {
-		board: { pending }
-	} = store.getState();
-	const isServerSide = req && true;
-	let page = 1;
-
-	if (isServerSide) {
-		store.dispatch(
-			fetchBoards({
-				categoryId: query.id,
-				searchState,
-				page
-			})
-		);
-	} else if (!pending) {
-		page = Number(window.localStorage.getItem('coc-page') || 1);
-
-		const searchStateHistory = window.localStorage.getItem('coc-searchState');
-		if (searchStateHistory) {
-			searchState = JSON.parse(searchStateHistory);
-			store.dispatch(handleBoardsSearchState(searchState));
+		board: {
+			searchState,
+			pagination: { page }
 		}
+	} = store.getState();
 
-		store.dispatch(
-			fetchBoards({
-				categoryId: query.id,
-				searchState,
-				page
-			})
-		);
-	}
+	store.dispatch(
+		fetchBoards({
+			categoryId: query.id,
+			searchState,
+			page
+		})
+	);
+
+	store.dispatch(END);
+	await (store as any).sagaTask.toPromise();
 
 	return {
-		query
+		props: { query }
 	};
-};
+});
 
 export default CollectBoard;

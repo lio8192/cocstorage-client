@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { NextPageContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
@@ -11,6 +10,9 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 // Components
 import NoticeHeader from 'components/notices/NoticeHeader';
 import EditForm from 'components/notices/edit/EditForm';
+
+// Modules
+import wrapper from 'modules/store';
 
 // Custom Hooks
 import useNoticeEdit from 'hooks/notices/edit/useNoticeEdit';
@@ -85,7 +87,7 @@ function NoticeEdit() {
 	);
 }
 
-NoticeEdit.getInitialProps = async ({ req, res }: NextPageContext) => {
+export const getServerSideProps = wrapper.getServerSideProps(async ({ req, res }) => {
 	const isServerSide = req && true;
 
 	if (isServerSide && res) {
@@ -93,7 +95,9 @@ NoticeEdit.getInitialProps = async ({ req, res }: NextPageContext) => {
 		res.end();
 	}
 
-	return {};
-};
+	return {
+		props: {}
+	};
+});
 
 export default NoticeEdit;

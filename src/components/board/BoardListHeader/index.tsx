@@ -216,9 +216,7 @@ function BoardHeader({
 				<Grid container justify={'space-between'}>
 					<Grid className={classes.gridItem} item xs={12} sm={12} md={12} lg={6}>
 						<Box display={'flex'} alignItems={'center'} width={'100%'}>
-							<Box className={classes.iconBox}>
-								{getCategoryIconByCategoryId(categoryId)}
-							</Box>
+							<Box className={classes.iconBox}>{getCategoryIconByCategoryId(categoryId)}</Box>
 							<Box flex={1} ml={0.5}>
 								<Typography className={classes.typography} variant={'h5'}>
 									{`${getCategoryNameByCategoryId(categoryId)} 저장소`}

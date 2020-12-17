@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { NextPageContext } from 'next';
 import Head from 'next/head';
 import {
 	createStyles, makeStyles, Theme, useTheme
@@ -24,6 +23,8 @@ import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
 
 // Modules
 import { fetchStorageDetailAndStorageBoardDetail } from 'modules/storages/board/detail';
+import { END } from 'redux-saga';
+import wrapper from 'modules/store';
 
 // Components
 import DetailContent from 'components/storages/board/detail/DetailContent';
@@ -250,10 +251,15 @@ function StorageBoardDetail() {
 	);
 }
 
-StorageBoardDetail.getInitialProps = async ({ store, query }: NextPageContext) => {
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, query }) => {
 	store.dispatch(fetchStorageDetailAndStorageBoardDetail({ storageId: String(query.path), id: Number(query.id) }));
 
-	return {};
-};
+	store.dispatch(END);
+	await (store as any).sagaTask.toPromise();
+
+	return {
+		props: {}
+	};
+});
 
 export default StorageBoardDetail;

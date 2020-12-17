@@ -20,7 +20,7 @@ const initialState: StoragesState = {
 		currentPage: 1,
 		prevPage: null,
 		nextPage: null,
-		perPage: 20,
+		perPage: 4,
 		isLastPage: true
 	},
 	fetchParams: {
@@ -37,19 +37,10 @@ const initialState: StoragesState = {
 };
 
 const storages = createReducer<StoragesState, StoragesActions>(initialState, {
-	[HYDRATE]: (state, { payload }) => {
-		const nextState = {
-			...state,
-			...payload.storages
-		};
-
-		if (state.pending) nextState.pending = state.pending;
-
-		return {
-			...state,
-			...nextState
-		};
-	},
+	[HYDRATE]: (state, { payload }) => ({
+		...state,
+		...payload.storages
+	}),
 	[FETCH_STORAGES]: (state) => ({
 		...state,
 		pending: true

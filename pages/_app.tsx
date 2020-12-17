@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
-import { AppContext, AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import { useDispatch } from 'react-redux';
-
-// Redux-Saga
-import { END } from 'redux-saga';
 
 // Material UI
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -12,6 +9,7 @@ import theme from 'theme';
 
 // Modules
 import { setUserAuthentication } from 'modules/common';
+import wrapper from 'modules/store';
 
 // Global SCSS
 import 'styles/index.scss';
@@ -20,8 +18,6 @@ import 'swiper/components/navigation/navigation.scss';
 
 // Components
 import Layout from 'components/common/Layout';
-
-import wrapper from 'modules/store';
 
 function App({ Component, pageProps }: AppProps | any) {
 	const dispatch = useDispatch();
@@ -59,19 +55,5 @@ function App({ Component, pageProps }: AppProps | any) {
 		</ThemeProvider>
 	);
 }
-
-App.getInitialProps = async ({ Component, ctx }: AppContext) => {
-	const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
-	const { store, req } = ctx;
-
-	if (req) {
-		store.dispatch(END);
-		await (store as any).sagaTask.toPromise();
-	}
-
-	return {
-		pageProps
-	};
-};
 
 export default wrapper.withRedux(App);

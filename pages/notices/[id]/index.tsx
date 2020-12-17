@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { NextPageContext } from 'next';
 import Head from 'next/head';
 import {
 	createStyles, makeStyles, Theme, useTheme
@@ -15,6 +14,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Modules
 import { fetchNoticeDetail } from 'modules/notices/detail';
+import wrapper from 'modules/store';
+import { END } from 'redux-saga';
 
 // Components
 import DetailContent from 'components/notices/detail/DetailContent';
@@ -171,10 +172,15 @@ function NoticeDetail() {
 	);
 }
 
-NoticeDetail.getInitialProps = async ({ store, query }: NextPageContext) => {
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, query }) => {
 	store.dispatch(fetchNoticeDetail(Number(query.id || 0)));
 
-	return {};
-};
+	store.dispatch(END);
+	await (store as any).sagaTask.toPromise();
+
+	return {
+		props: {}
+	};
+});
 
 export default NoticeDetail;

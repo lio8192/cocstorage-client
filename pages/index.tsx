@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { NextPageContext } from 'next';
 import Head from 'next/head';
 import {
 	createStyles, makeStyles, Theme, useTheme
@@ -15,6 +14,8 @@ import Hidden from '@material-ui/core/Hidden';
 import {
 	fetchNotices, fetchStorages, fetchLatestStorageBoards, fetchPopularStorageBoards
 } from 'modules/home';
+import { END } from 'redux-saga';
+import wrapper from 'modules/store';
 
 // Components
 import HomeNoticeGridList from 'components/home/HomeNoticeGridList';
@@ -49,12 +50,13 @@ function Index() {
 	const theme = useTheme();
 	const {
 		previousState: { boardList, dailyPopularList, pending },
+		onFetchPackage,
 		onFetchMainContents
 	} = useHome();
 
 	useEffect(() => {
 		onFetchMainContents();
-	}, [onFetchMainContents]);
+	}, [onFetchPackage, onFetchMainContents]);
 
 	return (
 		<>
@@ -111,35 +113,18 @@ function Index() {
 	);
 }
 
-Index.getInitialProps = async ({ store }: NextPageContext) => {
-	const {
-		home: {
-			notices: { pending: noticesPending },
-			storages: { pending: storagesPending },
-			latestStorageBoards: { pending: latestStorageBoardsPending },
-			popularStorageBoards: { pending: popularStorageBoardsPending }
-		}
-	} = store.getState();
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
+	store.dispatch(fetchNotices());
+	store.dispatch(fetchStorages());
+	store.dispatch(fetchLatestStorageBoards());
+	store.dispatch(fetchPopularStorageBoards());
 
-	if (!noticesPending) {
-		store.dispatch(fetchNotices());
-	}
-
-	if (!storagesPending) {
-		store.dispatch(fetchStorages());
-	}
-
-	if (!latestStorageBoardsPending) {
-		store.dispatch(fetchLatestStorageBoards());
-	}
-
-	if (!popularStorageBoardsPending) {
-		store.dispatch(fetchPopularStorageBoards());
-	}
+	store.dispatch(END);
+	await (store as any).sagaTask.toPromise();
 
 	return {
-		store
+		props: {}
 	};
-};
+});
 
 export default Index;

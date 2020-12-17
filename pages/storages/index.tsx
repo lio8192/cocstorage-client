@@ -108,8 +108,8 @@ function Storages() {
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const {
 		pending,
-		pagination: { totalPages },
-		fetchParams: { page, name },
+		pagination: { totalPages, currentPage },
+		fetchParams: { name },
 		isAuthenticated,
 		onFetchStorages,
 		onKeyUpStorageSearchTextField,
@@ -180,7 +180,7 @@ function Storages() {
 				</Box>
 				<Pagination
 					className={classes.pagination}
-					page={page}
+					page={currentPage}
 					count={totalPages}
 					color={'primary'}
 					shape={'rounded'}

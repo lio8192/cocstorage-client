@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { NextPageContext } from 'next';
 import Head from 'next/head';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
@@ -13,6 +12,8 @@ import WriteForm from 'components/storages/board/write/WriteForm';
 
 // Modules
 import { fetchStorageDetail } from 'modules/storages/board';
+import wrapper from 'modules/store';
+import { END } from 'redux-saga';
 
 // Custom Hooks
 import useStorageBoardWrite from 'hooks/storages/board/write/useStorageBoardWrite';
@@ -116,7 +117,7 @@ function StorageBoardWrite() {
 	);
 }
 
-StorageBoardWrite.getInitialProps = async ({ store, query }: NextPageContext) => {
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, query }) => {
 	const {
 		storageBoard: { storage }
 	} = store.getState();
@@ -125,7 +126,12 @@ StorageBoardWrite.getInitialProps = async ({ store, query }: NextPageContext) =>
 		store.dispatch(fetchStorageDetail(String(query.path)));
 	}
 
-	return {};
-};
+	store.dispatch(END);
+	await (store as any).sagaTask.toPromise();
+
+	return {
+		props: {}
+	};
+});
 
 export default StorageBoardWrite;
