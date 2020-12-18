@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
-import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
+import {
+	createStyles, makeStyles, Theme, useTheme
+} from '@material-ui/core/styles';
 
 // Material UI
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,7 +20,7 @@ import NearMeIcon from '@material-ui/icons/NearMe';
 // Custom Hooks
 import useBottomNavigation from 'hooks/common/useBottomNavigation';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			position: 'fixed',
@@ -32,7 +34,10 @@ const useStyles = makeStyles(() =>
 				width: '100%',
 				whiteSpace: 'nowrap',
 				textOverflow: 'ellipsis',
-				overflow: 'hidden'
+				overflow: 'hidden',
+				[theme.breakpoints.down('sm')]: {
+					fontSize: 12
+				}
 			},
 			'& .Mui-selected': {
 				fontWeight: 700
@@ -59,25 +64,22 @@ function MobileBottomNavigation() {
 					onChange={onChangeBottomNavigation}
 					showLabels
 				>
-					<BottomNavigationAction label={'홈'} icon={<HomeIcon />} showLabel={!isMobile} value={'home'} />
+					<BottomNavigationAction label={'홈'} icon={<HomeIcon />} value={'home'} />
 					<BottomNavigationAction
 						label={'커뮤니티 저장소'}
 						icon={<ForumIcon />}
-						showLabel={!isMobile}
 						value={'storage'}
 						data-page-scope={'storage'}
 					/>
 					<BottomNavigationAction
 						label={'수집 저장소'}
 						icon={<ArchiveIcon />}
-						showLabel={!isMobile}
 						value={'collect-storage'}
 						data-page-scope={'collect-storage'}
 					/>
 					<BottomNavigationAction
 						label={'마이페이지'}
 						icon={<PersonIcon />}
-						showLabel={!isMobile}
 						value={'mypage'}
 						data-page-scope={'mypage'}
 					/>
@@ -85,7 +87,6 @@ function MobileBottomNavigation() {
 						<BottomNavigationAction
 							label={'새로운 소식'}
 							icon={<NearMeIcon />}
-							showLabel={!isMobile}
 							value={'notice'}
 							data-page-scope={'notice'}
 						/>

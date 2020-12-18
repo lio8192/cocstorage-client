@@ -9,7 +9,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Skeleton from '@material-ui/lab/Skeleton';
-import Grow from '@material-ui/core/Grow';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import Slide from '@material-ui/core/Slide';
@@ -217,156 +216,152 @@ function DetailContent({
 	return (
 		<>
 			{pending && (
-				<Grow in>
-					<Box className={classes.root}>
-						<Box className={classes.subjectBox}>
-							<Typography component={'h5'} variant={'h5'}>
-								<Skeleton animation={'wave'} height={50} />
-							</Typography>
-						</Box>
-						<Box
-							className={classes.writerInfoBox}
-							display={'flex'}
-							alignItems={'center'}
-							justifyContent={'space-between'}
-							mb={2}
-							pt={1}
-							pb={1}
-						>
-							<Box display={'flex'} alignItems={'center'}>
-								<Box>
-									<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
-								</Box>
-								<Box ml={1}>
-									<Skeleton animation={'wave'} width={50} />
-								</Box>
-							</Box>
+				<Box className={classes.root}>
+					<Box className={classes.subjectBox}>
+						<Typography component={'h5'} variant={'h5'}>
+							<Skeleton animation={'wave'} height={50} />
+						</Typography>
+					</Box>
+					<Box
+						className={classes.writerInfoBox}
+						display={'flex'}
+						alignItems={'center'}
+						justifyContent={'space-between'}
+						mb={2}
+						pt={1}
+						pb={1}
+					>
+						<Box display={'flex'} alignItems={'center'}>
 							<Box>
-								<Skeleton animation={'wave'} width={100} />
-							</Box>
-						</Box>
-						<Box className={classes.otherInfoSkeletonBox}>
-							<Box>
-								<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
-							</Box>
-							<Box ml={1} mr={1}>
-								<Skeleton animation={'wave'} width={35} />
-							</Box>
-							<Box>
-								<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
-							</Box>
-							<Box ml={1} mr={1}>
-								<Skeleton animation={'wave'} width={35} />
-							</Box>
-							<Box>
-								<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
-							</Box>
-							<Box ml={1} mr={1}>
-								<Skeleton animation={'wave'} width={35} />
-							</Box>
-							<Box>
-								<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
+								<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
 							</Box>
 							<Box ml={1}>
-								<Skeleton animation={'wave'} width={35} />
+								<Skeleton animation={'wave'} width={50} />
 							</Box>
 						</Box>
-						<Box className={classes.contentBox}>
-							<Skeleton animation={'wave'} />
-							<Skeleton animation={'wave'} />
-							<Skeleton animation={'wave'} />
-							<Box mt={1}>
-								<Skeleton variant={'rect'} animation={'wave'} height={250} />
-							</Box>
-							<Box textAlign={'center'}>
-								<Box>
-									<Box maxWidth={150} m={'auto'} mt={1}>
-										<Skeleton variant={'rect'} animation={'wave'} width={170} height={58} />
-									</Box>
+						<Box>
+							<Skeleton animation={'wave'} width={100} />
+						</Box>
+					</Box>
+					<Box className={classes.otherInfoSkeletonBox}>
+						<Box>
+							<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
+						</Box>
+						<Box ml={1} mr={1}>
+							<Skeleton animation={'wave'} width={35} />
+						</Box>
+						<Box>
+							<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
+						</Box>
+						<Box ml={1} mr={1}>
+							<Skeleton animation={'wave'} width={35} />
+						</Box>
+						<Box>
+							<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
+						</Box>
+						<Box ml={1} mr={1}>
+							<Skeleton animation={'wave'} width={35} />
+						</Box>
+						<Box>
+							<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
+						</Box>
+						<Box ml={1}>
+							<Skeleton animation={'wave'} width={35} />
+						</Box>
+					</Box>
+					<Box className={classes.contentBox}>
+						<Skeleton animation={'wave'} />
+						<Skeleton animation={'wave'} />
+						<Skeleton animation={'wave'} />
+						<Box mt={1}>
+							<Skeleton variant={'rect'} animation={'wave'} height={250} />
+						</Box>
+						<Box textAlign={'center'}>
+							<Box>
+								<Box maxWidth={150} m={'auto'} mt={1}>
+									<Skeleton variant={'rect'} animation={'wave'} width={170} height={58} />
 								</Box>
 							</Box>
 						</Box>
 					</Box>
-				</Grow>
+				</Box>
 			)}
-			{boardDetailState && (
-				<Grow in>
-					<Box className={classes.root}>
-						<Box className={classes.subjectBox}>
-							<Typography className={classes.subjectBoxTypography} component={'h5'} variant={'h5'}>
-								{data.subject}
-							</Typography>
+			{!pending && boardDetailState && (
+				<Box className={classes.root}>
+					<Box className={classes.subjectBox}>
+						<Typography className={classes.subjectBoxTypography} component={'h5'} variant={'h5'}>
+							{data.subject}
+						</Typography>
+					</Box>
+					<Box
+						className={classes.writerInfoBox}
+						display={'flex'}
+						alignItems={'center'}
+						justifyContent={'space-between'}
+						mb={2}
+						pt={1}
+						pb={1}
+					>
+						<Box display={'flex'} alignItems={'center'}>
+							<Avatar className={classes.writerAvatar}>
+								<PersonIcon />
+							</Avatar>
+							<Box ml={1}>{`${data.nickname} ${data.ip && `(${data.ip})`}`}</Box>
 						</Box>
-						<Box
-							className={classes.writerInfoBox}
-							display={'flex'}
-							alignItems={'center'}
-							justifyContent={'space-between'}
-							mb={2}
-							pt={1}
-							pb={1}
-						>
-							<Box display={'flex'} alignItems={'center'}>
-								<Avatar className={classes.writerAvatar}>
-									<PersonIcon />
-								</Avatar>
-								<Box ml={1}>{`${data.nickname} ${data.ip && `(${data.ip})`}`}</Box>
-							</Box>
-							<Box>{moment(data.register_date).format('YYYY. MM. DD HH:mm:ss')}</Box>
-						</Box>
-						<Box className={classes.otherInfoBox} display={'flex'} alignItems={'center'}>
-							<Button startIcon={<MessageIcon />} disabled>
-								{Number(commentCount).toLocaleString()}
-							</Button>
-							<Button startIcon={<VisibilityIcon />} disabled>
-								{Number(data.view).toLocaleString()}
-							</Button>
-							<Button startIcon={<ThumbUpAltSharpIcon />} disabled>
-								{Number(data.up).toLocaleString()}
-							</Button>
-							<Button startIcon={<ThumbDownAltSharpIcon />} disabled>
-								{Number(data.down).toLocaleString()}
-							</Button>
-						</Box>
-						<Box className={classes.adBox}>
-							<GoogleAdSense
-								html={
-									'<ins class="adsbygoogle"'
-									+ 'style="display:block"'
-									+ 'data-ad-client="ca-pub-5809905264951057"'
-									+ 'data-ad-slot="3990104603"'
-									+ 'data-ad-format="auto"'
-									+ 'data-full-width-responsive="true"></ins>'
-								}
-							/>
-						</Box>
-						<Box className={classes.contentBox}>
-							<Box dangerouslySetInnerHTML={{ __html: data.content || '' }} />
-							<Box textAlign={'center'}>
-								<Box>
-									<ButtonGroup className={classes.recommendButtonGroup}>
-										<Button
-											endIcon={<ThumbUpAltSharpIcon />}
-											data-thumbs-type={'up'}
-											onClick={onHandleBoardDetailRecommend}
-											disabled={disabledRecommend}
-										>
-											{Number(data.up).toLocaleString()}
-										</Button>
-										<Button
-											startIcon={<ThumbDownAltSharpIcon />}
-											data-thumbs-type={'down'}
-											onClick={onHandleBoardDetailRecommend}
-											disabled={disabledRecommend}
-										>
-											{Number(data.down).toLocaleString()}
-										</Button>
-									</ButtonGroup>
-								</Box>
+						<Box>{moment(data.register_date).format('YYYY. MM. DD HH:mm:ss')}</Box>
+					</Box>
+					<Box className={classes.otherInfoBox} display={'flex'} alignItems={'center'}>
+						<Button startIcon={<MessageIcon />} disabled>
+							{Number(commentCount).toLocaleString()}
+						</Button>
+						<Button startIcon={<VisibilityIcon />} disabled>
+							{Number(data.view).toLocaleString()}
+						</Button>
+						<Button startIcon={<ThumbUpAltSharpIcon />} disabled>
+							{Number(data.up).toLocaleString()}
+						</Button>
+						<Button startIcon={<ThumbDownAltSharpIcon />} disabled>
+							{Number(data.down).toLocaleString()}
+						</Button>
+					</Box>
+					<Box className={classes.adBox}>
+						<GoogleAdSense
+							html={
+								'<ins class="adsbygoogle"'
+								+ 'style="display:block"'
+								+ 'data-ad-client="ca-pub-5809905264951057"'
+								+ 'data-ad-slot="3990104603"'
+								+ 'data-ad-format="auto"'
+								+ 'data-full-width-responsive="true"></ins>'
+							}
+						/>
+					</Box>
+					<Box className={classes.contentBox}>
+						<Box dangerouslySetInnerHTML={{ __html: data.content || '' }} />
+						<Box textAlign={'center'}>
+							<Box>
+								<ButtonGroup className={classes.recommendButtonGroup}>
+									<Button
+										endIcon={<ThumbUpAltSharpIcon />}
+										data-thumbs-type={'up'}
+										onClick={onHandleBoardDetailRecommend}
+										disabled={disabledRecommend}
+									>
+										{Number(data.up).toLocaleString()}
+									</Button>
+									<Button
+										startIcon={<ThumbDownAltSharpIcon />}
+										data-thumbs-type={'down'}
+										onClick={onHandleBoardDetailRecommend}
+										disabled={disabledRecommend}
+									>
+										{Number(data.down).toLocaleString()}
+									</Button>
+								</ButtonGroup>
 							</Box>
 						</Box>
 					</Box>
-				</Grow>
+				</Box>
 			)}
 			<Snackbar
 				open={thumbsSnackBarOpen}

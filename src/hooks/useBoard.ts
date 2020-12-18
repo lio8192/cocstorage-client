@@ -1,9 +1,11 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, {
+	useEffect, useState, useCallback, useMemo
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
 // Modules
-import { fetchBoards, handleBoardsSearchState, SearchState } from 'modules/board';
+import { handleBoardsSearchState, handlePagination, handlePending } from 'modules/board';
 import { RootState } from 'modules';
 
 export default function useBoard() {
@@ -20,10 +22,27 @@ export default function useBoard() {
 			setAdSenseCount(adSenseCount + 1);
 
 			if (!boardState.pending) {
-				dispatch(fetchBoards({ categoryId, page: value, searchState: boardState.searchState }));
+				const query = {
+					id: categoryId,
+					page: value,
+					...boardState.searchState
+				};
+
+				if (!boardState.searchState.value) {
+					delete query.value;
+					delete query.type;
+					delete query.handle;
+				}
+
+				router
+					.push({
+						pathname: '/board/[id]',
+						query
+					})
+					.then();
 			}
 		},
-		[dispatch, categoryId, boardState.searchState, boardState.pending, adSenseCount]
+		[router, categoryId, boardState.searchState, boardState.pending, adSenseCount]
 	);
 
 	const onHandleSearchTypeMenuSelect = useCallback(
@@ -58,19 +77,42 @@ export default function useBoard() {
 		(event: React.KeyboardEvent<HTMLInputElement>) => {
 			if (event.key === 'Enter') {
 				setAdSenseCount(adSenseCount + 1);
-				const nextSearchState: SearchState = {
-					...boardState.searchState,
-					handle: true
+
+				const query = {
+					id: categoryId,
+					page: 1,
+					...boardState.searchState
 				};
 
-				if (!boardState.pending) {
-					dispatch(handleBoardsSearchState(nextSearchState));
-					dispatch(fetchBoards({ categoryId, page: 1, searchState: nextSearchState }));
+				if (!boardState.searchState.value) {
+					delete query.value;
+					delete query.type;
+					delete query.handle;
 				}
+
+				router
+					.push({
+						pathname: '/board/[id]',
+						query
+					})
+					.then();
 			}
 		},
-		[dispatch, categoryId, boardState.searchState, boardState.pending, adSenseCount]
+		[router, categoryId, boardState.searchState, adSenseCount]
 	);
+
+	useEffect(() => {
+		router.events.on('routeChangeStart', () => {
+			dispatch(handlePending(true));
+		});
+	}, [dispatch, router]);
+
+	useEffect(() => {
+		router.events.on('routeChangeComplete', () => {
+			dispatch(handlePagination(boardState.pagination));
+			dispatch(handleBoardsSearchState(boardState.searchState));
+		});
+	}, [dispatch, router, boardState.pagination, boardState.searchState]);
 
 	return {
 		categoryId,

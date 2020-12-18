@@ -24,9 +24,6 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import MenuList from '@material-ui/core/MenuList';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-// Material UI Labs
-import Skeleton from '@material-ui/lab/Skeleton';
-
 // Material UI Icons
 import ImageIcon from '@material-ui/icons/Image';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
@@ -42,6 +39,7 @@ import { Board } from 'modules/boardDetail';
 
 // Snippets
 import { getSearchTypeLabelByType } from 'snippets/board';
+import DataEmptyBox from 'components/common/DataEmptyBox';
 
 moment.locale('ko');
 
@@ -337,137 +335,15 @@ function BoardList({
 
 	return (
 		<Box className={classes.root}>
-			{pending && (
-				<Grow in>
-					<Box>
-						{Array.from({ length: 20 }, (value, index) => index).map((index) => (
-							<Grid key={`dummy-board-${index}`} className={classes.gridSkeleton} container>
-								<Grid item xs={12} md={7}>
-									<Box display={'flex'} alignItems={'center'} pb={0.5}>
-										<Box flexGrow={1}>
-											<Skeleton height={35} animation={'wave'} />
-										</Box>
-										<Box minWidth={20} ml={1}>
-											<Skeleton height={35} animation={'wave'} />
-										</Box>
-										<Box minWidth={20} ml={1}>
-											<Skeleton height={35} animation={'wave'} />
-										</Box>
-									</Box>
-								</Grid>
-								<Grid className={classes.gridItemWriterInfo} item xs={12} md={5}>
-									<Box className={classes.gridItemWriterInfoBoxSkeleton}>
-										<Box flexGrow={1} ml={1}>
-											<Skeleton height={35} animation={'wave'} />
-										</Box>
-										<Box flexGrow={1} ml={1}>
-											<Skeleton height={35} animation={'wave'} />
-										</Box>
-										<Box flexGrow={1} ml={1}>
-											<Skeleton height={35} animation={'wave'} />
-										</Box>
-										<Box flexGrow={1} ml={1}>
-											<Skeleton height={35} animation={'wave'} />
-										</Box>
-									</Box>
-								</Grid>
-							</Grid>
-						))}
-						<Hidden implementation={'css'} lgUp>
-							<Box className={classes.searchSkeletonBox}>
-								<Box flexGrow={1}>
-									<Skeleton height={50} animation={'wave'} />
-								</Box>
-							</Box>
-						</Hidden>
-						<Box display={'flex'} justifyContent={'center'} p={2} pt={0}>
-							<Box ml={1}>
-								<Skeleton width={30} height={40} animation={'wave'} />
-							</Box>
-							<Box ml={1}>
-								<Skeleton width={30} height={40} animation={'wave'} />
-							</Box>
-							<Box ml={1}>
-								<Skeleton width={30} height={40} animation={'wave'} />
-							</Box>
-							<Box ml={1}>
-								<Skeleton width={30} height={40} animation={'wave'} />
-							</Box>
-							<Box ml={1}>
-								<Skeleton width={30} height={40} animation={'wave'} />
-							</Box>
-						</Box>
-					</Box>
-				</Grow>
-			)}
-			{!pending && (
+			{boardList.length !== 0 && (
 				<>
-					<Grow in>
-						<Box>
-							{boardList.map((item: Board, index) => {
-								if (index === 5 && isMobile) {
-									return (
-										<Box key={`board-${item.id}`}>
-											<Link href={'/board/[id]/[detail]'} as={`/board/${categoryId}/${item.id}`}>
-												<a>
-													<Grid className={classes.grid} container alignItems={'center'}>
-														<Grid item xs={12} md={7}>
-															<Box display={'flex'} alignItems={'center'} p={1} pl={0}>
-																<Typography noWrap variant={'subtitle2'}>
-																	{item.subject}
-																</Typography>
-																<Typography variant={'subtitle2'}>
-																	{item.image && (
-																		<Box pl={0.5}>
-																			<ImageIcon className={classes.icon} fontSize={'small'} color={'primary'} />
-																		</Box>
-																	)}
-																</Typography>
-																<Typography variant={'subtitle2'}>
-																	<Box className={classes.commentCountBox} pl={0.5}>
-																		{`[${Number(item.commentCount).toLocaleString()}]`}
-																	</Box>
-																</Typography>
-															</Box>
-														</Grid>
-														<Grid className={classes.gridItemWriterInfo} item xs={12} md={5}>
-															<Box className={classes.gridItemWriterInfoBox}>
-																<Box className={classes.nickname}>
-																	<Typography noWrap variant={'subtitle2'}>
-																		{item.nickname}
-																	</Typography>
-																</Box>
-																<Box className={classes.registerDate}>{getRegisterDate(item.register_date)}</Box>
-																<Box className={classes.thumbs}>
-																	<ThumbUpAltIcon className={classes.icon} fontSize={'small'} />{' '}
-																	{Number(item.up).toLocaleString()}
-																</Box>
-																<Box className={classes.view}>
-																	<VisibilityIcon className={classes.icon} fontSize={'small'} />{' '}
-																	{Number(item.view).toLocaleString()}
-																</Box>
-															</Box>
-														</Grid>
-													</Grid>
-												</a>
-											</Link>
-											<Grid key={`board-ad-${item.id}`} className={classes.gridAd} container justify={'center'}>
-												<GoogleAdSense
-													html={
-														'<ins class="adsbygoogle"'
-														+ 'style="display:inline-block;width:320px;height:100px"'
-														+ 'data-ad-client="ca-pub-5809905264951057"'
-														+ 'data-ad-slot="2449792225"></ins>'
-													}
-												/>
-											</Grid>
-										</Box>
-									);
-								}
-								return (
-									<Link key={`board-${item.id}`} href={'/board/[id]/[detail]'} as={`/board/${categoryId}/${item.id}`}>
+					{boardList.map((item: Board, index) => {
+						if (index === 5 && isMobile) {
+							return (
+								<Box key={`board-${item.id}`}>
+									<Link href={'/board/[id]/[detail]'} as={`/board/${categoryId}/${item.id}`}>
 										<a>
-											<Grid className={classes.grid} container>
+											<Grid className={classes.grid} container alignItems={'center'}>
 												<Grid item xs={12} md={7}>
 													<Box display={'flex'} alignItems={'center'} p={1} pl={0}>
 														<Typography noWrap variant={'subtitle2'}>
@@ -508,10 +384,65 @@ function BoardList({
 											</Grid>
 										</a>
 									</Link>
-								);
-							})}
-						</Box>
-					</Grow>
+									<Grid key={`board-ad-${item.id}`} className={classes.gridAd} container justify={'center'}>
+										<GoogleAdSense
+											html={
+												'<ins class="adsbygoogle"'
+												+ 'style="display:inline-block;width:320px;height:100px"'
+												+ 'data-ad-client="ca-pub-5809905264951057"'
+												+ 'data-ad-slot="2449792225"></ins>'
+											}
+										/>
+									</Grid>
+								</Box>
+							);
+						}
+						return (
+							<Link key={`board-${item.id}`} href={'/board/[id]/[detail]'} as={`/board/${categoryId}/${item.id}`}>
+								<a>
+									<Grid className={classes.grid} container>
+										<Grid item xs={12} md={7}>
+											<Box display={'flex'} alignItems={'center'} p={1} pl={0}>
+												<Typography noWrap variant={'subtitle2'}>
+													{item.subject}
+												</Typography>
+												<Typography variant={'subtitle2'}>
+													{item.image && (
+														<Box pl={0.5}>
+															<ImageIcon className={classes.icon} fontSize={'small'} color={'primary'} />
+														</Box>
+													)}
+												</Typography>
+												<Typography variant={'subtitle2'}>
+													<Box className={classes.commentCountBox} pl={0.5}>
+														{`[${Number(item.commentCount).toLocaleString()}]`}
+													</Box>
+												</Typography>
+											</Box>
+										</Grid>
+										<Grid className={classes.gridItemWriterInfo} item xs={12} md={5}>
+											<Box className={classes.gridItemWriterInfoBox}>
+												<Box className={classes.nickname}>
+													<Typography noWrap variant={'subtitle2'}>
+														{item.nickname}
+													</Typography>
+												</Box>
+												<Box className={classes.registerDate}>{getRegisterDate(item.register_date)}</Box>
+												<Box className={classes.thumbs}>
+													<ThumbUpAltIcon className={classes.icon} fontSize={'small'} />{' '}
+													{Number(item.up).toLocaleString()}
+												</Box>
+												<Box className={classes.view}>
+													<VisibilityIcon className={classes.icon} fontSize={'small'} />{' '}
+													{Number(item.view).toLocaleString()}
+												</Box>
+											</Box>
+										</Grid>
+									</Grid>
+								</a>
+							</Link>
+						);
+					})}
 					<Hidden implementation={'css'} lgUp>
 						<Grid container>
 							<TextField
@@ -582,6 +513,7 @@ function BoardList({
 					/>
 				</>
 			)}
+			{!pending && boardList.length === 0 && <DataEmptyBox message={'개념글이 존재하지 않아요.'} />}
 		</Box>
 	);
 }

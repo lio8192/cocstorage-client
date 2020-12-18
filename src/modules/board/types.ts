@@ -6,7 +6,9 @@ import {
 	fetchBoardsFailed,
 	handleBoardsSearchState,
 	handleBoardClickCountState,
-	clearBoardsRelatedState
+	clearBoardsRelatedState,
+	handlePending,
+	handlePagination
 } from './actions';
 import { Board } from '../boardDetail';
 
@@ -17,7 +19,9 @@ const actions = {
 	fetchBoardsFailed,
 	handleBoardsSearchState,
 	handleBoardClickCountState,
-	clearBoardsRelatedState
+	clearBoardsRelatedState,
+	handlePending,
+	handlePagination
 };
 
 export type BoardAction = ActionType<typeof actions>;

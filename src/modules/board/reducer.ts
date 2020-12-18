@@ -6,7 +6,9 @@ import {
 	HANDLE_BOARDS_SEARCH_STATE,
 	HANDLE_BOARDS_CLICK_COUNT_STATE,
 	CLEAR_BOARDS_RELATED_STATE,
-	FETCH_BOARDS_FAILED
+	FETCH_BOARDS_FAILED,
+	HANDLE_PENDING,
+	HANDLE_PAGINATION
 } from './actions';
 import { BoardAction, BoardState } from './types';
 
@@ -83,6 +85,14 @@ const board = createReducer<BoardState, BoardAction>(initialState, {
 			...state.pagination,
 			page: 1
 		}
+	}),
+	[HANDLE_PENDING]: (state, { payload: pending }) => ({
+		...state,
+		pending
+	}),
+	[HANDLE_PAGINATION]: (state, { payload: pagination }) => ({
+		...state,
+		pagination
 	})
 });
 

@@ -25,6 +25,8 @@ export const POST_BOARD_DETAIL_RECOMMEND_FAILED = 'boardDetail/POST_BOARD_DETAIL
 
 export const CLEAR_BOARD_DETAIL_RECOMMEND_STATE = 'boardDetail/CLEAR_BOARD_DETAIL_RECOMMEND_STATE';
 
+export const HANDLE_PENDING = 'board/HANDLE_PENDING';
+
 export const fetchBoardDetail = createAction(FETCH_BOARD_DETAIL)<FetchBoardDetailPayload>();
 export const fetchBoardDetailSucceeded = createAction(FETCH_BOARD_DETAIL_SUCCEEDED)<Board>();
 export const fetchBoardDetailFailed = createAction(FETCH_BOARD_DETAIL_FAILED)();
@@ -42,3 +44,5 @@ export const postBoardDetailRecommendFailed = createAction(POST_BOARD_DETAIL_REC
 >();
 
 export const clearBoardDetailRecommendState = createAction(CLEAR_BOARD_DETAIL_RECOMMEND_STATE)();
+
+export const handlePending = createAction(HANDLE_PENDING)<boolean>();

@@ -10,7 +10,8 @@ import {
 	postBoardDetailRecommend,
 	postBoardDetailRecommendSucceeded,
 	postBoardDetailRecommendFailed,
-	clearBoardDetailRecommendState
+	clearBoardDetailRecommendState,
+	handlePending
 } from './actions';
 
 const actions = {
@@ -24,7 +25,8 @@ const actions = {
 	postBoardDetailRecommend,
 	postBoardDetailRecommendSucceeded,
 	postBoardDetailRecommendFailed,
-	clearBoardDetailRecommendState
+	clearBoardDetailRecommendState,
+	handlePending
 };
 
 export type BoardDetailAction = ActionType<typeof actions>;
@@ -134,4 +136,5 @@ export type BoardDetailState = {
 		error: boolean;
 		errorMessage: string | null;
 	};
+	pending: boolean;
 };

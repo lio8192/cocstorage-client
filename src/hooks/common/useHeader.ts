@@ -6,12 +6,13 @@ import { useSnackbar, VariantType } from 'notistack';
 // Modules
 import { handlePageScope, handleSignInDialog, deleteSignOut } from 'modules/common';
 import { clearBoardsRelatedState } from 'modules/board';
+import { handlePending } from 'modules/boardDetail';
 import { RootState } from 'modules';
 
 export default function useHeader() {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state: RootState) => state.common);
-	const { pending } = useSelector((state: RootState) => state.board);
+	const { pending, pagination, searchState } = useSelector((state: RootState) => state.board);
 	const { storage } = useSelector((state: RootState) => state.storageBoard);
 	const router = useRouter();
 	const { enqueueSnackbar } = useSnackbar();
@@ -115,18 +116,29 @@ export default function useHeader() {
 	const onHandleChip = useCallback(() => {
 		const categoryId = typeof id === 'string' ? id : '';
 
+		const query = {
+			id: categoryId,
+			page: pagination.page,
+			...searchState
+		};
+
+		if (!searchState.value) {
+			delete query.value;
+			delete query.type;
+			delete query.handle;
+		}
+
+		router.events.on('routeChangeStart', () => {
+			dispatch(handlePending(true));
+		});
+
 		router
-			.push(
-				{
-					pathname: '/board/[id]',
-					query: {
-						id: categoryId
-					}
-				},
-				`/board/${categoryId}`
-			)
+			.push({
+				pathname: '/board/[id]',
+				query
+			})
 			.then();
-	}, [router, id]);
+	}, [dispatch, router, id, pagination.page, searchState]);
 
 	const onHandleStorageChip = useCallback(() => {
 		router

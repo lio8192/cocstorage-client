@@ -8,7 +8,8 @@ import {
 	POST_BOARD_DETAIL_RECOMMEND,
 	POST_BOARD_DETAIL_RECOMMEND_SUCCEEDED,
 	POST_BOARD_DETAIL_RECOMMEND_FAILED,
-	CLEAR_BOARD_DETAIL_RECOMMEND_STATE
+	CLEAR_BOARD_DETAIL_RECOMMEND_STATE,
+	HANDLE_PENDING
 } from './actions';
 import { BoardDetailAction, BoardDetailState } from './types';
 
@@ -52,7 +53,8 @@ const initialState: BoardDetailState = {
 		pending: false,
 		error: false,
 		errorMessage: null
-	}
+	},
+	pending: false
 };
 
 const boardDetail = createReducer<BoardDetailState, BoardDetailAction>(initialState, {
@@ -189,6 +191,10 @@ const boardDetail = createReducer<BoardDetailState, BoardDetailAction>(initialSt
 			error: false,
 			errorMessage: null
 		}
+	}),
+	[HANDLE_PENDING]: (state, { payload: pending }) => ({
+		...state,
+		pending
 	})
 });
 

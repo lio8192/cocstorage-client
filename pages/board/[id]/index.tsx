@@ -12,9 +12,10 @@ import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Fade from '@material-ui/core/Fade';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // Modules
-import { fetchBoards } from 'modules/board';
+import { fetchBoards, handleBoardsSearchState } from 'modules/board';
 import { END } from 'redux-saga';
 import wrapper from 'modules/store';
 
@@ -57,6 +58,13 @@ const useStyles = makeStyles((theme: Theme) =>
 				margin: 0,
 				borderTop: `1px solid ${theme.palette.grey['50']}`
 			}
+		},
+		linearProgress: {
+			position: 'fixed',
+			width: '100%',
+			top: 0,
+			height: 5,
+			zIndex: 10000
 		}
 	})
 );
@@ -121,6 +129,9 @@ function CollectBoard({ query }: NextPageContext) {
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
+			<Fade in={pending}>
+				<LinearProgress className={classes.linearProgress} color={'primary'} />
+			</Fade>
 			<BoardListHeader
 				categoryId={categoryId}
 				searchState={searchState}
@@ -176,11 +187,18 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, que
 		}
 	} = store.getState();
 
+	const searchStateFromServer = {
+		value: String(query.value),
+		type: String(query.type),
+		handle: Boolean(query.handle)
+	};
+
+	store.dispatch(handleBoardsSearchState(query.value ? searchStateFromServer : searchState));
 	store.dispatch(
 		fetchBoards({
 			categoryId: query.id,
-			searchState,
-			page
+			searchState: query.value ? searchStateFromServer : searchState,
+			page: Number(query.page || page)
 		})
 	);
 
