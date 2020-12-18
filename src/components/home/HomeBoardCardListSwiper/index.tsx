@@ -20,12 +20,14 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 
-// Svgs
-import DefaultImageSvg from 'styles/svgs/default_image.svg';
-
 // Modules
 import { Board } from 'modules/boardDetail';
+
+// Components
 import DataEmptyBox from 'components/common/DataEmptyBox';
+
+// Svgs
+import DefaultImageSvg from 'styles/svgs/default_image.svg';
 
 type HomeBoardCardListSwiperProps = {
 	boardList: Array<Board>;
