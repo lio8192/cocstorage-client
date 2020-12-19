@@ -6,7 +6,6 @@ import { CommonActions, CommonState } from 'modules/common/types';
 import { setUserStateByJsonWebToken, updateUserStateByJsonWebToken } from 'snippets/common';
 
 import {
-	HANDLE_PAGE_SCOPE,
 	HANDLE_SIGN_IN_DIALOG,
 	HANDLE_SIGN_UP_DIALOG,
 	HANDLE_PASSWORD_FINDER_DIALOG,
@@ -30,7 +29,6 @@ import {
 } from './actions';
 
 const initialState: CommonState = {
-	pageScope: '',
 	drawerOpen: false,
 	signIn: {
 		open: false,
@@ -66,14 +64,19 @@ const initialState: CommonState = {
 };
 
 const common = createReducer<CommonState, CommonActions>(initialState, {
-	[HYDRATE]: (state, { payload }) => ({
-		...state,
-		...payload.common
-	}),
-	[HANDLE_PAGE_SCOPE]: (state, { payload: value }) => ({
-		...state,
-		pageScope: value
-	}),
+	[HYDRATE]: (state, { payload }) => {
+		const nextState = {
+			...state,
+			...payload.common
+		};
+
+		if (state.user) nextState.user = state.user;
+
+		return {
+			...state,
+			...nextState
+		};
+	},
 	[HANDLE_SIGN_IN_DIALOG]: (state) => ({
 		...state,
 		signIn: {

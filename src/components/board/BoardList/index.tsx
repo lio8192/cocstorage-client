@@ -47,7 +47,6 @@ type BoardListProps = {
 	categoryId: string | string[];
 	boardList: Array<Board>;
 	pagination: Pagination;
-	pending: boolean;
 	searchState: SearchState;
 	onHandleSearchTypeMenuSelect: (event: React.MouseEvent<HTMLLIElement>) => void;
 	onHandleSearchValueInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -304,7 +303,6 @@ function BoardList({
 	categoryId,
 	boardList,
 	pagination,
-	pending,
 	searchState,
 	onHandleSearchTypeMenuSelect,
 	onHandleSearchValueInput,
@@ -513,7 +511,7 @@ function BoardList({
 					/>
 				</>
 			)}
-			{!pending && boardList.length === 0 && <DataEmptyBox message={'개념글이 존재하지 않아요.'} />}
+			{boardList.length === 0 && <DataEmptyBox message={'개념글이 존재하지 않아요.'} />}
 		</Box>
 	);
 }

@@ -155,7 +155,7 @@ function HomeStorageGridList() {
 						</Button>
 					</Box>
 				</Box>
-				{pending && (
+				{pending && !isMobile && (
 					<Box className={classes.grid}>
 						<Grid container spacing={1}>
 							{[1, 2, 3, 4, 5, 6].map((item, index) => (
@@ -167,7 +167,7 @@ function HomeStorageGridList() {
 												<Skeleton className={classes.avatarSkeleton} variant={'circle'} width={50} height={50} />
 												<Box mt={1}>
 													<Typography className={classes.typography}>
-														<Skeleton width={200} />
+														<Skeleton width={100} />
 													</Typography>
 												</Box>
 												<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
@@ -187,6 +187,24 @@ function HomeStorageGridList() {
 							))}
 						</Grid>
 					</Box>
+				)}
+				{pending && isMobile && (
+					<List className={classes.list} disablePadding>
+						{[1, 2, 3, 4, 5, 6].map((item) => (
+							<Grow key={`dummy-home-storage-${item}`} in>
+								<ListItem className={classes.listItem} button>
+									<Box display={'flex'} alignItems={'center'}>
+										<Box mr={1}>
+											<Skeleton variant={'circle'} width={40} height={40} />
+										</Box>
+										<Box>
+											<Skeleton width={100} />
+										</Box>
+									</Box>
+								</ListItem>
+							</Grow>
+						))}
+					</List>
 				)}
 				{!pending && !isMobile && (
 					<Box className={classes.grid}>

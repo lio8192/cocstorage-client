@@ -11,10 +11,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import Backdrop from '@material-ui/core/Backdrop';
 import Pagination from '@material-ui/lab/Pagination';
-import Fade from '@material-ui/core/Fade';
 import Slide from '@material-ui/core/Slide';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { TransitionProps } from '@material-ui/core/transitions';
 
@@ -61,13 +59,6 @@ const useStyles = makeStyles((theme: Theme) =>
 				}
 			}
 		},
-		linearProgress: {
-			position: 'fixed',
-			width: '100%',
-			top: 0,
-			height: 5,
-			zIndex: 10000
-		},
 		backdrop: {
 			zIndex: theme.zIndex.drawer + 1,
 			color: '#fff'
@@ -84,7 +75,6 @@ function StorageBoardDetail() {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const {
-		pending,
 		detail: {
 			id: storageBoardId,
 			storage: {
@@ -103,14 +93,7 @@ function StorageBoardDetail() {
 			error: { open: errorOpen, message: errorMessage },
 			pending: recommendPending
 		},
-		comments: {
-			pagination,
-			pending: commentPending,
-			manage: { pending: commentManagePending }
-		},
-		replies: {
-			manage: { pending: replyManagePending }
-		},
+		comments: { pagination },
 		manage: {
 			pending: deleteAuthPending,
 			deleteAuth: { open: deleteAuthDialogOpen, subTitle }
@@ -191,9 +174,6 @@ function StorageBoardDetail() {
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
-			<Fade in={pending || commentPending || commentManagePending || replyManagePending}>
-				<LinearProgress className={classes.linearProgress} color={'primary'} />
-			</Fade>
 			<Container className={classes.root} maxWidth={isMobile ? 'md' : 'lg'}>
 				<Grid container>
 					<Grid item xs={12} sm={12} md={12} lg={12}>

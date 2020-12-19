@@ -6,6 +6,10 @@ import {
 
 export const hydrate = createAction(HYDRATE)<any>();
 
+export const FETCH_FIRST_NOTICES = 'notices/FETCH_FIRST_NOTICES';
+export const FETCH_FIRST_NOTICES_SUCCEEDED = 'notices/FETCH_FIRST_NOTICES_SUCCEEDED';
+export const FETCH_FIRST_NOTICES_FAILED = 'notices/FETCH_FIRST_NOTICES_FAILED';
+
 export const FETCH_NOTICES = 'notices/FETCH_NOTICES';
 export const FETCH_NOTICES_SUCCEEDED = 'notices/FETCH_NOTICES_SUCCEEDED';
 export const FETCH_NOTICES_FAILED = 'notices/FETCH_NOTICES_FAILED';
@@ -26,6 +30,10 @@ export const PUT_NOTICE_FAILED = 'notices/PUT_NOTICE_FAILED';
 export const FETCH_NOTICE_EDIT_DETAIL = 'notices/FETCH_NOTICE_EDIT_DETAIL';
 export const FETCH_NOTICE_EDIT_DETAIL_SUCCEEDED = 'notices/FETCH_NOTICE_EDIT_DETAIL_SUCCEEDED';
 export const FETCH_NOTICE_EDIT_DETAIL_FAILED = 'notices/FETCH_NOTICE_EDIT_DETAIL_FAILED';
+
+export const fetchFirstNotices = createAction(FETCH_FIRST_NOTICES)<FetchNoticesPayload>();
+export const fetchFirstNoticesSucceeded = createAction(FETCH_FIRST_NOTICES_SUCCEEDED)<Notice[]>();
+export const fetchFirstNoticesFailed = createAction(FETCH_FIRST_NOTICES_FAILED)();
 
 export const fetchNotices = createAction(FETCH_NOTICES)<FetchNoticesPayload>();
 export const fetchNoticesSucceeded = createAction(FETCH_NOTICES_SUCCEEDED)<Notice[]>();

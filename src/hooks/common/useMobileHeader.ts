@@ -14,7 +14,7 @@ export default function useMobileHeader() {
 		route,
 		query: { id }
 	} = router;
-	const { pageScope, user, drawerOpen } = useSelector((state: RootState) => state.common);
+	const { user, drawerOpen } = useSelector((state: RootState) => state.common);
 	const { storage } = useSelector((state: RootState) => state.storageBoard);
 	const { pending } = useSelector((state: RootState) => state.storageBoardDetail);
 
@@ -60,9 +60,14 @@ export default function useMobileHeader() {
 	const onHandleLogo = useCallback(() => {
 		dispatch(clearBoardsRelatedState());
 
-		router.push({
-			pathname: '/'
-		});
+		router
+			.push(
+				{
+					pathname: '/'
+				},
+				'/'
+			)
+			.then();
 	}, [dispatch, router]);
 
 	const onHandleDrawerMenu = useCallback(
@@ -172,7 +177,6 @@ export default function useMobileHeader() {
 	const onHandleDrawer = useCallback(() => dispatch(handleDrawer()), [dispatch]);
 
 	return {
-		pageScope,
 		id,
 		user,
 		storage,

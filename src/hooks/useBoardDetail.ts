@@ -15,7 +15,6 @@ import { RootState } from 'modules';
 export default function useBoardDetail() {
 	const dispatch = useDispatch();
 	const router = useRouter();
-	const { count } = useSelector((state: RootState) => state.board);
 	const boardDetailState = useSelector((state: RootState) => state.boardDetail);
 	const [thumbsSnackBarOpen, setThumbsSnackBarOpen] = useState<boolean>(false);
 	const [errorThumbsSnackBarOpen, setErrorThumbsSnackBarOpen] = useState<boolean>(false);
@@ -49,12 +48,6 @@ export default function useBoardDetail() {
 	const onHandleExitedSnackBar = useCallback(() => {
 		setDisabledRecommend(false);
 	}, []);
-
-	const onClearGoogleAdSenseLimit = useCallback(() => {
-		if (count >= 20) {
-			router.reload();
-		}
-	}, [router, count]);
 
 	const onHandleCommentRow = useCallback(() => {
 		setRow(row + 20);
@@ -97,12 +90,10 @@ export default function useBoardDetail() {
 
 	return {
 		...boardDetailState,
-		count,
 		thumbsSnackBarOpen,
 		errorThumbsSnackBarOpen,
 		disabledRecommend,
 		row,
-		onClearGoogleAdSenseLimit,
 		onHandleBoardDetailRecommend,
 		onHandleCloseSnackBar,
 		onHandleExitedSnackBar,

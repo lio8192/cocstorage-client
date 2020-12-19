@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
@@ -10,9 +11,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 // Components
 import NoticeHeader from 'components/notices/NoticeHeader';
 import WriteForm from 'components/notices/write/WriteForm';
-
-// Modules
-import wrapper from 'modules/store';
 
 // Custom Hooks
 import useNoticeWrite from 'hooks/notices/write/useNoticeWrite';
@@ -87,7 +85,7 @@ function NoticeWrite() {
 	);
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(async ({ req, res }) => {
+NoticeWrite.getInitialProps = async ({ req, res }: NextPageContext) => {
 	const isServerSide = req && true;
 
 	if (isServerSide && res) {
@@ -95,9 +93,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ req, res }
 		res.end();
 	}
 
-	return {
-		props: {}
-	};
-});
+	return {};
+};
 
 export default NoticeWrite;

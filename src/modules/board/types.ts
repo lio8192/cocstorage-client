@@ -7,7 +7,6 @@ import {
 	handleBoardsSearchState,
 	handleBoardClickCountState,
 	clearBoardsRelatedState,
-	handlePending,
 	handlePagination
 } from './actions';
 import { Board } from '../boardDetail';
@@ -20,7 +19,6 @@ const actions = {
 	handleBoardsSearchState,
 	handleBoardClickCountState,
 	clearBoardsRelatedState,
-	handlePending,
 	handlePagination
 };
 
@@ -61,7 +59,6 @@ export type BoardState = {
 	searchState: SearchState;
 	pagination: Pagination;
 	count: number;
-	pending: boolean;
 	error: boolean;
 	errorMessage: string | null;
 };

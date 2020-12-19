@@ -2,7 +2,9 @@ import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Modules
-import { fetchNotices, handleFetchParams, clearNotices } from 'modules/notices';
+import {
+	fetchFirstNotices, fetchNotices, handleFetchParams, clearNotices
+} from 'modules/notices';
 import { RootState } from 'modules';
 
 export default function useNotices() {
@@ -16,6 +18,18 @@ export default function useNotices() {
 		dispatch,
 		noticesState.fetchParams
 	]);
+
+	const onFetchFirstNotices = useCallback(
+		() =>
+			dispatch(
+				fetchFirstNotices({
+					per: 8,
+					page: 1,
+					orderBy: 'latest'
+				})
+			),
+		[dispatch]
+	);
 
 	const onClickFetchNoticesMoreButton = useCallback(() => {
 		window.localStorage.removeItem('lastNoticePage');
@@ -33,6 +47,7 @@ export default function useNotices() {
 		...noticesState,
 		isAuthenticated,
 		role,
+		onFetchFirstNotices,
 		onFetchNotices,
 		onClickFetchNoticesMoreButton,
 		onClearNotices

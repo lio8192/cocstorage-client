@@ -2,6 +2,9 @@ import { createReducer } from 'typesafe-actions';
 import { HYDRATE } from 'next-redux-wrapper';
 import { NoticesState, NoticesActions } from './types';
 import {
+	FETCH_FIRST_NOTICES,
+	FETCH_FIRST_NOTICES_SUCCEEDED,
+	FETCH_FIRST_NOTICES_FAILED,
 	FETCH_NOTICES,
 	FETCH_NOTICES_SUCCEEDED,
 	FETCH_NOTICES_FAILED,
@@ -68,6 +71,7 @@ const notices = createReducer<NoticesState, NoticesActions>(initialState, {
 			...payload.notices
 		};
 
+		if (state.notices) nextState.notices = state.notices;
 		if (state.fetchParams) nextState.fetchParams = state.fetchParams;
 		if (state.pending) nextState.pending = state.pending;
 		if (state.manage.pending) nextState.manage.pending = state.manage.pending;
@@ -78,6 +82,19 @@ const notices = createReducer<NoticesState, NoticesActions>(initialState, {
 			...nextState
 		};
 	},
+	[FETCH_FIRST_NOTICES]: (state) => ({
+		...state,
+		pending: true
+	}),
+	[FETCH_FIRST_NOTICES_SUCCEEDED]: (state, { payload: data }) => ({
+		...state,
+		notices: data,
+		pending: false
+	}),
+	[FETCH_FIRST_NOTICES_FAILED]: (state) => ({
+		...state,
+		pending: false
+	}),
 	[FETCH_NOTICES]: (state) => ({
 		...state,
 		pending: true
@@ -102,11 +119,6 @@ const notices = createReducer<NoticesState, NoticesActions>(initialState, {
 	}),
 	[CLEAR_NOTICES]: (state) => ({
 		...state,
-		fetchParams: {
-			per: 8,
-			page: 1,
-			orderBy: 'latest'
-		},
 		hasPageHistory: true
 	}),
 	[POST_NOTICE_DRAFT]: (state) => ({

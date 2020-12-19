@@ -4,7 +4,6 @@ import { Notification, User } from './types';
 
 export const hydrate = createAction(HYDRATE)<any>();
 
-export const HANDLE_PAGE_SCOPE = 'common/HANDLE_PAGE_SCOPE';
 export const HANDLE_SIGN_IN_DIALOG = 'common/HANDLE_SIGN_IN_DIALOG';
 export const HANDLE_SIGN_UP_DIALOG = 'common/HANDLE_SIGN_UP_DIALOG';
 export const HANDLE_PASSWORD_FINDER_DIALOG = 'common/HANDLE_PASSWORD_FINDER_DIALOG';
@@ -37,7 +36,6 @@ export const DELETE_SIGN_OUT_FAILED = 'common/DELETE_SIGN_OUT_FAILED';
 
 export const HANDLE_DRAWER = 'common/HANDLE_DRAWER';
 
-export const handlePageScope = createAction(HANDLE_PAGE_SCOPE)<string>();
 export const handleSignInDialog = createAction(HANDLE_SIGN_IN_DIALOG)();
 export const handleSignUpDialog = createAction(HANDLE_SIGN_UP_DIALOG)();
 export const handlePasswordFinderDialog = createAction(HANDLE_PASSWORD_FINDER_DIALOG)();

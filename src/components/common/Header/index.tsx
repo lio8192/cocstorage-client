@@ -106,6 +106,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		popper: {
 			left: '-27.3px !important',
 			zIndex: 10
+		},
+		avatar: {
+			width: theme.spacing(4),
+			height: theme.spacing(4)
 		}
 	})
 );
@@ -248,13 +252,15 @@ function Header() {
 										<Box>
 											<Button ref={anchorRef} onClick={handleToggle}>
 												<Box display={'flex'} alignItems={'center'}>
-													<Box display={'flex'} alignItems={'center'}>
+													<Box display={'flex'} alignItems={'center'} mr={1}>
 														<Typography className={classes.typography} variant={'body1'}>
 															{nickname}
 														</Typography>
 													</Box>
-													<Box ml={1}>
-														{avatarUrl ? <Avatar src={avatarUrl} /> : <Avatar>{nickname.charAt(0)}</Avatar>}
+													<Box>
+														<Avatar className={classes.avatar} src={avatarUrl}>
+															{nickname.charAt(0)}
+														</Avatar>
 													</Box>
 												</Box>
 											</Button>
@@ -354,13 +360,15 @@ function Header() {
 													<Box>
 														<Button ref={anchorRef} onClick={handleToggle}>
 															<Box display={'flex'} alignItems={'center'}>
-																<Box display={'flex'} alignItems={'center'}>
+																<Box display={'flex'} alignItems={'center'} mr={1}>
 																	<Typography className={classes.typography} variant={'body1'}>
 																		{nickname}
 																	</Typography>
 																</Box>
-																<Box ml={1}>
-																	{avatarUrl ? <Avatar src={avatarUrl} /> : <Avatar>{nickname.charAt(0)}</Avatar>}
+																<Box>
+																	<Avatar className={classes.avatar} src={avatarUrl}>
+																		{nickname.charAt(0)}
+																	</Avatar>
 																</Box>
 															</Box>
 														</Button>

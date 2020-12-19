@@ -1,24 +1,20 @@
-import React, { useEffect, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { useSnackbar, VariantType } from 'notistack';
 
 // Modules
-import { handlePageScope, handleSignInDialog, deleteSignOut } from 'modules/common';
+import { handleSignInDialog, deleteSignOut } from 'modules/common';
 import { clearBoardsRelatedState } from 'modules/board';
-import { handlePending } from 'modules/boardDetail';
 import { RootState } from 'modules';
 
 export default function useHeader() {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state: RootState) => state.common);
-	const { pending, pagination, searchState } = useSelector((state: RootState) => state.board);
+	const { pagination, searchState } = useSelector((state: RootState) => state.board);
 	const { storage } = useSelector((state: RootState) => state.storageBoard);
 	const router = useRouter();
-	const { enqueueSnackbar } = useSnackbar();
 	const {
 		route,
-		asPath,
 		pathname,
 		query: { id }
 	} = router;
@@ -85,39 +81,36 @@ export default function useHeader() {
 
 	const onHandleTabChange = useCallback(
 		(event: React.ChangeEvent<{}>, newValue: string) => {
-			if (!pending) {
-				const isIndexRoute: boolean = newValue === '/' && true;
-				dispatch(clearBoardsRelatedState());
+			const isIndexRoute: boolean = newValue === '/' && true;
+			dispatch(clearBoardsRelatedState());
 
-				if (isIndexRoute) {
-					router
-						.push({
+			if (isIndexRoute) {
+				router
+					.push(
+						{
 							pathname: '/'
-						})
-						.then();
-				} else {
-					router
-						.push(
-							{
-								pathname: newValue
-							},
-							newValue
-						)
-						.then();
-				}
+						},
+						'/'
+					)
+					.then();
 			} else {
-				const variant: VariantType = 'warning';
-				enqueueSnackbar('잠시 후 다시 시도해주세요.', { variant });
+				router
+					.push(
+						{
+							pathname: newValue
+						},
+						newValue
+					)
+					.then();
 			}
 		},
-		[dispatch, router, pending, enqueueSnackbar]
+		[dispatch, router]
 	);
 
 	const onHandleChip = useCallback(() => {
 		const categoryId = typeof id === 'string' ? id : '';
 
 		const query = {
-			id: categoryId,
 			page: pagination.page,
 			...searchState
 		};
@@ -128,17 +121,16 @@ export default function useHeader() {
 			delete query.handle;
 		}
 
-		router.events.on('routeChangeStart', () => {
-			dispatch(handlePending(true));
-		});
-
 		router
-			.push({
-				pathname: '/board/[id]',
-				query
-			})
+			.push(
+				{
+					pathname: '/board/[id]',
+					query
+				},
+				`/board/${categoryId}`
+			)
 			.then();
-	}, [dispatch, router, id, pagination.page, searchState]);
+	}, [router, id, pagination.page, searchState]);
 
 	const onHandleStorageChip = useCallback(() => {
 		router
@@ -175,14 +167,6 @@ export default function useHeader() {
 	const onHandleSignInDialog = useCallback(() => dispatch(handleSignInDialog()), [dispatch]);
 
 	const onDeleteSignOut = useCallback(() => dispatch(deleteSignOut()), [dispatch]);
-
-	useEffect(() => {
-		if (asPath.indexOf('board') !== -1) {
-			dispatch(handlePageScope('collect-storage'));
-		} else {
-			dispatch(handlePageScope('storage'));
-		}
-	}, [dispatch, asPath]);
 
 	return {
 		id,

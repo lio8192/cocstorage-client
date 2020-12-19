@@ -1,6 +1,9 @@
 import { ActionType } from 'typesafe-actions';
 import {
 	hydrate,
+	fetchFirstNotices,
+	fetchFirstNoticesSucceeded,
+	fetchFirstNoticesFailed,
 	fetchNotices,
 	fetchNoticesSucceeded,
 	fetchNoticesFailed,
@@ -20,6 +23,9 @@ import {
 
 const actions = {
 	hydrate,
+	fetchFirstNotices,
+	fetchFirstNoticesSucceeded,
+	fetchFirstNoticesFailed,
 	fetchNotices,
 	fetchNoticesSucceeded,
 	fetchNoticesFailed,

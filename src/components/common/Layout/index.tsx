@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'notistack';
 
@@ -18,6 +19,8 @@ import NotificationModal from 'components/common/NotificationModal';
 
 // Custom Hooks
 import useLayout from 'hooks/common/useLayout';
+import Fade from '@material-ui/core/Fade';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 type LayoutProps = {
 	children: JSX.Element | JSX.Element[];
@@ -29,11 +32,19 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				backgroundColor: '#eff1f5'
 			}
+		},
+		linearProgress: {
+			position: 'fixed',
+			width: '100%',
+			top: 0,
+			height: 5,
+			zIndex: 10000
 		}
 	})
 );
 
 function Layout({ children }: LayoutProps) {
+	const router = useRouter();
 	const classes = useStyles();
 	const {
 		notification: {
@@ -42,8 +53,23 @@ function Layout({ children }: LayoutProps) {
 		onCloseNotificationModal
 	} = useLayout();
 
+	const [pending, setPending] = useState<boolean>(false);
+
+	useEffect(() => {
+		router.events.on('routeChangeStart', () => {
+			setPending(true);
+		});
+
+		router.events.on('routeChangeComplete', () => {
+			setPending(false);
+		});
+	}, [router, pending]);
+
 	return (
 		<SnackbarProvider maxSnack={3}>
+			<Fade in={pending}>
+				<LinearProgress className={classes.linearProgress} color={'primary'} />
+			</Fade>
 			<Hidden implementation={'css'} mdDown>
 				<Header />
 			</Hidden>

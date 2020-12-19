@@ -17,8 +17,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Pagination from '@material-ui/lab/Pagination';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Fade from '@material-ui/core/Fade';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import Popper from '@material-ui/core/Popper';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -96,13 +94,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0, 2, 2)
 			}
-		},
-		linearProgress: {
-			position: 'fixed',
-			width: '100%',
-			top: 0,
-			height: 5,
-			zIndex: 10000
 		},
 		popper: {
 			zIndex: 10
@@ -228,9 +219,6 @@ function StorageBoard() {
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
-			<Fade in={pending}>
-				<LinearProgress className={classes.linearProgress} color={'primary'} />
-			</Fade>
 			<BoardHeader />
 			<Grid className={classes.root} container>
 				<Grid item xs={12}>

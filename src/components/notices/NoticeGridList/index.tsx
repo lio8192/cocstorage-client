@@ -68,9 +68,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		gridContainer: {
-			'& > .MuiGrid-item:first-child': {
-				borderTop: '1px solid'
-			}
+			// '& > .MuiGrid-item:first-child': {
+			// 	borderTop: '1px solid'
+			// }
 		},
 		gridItemContainer: {
 			height: '100%'
@@ -188,9 +188,6 @@ function NoticeGridList() {
 							<Grid
 								// eslint-disable-next-line react/no-array-index-key
 								key={`notice-section-2-${item.length}-${index}`}
-								className={clsx({
-									[classes.gridItemFirst]: index === 1
-								})}
 								item
 								xs={12}
 								lg={6}
@@ -198,7 +195,15 @@ function NoticeGridList() {
 								<Grow in>
 									<Grid className={classes.gridItemContainer} container>
 										{item.map((notice) => (
-											<Grid key={`notice-section-2-common-${notice.id}`} item xs={12} lg={6}>
+											<Grid
+												key={`notice-section-2-common-${notice.id}`}
+												className={clsx({
+													[classes.gridItemFirst]: index === 1
+												})}
+												item
+												xs={12}
+												lg={6}
+											>
 												<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
 													<Card className={classes.gridCard} square elevation={0}>
 														<CardActionArea className={classes.cardActionArea}>

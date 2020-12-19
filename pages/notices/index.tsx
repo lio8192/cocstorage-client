@@ -67,19 +67,23 @@ function Notices() {
 	const {
 		pending,
 		pagination: { totalPages, isLastPage },
+		fetchParams: { page },
 		isAuthenticated,
 		role,
 		hasPageHistory,
+		onFetchFirstNotices,
 		onFetchNotices,
 		onClickFetchNoticesMoreButton,
 		onClearNotices
 	} = useNotices();
 
 	useEffect(() => {
-		if (!hasPageHistory) {
+		if (!hasPageHistory && page === 1) {
+			onFetchFirstNotices();
+		} else if (!hasPageHistory && page >= 2) {
 			onFetchNotices();
 		}
-	}, [hasPageHistory, onFetchNotices]);
+	}, [hasPageHistory, page, onFetchFirstNotices, onFetchNotices]);
 
 	useEffect(
 		() => () => {

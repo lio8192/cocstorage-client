@@ -4,6 +4,9 @@ import Router from 'next/router';
 
 // Modules
 import {
+	fetchFirstNotices,
+	fetchFirstNoticesSucceeded,
+	fetchFirstNoticesFailed,
 	fetchNotices,
 	fetchNoticesSucceeded,
 	fetchNoticesFailed,
@@ -25,6 +28,26 @@ import * as Service from 'services/notices';
 
 // Snippets
 import { getErrorMessageByCode } from 'snippets/common';
+
+function* watchFetchFirstNotices(action: ActionType<typeof fetchFirstNotices>) {
+	const { payload } = action;
+	try {
+		const response = yield call(Service.fetchNotices, payload);
+		yield put(fetchFirstNoticesSucceeded(response.data.notices));
+		yield put(handlePagination(response.data.pagination));
+	} catch (error) {
+		yield put(fetchFirstNoticesFailed());
+		yield put(
+			handleNotificationModal({
+				open: true,
+				title: '안내',
+				contentText: getErrorMessageByCode(error.response.data.code),
+				severity: 'error',
+				route: ''
+			})
+		);
+	}
+}
 
 function* watchFetchNotices(action: ActionType<typeof fetchNotices>) {
 	const { payload } = action;
@@ -105,6 +128,7 @@ function* watchFetchNoticeEditDetail(action: ActionType<typeof fetchNoticeEditDe
 }
 
 function* noticesSaga() {
+	yield takeLatest(fetchFirstNotices, watchFetchFirstNotices);
 	yield takeLatest(fetchNotices, watchFetchNotices);
 	yield takeLatest(postNoticeDraft, watchPostNoticeDraft);
 	yield takeLatest(putNotice, watchPutNotice);

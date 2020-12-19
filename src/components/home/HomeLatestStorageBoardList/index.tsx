@@ -124,8 +124,8 @@ function HomeLatestStorageBoardList() {
 							<Box>
 								<Link href={'/storages/[path]/[id]'} as={`/storages/${item.storage.path}/${item.id}`}>
 									<ListItem className={classes.listItem} button>
-										<Box display={'flex'} alignItems={'center'} width={'100%'}>
-											<Box mr={1}>
+										<Box display={'flex'} alignItems={'center'} minWidth={0}>
+											<Box flexShrink={0} mr={1}>
 												<Chip
 													className={classes.chip}
 													color={'primary'}
@@ -138,7 +138,7 @@ function HomeLatestStorageBoardList() {
 													)}
 												/>
 											</Box>
-											<Box flex={1} display={'flex'} alignItems={'center'} maxWidth={'calc(100% - 59.5px)'}>
+											<Box flex={1} display={'flex'} alignItems={'center'} maxWidth={'calc(100% - 77.5px)'}>
 												<Typography variant={'body2'} noWrap>
 													{item.subject}
 												</Typography>

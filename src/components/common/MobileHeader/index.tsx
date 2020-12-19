@@ -88,6 +88,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		circularProgress: {
 			marginLeft: theme.spacing(1),
 			verticalAlign: 'middle'
+		},
+		avatar: {
+			width: theme.spacing(4),
+			height: theme.spacing(4)
 		}
 	})
 );
@@ -234,7 +238,11 @@ function MobileHeader() {
 						{isAuthenticated ? (
 							<Box>
 								<Box display={'flex'} alignItems={'center'} p={2}>
-									<Box>{avatarUrl ? <Avatar src={avatarUrl} /> : <Avatar>{nickname.charAt(0)}</Avatar>}</Box>
+									<Box>
+										<Avatar className={classes.avatar} src={avatarUrl}>
+											{nickname.charAt(0)}
+										</Avatar>
+									</Box>
 									<Box flex={1} ml={2}>
 										<Typography className={classes.typography} variant={'body1'}>
 											{nickname}

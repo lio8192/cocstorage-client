@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
@@ -14,6 +14,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Modules
 import { fetchBoardDetail } from 'modules/boardDetail';
+import { END } from 'redux-saga';
 import wrapper from 'modules/store';
 
 // Components
@@ -27,9 +28,6 @@ import useBoardDetail from 'hooks/useBoardDetail';
 
 // Snippets
 import { getCategoryNameByCategoryId } from 'snippets/board';
-import { END } from 'redux-saga';
-import Fade from '@material-ui/core/Fade';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -43,13 +41,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			textAlign: 'center',
 			borderTop: `1px solid ${theme.palette.grey['50']}`,
 			borderBottom: `1px solid ${theme.palette.grey['50']}`
-		},
-		linearProgress: {
-			position: 'fixed',
-			width: '100%',
-			top: 0,
-			height: 5,
-			zIndex: 10000
 		}
 	})
 );
@@ -68,7 +59,6 @@ function Detail({ query }: NextPageContext) {
 		board: { data, pending },
 		comment: { data: commentList, pending: commentPending, count: commentCount },
 		recommend: { data: alertMessage, pending: backdropOpen, errorMessage },
-		pending: pagePending,
 		row,
 		thumbsSnackBarOpen,
 		errorThumbsSnackBarOpen,
@@ -76,13 +66,8 @@ function Detail({ query }: NextPageContext) {
 		onHandleBoardDetailRecommend,
 		onHandleCloseSnackBar,
 		onHandleExitedSnackBar,
-		onClearGoogleAdSenseLimit,
 		onHandleCommentRow
 	} = useBoardDetail();
-
-	useEffect(() => {
-		onClearGoogleAdSenseLimit();
-	}, [onClearGoogleAdSenseLimit]);
 
 	return (
 		<>
@@ -121,9 +106,6 @@ function Detail({ query }: NextPageContext) {
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
-			<Fade in={pagePending}>
-				<LinearProgress className={classes.linearProgress} color={'primary'} />
-			</Fade>
 			<Container className={classes.root} maxWidth={isMobile ? 'md' : 'lg'}>
 				<Grid container>
 					<Grid item xs={12} sm={12} md={12} lg={9}>

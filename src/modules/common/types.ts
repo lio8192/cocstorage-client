@@ -1,7 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 import {
 	hydrate,
-	handlePageScope,
 	handleSignInDialog,
 	handleSignUpDialog,
 	handlePasswordFinderDialog,
@@ -28,7 +27,6 @@ import {
 
 const actions = {
 	hydrate,
-	handlePageScope,
 	handleSignInDialog,
 	handleSignUpDialog,
 	handlePasswordFinderDialog,
@@ -72,7 +70,6 @@ export type User = {
 };
 
 export type CommonState = {
-	pageScope: string;
 	drawerOpen: boolean;
 	signIn: {
 		open: boolean;
