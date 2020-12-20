@@ -54,10 +54,19 @@ const initialState: HomeState = {
 };
 
 const home = createReducer<HomeState, HomeActions>(initialState, {
-	[HYDRATE]: (state, { payload }) => ({
-		...state,
-		...payload.home
-	}),
+	[HYDRATE]: (state, { payload }) => {
+		const nextState = {
+			...state,
+			...payload.home
+		};
+
+		if (state.previousState.pending) nextState.previousState.pending = state.previousState.pending;
+
+		return {
+			...state,
+			...nextState
+		};
+	},
 	[FETCH_MAIN_CONTENTS]: (state) => ({
 		...state,
 		previousState: {

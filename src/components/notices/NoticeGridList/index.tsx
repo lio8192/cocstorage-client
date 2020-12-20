@@ -218,7 +218,7 @@ function NoticeGridList() {
 															)}
 															<CardContent className={classes.cardContent}>
 																<Box display={'flex'} alignItems={'center'}>
-																	<Box maxWidth={'80%'}>
+																	<Box maxWidth={'100%'}>
 																		<Typography className={classes.typography} noWrap variant={'body1'}>
 																			{notice.subject}
 																		</Typography>

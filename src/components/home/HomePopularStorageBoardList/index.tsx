@@ -76,6 +76,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		icon: {
 			fontSize: 14,
 			color: 'white'
+		},
+		listItemBox: {
+			flexShrink: 0,
+			marginRight: theme.spacing(1)
 		}
 	})
 );
@@ -103,15 +107,13 @@ function HomePopularStorageBoardList() {
 					&& [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
 						<Grow key={`home-dummy-popular-storage-board-${item}`} in>
 							<ListItem className={classes.listItem}>
-								<Box display={'flex'} alignItems={'center'} width={'100%'}>
-									<Box mr={1}>
+								<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
+									<Box className={classes.listItemBox}>
 										<Skeleton width={30} height={24} />
 									</Box>
-									<Box flex={1} display={'flex'} alignItems={'center'} maxWidth={'calc(100% - 59.5px)'}>
-										<Skeleton width={`${Math.round(Math.random() * 100) + 50}%`} height={24} />
-										<Box className={classes.commentBox} component={'span'}>
-											<Skeleton width={20} height={24} />
-										</Box>
+									<Skeleton width={`${Math.round(Math.random() * 100) + 50}%`} height={24} />
+									<Box className={classes.commentBox} component={'span'}>
+										<Skeleton width={20} height={24} />
 									</Box>
 								</Box>
 							</ListItem>
@@ -123,8 +125,8 @@ function HomePopularStorageBoardList() {
 							<Box>
 								<Link href={'/storages/[path]/[id]'} as={`/storages/${item.storage.path}/${item.id}`}>
 									<ListItem className={classes.listItem} button>
-										<Box display={'flex'} alignItems={'center'} width={'100%'}>
-											<Box mr={1}>
+										<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
+											<Box className={classes.listItemBox}>
 												<Chip
 													className={classes.chip}
 													color={'primary'}
@@ -137,13 +139,11 @@ function HomePopularStorageBoardList() {
 													)}
 												/>
 											</Box>
-											<Box flex={1} display={'flex'} alignItems={'center'} maxWidth={'calc(100% - 59.5px)'}>
-												<Typography variant={'body2'} noWrap>
-													{item.subject}
-												</Typography>
-												<Box className={classes.commentBox} component={'span'}>
-													{`[${item.commentTotalCount}]`}
-												</Box>
+											<Typography variant={'body2'} noWrap>
+												{item.subject}
+											</Typography>
+											<Box className={classes.commentBox} component={'span'}>
+												{`[${item.commentTotalCount}]`}
 											</Box>
 										</Box>
 									</ListItem>

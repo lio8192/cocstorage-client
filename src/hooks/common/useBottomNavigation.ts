@@ -17,12 +17,21 @@ export default function useBottomNavigation() {
 	const isBoard = useMemo(() => route === '/board', [route]);
 	const isBoardList = useMemo(() => route === '/board/[id]', [route]);
 	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
+	const isStorages = useMemo(() => route === '/storages', [route]);
+	const isStorageBoards = useMemo(() => route === '/storages/[path]', [route]);
+	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
+	const isStorageBoardWrite = useMemo(() => route === '/storages/[path]/write', [route]);
+	const isStorageBoardEdit = useMemo(() => route === '/storages/[path]/edit/[id]', [route]);
 	const isNewNotices = useMemo(() => route === '/notices', [route]);
 	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
 	const isNoticeEdit = useMemo(() => route === '/notices/edit/[id]', [route]);
 	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
 	const isMyPage = useMemo(() => route === '/mypage', [route]);
 
+	const isNewStorages = useMemo(
+		() => isStorages || isStorageBoards || isStorageBoardDetail || isStorageBoardWrite || isStorageBoardEdit,
+		[isStorages, isStorageBoards, isStorageBoardDetail, isStorageBoardWrite, isStorageBoardEdit]
+	);
 	const isCollectStorage = useMemo(() => isBoard || isBoardList || isBoardDetail, [
 		isBoard,
 		isBoardList,
@@ -39,6 +48,9 @@ export default function useBottomNavigation() {
 		if (isHome) {
 			return 'home';
 		}
+		if (isNewStorages) {
+			return 'storage';
+		}
 		if (isCollectStorage) {
 			return 'collect-storage';
 		}
@@ -48,8 +60,8 @@ export default function useBottomNavigation() {
 		if (isMyPage) {
 			return 'mypage';
 		}
-		return 'storage';
-	}, [isHome, isCollectStorage, isNotices, isMyPage]);
+		return '';
+	}, [isHome, isNewStorages, isCollectStorage, isNotices, isMyPage]);
 
 	const onChangeBottomNavigation = useCallback(
 		(event: React.ChangeEvent<{}>, value) => {
