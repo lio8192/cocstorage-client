@@ -11,7 +11,6 @@ import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Grow from '@material-ui/core/Grow';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -211,49 +210,47 @@ function HomeBoardCardList({ title, boardList, pending }: HomeBoardCardListProps
 						<Grid container>
 							{[1, 2, 3, 4, 5, 6].map((item) => (
 								<Grid key={`dummy-board-card-${item}`} className={classes.gridItemSkeleton} item xs={12} md={6}>
-									<Grow in>
-										<List>
-											<ListItem>
-												<Box className={classes.thumbnailBoxWrapper} marginRight={1}>
-													<Box className={classes.thumbnailBoxWrapperInnerSkeleton}>
-														<Box className={classes.thumbnailBoxCenteredSkeleton}>
-															<Skeleton variant={'rect'} width={'100%'} height={'100%'} animation={'wave'} />
-														</Box>
+									<List>
+										<ListItem>
+											<Box className={classes.thumbnailBoxWrapper} marginRight={1}>
+												<Box className={classes.thumbnailBoxWrapperInnerSkeleton}>
+													<Box className={classes.thumbnailBoxCenteredSkeleton}>
+														<Skeleton variant={'rect'} width={'100%'} height={'100%'} animation={'wave'} />
 													</Box>
 												</Box>
-												<ListItemText>
-													<Typography variant={'subtitle2'} gutterBottom>
-														<Skeleton width={'100%'} animation={'wave'} />
-													</Typography>
-													<Typography
-														className={classes.writerTypographySkeleton}
-														variant={'body2'}
-														color={'textSecondary'}
-														gutterBottom
-													>
-														<Box component={'span'} marginRight={1}>
-															<Skeleton width={50} animation={'wave'} />
-														</Box>
-														<Box component={'span'}>
-															<Skeleton width={50} animation={'wave'} />
-														</Box>
-													</Typography>
-													<Typography
-														className={classes.statTypographySkeleton}
-														variant={'body2'}
-														color={'textSecondary'}
-													>
-														<Box component={'span'} marginRight={1}>
-															<Skeleton width={50} animation={'wave'} />
-														</Box>
-														<Box component={'span'}>
-															<Skeleton width={50} animation={'wave'} />
-														</Box>
-													</Typography>
-												</ListItemText>
-											</ListItem>
-										</List>
-									</Grow>
+											</Box>
+											<ListItemText>
+												<Typography variant={'subtitle2'} gutterBottom>
+													<Skeleton width={'100%'} animation={'wave'} />
+												</Typography>
+												<Typography
+													className={classes.writerTypographySkeleton}
+													variant={'body2'}
+													color={'textSecondary'}
+													gutterBottom
+												>
+													<Box component={'span'} marginRight={1}>
+														<Skeleton width={50} animation={'wave'} />
+													</Box>
+													<Box component={'span'}>
+														<Skeleton width={50} animation={'wave'} />
+													</Box>
+												</Typography>
+												<Typography
+													className={classes.statTypographySkeleton}
+													variant={'body2'}
+													color={'textSecondary'}
+												>
+													<Box component={'span'} marginRight={1}>
+														<Skeleton width={50} animation={'wave'} />
+													</Box>
+													<Box component={'span'}>
+														<Skeleton width={50} animation={'wave'} />
+													</Box>
+												</Typography>
+											</ListItemText>
+										</ListItem>
+									</List>
 								</Grid>
 							))}
 						</Grid>
@@ -262,56 +259,50 @@ function HomeBoardCardList({ title, boardList, pending }: HomeBoardCardListProps
 						<Grid container>
 							{boardList.map((item: Board) => (
 								<Grid key={`board-card-${item.id}`} className={classes.gridItem} item xs={12} md={6}>
-									<Grow in>
-										<List>
-											<ListItem>
-												<Link href={'/board/[id]/[detail]'} as={`/board/${item.category_id}/${item.id}`}>
-													<a>
-														<Box display={'flex'} alignItems={'center'}>
-															<Box className={classes.thumbnailBoxWrapper} marginRight={1}>
-																<Box className={classes.thumbnailBoxWrapperInner}>
-																	<Box className={classes.thumbnailBoxCentered}>
-																		{item.image ? (
-																			<img src={item.image} alt={'Thumbnail'} />
-																		) : (
-																			<img
-																				className={classes.thumbnailBoxCenteredDefaultImage}
-																				src={DefaultImageSvg}
-																				alt={'Default Thumbnail'}
-																			/>
-																		)}
-																	</Box>
+									<List>
+										<ListItem>
+											<Link href={'/board/[id]/[detail]'} as={`/board/${item.category_id}/${item.id}`}>
+												<a>
+													<Box display={'flex'} alignItems={'center'}>
+														<Box className={classes.thumbnailBoxWrapper} marginRight={1}>
+															<Box className={classes.thumbnailBoxWrapperInner}>
+																<Box className={classes.thumbnailBoxCentered}>
+																	{item.image ? (
+																		<img src={item.image} alt={'Thumbnail'} />
+																	) : (
+																		<img
+																			className={classes.thumbnailBoxCenteredDefaultImage}
+																			src={DefaultImageSvg}
+																			alt={'Default Thumbnail'}
+																		/>
+																	)}
 																</Box>
 															</Box>
-															<ListItemText>
-																<Typography noWrap variant={'subtitle2'} gutterBottom>
-																	{item.subject}
-																</Typography>
-																<Typography noWrap variant={'body2'} color={'textSecondary'} gutterBottom>
-																	<Box className={classes.boxDate} component={'span'}>
-																		{moment(item.register_date).startOf('hour').fromNow()}
-																	</Box>
-																	<Box component={'span'}>{item.nickname}</Box>
-																</Typography>
-																<Typography
-																	className={classes.statTypography}
-																	variant={'body2'}
-																	color={'textSecondary'}
-																>
-																	<Box component={'span'} marginRight={1} fontSize={12}>
-																		<MessageIcon fontSize={'small'} /> {Number(item.commentCount).toLocaleString()}
-																	</Box>
-																	<Box component={'span'} fontSize={12}>
-																		<VisibilityIcon fontSize={'small'} /> {Number(item.view).toLocaleString()}
-																	</Box>
-																</Typography>
-															</ListItemText>
 														</Box>
-													</a>
-												</Link>
-											</ListItem>
-										</List>
-									</Grow>
+														<ListItemText>
+															<Typography noWrap variant={'subtitle2'} gutterBottom>
+																{item.subject}
+															</Typography>
+															<Typography noWrap variant={'body2'} color={'textSecondary'} gutterBottom>
+																<Box className={classes.boxDate} component={'span'}>
+																	{moment(item.register_date).startOf('hour').fromNow()}
+																</Box>
+																<Box component={'span'}>{item.nickname}</Box>
+															</Typography>
+															<Typography className={classes.statTypography} variant={'body2'} color={'textSecondary'}>
+																<Box component={'span'} marginRight={1} fontSize={12}>
+																	<MessageIcon fontSize={'small'} /> {Number(item.commentCount).toLocaleString()}
+																</Box>
+																<Box component={'span'} fontSize={12}>
+																	<VisibilityIcon fontSize={'small'} /> {Number(item.view).toLocaleString()}
+																</Box>
+															</Typography>
+														</ListItemText>
+													</Box>
+												</a>
+											</Link>
+										</ListItem>
+									</List>
 								</Grid>
 							))}
 						</Grid>

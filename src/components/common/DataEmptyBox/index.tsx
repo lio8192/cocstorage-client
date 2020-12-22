@@ -4,7 +4,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 // Material UI Box
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import Grow from '@material-ui/core/Grow';
 
 // Material UI Icons
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
@@ -42,26 +41,24 @@ function DataEmptyBox({
 }: DataEmptyBoxProps) {
 	const classes = useStyles();
 	return (
-		<Grow in>
-			<Box
-				className={classes.root}
-				pt={paddingTop || 20}
-				pb={paddingBottom || 20}
-				maxHeight={maxHeight || 'auto'}
-				minHeight={minHeight || 'auto'}
-			>
-				<Box textAlign={'center'}>
-					<Avatar className={classes.avatar}>
-						<FilterNoneIcon />
-					</Avatar>
-				</Box>
-				<Box mt={2} textAlign={'center'}>
-					<Typography className={classes.typography} variant={'h6'}>
-						{message}
-					</Typography>
-				</Box>
+		<Box
+			className={classes.root}
+			pt={paddingTop || 20}
+			pb={paddingBottom || 20}
+			maxHeight={maxHeight || 'auto'}
+			minHeight={minHeight || 'auto'}
+		>
+			<Box textAlign={'center'}>
+				<Avatar className={classes.avatar}>
+					<FilterNoneIcon />
+				</Avatar>
 			</Box>
-		</Grow>
+			<Box mt={2} textAlign={'center'}>
+				<Typography className={classes.typography} variant={'h6'}>
+					{message}
+				</Typography>
+			</Box>
+		</Box>
 	);
 }
 

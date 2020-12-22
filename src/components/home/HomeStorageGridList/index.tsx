@@ -17,7 +17,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Grow from '@material-ui/core/Grow';
 import Card from '@material-ui/core/Card';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -158,32 +157,30 @@ function HomeStorageGridList() {
 				{pending && !isMobile && (
 					<Box className={classes.grid}>
 						<Grid container spacing={1}>
-							{[1, 2, 3, 4, 5, 6].map((item, index) => (
-								<Grow key={`dummy-home-storage-${item}`} in timeout={(index + 1) * 200}>
-									<Grid item xs={12} sm={6} md={6} lg={2}>
-										<Card className={classes.card} elevation={0} square>
-											<CardContent className={classes.cardContentHead} />
-											<CardContent>
-												<Skeleton className={classes.avatarSkeleton} variant={'circle'} width={50} height={50} />
-												<Box mt={1}>
-													<Typography className={classes.typography}>
+							{[1, 2, 3, 4, 5, 6].map((item) => (
+								<Grid key={`dummy-home-storage-${item}`} item xs={12} sm={6} md={6} lg={2}>
+									<Card className={classes.card} elevation={0} square>
+										<CardContent className={classes.cardContentHead} />
+										<CardContent>
+											<Skeleton className={classes.avatarSkeleton} variant={'circle'} width={50} height={50} />
+											<Box mt={1}>
+												<Typography className={classes.typography}>
+													<Skeleton width={100} />
+												</Typography>
+											</Box>
+											<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
+												<Box>
+													<Skeleton variant={'circle'} width={20} height={20} />
+												</Box>
+												<Box ml={0.5}>
+													<Typography variant={'caption'}>
 														<Skeleton width={100} />
 													</Typography>
 												</Box>
-												<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
-													<Box>
-														<Skeleton variant={'circle'} width={20} height={20} />
-													</Box>
-													<Box ml={0.5}>
-														<Typography variant={'caption'}>
-															<Skeleton width={100} />
-														</Typography>
-													</Box>
-												</Box>
-											</CardContent>
-										</Card>
-									</Grid>
-								</Grow>
+											</Box>
+										</CardContent>
+									</Card>
+								</Grid>
 							))}
 						</Grid>
 					</Box>
@@ -191,54 +188,50 @@ function HomeStorageGridList() {
 				{pending && isMobile && (
 					<List className={classes.list} disablePadding>
 						{[1, 2, 3, 4, 5, 6].map((item) => (
-							<Grow key={`dummy-home-storage-${item}`} in>
-								<ListItem className={classes.listItem} button>
-									<Box display={'flex'} alignItems={'center'}>
-										<Box mr={1}>
-											<Skeleton variant={'circle'} width={40} height={40} />
-										</Box>
-										<Box>
-											<Skeleton width={100} />
-										</Box>
+							<ListItem key={`dummy-home-storage-${item}`} className={classes.listItem} button>
+								<Box display={'flex'} alignItems={'center'}>
+									<Box mr={1}>
+										<Skeleton variant={'circle'} width={40} height={40} />
 									</Box>
-								</ListItem>
-							</Grow>
+									<Box>
+										<Skeleton width={100} />
+									</Box>
+								</Box>
+							</ListItem>
 						))}
 					</List>
 				)}
 				{!pending && !isMobile && (
 					<Box className={classes.grid}>
 						<Grid container spacing={1}>
-							{data.map((item, index) => (
-								<Grow key={`home-storage-${item.id}`} in timeout={(index + 1) * 200}>
-									<Grid item xs={12} sm={6} md={6} lg={2}>
-										<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
-											<Card className={classes.card} elevation={0} square>
-												<CardActionArea>
-													<CardContent className={classes.cardContentHead} />
-													<CardContent>
-														<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
-															<InsertPhotoIcon />
-														</Avatar>
-														<Box mt={1}>
-															<Typography className={classes.typography}>{item.name}</Typography>
+							{data.map((item) => (
+								<Grid key={`home-storage-${item.id}`} item xs={12} sm={6} md={6} lg={2}>
+									<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
+										<Card className={classes.card} elevation={0} square>
+											<CardActionArea>
+												<CardContent className={classes.cardContentHead} />
+												<CardContent>
+													<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
+														<InsertPhotoIcon />
+													</Avatar>
+													<Box mt={1}>
+														<Typography className={classes.typography}>{item.name}</Typography>
+													</Box>
+													<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
+														<Box>
+															<ScheduleIcon className={classes.icon} color={'action'} />
 														</Box>
-														<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
-															<Box>
-																<ScheduleIcon className={classes.icon} color={'action'} />
-															</Box>
-															<Box ml={0.5}>
-																<Typography variant={'caption'}>
-																	{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
-																</Typography>
-															</Box>
+														<Box ml={0.5}>
+															<Typography variant={'caption'}>
+																{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+															</Typography>
 														</Box>
-													</CardContent>
-												</CardActionArea>
-											</Card>
-										</Link>
-									</Grid>
-								</Grow>
+													</Box>
+												</CardContent>
+											</CardActionArea>
+										</Card>
+									</Link>
+								</Grid>
 							))}
 						</Grid>
 					</Box>
@@ -246,18 +239,16 @@ function HomeStorageGridList() {
 				{!pending && isMobile && (
 					<List className={classes.list} disablePadding>
 						{data.map((item) => (
-							<Grow key={`home-storage-${item.id}`} in>
-								<Box>
-									<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
-										<ListItem className={classes.listItem} button>
-											<Avatar src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
-												<InsertPhotoIcon />
-											</Avatar>
-											<Box ml={1}>{item.name}</Box>
-										</ListItem>
-									</Link>
-								</Box>
-							</Grow>
+							<Box key={`home-storage-${item.id}`}>
+								<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
+									<ListItem className={classes.listItem} button>
+										<Avatar src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
+											<InsertPhotoIcon />
+										</Avatar>
+										<Box ml={1}>{item.name}</Box>
+									</ListItem>
+								</Link>
+							</Box>
 						))}
 					</List>
 				)}

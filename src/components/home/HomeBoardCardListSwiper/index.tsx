@@ -10,7 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import Grow from '@material-ui/core/Grow';
 import NoSsr from '@material-ui/core/NoSsr';
 
 // Material UI Labs
@@ -178,31 +177,29 @@ function HomeBoardCardListSwiper({ boardList, pending }: HomeBoardCardListSwiper
 					<Swiper className={classes.swiperContainer} spaceBetween={15} slidesPerView={'auto'}>
 						{Array.from({ length: 7 }, (value, index) => index).map((index) => (
 							<SwiperSlide key={`dummy-swiper-board-card-${index}`}>
-								<Grow in>
-									<Card square elevation={0}>
-										<Box className={classes.cardWrapper}>
-											<Box className={classes.cardWrapperInner} />
-											<Box className={classes.cardBackgroundSkeleton}>
-												<Skeleton variant={'rect'} width={'100%'} height={'100%'} animation={'wave'} />
-												<Typography noWrap className={classes.cardTitleSkeleton} variant={'h6'} component={'h6'}>
-													<Skeleton animation={'wave'} />
-												</Typography>
-												<Typography variant={'h6'} component={'h6'}>
-													<Skeleton animation={'wave'} height={15} />
-													<Skeleton animation={'wave'} height={15} />
-												</Typography>
-												<Grid container justify={'center'}>
-													<Grid item xs={6}>
-														<Skeleton width={50} animation={'wave'} />
-													</Grid>
-													<Grid item xs={6} className={classes.cardInfoViewCount}>
-														<Skeleton className={classes.cardInfoViewCountSkeleton} width={50} animation={'wave'} />
-													</Grid>
+								<Card square elevation={0}>
+									<Box className={classes.cardWrapper}>
+										<Box className={classes.cardWrapperInner} />
+										<Box className={classes.cardBackgroundSkeleton}>
+											<Skeleton variant={'rect'} width={'100%'} height={'100%'} animation={'wave'} />
+											<Typography noWrap className={classes.cardTitleSkeleton} variant={'h6'} component={'h6'}>
+												<Skeleton animation={'wave'} />
+											</Typography>
+											<Typography variant={'h6'} component={'h6'}>
+												<Skeleton animation={'wave'} height={15} />
+												<Skeleton animation={'wave'} height={15} />
+											</Typography>
+											<Grid container justify={'center'}>
+												<Grid item xs={6}>
+													<Skeleton width={50} animation={'wave'} />
 												</Grid>
-											</Box>
+												<Grid item xs={6} className={classes.cardInfoViewCount}>
+													<Skeleton className={classes.cardInfoViewCountSkeleton} width={50} animation={'wave'} />
+												</Grid>
+											</Grid>
 										</Box>
-									</Card>
-								</Grow>
+									</Box>
+								</Card>
 							</SwiperSlide>
 						))}
 					</Swiper>
@@ -219,57 +216,55 @@ function HomeBoardCardListSwiper({ boardList, pending }: HomeBoardCardListSwiper
 						>
 							{boardList.map((item: Board) => (
 								<SwiperSlide key={`swiper-board-card-${item.id}`}>
-									<Grow in>
-										<Card square>
-											<Link href={'/board/[id]/[detail]'} as={`/board/${item.category_id}/${item.id}`}>
-												<a>
-													<Box className={classes.cardWrapper}>
-														<Box className={classes.cardWrapperInner}>
-															<Box className={classes.cardCentered}>
-																{item.image ? (
-																	<img src={item.image} alt={'Thumbnail'} />
-																) : (
-																	<img
-																		className={classes.cardCenteredDefaultImage}
-																		src={DefaultImageSvg}
-																		alt={'Default Thumbnail'}
-																	/>
-																)}
-																{item.image ? (
-																	<img src={item.image} alt={'Thumbnail'} />
-																) : (
-																	<img
-																		className={classes.cardCenteredDefaultImage}
-																		src={DefaultImageSvg}
-																		alt={'Default Thumbnail'}
-																	/>
-																)}
-															</Box>
-														</Box>
-														<Box className={classes.cardBackground}>
-															<Typography noWrap className={classes.cardTitle} variant={'h6'} component={'h6'}>
-																{item.subject}
-															</Typography>
-															<Typography className={classes.cardDescription} variant={'subtitle1'}>
-																{item.description}
-															</Typography>
-															<Grid container justify={'space-between'} className={classes.cardInfo}>
-																<Grid item>{item.nickname}</Grid>
-																<Grid item className={classes.cardInfoViewCount}>
-																	<Box component={'span'} marginRight={1} fontSize={12}>
-																		<ThumbUpAltIcon fontSize={'small'} /> {Number(item.up).toLocaleString()}
-																	</Box>
-																	<Box component={'span'} fontSize={12}>
-																		<VisibilityIcon fontSize={'small'} /> {Number(item.view).toLocaleString()}
-																	</Box>
-																</Grid>
-															</Grid>
+									<Card square>
+										<Link href={'/board/[id]/[detail]'} as={`/board/${item.category_id}/${item.id}`}>
+											<a>
+												<Box className={classes.cardWrapper}>
+													<Box className={classes.cardWrapperInner}>
+														<Box className={classes.cardCentered}>
+															{item.image ? (
+																<img src={item.image} alt={'Thumbnail'} />
+															) : (
+																<img
+																	className={classes.cardCenteredDefaultImage}
+																	src={DefaultImageSvg}
+																	alt={'Default Thumbnail'}
+																/>
+															)}
+															{item.image ? (
+																<img src={item.image} alt={'Thumbnail'} />
+															) : (
+																<img
+																	className={classes.cardCenteredDefaultImage}
+																	src={DefaultImageSvg}
+																	alt={'Default Thumbnail'}
+																/>
+															)}
 														</Box>
 													</Box>
-												</a>
-											</Link>
-										</Card>
-									</Grow>
+													<Box className={classes.cardBackground}>
+														<Typography noWrap className={classes.cardTitle} variant={'h6'} component={'h6'}>
+															{item.subject}
+														</Typography>
+														<Typography className={classes.cardDescription} variant={'subtitle1'}>
+															{item.description}
+														</Typography>
+														<Grid container justify={'space-between'} className={classes.cardInfo}>
+															<Grid item>{item.nickname}</Grid>
+															<Grid item className={classes.cardInfoViewCount}>
+																<Box component={'span'} marginRight={1} fontSize={12}>
+																	<ThumbUpAltIcon fontSize={'small'} /> {Number(item.up).toLocaleString()}
+																</Box>
+																<Box component={'span'} fontSize={12}>
+																	<VisibilityIcon fontSize={'small'} /> {Number(item.view).toLocaleString()}
+																</Box>
+															</Grid>
+														</Grid>
+													</Box>
+												</Box>
+											</a>
+										</Link>
+									</Card>
 								</SwiperSlide>
 							))}
 						</Swiper>

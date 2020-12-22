@@ -12,7 +12,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
-import Grow from '@material-ui/core/Grow';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
@@ -106,51 +105,47 @@ function HomeLatestStorageBoardList() {
 			<List className={classes.list} disablePadding>
 				{pending
 					&& [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-						<Grow key={`home-dummy-latest-storage-board-${item}`} in>
-							<ListItem className={classes.listItem}>
-								<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
-									<Box className={classes.listItemBox}>
-										<Skeleton width={30} height={24} />
-									</Box>
-									<Skeleton width={`${Math.round(Math.random() * 100) + 50}%`} height={24} />
-									<Box className={classes.commentBox} component={'span'}>
-										<Skeleton width={20} height={24} />
-									</Box>
+						<ListItem key={`home-dummy-latest-storage-board-${item}`} className={classes.listItem}>
+							<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
+								<Box className={classes.listItemBox}>
+									<Skeleton width={30} height={24} />
 								</Box>
-							</ListItem>
-						</Grow>
+								<Skeleton width={`${Math.round(Math.random() * 100) + 50}%`} height={24} />
+								<Box className={classes.commentBox} component={'span'}>
+									<Skeleton width={20} height={24} />
+								</Box>
+							</Box>
+						</ListItem>
 					))}
 				{!pending
 					&& data.map((item) => (
-						<Grow key={`home-latest-storage-board-${item.id}`} in>
-							<Box>
-								<Link href={'/storages/[path]/[id]'} as={`/storages/${item.storage.path}/${item.id}`}>
-									<ListItem className={classes.listItem} button>
-										<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
-											<Box className={classes.listItemBox}>
-												<Chip
-													className={classes.chip}
-													color={'primary'}
-													label={item.storage.name}
-													size={'small'}
-													avatar={(
-														<Avatar src={item.storage.avatarUrl || ''}>
-															<InsertPhotoIcon className={classes.icon} />
-														</Avatar>
-													)}
-												/>
-											</Box>
-											<Typography variant={'body2'} noWrap>
-												{item.subject}
-											</Typography>
-											<Box className={classes.commentBox} component={'span'}>
-												{`[${item.commentTotalCount}]`}
-											</Box>
+						<Box key={`home-latest-storage-board-${item.id}`}>
+							<Link href={'/storages/[path]/[id]'} as={`/storages/${item.storage.path}/${item.id}`}>
+								<ListItem className={classes.listItem} button>
+									<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
+										<Box className={classes.listItemBox}>
+											<Chip
+												className={classes.chip}
+												color={'primary'}
+												label={item.storage.name}
+												size={'small'}
+												avatar={(
+													<Avatar src={item.storage.avatarUrl || ''}>
+														<InsertPhotoIcon className={classes.icon} />
+													</Avatar>
+												)}
+											/>
 										</Box>
-									</ListItem>
-								</Link>
-							</Box>
-						</Grow>
+										<Typography variant={'body2'} noWrap>
+											{item.subject}
+										</Typography>
+										<Box className={classes.commentBox} component={'span'}>
+											{`[${item.commentTotalCount}]`}
+										</Box>
+									</Box>
+								</ListItem>
+							</Link>
+						</Box>
 					))}
 				{!pending && data.length === 0 && (
 					<DataEmptyBox message={'최신 개념글이 존재하지 않아요.'} paddingTop={0} paddingBottom={0} maxHeight={400} />
