@@ -153,7 +153,6 @@ export type FetchParams = {
 	storageId: number;
 	orderBy: string;
 	per: number;
-	page: number;
 };
 
 export type FetchSearchParams = {

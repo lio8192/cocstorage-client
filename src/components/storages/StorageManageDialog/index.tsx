@@ -17,6 +17,7 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Slide from '@material-ui/core/Slide';
+// eslint-disable-next-line import/no-unresolved
 import { TransitionProps } from '@material-ui/core/transitions';
 
 // Material UI Icons

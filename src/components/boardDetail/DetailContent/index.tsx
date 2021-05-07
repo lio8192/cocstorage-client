@@ -14,6 +14,7 @@ import Alert from '@material-ui/lab/Alert';
 import Slide from '@material-ui/core/Slide';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+// eslint-disable-next-line import/no-unresolved
 import { TransitionProps } from '@material-ui/core/transitions';
 
 // Material UI Icons

@@ -92,9 +92,9 @@ export const postNoticeDetailComment = createAction(POST_NOTICE_DETAIL_COMMENT)<
 export const postNoticeDetailCommentSucceeded = createAction(POST_NOTICE_DETAIL_COMMENT_SUCCEEDED)();
 export const postNoticeDetailCommentFailed = createAction(POST_NOTICE_DETAIL_COMMENT_FAILED)();
 
-export const postNonMemberNoticeDetailComment = createAction(POST_NON_MEMBER_NOTICE_DETAIL_COMMENT)<
-	PostNonMemberNoticeDetailCommentPayload
->();
+export const postNonMemberNoticeDetailComment = createAction(
+	POST_NON_MEMBER_NOTICE_DETAIL_COMMENT
+)<PostNonMemberNoticeDetailCommentPayload>();
 export const postNonMemberNoticeDetailCommentSucceeded = createAction(
 	POST_NON_MEMBER_NOTICE_DETAIL_COMMENT_SUCCEEDED
 )();
@@ -102,17 +102,17 @@ export const postNonMemberNoticeDetailCommentFailed = createAction(POST_NON_MEMB
 
 export const handleNoticeDetailReplyWriteForm = createAction(HANDLE_NOTICE_DETAIL_REPLY_WRITE_FROM)<number>();
 
-export const handleNoticeDetailCommentsFetchParams = createAction(HANDLE_NOTICE_DETAIL_COMMENTS_FETCH_PARAMS)<
-	NoticeDetailCommentsFetchParams
->();
+export const handleNoticeDetailCommentsFetchParams = createAction(
+	HANDLE_NOTICE_DETAIL_COMMENTS_FETCH_PARAMS
+)<NoticeDetailCommentsFetchParams>();
 
 export const postNoticeDetailReply = createAction(POST_NOTICE_DETAIL_REPLY)<PostNoticeDetailReplyPayload>();
 export const postNoticeDetailReplySucceeded = createAction(POST_NOTICE_DETAIL_REPLY_SUCCEEDED)();
 export const postNoticeDetailReplyFailed = createAction(POST_NOTICE_DETAIL_REPLY_FAILED)();
 
-export const postNonMemberNoticeDetailReply = createAction(POST_NON_MEMBER_NOTICE_DETAIL_REPLY)<
-	PostNonMemberNoticeDetailReplyPayload
->();
+export const postNonMemberNoticeDetailReply = createAction(
+	POST_NON_MEMBER_NOTICE_DETAIL_REPLY
+)<PostNonMemberNoticeDetailReplyPayload>();
 export const postNonMemberNoticeDetailReplySucceeded = createAction(POST_NON_MEMBER_NOTICE_DETAIL_REPLY_SUCCEEDED)();
 export const postNonMemberNoticeDetailReplyFailed = createAction(POST_NON_MEMBER_NOTICE_DETAIL_REPLY_FAILED)();
 
@@ -130,9 +130,9 @@ export const deleteNoticeDetailComment = createAction(DELETE_NOTICE_DETAIL_COMME
 export const deleteNoticeDetailCommentSucceeded = createAction(DELETE_NOTICE_DETAIL_COMMENT_SUCCEEDED)();
 export const deleteNoticeDetailCommentFailed = createAction(DELETE_NOTICE_DETAIL_COMMENT_FAILED)();
 
-export const deleteNonMemberNoticeDetailComment = createAction(DELETE_NON_MEMBER_NOTICE_DETAIL_COMMENT)<
-	DeleteNonMemberNoticeDetailCommentPayload
->();
+export const deleteNonMemberNoticeDetailComment = createAction(
+	DELETE_NON_MEMBER_NOTICE_DETAIL_COMMENT
+)<DeleteNonMemberNoticeDetailCommentPayload>();
 export const deleteNonMemberNoticeDetailCommentSucceeded = createAction(
 	DELETE_NON_MEMBER_NOTICE_DETAIL_COMMENT_SUCCEEDED
 )();
@@ -142,9 +142,9 @@ export const deleteNoticeDetailReply = createAction(DELETE_NOTICE_DETAIL_REPLY)<
 export const deleteNoticeDetailReplySucceeded = createAction(DELETE_NOTICE_DETAIL_REPLY_SUCCEEDED)();
 export const deleteNoticeDetailReplyFailed = createAction(DELETE_NOTICE_DETAIL_REPLY_FAILED)();
 
-export const deleteNonMemberNoticeDetailReply = createAction(DELETE_NON_MEMBER_NOTICE_DETAIL_REPLY)<
-	DeleteNonMemberNoticeDetailReplyPayload
->();
+export const deleteNonMemberNoticeDetailReply = createAction(
+	DELETE_NON_MEMBER_NOTICE_DETAIL_REPLY
+)<DeleteNonMemberNoticeDetailReplyPayload>();
 export const deleteNonMemberNoticeDetailReplySucceeded = createAction(
 	DELETE_NON_MEMBER_NOTICE_DETAIL_REPLY_SUCCEEDED
 )();

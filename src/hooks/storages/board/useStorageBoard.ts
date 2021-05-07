@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
 // Modules
-import { handleFetchSearchParams } from 'modules/storages/board';
+import { handleFetchParams, handleFetchSearchParams } from 'modules/storages/board';
 import { RootState } from 'modules';
 
 export default function useStorageBoard() {
@@ -18,16 +18,43 @@ export default function useStorageBoard() {
 
 	const onHandlePagination = useCallback(
 		(event: React.ChangeEvent<unknown>, value: number) => {
+			const query = {
+				orderBy: storageBoardState.fetchParams.orderBy,
+				page: value,
+				type: searchType,
+				value: searchValue
+			};
+
+			if (!searchValue || !searchType) {
+				delete query.type;
+				delete query.value;
+			}
+
 			router
 				.push({
 					pathname: `/storages/${router.query.path}`,
-					query: {
-						page: value
-					}
+					query
 				})
-				.then();
+				.then(() => {
+					dispatch(
+						handleFetchParams({
+							...storageBoardState.fetchParams,
+							orderBy: query.orderBy
+						})
+					);
+
+					if (query.type || query.value) {
+						dispatch(
+							handleFetchSearchParams({
+								...storageBoardState.fetchSearchParams,
+								type: query.type,
+								value: query.value
+							})
+						);
+					}
+				});
 		},
-		[router]
+		[dispatch, router, storageBoardState.fetchParams, storageBoardState.fetchSearchParams, searchType, searchValue]
 	);
 
 	const onClickSearchType = useCallback(
@@ -50,26 +77,41 @@ export default function useStorageBoard() {
 		setSearchValue(value);
 	}, []);
 
-	const onKeyUpStorageBoardsSearchTextField = useCallback(
-		(event: React.KeyboardEvent<HTMLInputElement>) => {
-			if (event.key === 'Enter') {
-				router
-					.push({
-						pathname: `/storages/${router.query.path}`,
-						query: {
-							page: 1,
-							type: storageBoardState.fetchSearchParams.type,
-							value: searchValue
-						}
+	const onClickStorageBoardsSearchButton = useCallback(() => {
+		router
+			.push({
+				pathname: `/storages/${router.query.path}`,
+				query: {
+					page: 1,
+					type: storageBoardState.fetchSearchParams.type,
+					value: searchValue
+				}
+			})
+			.then(() =>
+				dispatch(
+					handleFetchSearchParams({
+						...storageBoardState.fetchSearchParams,
+						type: storageBoardState.fetchSearchParams.type,
+						value: searchValue
 					})
-					.then();
-			}
-		},
-		[router, storageBoardState.fetchSearchParams, searchValue]
-	);
+				)
+			);
+	}, [dispatch, router, storageBoardState.fetchSearchParams, searchValue]);
 
 	const onChangeOrderBy = useCallback(
 		(event: React.ChangeEvent<{}>, newValue: string) => {
+			const query = {
+				orderBy: newValue,
+				page: 1,
+				type: searchType,
+				value: searchValue
+			};
+
+			if (!searchValue || !searchType) {
+				delete query.type;
+				delete query.value;
+			}
+
 			router
 				.push({
 					pathname: `/storages/${router.query.path}`,
@@ -80,9 +122,18 @@ export default function useStorageBoard() {
 						value: searchValue
 					}
 				})
-				.then(() => setOrderType(newValue));
+				.then(() => {
+					dispatch(
+						handleFetchParams({
+							...storageBoardState.fetchParams,
+							orderBy: query.orderBy
+						})
+					);
+
+					setOrderType(newValue);
+				});
 		},
-		[router, searchType, searchValue]
+		[dispatch, router, storageBoardState.fetchParams, searchType, searchValue]
 	);
 
 	useEffect(() => {
@@ -102,7 +153,7 @@ export default function useStorageBoard() {
 		setOpen,
 		onHandlePagination,
 		onClickSearchType,
-		onKeyUpStorageBoardsSearchTextField,
+		onClickStorageBoardsSearchButton,
 		onChangeOrderBy,
 		onChangeStorageBoardSearchTextField
 	};

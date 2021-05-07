@@ -72,9 +72,9 @@ export const postStorageBoardDraftSucceeded = createAction(POST_STORAGE_BOARD_DR
 export const postStorageBoardDraftFailed = createAction(POST_STORAGE_BOARD_DRAFT_FAILED)();
 
 export const postNonMemberStorageBoardDraft = createAction(POST_NON_MEMBER_STORAGE_BOARD_DRAFT)<number>();
-export const postNonMemberStorageBoardDraftSucceeded = createAction(POST_NON_MEMBER_STORAGE_BOARD_DRAFT_SUCCEEDED)<
-	number
->();
+export const postNonMemberStorageBoardDraftSucceeded = createAction(
+	POST_NON_MEMBER_STORAGE_BOARD_DRAFT_SUCCEEDED
+)<number>();
 export const postNonMemberStorageBoardDraftFailed = createAction(POST_NON_MEMBER_STORAGE_BOARD_DRAFT_FAILED)();
 
 export const putStorageBoard = createAction(PUT_STORAGE_BOARD)<PutStorageBoardPayload>();
@@ -85,17 +85,17 @@ export const putNonMemberStorageBoard = createAction(PUT_NON_MEMBER_STORAGE_BOAR
 export const putNonMemberStorageBoardSucceeded = createAction(PUT_NON_MEMBER_STORAGE_BOARD_SUCCEEDED)();
 export const putNonMemberStorageBoardFailed = createAction(PUT_NON_MEMBER_STORAGE_BOARD_FAILED)();
 
-export const fetchStorageBoardEditDetail = createAction(FETCH_STORAGE_BOARD_EDIT_DETAIL)<
-	FetchStorageBoardEditDetailPayload
->();
-export const fetchStorageBoardEditDetailSucceeded = createAction(FETCH_STORAGE_BOARD_EDIT_DETAIL_SUCCEEDED)<
-	StorageBoardDetail
->();
+export const fetchStorageBoardEditDetail = createAction(
+	FETCH_STORAGE_BOARD_EDIT_DETAIL
+)<FetchStorageBoardEditDetailPayload>();
+export const fetchStorageBoardEditDetailSucceeded = createAction(
+	FETCH_STORAGE_BOARD_EDIT_DETAIL_SUCCEEDED
+)<StorageBoardDetail>();
 export const fetchStorageBoardEditDetailFailed = createAction(FETCH_STORAGE_BOARD_EDIT_DETAIL_FAILED)();
 
-export const fetchNonMemberStorageBoardEditDetail = createAction(FETCH_NON_MEMBER_STORAGE_BOARD_EDIT_DETAIL)<
-	FetchNonMemberStorageBoardEditDetailPayload
->();
+export const fetchNonMemberStorageBoardEditDetail = createAction(
+	FETCH_NON_MEMBER_STORAGE_BOARD_EDIT_DETAIL
+)<FetchNonMemberStorageBoardEditDetailPayload>();
 export const fetchNonMemberStorageBoardEditDetailSucceeded = createAction(
 	FETCH_NON_MEMBER_STORAGE_BOARD_EDIT_DETAIL_SUCCEEDED
 )<StorageBoardDetail>();

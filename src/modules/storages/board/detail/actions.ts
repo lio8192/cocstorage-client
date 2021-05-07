@@ -106,23 +106,23 @@ export const fetchStorageDetailAndStorageBoardDetailFailed = createAction(
 )();
 
 export const fetchStorageBoardDetail = createAction(FETCH_STORAGE_BOARD_DETAIL)<{ storageId: number; id: number }>();
-export const fetchStorageBoardDetailSucceeded = createAction(FETCH_STORAGE_BOARD_DETAIL_SUCCEEDED)<
-	StorageBoardDetail
->();
+export const fetchStorageBoardDetailSucceeded = createAction(
+	FETCH_STORAGE_BOARD_DETAIL_SUCCEEDED
+)<StorageBoardDetail>();
 export const fetchStorageBoardDetailFailed = createAction(FETCH_STORAGE_BOARD_DETAIL_FAILED)();
 
 export const putStorageBoardDetailViewCount = createAction(PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT)<{
 	storageId: number;
 	id: number;
 }>();
-export const putStorageBoardDetailViewCountSucceeded = createAction(PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_SUCCEEDED)<
-	number
->();
+export const putStorageBoardDetailViewCountSucceeded = createAction(
+	PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_SUCCEEDED
+)<number>();
 export const putStorageBoardDetailViewCountFailed = createAction(PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_FAILED)();
 
-export const putStorageBoardDetailRecommend = createAction(PUT_STORAGE_BOARD_DETAIL_RECOMMEND)<
-	PutStorageBoardDetailRecommendPayload
->();
+export const putStorageBoardDetailRecommend = createAction(
+	PUT_STORAGE_BOARD_DETAIL_RECOMMEND
+)<PutStorageBoardDetailRecommendPayload>();
 export const putStorageBoardDetailRecommendSucceeded = createAction(PUT_STORAGE_BOARD_DETAIL_RECOMMEND_SUCCEEDED)<{
 	message: string;
 	thumbUp: number;
@@ -130,9 +130,9 @@ export const putStorageBoardDetailRecommendSucceeded = createAction(PUT_STORAGE_
 }>();
 export const putStorageBoardDetailRecommendFailed = createAction(PUT_STORAGE_BOARD_DETAIL_RECOMMEND_FAILED)<string>();
 
-export const putNonMemberStorageBoardDetailRecommend = createAction(PUT_NON_MEMBER_STORAGE_BOARD_DETAIL_RECOMMEND)<
-	PutStorageBoardDetailRecommendPayload
->();
+export const putNonMemberStorageBoardDetailRecommend = createAction(
+	PUT_NON_MEMBER_STORAGE_BOARD_DETAIL_RECOMMEND
+)<PutStorageBoardDetailRecommendPayload>();
 export const putNonMemberStorageBoardDetailRecommendSucceeded = createAction(
 	PUT_NON_MEMBER_STORAGE_BOARD_DETAIL_RECOMMEND_SUCCEEDED
 )<{
@@ -149,24 +149,24 @@ export const closeStorageBoardDetailRecommendErrorSnackbar = createAction(
 	CLOSE_STORAGE_BOARD_DETAIL_RECOMMEND_ERROR_SNACKBAR
 )();
 
-export const fetchStorageBoardDetailComments = createAction(FETCH_STORAGE_BOARD_DETAIL_COMMENTS)<
-	FetchStorageBoardDetailCommentsPayload
->();
+export const fetchStorageBoardDetailComments = createAction(
+	FETCH_STORAGE_BOARD_DETAIL_COMMENTS
+)<FetchStorageBoardDetailCommentsPayload>();
 export const fetchStorageBoardDetailCommentsSucceeded = createAction(FETCH_STORAGE_BOARD_DETAIL_COMMENTS_SUCCEEDED)<{
 	data: StorageBoardDetailComment[];
 	pagination: Pagination;
 }>();
 export const fetchStorageBoardDetailCommentsFailed = createAction(FETCH_STORAGE_BOARD_DETAIL_COMMENTS_FAILED)();
 
-export const postStorageBoardDetailComment = createAction(POST_STORAGE_BOARD_DETAIL_COMMENT)<
-	PostStorageBoardDetailCommentPayload
->();
+export const postStorageBoardDetailComment = createAction(
+	POST_STORAGE_BOARD_DETAIL_COMMENT
+)<PostStorageBoardDetailCommentPayload>();
 export const postStorageBoardDetailCommentSucceeded = createAction(POST_STORAGE_BOARD_DETAIL_COMMENT_SUCCEEDED)();
 export const postStorageBoardDetailCommentFailed = createAction(POST_STORAGE_BOARD_DETAIL_COMMENT_FAILED)();
 
-export const postNonMemberStorageBoardDetailComment = createAction(POST_NON_MEMBER_STORAGE_BOARD_DETAIL_COMMENT)<
-	PostNonMemberStorageBoardDetailCommentPayload
->();
+export const postNonMemberStorageBoardDetailComment = createAction(
+	POST_NON_MEMBER_STORAGE_BOARD_DETAIL_COMMENT
+)<PostNonMemberStorageBoardDetailCommentPayload>();
 export const postNonMemberStorageBoardDetailCommentSucceeded = createAction(
 	POST_NON_MEMBER_STORAGE_BOARD_DETAIL_COMMENT_SUCCEEDED
 )();
@@ -174,23 +174,23 @@ export const postNonMemberStorageBoardDetailCommentFailed = createAction(
 	POST_NON_MEMBER_STORAGE_BOARD_DETAIL_COMMENT_FAILED
 )();
 
-export const handleStorageBoardDetailReplyWriteForm = createAction(HANDLE_STORAGE_BOARD_DETAIL_REPLY_WRITE_FROM)<
-	number
->();
+export const handleStorageBoardDetailReplyWriteForm = createAction(
+	HANDLE_STORAGE_BOARD_DETAIL_REPLY_WRITE_FROM
+)<number>();
 
 export const handleStorageBoardDetailCommentsFetchParams = createAction(
 	HANDLE_STORAGE_BOARD_DETAIL_COMMENTS_FETCH_PARAMS
 )<StorageBoardDetailCommentsFetchParams>();
 
-export const postStorageBoardDetailReply = createAction(POST_STORAGE_BOARD_DETAIL_REPLY)<
-	PostStorageBoardDetailReplyPayload
->();
+export const postStorageBoardDetailReply = createAction(
+	POST_STORAGE_BOARD_DETAIL_REPLY
+)<PostStorageBoardDetailReplyPayload>();
 export const postStorageBoardDetailReplySucceeded = createAction(POST_STORAGE_BOARD_DETAIL_REPLY_SUCCEEDED)();
 export const postStorageBoardDetailReplyFailed = createAction(POST_STORAGE_BOARD_DETAIL_REPLY_FAILED)();
 
-export const postNonMemberStorageBoardDetailReply = createAction(POST_NON_MEMBER_STORAGE_BOARD_DETAIL_REPLY)<
-	PostNonMemberStorageBoardDetailReplyPayload
->();
+export const postNonMemberStorageBoardDetailReply = createAction(
+	POST_NON_MEMBER_STORAGE_BOARD_DETAIL_REPLY
+)<PostNonMemberStorageBoardDetailReplyPayload>();
 export const postNonMemberStorageBoardDetailReplySucceeded = createAction(
 	POST_NON_MEMBER_STORAGE_BOARD_DETAIL_REPLY_SUCCEEDED
 )();
@@ -208,23 +208,23 @@ export const deleteStorageBoardDetail = createAction(DELETE_STORAGE_BOARD_DETAIL
 export const deleteStorageBoardDetailSucceeded = createAction(DELETE_STORAGE_BOARD_DETAIL_SUCCEEDED)();
 export const deleteStorageBoardDetailFailed = createAction(DELETE_STORAGE_BOARD_DETAIL_FAILED)();
 
-export const deleteNonMemberStorageBoardDetail = createAction(DELETE_NON_MEMBER_STORAGE_BOARD_DETAIL)<
-	DeleteNonMemberStorageBoardDetailPayload
->();
+export const deleteNonMemberStorageBoardDetail = createAction(
+	DELETE_NON_MEMBER_STORAGE_BOARD_DETAIL
+)<DeleteNonMemberStorageBoardDetailPayload>();
 export const deleteNonMemberStorageBoardDetailSucceeded = createAction(
 	DELETE_NON_MEMBER_STORAGE_BOARD_DETAIL_SUCCEEDED
 )();
 export const deleteNonMemberStorageBoardDetailFailed = createAction(DELETE_NON_MEMBER_STORAGE_BOARD_DETAIL_FAILED)();
 
-export const deleteStorageBoardDetailComment = createAction(DELETE_STORAGE_BOARD_DETAIL_COMMENT)<
-	DeleteStorageBoardDetailCommentPayload
->();
+export const deleteStorageBoardDetailComment = createAction(
+	DELETE_STORAGE_BOARD_DETAIL_COMMENT
+)<DeleteStorageBoardDetailCommentPayload>();
 export const deleteStorageBoardDetailCommentSucceeded = createAction(DELETE_STORAGE_BOARD_DETAIL_COMMENT_SUCCEEDED)();
 export const deleteStorageBoardDetailCommentFailed = createAction(DELETE_STORAGE_BOARD_DETAIL_COMMENT_FAILED)();
 
-export const deleteNonMemberStorageBoardDetailComment = createAction(DELETE_NON_MEMBER_STORAGE_BOARD_DETAIL_COMMENT)<
-	DeleteNonMemberStorageBoardDetailCommentPayload
->();
+export const deleteNonMemberStorageBoardDetailComment = createAction(
+	DELETE_NON_MEMBER_STORAGE_BOARD_DETAIL_COMMENT
+)<DeleteNonMemberStorageBoardDetailCommentPayload>();
 export const deleteNonMemberStorageBoardDetailCommentSucceeded = createAction(
 	DELETE_NON_MEMBER_STORAGE_BOARD_DETAIL_COMMENT_SUCCEEDED
 )();
@@ -232,15 +232,15 @@ export const deleteNonMemberStorageBoardDetailCommentFailed = createAction(
 	DELETE_NON_MEMBER_STORAGE_BOARD_DETAIL_COMMENT_FAILED
 )();
 
-export const deleteStorageBoardDetailReply = createAction(DELETE_STORAGE_BOARD_DETAIL_REPLY)<
-	DeleteStorageBoardDetailReplyPayload
->();
+export const deleteStorageBoardDetailReply = createAction(
+	DELETE_STORAGE_BOARD_DETAIL_REPLY
+)<DeleteStorageBoardDetailReplyPayload>();
 export const deleteStorageBoardDetailReplySucceeded = createAction(DELETE_STORAGE_BOARD_DETAIL_REPLY_SUCCEEDED)();
 export const deleteStorageBoardDetailReplyFailed = createAction(DELETE_STORAGE_BOARD_DETAIL_REPLY_FAILED)();
 
-export const deleteNonMemberStorageBoardDetailReply = createAction(DELETE_NON_MEMBER_STORAGE_BOARD_DETAIL_REPLY)<
-	DeleteNonMemberStorageBoardDetailReplyPayload
->();
+export const deleteNonMemberStorageBoardDetailReply = createAction(
+	DELETE_NON_MEMBER_STORAGE_BOARD_DETAIL_REPLY
+)<DeleteNonMemberStorageBoardDetailReplyPayload>();
 export const deleteNonMemberStorageBoardDetailReplySucceeded = createAction(
 	DELETE_NON_MEMBER_STORAGE_BOARD_DETAIL_REPLY_SUCCEEDED
 )();

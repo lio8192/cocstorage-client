@@ -14,6 +14,7 @@ import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Pagination from '@material-ui/lab/Pagination';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -32,12 +33,7 @@ import BoardHeader from 'components/storages/board/BoardHeader';
 import BoardList from 'components/storages/board/BoardList';
 
 // Modules
-import {
-	fetchStorageBoards,
-	fetchStorageDetail,
-	handleFetchParams,
-	handleFetchSearchParams
-} from 'modules/storages/board';
+import { fetchStorageBoards, fetchStorageDetail } from 'modules/storages/board';
 import { END } from 'redux-saga';
 import wrapper from 'modules/store';
 
@@ -117,7 +113,6 @@ function StorageBoard() {
 		pending,
 		storage,
 		pagination,
-		fetchParams: { page },
 		open,
 		orderType,
 		searchType,
@@ -125,7 +120,7 @@ function StorageBoard() {
 		setOpen,
 		onHandlePagination,
 		onClickSearchType,
-		onKeyUpStorageBoardsSearchTextField,
+		onClickStorageBoardsSearchButton,
 		onChangeOrderBy,
 		onChangeStorageBoardSearchTextField
 	} = useStorageBoard();
@@ -257,7 +252,7 @@ function StorageBoard() {
 						{pagination.totalPages > 0 ? (
 							<Pagination
 								className={classes.pagination}
-								page={page}
+								page={pagination.currentPage}
 								count={pagination.totalPages || 0}
 								color={'primary'}
 								shape={'rounded'}
@@ -273,18 +268,15 @@ function StorageBoard() {
 							<TextField
 								fullWidth
 								variant={'outlined'}
-								placeholder={'검색할 단어를 입력하신 뒤 엔터를 눌러주세요.'}
+								placeholder={'검색할 단어를 입력해주세요.'}
 								InputProps={{
 									startAdornment: (
-										<InputAdornment position={'start'}>
-											<SearchIcon color={'action'} />
-										</InputAdornment>
-									),
-									endAdornment: (
 										<InputAdornment position={'end'}>
-											<Button ref={anchorRef} variant={'outlined'} onClick={handleToggle}>
-												{getSearchTypeLabelByType(searchType)}
-											</Button>
+											<Box component={'span'} mr={2}>
+												<Button ref={anchorRef} variant={'outlined'} onClick={handleToggle}>
+													{getSearchTypeLabelByType(searchType)}
+												</Button>
+											</Box>
 											<Popper
 												className={classes.popper}
 												open={open}
@@ -320,9 +312,15 @@ function StorageBoard() {
 												)}
 											</Popper>
 										</InputAdornment>
+									),
+									endAdornment: (
+										<InputAdornment position={'start'}>
+											<IconButton onClick={onClickStorageBoardsSearchButton}>
+												<SearchIcon color={'action'} />
+											</IconButton>
+										</InputAdornment>
 									)
 								}}
-								onKeyUp={onKeyUpStorageBoardsSearchTextField}
 								onChange={onChangeStorageBoardSearchTextField}
 								value={searchValue}
 								disabled={pending}
@@ -355,8 +353,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, que
 	store.dispatch(
 		fetchStorageBoards({
 			...storageBoard.fetchParams,
-			orderBy: String(query.orderBy || storageBoard.fetchParams.orderBy),
-			page: Number(query.page || storageBoard.fetchParams.page),
+			orderBy: String(query.orderBy || 'latest'),
+			page: Number(query.page || 1),
 			search: {
 				type: String(query.type || 'all'),
 				value: String(query.value || '')
@@ -364,34 +362,6 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, que
 			path: String(query.path)
 		})
 	);
-
-	if (query.page) {
-		store.dispatch(
-			handleFetchParams({
-				...storageBoard.fetchParams,
-				page: Number(query.page || storageBoard.fetchParams.page)
-			})
-		);
-	}
-
-	if (query.orderBy) {
-		store.dispatch(
-			handleFetchParams({
-				...storageBoard.fetchParams,
-				orderBy: String(query.orderBy || storageBoard.fetchParams.orderBy)
-			})
-		);
-	}
-
-	if (query.value) {
-		store.dispatch(
-			handleFetchSearchParams({
-				...storageBoard.fetchSearchParams,
-				type: String(query.type || 'subject'),
-				value: String(query.value || '')
-			})
-		);
-	}
 
 	store.dispatch(END);
 	await (store as any).sagaTask.toPromise();
