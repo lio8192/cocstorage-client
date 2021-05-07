@@ -65,6 +65,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		backdrop: {
 			zIndex: theme.zIndex.drawer + 1,
 			color: '#fff'
+		},
+		adBox: {
+			marginTop: theme.spacing(2),
+			border: '1px solid #EAEAEA',
+			borderRadius: 4,
+			backgroundColor: theme.palette.grey['50'],
+			[theme.breakpoints.down('md')]: {
+				border: 'none'
+			}
 		}
 	})
 );
@@ -181,7 +190,7 @@ function StorageBoardDetail() {
 				<Grid container>
 					<Grid item xs={12} sm={12} md={12} lg={12}>
 						<DetailContent />
-						<Box mt={2}>
+						<Box className={classes.adBox}>
 							<GoogleAdSense
 								html={
 									'<ins class="adsbygoogle"'

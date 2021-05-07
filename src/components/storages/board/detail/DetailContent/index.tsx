@@ -185,6 +185,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		chip: {
 			color: 'white'
+		},
+		topAdBox: {
+			marginBottom: theme.spacing(1),
+			border: '1px solid #EAEAEA',
+			borderRadius: 4,
+			backgroundColor: theme.palette.grey['50'],
+			[theme.breakpoints.down('md')]: {
+				border: 'none'
+			}
 		}
 	})
 );
@@ -526,6 +535,18 @@ function DetailContent() {
 							</Box>
 						</Box>
 						<Box className={classes.contentBox}>
+							<Box className={classes.topAdBox}>
+								<GoogleAdSense
+									html={
+										'<ins class="adsbygoogle"'
+										+ 'style="display:block"'
+										+ 'data-ad-client="ca-pub-5809905264951057"'
+										+ 'data-ad-slot="8033291397"'
+										+ 'data-ad-format="auto"'
+										+ 'data-full-width-responsive="true"></ins>'
+									}
+								/>
+							</Box>
 							{sourceCode && (
 								<Box textAlign={'right'}>
 									<Box component={'span'}>
@@ -547,18 +568,6 @@ function DetailContent() {
 									</Box>
 								</Box>
 							)}
-							<Box mb={1}>
-								<GoogleAdSense
-									html={
-										'<ins class="adsbygoogle"'
-										+ 'style="display:block"'
-										+ 'data-ad-client="ca-pub-5809905264951057"'
-										+ 'data-ad-slot="8033291397"'
-										+ 'data-ad-format="auto"'
-										+ 'data-full-width-responsive="true"></ins>'
-									}
-								/>
-							</Box>
 							{sourceCode ? (
 								<Box dangerouslySetInnerHTML={{ __html: content }} />
 							) : (

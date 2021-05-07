@@ -101,6 +101,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		popper: {
 			zIndex: 10
+		},
+		adBox: {
+			marginBottom: theme.spacing(2),
+			border: '1px solid #EAEAEA',
+			borderRadius: 4,
+			backgroundColor: theme.palette.grey['50'],
+			[theme.breakpoints.down('md')]: {
+				border: 'none'
+			}
 		}
 	})
 );
@@ -326,7 +335,7 @@ function StorageBoard() {
 								disabled={pending}
 							/>
 						</Box>
-						<Box mb={2}>
+						<Box className={classes.adBox}>
 							<GoogleAdSense
 								html={
 									'<ins class="adsbygoogle"'
