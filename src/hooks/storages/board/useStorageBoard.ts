@@ -25,7 +25,7 @@ export default function useStorageBoard() {
 				value: searchValue
 			};
 
-			if (!searchValue || !searchType) {
+			if (!searchValue) {
 				delete query.type;
 				delete query.value;
 			}
@@ -43,7 +43,7 @@ export default function useStorageBoard() {
 						})
 					);
 
-					if (query.type || query.value) {
+					if (query.value) {
 						dispatch(
 							handleFetchSearchParams({
 								...storageBoardState.fetchSearchParams,
@@ -107,7 +107,7 @@ export default function useStorageBoard() {
 				value: searchValue
 			};
 
-			if (!searchValue || !searchType) {
+			if (!searchValue) {
 				delete query.type;
 				delete query.value;
 			}
@@ -115,12 +115,7 @@ export default function useStorageBoard() {
 			router
 				.push({
 					pathname: `/storages/${router.query.path}`,
-					query: {
-						orderBy: newValue,
-						page: 1,
-						type: searchType,
-						value: searchValue
-					}
+					query
 				})
 				.then(() => {
 					dispatch(
