@@ -181,7 +181,6 @@ function StorageBoardDetail() {
 				<Grid container>
 					<Grid item xs={12} sm={12} md={12} lg={12}>
 						<DetailContent />
-						<DetailCommentWriteForm />
 						<Box mt={2}>
 							<GoogleAdSense
 								html={
@@ -207,6 +206,7 @@ function StorageBoardDetail() {
 								siblingCount={isMobile ? 0 : 2}
 							/>
 						)}
+						<DetailCommentWriteForm />
 					</Grid>
 				</Grid>
 			</Container>

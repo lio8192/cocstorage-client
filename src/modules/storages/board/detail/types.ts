@@ -148,6 +148,7 @@ export type StorageBoardDetail = {
 	updatedAt: string;
 	thumbnailUrl: string | null;
 	commentTotalCount: number;
+	scrapCode: string;
 	sourceCode: string;
 };
 

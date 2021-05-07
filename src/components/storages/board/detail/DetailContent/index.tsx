@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Skeleton from '@material-ui/lab/Skeleton';
 import MenuItem from '@material-ui/core/MenuItem';
+import Chip from '@material-ui/core/Chip';
 import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
@@ -32,6 +33,8 @@ import ThumbDownAltSharpIcon from '@material-ui/icons/ThumbDownAltSharp';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import StarIcon from '@material-ui/icons/Star';
+import LinkIcon from '@material-ui/icons/Link';
+import EmailIcon from '@material-ui/icons/Email';
 
 // Components
 import GoogleAdSense from 'components/common/GoogleAdSense';
@@ -176,6 +179,12 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: theme.spacing(3.5),
 			height: theme.spacing(3.5),
 			backgroundColor: theme.palette.primary.main
+		},
+		icon: {
+			color: 'white'
+		},
+		chip: {
+			color: 'white'
 		}
 	})
 );
@@ -199,6 +208,7 @@ function DetailContent() {
 			createdIp,
 			createdAt,
 			commentTotalCount,
+			scrapCode,
 			sourceCode
 		},
 		recommend: { pending: recommendPending },
@@ -216,6 +226,15 @@ function DetailContent() {
 	const handleEditRouter = useCallback(
 		() => Router.push('/storages/[path]/edit/[id]', `/storages/${storage.path}/edit/${storageBoardId}/`).then(),
 		[storage.path, storageBoardId]
+	);
+
+	const handleSource = useCallback(
+		() =>
+			window.open(
+				`https://gall.dcinside.com/board/view/?id=${sourceCode}&no=${scrapCode}&exception_mode=recommend&page=1`,
+				'_blank'
+			),
+		[scrapCode, sourceCode]
 	);
 
 	const handleToggle = () => {
@@ -382,9 +401,11 @@ function DetailContent() {
 													<Box className={classes.nicknameBox} component={'span'}>
 														{nonMemberNickname}
 													</Box>
-													<Box component={'span'} ml={0.5}>
-														{`(${createdIp})`}
-													</Box>
+													{createdIp && (
+														<Box component={'span'} ml={0.5}>
+															{`(${createdIp})`}
+														</Box>
+													)}
 												</Box>
 											</>
 										)}
@@ -505,6 +526,27 @@ function DetailContent() {
 							</Box>
 						</Box>
 						<Box className={classes.contentBox}>
+							{sourceCode && (
+								<Box textAlign={'right'}>
+									<Box component={'span'}>
+										<Chip
+											className={classes.chip}
+											color={'primary'}
+											label={'원글 출처'}
+											icon={<LinkIcon />}
+											onClick={handleSource}
+										/>
+									</Box>
+									<Box component={'span'} ml={1}>
+										<Chip
+											className={classes.chip}
+											color={'primary'}
+											label={'cocstoragehelps@gmail.com'}
+											icon={<EmailIcon />}
+										/>
+									</Box>
+								</Box>
+							)}
 							<Box mb={1}>
 								<GoogleAdSense
 									html={

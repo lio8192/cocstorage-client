@@ -84,6 +84,7 @@ const initialState: StorageBoardDetailState = {
 		updatedAt: '',
 		thumbnailUrl: '',
 		commentTotalCount: 0,
+		scrapCode: '',
 		sourceCode: ''
 	},
 	recommend: {
@@ -171,6 +172,7 @@ const storageBoardDetail = createReducer<StorageBoardDetailState, StorageBoardDe
 			updatedAt: '',
 			thumbnailUrl: '',
 			commentTotalCount: 0,
+			scrapCode: '',
 			sourceCode: ''
 		},
 		comments: {
@@ -237,6 +239,7 @@ const storageBoardDetail = createReducer<StorageBoardDetailState, StorageBoardDe
 			updatedAt: '',
 			thumbnailUrl: '',
 			commentTotalCount: 0,
+			scrapCode: '',
 			sourceCode: ''
 		},
 		comments: {

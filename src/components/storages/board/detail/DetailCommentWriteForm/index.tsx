@@ -23,8 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		root: {
 			border: '1px solid #EAEAEA',
 			borderRadius: 4,
+			marginBottom: theme.spacing(2),
 			[theme.breakpoints.down('md')]: {
-				marginTop: -1,
+				marginBottom: 0,
 				borderRadius: 0,
 				borderLeft: 'none',
 				borderRight: 'none'

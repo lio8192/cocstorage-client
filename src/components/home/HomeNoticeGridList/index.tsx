@@ -85,8 +85,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginRight: theme.spacing(1)
 		},
 		avatarSmall: {
-			width: theme.spacing(4.75),
-			height: theme.spacing(4.75),
+			width: theme.spacing(5.11),
+			height: theme.spacing(5.11),
 			marginRight: theme.spacing(1)
 		},
 		grid: {
