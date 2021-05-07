@@ -8,7 +8,6 @@ import {
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
 
 // Modules
 import {
@@ -20,8 +19,6 @@ import wrapper from 'modules/store';
 // Components
 import HomeNoticeGridList from 'components/home/HomeNoticeGridList';
 import HomeStorageGridList from 'components/home/HomeStorageGridList';
-import HomeBoardCardListSwiper from 'components/home/HomeBoardCardListSwiper';
-import HomeBoardCardList from 'components/home/HomeBoardCardList';
 import HomeLatestStorageBoardList from 'components/home/HomeLatestStorageBoardList';
 import HomePopularStorageBoardList from 'components/home/HomePopularStorageBoardList';
 
@@ -48,11 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function Index() {
 	const classes = useStyles();
 	const theme = useTheme();
-	const {
-		previousState: { boardList, dailyPopularList, pending },
-		onFetchPackage,
-		onFetchMainContents
-	} = useHome();
+	const { onFetchPackage, onFetchMainContents } = useHome();
 
 	useEffect(() => {
 		onFetchMainContents();
@@ -102,13 +95,7 @@ function Index() {
 			</Container>
 			<HomeStorageGridList />
 			<HomeNoticeGridList />
-			<Hidden implementation={'css'} smDown>
-				<HomeBoardCardListSwiper boardList={dailyPopularList} pending={pending} />
-			</Hidden>
-			<Hidden implementation={'css'} mdUp>
-				<HomeBoardCardList title={'수집 저장소 일간 개념글'} boardList={dailyPopularList} pending={pending} />
-			</Hidden>
-			<HomeBoardCardList title={'수집 저장소 새로운 개념글'} boardList={boardList} pending={pending} />
+			<Box mb={2} />
 		</>
 	);
 }

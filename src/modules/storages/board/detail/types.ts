@@ -148,6 +148,7 @@ export type StorageBoardDetail = {
 	updatedAt: string;
 	thumbnailUrl: string | null;
 	commentTotalCount: number;
+	sourceCode: string;
 };
 
 export interface StorageBoardDetailComment {

@@ -13,8 +13,8 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["src"],
-        "extensions": [".d.ts", ".ts", ".tsx", ".js", ".jsx"]
+        "paths": ["src", "node_modules"],
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
       }
     }
   },

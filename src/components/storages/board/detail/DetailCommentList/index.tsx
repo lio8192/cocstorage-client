@@ -577,7 +577,7 @@ function DetailCommentList() {
 											<Grid item xs={10}>
 												<Box className={classes.commentListItemWriterBox}>
 													<Box display={'flex'} alignItems={'center'}>
-														{item.isMember ? (
+														{item.isMember && item.user ? (
 															<>
 																<Avatar
 																	className={classes.commentListItemWriterAvatar}
@@ -597,9 +597,11 @@ function DetailCommentList() {
 																<Box className={classes.commentListItemWriterNickname} component={'span'}>
 																	{item.nickname}
 																</Box>
-																<Box component={'span'} ml={0.5}>
-																	{`(${item.createdIp})`}
-																</Box>
+																{item.createdIp && (
+																	<Box component={'span'} ml={0.5}>
+																		{`(${item.createdIp})`}
+																	</Box>
+																)}
 															</>
 														)}
 													</Box>
@@ -726,7 +728,7 @@ function DetailCommentList() {
 												<Grid item xs={10}>
 													<Box className={classes.replyBoxItemWriterBox} display={'flex'} alignItems={'center'}>
 														<Box display={'flex'} alignItems={'center'}>
-															{reply.isMember ? (
+															{reply.isMember && reply.user ? (
 																<>
 																	<Avatar
 																		className={classes.commentListItemWriterAvatar}
@@ -746,9 +748,11 @@ function DetailCommentList() {
 																	<Box className={classes.commentListItemWriterNickname} component={'span'}>
 																		{reply.nickname}
 																	</Box>
-																	<Box component={'span'} ml={0.5}>
-																		{`(${reply.createdIp})`}
-																	</Box>
+																	{reply.createdIp && (
+																		<Box component={'span'} ml={0.5}>
+																			{`(${reply.createdIp})`}
+																		</Box>
+																	)}
 																</>
 															)}
 														</Box>

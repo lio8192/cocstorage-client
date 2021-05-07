@@ -83,7 +83,8 @@ const initialState: StorageBoardDetailState = {
 		createdAt: '',
 		updatedAt: '',
 		thumbnailUrl: '',
-		commentTotalCount: 0
+		commentTotalCount: 0,
+		sourceCode: ''
 	},
 	recommend: {
 		open: false,
@@ -169,7 +170,8 @@ const storageBoardDetail = createReducer<StorageBoardDetailState, StorageBoardDe
 			createdAt: '',
 			updatedAt: '',
 			thumbnailUrl: '',
-			commentTotalCount: 0
+			commentTotalCount: 0,
+			sourceCode: ''
 		},
 		comments: {
 			data: [],
@@ -234,7 +236,8 @@ const storageBoardDetail = createReducer<StorageBoardDetailState, StorageBoardDe
 			createdAt: '',
 			updatedAt: '',
 			thumbnailUrl: '',
-			commentTotalCount: 0
+			commentTotalCount: 0,
+			sourceCode: ''
 		},
 		comments: {
 			data: [],

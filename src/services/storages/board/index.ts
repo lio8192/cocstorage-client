@@ -20,7 +20,7 @@ export function fetchStorageDetail(path: number | string) {
 
 export function fetchStorageBoards(data: FetchStorageBoardsPayload) {
 	const {
-		storageId, search, orderBy, per, page
+		storageId, path, search, orderBy, per, page
 	} = data;
 
 	if (search?.value) {
@@ -43,7 +43,7 @@ export function fetchStorageBoards(data: FetchStorageBoardsPayload) {
 		}
 
 		const config: AxiosRequestConfig = {
-			url: `/storages/${storageId}/boards`,
+			url: `/storages/${storageId || path}/boards`,
 			method: 'GET',
 			params
 		};
@@ -51,7 +51,7 @@ export function fetchStorageBoards(data: FetchStorageBoardsPayload) {
 		return axios(true)(config);
 	}
 	const config: AxiosRequestConfig = {
-		url: `/storages/${storageId}/boards`,
+		url: `/storages/${storageId || path}/boards`,
 		method: 'GET',
 		params: {
 			orderBy,

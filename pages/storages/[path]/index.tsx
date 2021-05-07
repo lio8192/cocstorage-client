@@ -32,12 +32,20 @@ import BoardHeader from 'components/storages/board/BoardHeader';
 import BoardList from 'components/storages/board/BoardList';
 
 // Modules
-import { fetchStorageDetail } from 'modules/storages/board';
+import {
+	fetchStorageBoards,
+	fetchStorageDetail,
+	handleFetchParams,
+	handleFetchSearchParams
+} from 'modules/storages/board';
 import { END } from 'redux-saga';
 import wrapper from 'modules/store';
 
 // Custom Hooks
 import useStorageBoard from 'hooks/storages/board/useStorageBoard';
+
+// Components
+import GoogleAdSense from 'components/common/GoogleAdSense';
 
 // Snippets
 import { getSearchTypeLabelByType } from 'snippets/storageBoard';
@@ -109,12 +117,12 @@ function StorageBoard() {
 		pending,
 		storage,
 		pagination,
-		fetchParams: { page, orderBy },
-		fetchSearchParams: { type },
+		fetchParams: { page },
 		open,
+		orderType,
+		searchType,
 		searchValue,
 		setOpen,
-		onFetchStorageBoards,
 		onHandlePagination,
 		onClickSearchType,
 		onKeyUpStorageBoardsSearchTextField,
@@ -153,10 +161,6 @@ function StorageBoard() {
 
 		prevOpen.current = open;
 	}, [open]);
-
-	useEffect(() => {
-		onFetchStorageBoards();
-	}, [onFetchStorageBoards]);
 
 	return (
 		<>
@@ -225,7 +229,7 @@ function StorageBoard() {
 					<Container className={classes.container}>
 						<Tabs
 							className={classes.tabs}
-							value={orderBy}
+							value={orderType}
 							indicatorColor={'primary'}
 							textColor={'primary'}
 							onChange={onChangeOrderBy}
@@ -269,7 +273,7 @@ function StorageBoard() {
 							<TextField
 								fullWidth
 								variant={'outlined'}
-								placeholder={'검색할 단어를 입력해주세요.'}
+								placeholder={'검색할 단어를 입력하신 뒤 엔터를 눌러주세요.'}
 								InputProps={{
 									startAdornment: (
 										<InputAdornment position={'start'}>
@@ -279,7 +283,7 @@ function StorageBoard() {
 									endAdornment: (
 										<InputAdornment position={'end'}>
 											<Button ref={anchorRef} variant={'outlined'} onClick={handleToggle}>
-												{getSearchTypeLabelByType(type)}
+												{getSearchTypeLabelByType(searchType)}
 											</Button>
 											<Popper
 												className={classes.popper}
@@ -324,6 +328,19 @@ function StorageBoard() {
 								disabled={pending}
 							/>
 						</Box>
+						<Box mb={2}>
+							<GoogleAdSense
+								html={
+									'<ins class="adsbygoogle"'
+									+ 'style="display:block"'
+									+ 'data-ad-client="ca-pub-5809905264951057"'
+									+ 'data-ad-slot="3880285784"'
+									+ 'data-ad-format="auto"'
+									+ 'data-full-width-responsive="true">'
+									+ '</ins>'
+								}
+							/>
+						</Box>
 					</Container>
 				</Grid>
 			</Grid>
@@ -332,7 +349,49 @@ function StorageBoard() {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, query }) => {
+	const { storageBoard } = store.getState();
 	store.dispatch(fetchStorageDetail(String(query.path)));
+
+	store.dispatch(
+		fetchStorageBoards({
+			...storageBoard.fetchParams,
+			orderBy: String(query.orderBy || storageBoard.fetchParams.orderBy),
+			page: Number(query.page || storageBoard.fetchParams.page),
+			search: {
+				type: String(query.type || 'all'),
+				value: String(query.value || '')
+			},
+			path: String(query.path)
+		})
+	);
+
+	if (query.page) {
+		store.dispatch(
+			handleFetchParams({
+				...storageBoard.fetchParams,
+				page: Number(query.page || storageBoard.fetchParams.page)
+			})
+		);
+	}
+
+	if (query.orderBy) {
+		store.dispatch(
+			handleFetchParams({
+				...storageBoard.fetchParams,
+				orderBy: String(query.orderBy || storageBoard.fetchParams.orderBy)
+			})
+		);
+	}
+
+	if (query.value) {
+		store.dispatch(
+			handleFetchSearchParams({
+				...storageBoard.fetchSearchParams,
+				type: String(query.type || 'subject'),
+				value: String(query.value || '')
+			})
+		);
+	}
 
 	store.dispatch(END);
 	await (store as any).sagaTask.toPromise();

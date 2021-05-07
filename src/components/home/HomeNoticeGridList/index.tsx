@@ -84,6 +84,11 @@ const useStyles = makeStyles((theme: Theme) =>
 		avatar: {
 			marginRight: theme.spacing(1)
 		},
+		avatarSmall: {
+			width: theme.spacing(4.75),
+			height: theme.spacing(4.75),
+			marginRight: theme.spacing(1)
+		},
 		grid: {
 			backgroundColor: 'white'
 		},
@@ -475,7 +480,7 @@ function HomeNoticeGridList() {
 														</Box>
 														<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 															<Box className={classes.listInfoBox}>
-																<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
+																<Avatar className={classes.avatarSmall} src={item.user.avatarUrl || ''} />
 																<Typography className={classes.nicknameTypography} variant={'caption'}>
 																	{item.user.nickname}
 																</Typography>

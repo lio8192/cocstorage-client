@@ -110,7 +110,6 @@ export const setUserStateByJsonWebToken = (): User => {
 export const updateUserStateByJsonWebToken = (data: User): User => {
 	try {
 		const signJsonWebToken = Jwt.sign(data, `${process.env.JWT_SECRET_KEY}`);
-
 		window.localStorage.setItem('coc-info-jwt', signJsonWebToken);
 		// eslint-disable-next-line no-empty
 	} catch (error) {}

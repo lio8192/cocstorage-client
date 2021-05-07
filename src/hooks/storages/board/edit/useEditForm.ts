@@ -13,7 +13,7 @@ import {
 	fetchNonMemberStorageBoardEditDetail
 } from 'modules/storages/board';
 import { RootState } from 'modules';
-import { TAsyncAtomicBlockResponse, TMUIRichTextEditorRef } from 'mui-rte/src/MUIRichTextEditor';
+import { TAsyncAtomicBlockResponse, TMUIRichTextEditorRef } from 'mui-rte';
 
 // Services
 import * as Service from 'services/storages/board';

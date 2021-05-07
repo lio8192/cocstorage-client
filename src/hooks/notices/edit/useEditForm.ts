@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 // Modules
 import { putNotice } from 'modules/notices';
 import { RootState } from 'modules';
-import { TAsyncAtomicBlockResponse, TMUIRichTextEditorRef } from 'mui-rte/src/MUIRichTextEditor';
+import { TAsyncAtomicBlockResponse, TMUIRichTextEditorRef } from 'mui-rte';
 
 // Services
 import * as Service from 'services/notices';

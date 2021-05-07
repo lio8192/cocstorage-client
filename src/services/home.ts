@@ -8,7 +8,7 @@ export function fetchNotices() {
 		method: 'GET',
 		params: {
 			page: 1,
-			per: 4,
+			per: 5,
 			orderBy: 'latest'
 		}
 	};

@@ -163,6 +163,7 @@ export type FetchSearchParams = {
 
 export type FetchStorageBoardsPayload = {
 	storageId: number;
+	path?: string;
 	search?: {
 		type: string;
 		value: string | null;

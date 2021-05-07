@@ -7,6 +7,7 @@ import {
 // Material UI
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -29,6 +30,7 @@ import DetailContent from 'components/storages/board/detail/DetailContent';
 import DetailCommentList from 'components/storages/board/detail/DetailCommentList';
 import DetailCommentWriteForm from 'components/storages/board/detail/DetailCommentWriteForm';
 import PasswordAuthDialog from 'components/common/PasswordAuthDialog';
+import GoogleAdSense from 'components/common/GoogleAdSense';
 
 // Custom Hooks
 import useStorageBoardDetail from 'hooks/storages/board/detail/useStorageBoardDetail';
@@ -179,6 +181,18 @@ function StorageBoardDetail() {
 					<Grid item xs={12} sm={12} md={12} lg={12}>
 						<DetailContent />
 						<DetailCommentWriteForm />
+						<Box mt={2}>
+							<GoogleAdSense
+								html={
+									'<ins class="adsbygoogle"'
+									+ 'style="display:block"'
+									+ 'data-ad-client="ca-pub-5809905264951057"'
+									+ 'data-ad-slot="8033291397"'
+									+ 'data-ad-format="auto"'
+									+ 'data-full-width-responsive="true"></ins>'
+								}
+							/>
+						</Box>
 						<DetailCommentList />
 						{pagination.totalPages > 0 && (
 							<Pagination

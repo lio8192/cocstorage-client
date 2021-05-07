@@ -210,10 +210,13 @@ function BoardList() {
 											)}
 										</Box>
 										<Box display={'flex'} alignItems={'center'} mt={1}>
-											<Avatar className={classes.avatarUser} src={item.isMember ? item.user.avatarUrl || '' : ''} />
+											<Avatar
+												className={classes.avatarUser}
+												src={item.isMember && item.user ? item.user.avatarUrl || '' : ''}
+											/>
 											<Box className={classes.writerInfoBox} ml={1}>
 												<Typography className={classes.typography} variant={'caption'}>
-													{item.isMember ? item.user.nickname : item.nickname}
+													{item.isMember && item.user ? item.user.nickname : item.nickname}
 												</Typography>
 												<Typography variant={'caption'}>
 													{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}

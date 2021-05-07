@@ -33,6 +33,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import StarIcon from '@material-ui/icons/Star';
 
+// Components
+import GoogleAdSense from 'components/common/GoogleAdSense';
+
 // Custom Hooks
 import useDetailContent from 'hooks/storages/board/detail/useDetailContent';
 
@@ -195,7 +198,8 @@ function DetailContent() {
 			isPopular,
 			createdIp,
 			createdAt,
-			commentTotalCount
+			commentTotalCount,
+			sourceCode
 		},
 		recommend: { pending: recommendPending },
 		id,
@@ -358,7 +362,7 @@ function DetailContent() {
 							<Grid container alignItems={'center'}>
 								<Grid item xs={12} sm={6}>
 									<Box display={'flex'} alignItems={'center'}>
-										{isMember ? (
+										{isMember && user ? (
 											<>
 												<Avatar className={classes.writerAvatar} src={user?.avatarUrl || ''}>
 													{!user?.avatarUrl && user?.nickname.toString().charAt(0)}
@@ -501,7 +505,23 @@ function DetailContent() {
 							</Box>
 						</Box>
 						<Box className={classes.contentBox}>
-							<MUIRichTextEditor toolbar={false} value={content} readOnly />
+							<Box mb={1}>
+								<GoogleAdSense
+									html={
+										'<ins class="adsbygoogle"'
+										+ 'style="display:block"'
+										+ 'data-ad-client="ca-pub-5809905264951057"'
+										+ 'data-ad-slot="8033291397"'
+										+ 'data-ad-format="auto"'
+										+ 'data-full-width-responsive="true"></ins>'
+									}
+								/>
+							</Box>
+							{sourceCode ? (
+								<Box dangerouslySetInnerHTML={{ __html: content }} />
+							) : (
+								<MUIRichTextEditor toolbar={false} value={content} readOnly />
+							)}
 							<Box textAlign={'center'}>
 								<Box>
 									<ButtonGroup className={classes.recommendButtonGroup}>
