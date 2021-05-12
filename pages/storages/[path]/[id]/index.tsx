@@ -72,7 +72,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderRadius: 4,
 			backgroundColor: theme.palette.grey['50'],
 			[theme.breakpoints.down('md')]: {
-				border: 'none'
+				border: 'none',
+				borderRadius: 'inherit'
 			}
 		}
 	})

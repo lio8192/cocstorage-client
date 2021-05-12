@@ -34,6 +34,7 @@ import useBoardList from 'hooks/storages/board/useBoardList';
 
 // Components
 import DataEmptyBox from 'components/common/DataEmptyBox';
+import GoogleAdSense from 'components/common/GoogleAdSense';
 
 moment.locale('ko');
 
@@ -48,6 +49,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		listItemBox: {
 			width: '100%'
+		},
+		listItemAd: {
+			width: '100%',
+			paddingTop: theme.spacing(1.5),
+			textAlign: 'center',
+			backgroundColor: '#fafafa',
+			'& ins': {
+				marginLeft: '0 !important'
+			}
 		},
 		icon: {
 			verticalAlign: 'middle'
@@ -73,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		avatarStar: {
 			width: theme.spacing(3.5),
 			height: theme.spacing(3.5),
-			backgroundColor: theme.palette.primary.main
+			backgroundColor: '#FFE400'
 		},
 		commentCountBox: {
 			marginLeft: theme.spacing(0.5),
@@ -99,7 +109,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		chip: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB',
+			borderRadius: 5
 		},
 		typography: {
 			color: theme.palette.grey.A700
@@ -205,7 +217,7 @@ function BoardList() {
 											<Box className={classes.commentCountBox}>{`[${item.commentTotalCount}]`}</Box>
 											{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
 												<Box ml={1}>
-													<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
+													<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
 												</Box>
 											)}
 										</Box>
@@ -243,10 +255,25 @@ function BoardList() {
 								</Link>
 							</ListItem>
 							{isMobile && index < 19 && <Divider />}
+							{isMobile && index + 1 === 5 && (
+								<>
+									<ListItem className={classes.listItemAd}>
+										<GoogleAdSense
+											html={
+												'<ins class="adsbygoogle"'
+												+ 'style="display:inline-block;width:320px;height:100px"'
+												+ 'data-ad-client="ca-pub-5809905264951057"'
+												+ 'data-ad-slot="2449792225"></ins>'
+											}
+										/>
+									</ListItem>
+									<Divider />
+								</>
+							)}
 						</Box>
 					</Grow>
 				))}
-			{!pending && boards.length === 0 && <DataEmptyBox message={'개념글이 존재하지 않아요.'} />}
+			{!pending && boards.length === 0 && <DataEmptyBox message={'아직 개념글이 존재하지 않아요.'} />}
 		</List>
 	);
 }

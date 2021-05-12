@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import {
 	makeStyles, createStyles, Theme, useTheme
 } from '@material-ui/core/styles';
-import clsx from 'clsx';
 
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -60,12 +59,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		toolbar: {
 			height: 84
 		},
-		userToolbar: {
-			height: 100
-		},
 		chip: {
 			marginLeft: theme.spacing(1),
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		paper: {
 			border: 'none',
@@ -104,7 +101,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: 'white'
 		},
 		popper: {
-			left: '-27.3px !important',
+			left: '-30px !important',
 			zIndex: 10
 		},
 		avatar: {
@@ -417,12 +414,7 @@ function Header() {
 							</Toolbar>
 						</AppBar>
 					</HideOnScroll>
-					<Toolbar
-						className={clsx({
-							[classes.toolbar]: !isAuthenticated,
-							[classes.userToolbar]: isAuthenticated
-						})}
-					/>
+					<Toolbar className={classes.toolbar} />
 				</>
 			)}
 			{!isMobile && openTab && (
@@ -435,7 +427,6 @@ function Header() {
 								value={
 									activatedTab === '/'
 									|| activatedTab.indexOf('/storages') !== -1
-									|| activatedTab.indexOf('/board') !== -1
 									|| activatedTab.indexOf('/notices') !== -1
 										? activatedTab
 										: '/storages'
@@ -445,7 +436,6 @@ function Header() {
 							>
 								<Tab icon={<HomeIcon />} value={'/'} />
 								<Tab label={'커뮤니티 저장소'} value={'/storages'} />
-								<Tab label={'수집 저장소'} value={'/board'} />
 								<Tab label={'새로운 소식'} value={'/notices'} />
 							</Tabs>
 						</Container>

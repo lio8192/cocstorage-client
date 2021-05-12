@@ -22,7 +22,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import ScheduleIcon from '@material-ui/icons/Schedule';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 // Material UI Labs
@@ -33,6 +32,7 @@ import useHomeStorageGridList from 'hooks/home/useHomeStorageGridList';
 
 // Components
 import DataEmptyBox from 'components/common/DataEmptyBox';
+import Chip from '@material-ui/core/Chip';
 
 moment.locale('ko');
 
@@ -124,6 +124,19 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(1, 2)
 			}
+		},
+		typographyInnerBox: {
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			textOverflow: 'ellipsis'
+		},
+		chipBox: {
+			verticalAlign: 1
+		},
+		chip: {
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB',
+			borderRadius: 5
 		}
 	})
 );
@@ -164,18 +177,11 @@ function HomeStorageGridList() {
 										<CardContent>
 											<Skeleton className={classes.avatarSkeleton} variant={'circle'} width={50} height={50} />
 											<Box mt={1}>
-												<Typography className={classes.typography}>
+												<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
 													<Skeleton width={100} />
-												</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
-												<Box>
-													<Skeleton variant={'circle'} width={20} height={20} />
-												</Box>
-												<Box ml={0.5}>
-													<Typography variant={'caption'}>
-														<Skeleton width={100} />
-													</Typography>
+													<Box className={classes.chipBox} component={'span'} ml={0.5}>
+														<Skeleton width={20} />
+													</Box>
 												</Box>
 											</Box>
 										</CardContent>
@@ -189,12 +195,22 @@ function HomeStorageGridList() {
 					<List className={classes.list} disablePadding>
 						{[1, 2, 3, 4, 5, 6].map((item) => (
 							<ListItem key={`dummy-home-storage-${item}`} className={classes.listItem} button>
-								<Box display={'flex'} alignItems={'center'}>
-									<Box mr={1}>
-										<Skeleton variant={'circle'} width={40} height={40} />
-									</Box>
-									<Box>
-										<Skeleton width={100} />
+								<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
+									<Skeleton variant={'circle'} width={40} height={40} />
+									<Box minWidth={0} width={'100%'} ml={1}>
+										<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
+											<Box className={classes.typographyInnerBox} component={'span'}>
+												<Skeleton width={100} />
+											</Box>
+											<Box className={classes.chipBox} component={'span'} ml={0.5}>
+												<Skeleton width={20} />
+											</Box>
+										</Box>
+										<Box className={classes.typographyInnerBox}>
+											<Typography variant={'caption'} color={'textSecondary'} noWrap>
+												<Skeleton width={70} />
+											</Typography>
+										</Box>
 									</Box>
 								</Box>
 							</ListItem>
@@ -215,16 +231,15 @@ function HomeStorageGridList() {
 														<InsertPhotoIcon />
 													</Avatar>
 													<Box mt={1}>
-														<Typography className={classes.typography}>{item.name}</Typography>
-													</Box>
-													<Box display={'flex'} alignItems={'center'} mt={1} justifyContent={'flex-end'}>
-														<Box>
-															<ScheduleIcon className={classes.icon} color={'action'} />
-														</Box>
-														<Box ml={0.5}>
-															<Typography variant={'caption'}>
-																{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+														<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
+															<Typography component={'span'} className={classes.typography} noWrap>
+																{item.name}
 															</Typography>
+															{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') <= 7 && (
+																<Box className={classes.chipBox} component={'span'} ml={0.5}>
+																	<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+																</Box>
+															)}
 														</Box>
 													</Box>
 												</CardContent>
@@ -239,16 +254,32 @@ function HomeStorageGridList() {
 				{!pending && isMobile && (
 					<List className={classes.list} disablePadding>
 						{data.map((item) => (
-							<Box key={`home-storage-${item.id}`}>
-								<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
-									<ListItem className={classes.listItem} button>
+							<Link key={`home-storage-${item.id}`} href={'/storages/[path]'} as={`/storages/${item.path}`}>
+								<ListItem className={classes.listItem} button>
+									<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
 										<Avatar src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
 											<InsertPhotoIcon />
 										</Avatar>
-										<Box ml={1}>{item.name}</Box>
-									</ListItem>
-								</Link>
-							</Box>
+										<Box minWidth={0} width={'100%'} ml={1}>
+											<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'} height={24}>
+												<Box className={classes.typographyInnerBox} component={'span'}>
+													{item.name}
+												</Box>
+												{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') <= 7 && (
+													<Box className={classes.chipBox} component={'span'} ml={0.5}>
+														<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+													</Box>
+												)}
+											</Box>
+											<Box className={classes.typographyInnerBox}>
+												<Typography variant={'caption'} color={'textSecondary'} noWrap>
+													{item.description}
+												</Typography>
+											</Box>
+										</Box>
+									</Box>
+								</ListItem>
+							</Link>
 						))}
 					</List>
 				)}

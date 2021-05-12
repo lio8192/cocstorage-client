@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 
 // Modules
 import { handleSignInDialog, deleteSignOut, handleDrawer } from 'modules/common';
-import { clearBoardsRelatedState } from 'modules/board';
 import { RootState } from 'modules';
 
 export default function useMobileHeader() {
@@ -14,7 +13,7 @@ export default function useMobileHeader() {
 		route,
 		query: { id }
 	} = router;
-	const { user, drawerOpen } = useSelector((state: RootState) => state.common);
+	const { user } = useSelector((state: RootState) => state.common);
 	const { storage } = useSelector((state: RootState) => state.storageBoard);
 	const { pending } = useSelector((state: RootState) => state.storageBoardDetail);
 
@@ -58,8 +57,6 @@ export default function useMobileHeader() {
 	}, [router, id]);
 
 	const onHandleLogo = useCallback(() => {
-		dispatch(clearBoardsRelatedState());
-
 		router
 			.push(
 				{
@@ -68,12 +65,11 @@ export default function useMobileHeader() {
 				'/'
 			)
 			.then();
-	}, [dispatch, router]);
+	}, [router]);
 
 	const onHandleDrawerMenu = useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
 			const categoryId: string = event.currentTarget.getAttribute('data-category-id') || '';
-			dispatch(clearBoardsRelatedState());
 
 			router
 				.push(
@@ -114,68 +110,6 @@ export default function useMobileHeader() {
 			.then();
 	}, [router]);
 
-	const onHandleStorageDrawerMenu = useCallback(() => {
-		dispatch(clearBoardsRelatedState());
-
-		router
-			.push(
-				{
-					pathname: '/storages'
-				},
-				'/storages'
-			)
-			.then();
-
-		dispatch(handleDrawer());
-	}, [dispatch, router]);
-
-	const onHandleCollectStorageDrawerMenu = useCallback(() => {
-		dispatch(clearBoardsRelatedState());
-
-		router
-			.push(
-				{
-					pathname: '/board'
-				},
-				'/board'
-			)
-			.then();
-
-		dispatch(handleDrawer());
-	}, [dispatch, router]);
-
-	const onHandleNoticeDrawerMenu = useCallback(() => {
-		dispatch(clearBoardsRelatedState());
-
-		router
-			.push(
-				{
-					pathname: '/notices'
-				},
-				'/notices'
-			)
-			.then();
-
-		dispatch(handleDrawer());
-	}, [dispatch, router]);
-
-	const onHandleMyPageDrawerMenu = useCallback(() => {
-		dispatch(clearBoardsRelatedState());
-
-		router
-			.push(
-				{
-					pathname: '/mypage'
-				},
-				'/mypage'
-			)
-			.then();
-
-		dispatch(handleDrawer());
-	}, [dispatch, router]);
-
-	const onHandleDrawer = useCallback(() => dispatch(handleDrawer()), [dispatch]);
-
 	return {
 		id,
 		user,
@@ -184,18 +118,12 @@ export default function useMobileHeader() {
 		isBoardDetail,
 		isNewStorage,
 		isNotices,
-		drawerOpen,
 		onHandleSignInDialog,
 		onDeleteSignOut,
 		onHandleStorageChip,
 		onHandleChip,
 		onHandleNoticeChip,
 		onHandleLogo,
-		onHandleDrawerMenu,
-		onHandleStorageDrawerMenu,
-		onHandleCollectStorageDrawerMenu,
-		onHandleNoticeDrawerMenu,
-		onHandleMyPageDrawerMenu,
-		onHandleDrawer
+		onHandleDrawerMenu
 	};
 }

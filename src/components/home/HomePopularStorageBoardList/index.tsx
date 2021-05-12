@@ -3,6 +3,7 @@ import Link from 'next/link';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
+import moment from 'moment';
 
 // Material UI
 import Box from '@material-ui/core/Box';
@@ -12,10 +13,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import StarIcon from '@material-ui/icons/Star';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -29,6 +32,7 @@ import useHomePopularStorageBoardList from 'hooks/home/useHomePopularStorageBoar
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
+			height: '100%',
 			border: `1px solid ${theme.palette.grey['50']}`,
 			backgroundColor: 'white',
 			[theme.breakpoints.down('md')]: {
@@ -42,7 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			cursor: 'default'
 		},
 		chip: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB',
+			borderRadius: 5
 		},
 		commentBox: {
 			marginLeft: theme.spacing(1),
@@ -62,9 +68,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		list: {
 			minHeight: 400,
-			maxHeight: 400
+			height: '100%'
 		},
 		listItem: {
+			flexWrap: 'wrap',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 3)
 			},
@@ -76,9 +83,48 @@ const useStyles = makeStyles((theme: Theme) =>
 			fontSize: 14,
 			color: 'white'
 		},
+		avatarGroup: {
+			minWidth: 0,
+			margin: 'auto'
+		},
+		avatar: {
+			width: theme.spacing(3.5),
+			height: theme.spacing(3.5)
+		},
+		avatarStar: {
+			width: theme.spacing(3.5),
+			height: theme.spacing(3.5),
+			backgroundColor: '#FFE400'
+		},
 		listItemBox: {
 			flexShrink: 0,
 			marginRight: theme.spacing(1)
+		},
+		infoBox: {
+			marginTop: theme.spacing(0.5),
+			'& > span:first-child': {
+				fontWeight: 700
+			},
+			'& > span::after': {
+				content: '""',
+				display: 'inline-block',
+				width: 3,
+				height: 3,
+				margin: theme.spacing(0, 0.5),
+				border: `1px solid ${theme.palette.grey.A200}`,
+				borderRadius: 5,
+				backgroundColor: theme.palette.grey.A200,
+				verticalAlign: 'middle'
+			},
+			'& span:last-child::after': {
+				display: 'none'
+			}
+		},
+		infoBoxIcon: {
+			verticalAlign: 'middle'
+		},
+		skeleton: {
+			display: 'inline-block'
 		}
 	})
 );
@@ -107,48 +153,72 @@ function HomePopularStorageBoardList() {
 						<ListItem key={`home-dummy-popular-storage-board-${item}`} className={classes.listItem}>
 							<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
 								<Box className={classes.listItemBox}>
-									<Skeleton width={30} height={24} />
+									<AvatarGroup className={classes.avatarGroup} max={2} spacing={'small'}>
+										<Skeleton variant={'circle'} width={30} height={30} />
+										<Skeleton variant={'circle'} width={30} height={30} />
+									</AvatarGroup>
 								</Box>
 								<Skeleton width={`${Math.round(Math.random() * 100) + 50}%`} height={24} />
 								<Box className={classes.commentBox} component={'span'}>
 									<Skeleton width={20} height={24} />
+								</Box>
+								<Box className={classes.commentBox} component={'span'}>
+									<Skeleton width={30} height={24} />
+								</Box>
+							</Box>
+							<Box mt={0.5}>
+								<Box component={'span'}>
+									<Skeleton className={classes.skeleton} width={20} height={15} />
+								</Box>
+								<Box component={'span'} ml={1}>
+									<Skeleton className={classes.skeleton} width={20} height={15} />
 								</Box>
 							</Box>
 						</ListItem>
 					))}
 				{!pending
 					&& data.map((item) => (
-						<Box key={`home-popular-storage-board-${item.id}`}>
-							<Link href={'/storages/[path]/[id]'} as={`/storages/${item.storage.path}/${item.id}`}>
-								<ListItem className={classes.listItem} button>
-									<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
-										<Box className={classes.listItemBox}>
-											<Chip
-												className={classes.chip}
-												color={'primary'}
-												label={item.storage.name}
-												size={'small'}
-												avatar={(
-													<Avatar src={item.storage.avatarUrl || ''}>
-														<InsertPhotoIcon className={classes.icon} />
-													</Avatar>
-												)}
-											/>
-										</Box>
-										<Typography variant={'body2'} noWrap>
-											{item.subject}
-										</Typography>
-										<Box className={classes.commentBox} component={'span'}>
-											{`[${item.commentTotalCount}]`}
-										</Box>
+						<Link
+							key={`home-popular-storage-board-${item.id}`}
+							href={'/storages/[path]/[id]'}
+							as={`/storages/${item.storage.path}/${item.id}`}
+						>
+							<ListItem className={classes.listItem} button>
+								<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
+									<Box className={classes.listItemBox}>
+										<AvatarGroup className={classes.avatarGroup} max={2} spacing={'small'}>
+											<Avatar className={classes.avatarStar}>
+												<StarIcon className={classes.icon} />
+											</Avatar>
+											<Avatar className={classes.avatar} src={item.storage.avatarUrl || ''}>
+												<InsertPhotoIcon className={classes.icon} />
+											</Avatar>
+										</AvatarGroup>
 									</Box>
-								</ListItem>
-							</Link>
-						</Box>
+									<Typography variant={'body2'} noWrap>
+										{item.subject}
+									</Typography>
+									<Box className={classes.commentBox} component={'span'}>
+										{`[${item.commentTotalCount}]`}
+									</Box>
+									{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
+										<Box ml={1}>
+											<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+										</Box>
+									)}
+								</Box>
+								<Box className={classes.infoBox}>
+									<Typography variant={'caption'}>{item.storage.name}</Typography>
+									<Typography variant={'caption'} color={'textSecondary'}>
+										{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+									</Typography>
+								</Box>
+							</ListItem>
+						</Link>
 					))}
 				{!pending && data.length === 0 && (
 					<DataEmptyBox
-						message={'실시간 인기 개념글이 존재하지 않아요.'}
+						message={'아직 실시간 인기 개념글이 존재하지 않아요.'}
 						paddingTop={0}
 						paddingBottom={0}
 						maxHeight={400}

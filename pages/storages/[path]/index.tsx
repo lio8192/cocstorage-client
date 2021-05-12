@@ -99,6 +99,9 @@ const useStyles = makeStyles((theme: Theme) =>
 				padding: theme.spacing(0, 2, 2)
 			}
 		},
+		searchBoxInputBase: {
+			padding: 0
+		},
 		popper: {
 			zIndex: 10
 		},
@@ -108,7 +111,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderRadius: 4,
 			backgroundColor: theme.palette.grey['50'],
 			[theme.breakpoints.down('md')]: {
-				border: 'none'
+				marginBottom: 0,
+				border: 'none',
+				borderRadius: 'inherit'
 			}
 		}
 	})
@@ -117,7 +122,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function StorageBoard() {
 	const classes = useStyles();
 	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+	const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 	const {
 		pending,
 		storage,
@@ -267,7 +272,7 @@ function StorageBoard() {
 								shape={'rounded'}
 								onChange={onHandlePagination}
 								size={isMobile ? 'small' : 'medium'}
-								siblingCount={isMobile ? 0 : 2}
+								siblingCount={isMobile ? 1 : 2}
 								disabled={pending}
 							/>
 						) : (
@@ -279,9 +284,10 @@ function StorageBoard() {
 								variant={'outlined'}
 								placeholder={'검색할 단어를 입력해주세요.'}
 								InputProps={{
+									className: classes.searchBoxInputBase,
 									startAdornment: (
 										<InputAdornment position={'end'}>
-											<Box component={'span'} mr={2}>
+											<Box component={'span'} mr={1}>
 												<Button ref={anchorRef} variant={'outlined'} onClick={handleToggle}>
 													{getSearchTypeLabelByType(searchType)}
 												</Button>

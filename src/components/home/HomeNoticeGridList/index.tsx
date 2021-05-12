@@ -24,8 +24,6 @@ import Card from '@material-ui/core/Card';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import MessageIcon from '@material-ui/icons/Message';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 // Material UI Labs
@@ -82,12 +80,20 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		avatar: {
-			marginRight: theme.spacing(1)
+			marginRight: theme.spacing(1),
+			[theme.breakpoints.down('md')]: {
+				width: theme.spacing(4),
+				height: theme.spacing(4)
+			}
 		},
-		avatarSmall: {
-			width: theme.spacing(5.11),
-			height: theme.spacing(5.11),
-			marginRight: theme.spacing(1)
+		avatarBig: {
+			width: theme.spacing(5.25),
+			height: theme.spacing(5.25),
+			marginRight: theme.spacing(1),
+			[theme.breakpoints.down('md')]: {
+				width: theme.spacing(4),
+				height: theme.spacing(4)
+			}
 		},
 		grid: {
 			backgroundColor: 'white'
@@ -102,7 +108,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			height: 200
 		},
 		chip: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB',
+			borderRadius: 5
 		},
 		infoBox: {
 			display: 'flex',
@@ -154,7 +162,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		listItemBox: {
 			display: 'flex',
 			alignItems: 'center',
-			maxWidth: '100%'
+			maxWidth: '100%',
+			height: 24
 		},
 		subjectBox: {
 			display: 'flex',
@@ -186,6 +195,9 @@ const useStyles = makeStyles((theme: Theme) =>
 				display: 'none'
 			}
 		},
+		typography: {
+			fontSize: 14
+		},
 		descriptionTypography: {
 			textOverflow: 'ellipsis',
 			overflow: 'hidden',
@@ -209,7 +221,7 @@ function HomeNoticeGridList() {
 		notices: { data, pending }
 	} = useHomeStorageGridList();
 
-	const skeletonArray = useMemo<Array<number>>(() => (isMobile ? [1, 2, 3, 4] : [1, 2, 3]), [isMobile]);
+	const skeletonArray = useMemo<Array<number>>(() => (isMobile ? [1, 2, 3, 4, 5] : [1, 2, 3, 4]), [isMobile]);
 	const handleNavigateButtonRoute = useCallback(() => router.push('/notices', '/notices').then(), [router]);
 
 	return (
@@ -249,21 +261,11 @@ function HomeNoticeGridList() {
 										<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 											<Box className={classes.infoBox}>
 												<Box mr={1}>
-													<Skeleton variant={'circle'} width={50} height={50} />
+													<Skeleton variant={'circle'} width={40} height={40} />
 												</Box>
 												<Typography variant={'caption'} color={'textSecondary'}>
 													<Skeleton width={40} />
 												</Typography>
-											</Box>
-											<Box display={'flex'} alignItems={'center'}>
-												<Box>
-													<Skeleton variant={'circle'} width={30} height={30} />
-												</Box>
-												<Box ml={0.5}>
-													<Typography variant={'caption'} color={'textSecondary'}>
-														<Skeleton width={40} />
-													</Typography>
-												</Box>
 											</Box>
 										</Box>
 									</CardContent>
@@ -283,24 +285,14 @@ function HomeNoticeGridList() {
 														</Typography>
 													</Box>
 												</Box>
-												<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
+												<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
 													<Box className={classes.infoBox}>
 														<Box mr={1}>
-															<Skeleton variant={'circle'} width={50} height={50} />
+															<Skeleton variant={'circle'} width={43} height={43} />
 														</Box>
 														<Typography variant={'caption'} color={'textSecondary'}>
 															<Skeleton width={40} />
 														</Typography>
-													</Box>
-													<Box display={'flex'} alignItems={'center'}>
-														<Box>
-															<Skeleton width={20} height={30} />
-														</Box>
-														<Box ml={0.5}>
-															<Typography variant={'caption'} color={'textSecondary'}>
-																<Skeleton width={40} />
-															</Typography>
-														</Box>
 													</Box>
 												</Box>
 											</Box>
@@ -337,7 +329,7 @@ function HomeNoticeGridList() {
 																	<Box ml={1}>
 																		<Chip
 																			className={classes.chip}
-																			label={'NEW'}
+																			label={'N'}
 																			color={'primary'}
 																			size={isMobile ? 'small' : 'medium'}
 																		/>
@@ -363,28 +355,6 @@ function HomeNoticeGridList() {
 																		{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 																	</Typography>
 																</Box>
-																<Box display={'flex'} alignItems={'center'}>
-																	<Box display={'flex'} alignItems={'center'} mr={1}>
-																		<Box>
-																			<MessageIcon className={classes.icon} color={'action'} />
-																		</Box>
-																		<Box ml={0.5}>
-																			<Typography variant={'caption'} color={'textSecondary'}>
-																				{item.commentTotalCount.toLocaleString()}
-																			</Typography>
-																		</Box>
-																	</Box>
-																	<Box display={'flex'} alignItems={'center'}>
-																		<Box>
-																			<VisibilityIcon className={classes.icon} color={'action'} />
-																		</Box>
-																		<Box ml={0.5}>
-																			<Typography variant={'caption'} color={'textSecondary'}>
-																				{item.viewCount.toLocaleString()}
-																			</Typography>
-																		</Box>
-																	</Box>
-																</Box>
 															</Box>
 														</CardContent>
 													</CardActionArea>
@@ -408,14 +378,14 @@ function HomeNoticeGridList() {
 															<Box width={'100%'}>
 																<Box className={classes.listItemBox}>
 																	<Box className={classes.subjectBox}>
-																		<Typography variant={'body2'} noWrap>
+																		<Typography className={classes.typography} variant={'body2'} noWrap>
 																			{item.subject}
 																		</Typography>
 																		{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
 																			<Box ml={1}>
 																				<Chip
 																					className={classes.chip}
-																					label={'NEW'}
+																					label={'N'}
 																					color={'primary'}
 																					size={isMobile ? 'small' : 'medium'}
 																				/>
@@ -433,28 +403,6 @@ function HomeNoticeGridList() {
 																			{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 																		</Typography>
 																	</Box>
-																	<Box display={'flex'} alignItems={'center'}>
-																		<Box display={'flex'} alignItems={'center'} mr={1}>
-																			<Box>
-																				<MessageIcon className={classes.icon} color={'action'} />
-																			</Box>
-																			<Box ml={0.5}>
-																				<Typography variant={'caption'} color={'textSecondary'}>
-																					{item.commentTotalCount.toLocaleString()}
-																				</Typography>
-																			</Box>
-																		</Box>
-																		<Box display={'flex'} alignItems={'center'}>
-																			<Box>
-																				<VisibilityIcon className={classes.icon} color={'action'} />
-																			</Box>
-																			<Box ml={0.5}>
-																				<Typography variant={'caption'} color={'textSecondary'}>
-																					{item.viewCount.toLocaleString()}
-																				</Typography>
-																			</Box>
-																		</Box>
-																	</Box>
 																</Box>
 															</Box>
 														</Link>
@@ -468,47 +416,25 @@ function HomeNoticeGridList() {
 													<Box width={'100%'}>
 														<Box className={classes.listItemBox}>
 															<Box className={classes.subjectBox}>
-																<Typography variant={'body2'} noWrap>
+																<Typography className={classes.typography} variant={'body2'} noWrap>
 																	{item.subject}
 																</Typography>
 																{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
 																	<Box ml={1}>
-																		<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
+																		<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
 																	</Box>
 																)}
 															</Box>
 														</Box>
 														<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 															<Box className={classes.listInfoBox}>
-																<Avatar className={classes.avatarSmall} src={item.user.avatarUrl || ''} />
+																<Avatar className={classes.avatarBig} src={item.user.avatarUrl || ''} />
 																<Typography className={classes.nicknameTypography} variant={'caption'}>
 																	{item.user.nickname}
 																</Typography>
 																<Typography variant={'caption'} color={'textSecondary'}>
 																	{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 																</Typography>
-															</Box>
-															<Box display={'flex'} alignItems={'center'}>
-																<Box display={'flex'} alignItems={'center'} mr={1}>
-																	<Box>
-																		<MessageIcon className={classes.icon} color={'action'} />
-																	</Box>
-																	<Box ml={0.5}>
-																		<Typography variant={'caption'} color={'textSecondary'}>
-																			{item.commentTotalCount.toLocaleString()}
-																		</Typography>
-																	</Box>
-																</Box>
-																<Box display={'flex'} alignItems={'center'}>
-																	<Box>
-																		<VisibilityIcon className={classes.icon} color={'action'} />
-																	</Box>
-																	<Box ml={0.5}>
-																		<Typography variant={'caption'} color={'textSecondary'}>
-																			{item.viewCount.toLocaleString()}
-																		</Typography>
-																	</Box>
-																</Box>
 															</Box>
 														</Box>
 													</Box>

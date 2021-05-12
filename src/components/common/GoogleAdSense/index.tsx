@@ -7,6 +7,7 @@ import Box from '@material-ui/core/Box';
 const useStyles = makeStyles(() =>
 	createStyles({
 		root: {
+			margin: 'auto',
 			textAlign: 'center',
 			'& img': {
 				maxWidth: 30

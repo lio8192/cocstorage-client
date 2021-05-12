@@ -109,7 +109,6 @@ const storageBoard = createReducer<StorageBoardState, StorageBoardActions>(initi
 			...payload.storageBoard
 		};
 
-		if (state.pending) nextState.pending = state.pending;
 		if (state.manage.pending) nextState.manage.pending = state.manage.pending;
 		if (state.manage.editAuthenticated) nextState.manage.editAuthenticated = state.manage.editAuthenticated;
 		if (state.manage) nextState.manage = state.manage;

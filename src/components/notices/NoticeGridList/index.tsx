@@ -107,7 +107,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		chip: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB',
+			borderRadius: 5
 		},
 		infoBox: {
 			display: 'flex',
@@ -225,7 +227,7 @@ function NoticeGridList() {
 																	</Box>
 																	{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
 																		<Box ml={1}>
-																			<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
+																			<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
 																		</Box>
 																	)}
 																</Box>
@@ -310,7 +312,7 @@ function NoticeGridList() {
 																		</Typography>
 																		{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
 																			<Box ml={1}>
-																				<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
+																				<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
 																			</Box>
 																		)}
 																	</Box>
@@ -392,7 +394,7 @@ function NoticeGridList() {
 																	</Box>
 																	{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
 																		<Box ml={1}>
-																			<Chip className={classes.chip} label={'NEW'} color={'primary'} size={'small'} />
+																			<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
 																		</Box>
 																	)}
 																</Box>

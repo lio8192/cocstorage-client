@@ -1,24 +1,26 @@
-import React, { memo } from 'react';
+import React, {
+	useEffect, useState, useRef, memo
+} from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AppBar from '@material-ui/core/AppBar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
-import NoSsr from '@material-ui/core/NoSsr';
+import Popper from '@material-ui/core/Popper';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import MenuList from '@material-ui/core/MenuList';
 
 // Material UI Icons
 import WhatshotIcon from '@material-ui/icons/Whatshot';
@@ -29,19 +31,15 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import SchoolIcon from '@material-ui/icons/School';
 import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
 import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
-import MenuIcon from '@material-ui/icons/Menu';
 import NearMeIcon from '@material-ui/icons/NearMe';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import SettingsIcon from '@material-ui/icons/Settings';
-import ForumIcon from '@material-ui/icons/Forum';
-import ArchiveIcon from '@material-ui/icons/Archive';
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 // Custom Hooks
 import useMobileHeader from 'hooks/common/useMobileHeader';
 
 // Snippets
 import { getCategoryNameByCategoryId } from 'snippets/board';
-import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -51,14 +49,16 @@ const useStyles = makeStyles((theme: Theme) =>
 			backgroundColor: 'white'
 		},
 		toolbar: {
-			padding: theme.spacing(0, 3),
+			minHeight: 52,
+			padding: theme.spacing(0.5, 3),
 			[theme.breakpoints.down('xs')]: {
-				padding: theme.spacing(0, 2)
+				padding: theme.spacing(0.5, 2)
 			}
 		},
 		chip: {
 			marginLeft: theme.spacing(1),
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		appBarLogoBox: {
 			flexGrow: 1
@@ -92,6 +92,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		avatar: {
 			width: theme.spacing(4),
 			height: theme.spacing(4)
+		},
+		popper: {
+			left: '-20px !important',
+			zIndex: 10
 		}
 	})
 );
@@ -158,19 +162,45 @@ function MobileHeader() {
 		isBoardDetail,
 		isNewStorage,
 		isNotices,
-		drawerOpen,
 		onHandleSignInDialog,
 		onDeleteSignOut,
 		onHandleLogo,
 		onHandleStorageChip,
 		onHandleNoticeChip,
-		onHandleChip,
-		onHandleStorageDrawerMenu,
-		onHandleCollectStorageDrawerMenu,
-		onHandleNoticeDrawerMenu,
-		onHandleMyPageDrawerMenu,
-		onHandleDrawer
+		onHandleChip
 	} = useMobileHeader();
+
+	const [open, setOpen] = useState(false);
+	const anchorRef = useRef<HTMLButtonElement>(null);
+
+	const handleToggle = () => {
+		setOpen((prevOpen) => !prevOpen);
+	};
+
+	const handleClose = (event: React.MouseEvent<EventTarget>) => {
+		if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+			return;
+		}
+
+		setOpen(false);
+	};
+
+	function handleListKeyDown(event: React.KeyboardEvent) {
+		if (event.key === 'Tab') {
+			event.preventDefault();
+			setOpen(false);
+		}
+	}
+
+	const prevOpen = useRef(open);
+	useEffect(() => {
+		if (prevOpen.current && !open) {
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			anchorRef.current!.focus();
+		}
+
+		prevOpen.current = open;
+	}, [open]);
 
 	return (
 		<>
@@ -225,85 +255,60 @@ function MobileHeader() {
 								)}
 							</Box>
 						</Box>
-						<IconButton edge={'end'} color={'inherit'} onClick={onHandleDrawer}>
-							<MenuIcon color={'action'} />
-						</IconButton>
+						{!isAuthenticated ? (
+							<Button onClick={onHandleSignInDialog} startIcon={<ExitToAppIcon color={'action'} />}>
+								{'로그인'}
+							</Button>
+						) : (
+							<Box>
+								<Button ref={anchorRef} onClick={handleToggle}>
+									<Box display={'flex'} alignItems={'center'}>
+										<Box display={'flex'} alignItems={'center'} mr={1}>
+											<Typography className={classes.typography} variant={'body1'}>
+												{nickname}
+											</Typography>
+										</Box>
+										<Box>
+											<Avatar className={classes.avatar} src={avatarUrl}>
+												{nickname.charAt(0)}
+											</Avatar>
+										</Box>
+									</Box>
+								</Button>
+								<Popper
+									className={classes.popper}
+									open={open}
+									anchorEl={anchorRef.current}
+									role={undefined}
+									transition
+									disablePortal
+								>
+									{({ TransitionProps, placement }) => (
+										<Grow
+											{...TransitionProps}
+											style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+										>
+											<Paper>
+												<ClickAwayListener onClickAway={handleClose}>
+													<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
+														<MenuItem onClick={onDeleteSignOut}>
+															<ListItemIcon>
+																<ExitToAppIcon />
+															</ListItemIcon>
+															{'로그아웃'}
+														</MenuItem>
+													</MenuList>
+												</ClickAwayListener>
+											</Paper>
+										</Grow>
+									)}
+								</Popper>
+							</Box>
+						)}
 					</Toolbar>
 				</AppBar>
 			</HideOnScroll>
 			<Toolbar className={classes.toolbar} />
-			<SwipeableDrawer anchor={'right'} onClose={onHandleDrawer} onOpen={onHandleDrawer} open={drawerOpen}>
-				<div className={classes.list} role={'presentation'}>
-					<NoSsr>
-						{isAuthenticated ? (
-							<Box>
-								<Box display={'flex'} alignItems={'center'} p={2}>
-									<Box>
-										<Avatar className={classes.avatar} src={avatarUrl}>
-											{nickname.charAt(0)}
-										</Avatar>
-									</Box>
-									<Box flex={1} ml={2}>
-										<Typography className={classes.typography} variant={'body1'}>
-											{nickname}
-										</Typography>
-									</Box>
-									<Box>
-										<IconButton onClick={onHandleMyPageDrawerMenu}>
-											<SettingsIcon className={classes.icon} color={'action'} />
-										</IconButton>
-									</Box>
-								</Box>
-								<Divider className={classes.divider} />
-								<List>
-									<ListItem button onClick={onDeleteSignOut}>
-										<ListItemIcon>
-											<ExitToAppIcon />
-										</ListItemIcon>
-										<ListItemText primary={'로그아웃'} />
-									</ListItem>
-								</List>
-							</Box>
-						) : (
-							<List>
-								<ListItem button onClick={onHandleSignInDialog}>
-									<ListItemIcon>
-										<ExitToAppIcon />
-									</ListItemIcon>
-									<ListItemText primary={'로그인/회원가입'} />
-								</ListItem>
-							</List>
-						)}
-					</NoSsr>
-					<Divider className={classes.divider} />
-					<List>
-						<ListItem button onClick={onHandleStorageDrawerMenu}>
-							<ListItemIcon>
-								<ForumIcon />
-							</ListItemIcon>
-							<ListItemText primary={'커뮤니티 저장소'} />
-						</ListItem>
-					</List>
-					<Divider className={classes.divider} />
-					<List>
-						<ListItem button onClick={onHandleCollectStorageDrawerMenu}>
-							<ListItemIcon>
-								<ArchiveIcon />
-							</ListItemIcon>
-							<ListItemText primary={'수집 저장소'} />
-						</ListItem>
-					</List>
-					<Divider className={classes.divider} />
-					<List>
-						<ListItem button onClick={onHandleNoticeDrawerMenu}>
-							<ListItemIcon>
-								<NearMeIcon />
-							</ListItemIcon>
-							<ListItemText primary={'새로운 소식'} />
-						</ListItem>
-					</List>
-				</div>
-			</SwipeableDrawer>
 		</>
 	);
 }

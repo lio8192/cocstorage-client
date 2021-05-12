@@ -3,19 +3,14 @@
   "name": "내가 만들어 운영하는 커뮤니티 저장소",
   "icons": [
     {
-      "src": "images/favicon.ico",
+      "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "images/logo192.png",
+      "src": "logo94.png",
       "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "images/logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "94x94"
     }
   ],
   "start_url": ".",

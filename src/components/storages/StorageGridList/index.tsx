@@ -1,8 +1,6 @@
 import React, { memo } from 'react';
 import Link from 'next/link';
-import {
-	createStyles, makeStyles, Theme, useTheme
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import moment from 'moment';
 
 // Material UI
@@ -12,9 +10,8 @@ import Grid from '@material-ui/core/Grid';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
+import Badge from '@material-ui/core/Badge';
+import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grow from '@material-ui/core/Grow';
 import Card from '@material-ui/core/Card';
@@ -27,29 +24,48 @@ import DataEmptyBox from 'components/common/DataEmptyBox';
 
 // Custom Hooks
 import useStorageGridList from 'hooks/storages/useStorageGridList';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 moment.locale('ko');
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
-		root: {
-			backgroundColor: 'white'
-		},
 		card: {
-			border: '1px solid #EAEAEA'
+			border: '1px solid #EAEAEA',
+			[theme.breakpoints.down('md')]: {
+				border: 'none',
+				textAlign: 'center'
+			}
 		},
 		cardContentHead: {
 			padding: theme.spacing(3),
-			background: 'linear-gradient(rgb(244, 245, 247) 100%, rgb(255, 255, 255) 35%, rgb(255, 255, 255) 100%)'
+			background: 'linear-gradient(rgb(244, 245, 247) 100%, rgb(255, 255, 255) 35%, rgb(255, 255, 255) 100%)',
+			[theme.breakpoints.down('md')]: {
+				padding: 0
+			}
 		},
 		avatar: {
 			width: theme.spacing(7),
 			height: theme.spacing(7),
-			marginTop: theme.spacing(-5)
+			marginTop: theme.spacing(-5),
+			[theme.breakpoints.down('md')]: {
+				margin: 'auto'
+			},
+			[theme.breakpoints.down('sm')]: {
+				width: theme.spacing(5),
+				height: theme.spacing(5)
+			}
 		},
 		typography: {
-			fontWeight: 700
+			fontFamily: 'NanumSquareRoundEB',
+			[theme.breakpoints.down('md')]: {
+				fontSize: 16
+			},
+			[theme.breakpoints.down('sm')]: {
+				fontSize: 14
+			},
+			[theme.breakpoints.down('xs')]: {
+				fontSize: 12
+			}
 		},
 		icon: {
 			verticalAlign: 'middle'
@@ -74,17 +90,30 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(1, 2)
 			}
+		},
+		chip: {
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB',
+			borderRadius: 5
+		},
+		badge: {
+			'& .MuiBadge-anchorOriginTopRightRectangle': {
+				top: theme.spacing(-5)
+			},
+			[theme.breakpoints.down('md')]: {
+				'& .MuiBadge-anchorOriginTopRightRectangle': {
+					top: 0
+				}
+			}
 		}
 	})
 );
 
 function StorageGridList() {
 	const classes = useStyles();
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const { pending, storages } = useStorageGridList();
 	return (
-		<Box className={classes.root}>
+		<Box>
 			<Box>
 				{pending && (
 					<Grow in>
@@ -93,19 +122,27 @@ function StorageGridList() {
 						</Box>
 					</Grow>
 				)}
-				{!pending && !isMobile && (
+				{!pending && (
 					<Grid container spacing={1}>
 						{storages.map((item) => (
 							<Grow key={`storage-${item.id}`} in>
-								<Grid item xs={6} sm={4} md={3}>
+								<Grid item xs={4} sm={2}>
 									<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
 										<Card className={classes.card} elevation={0}>
 											<CardActionArea>
 												<CardContent className={classes.cardContentHead} />
 												<CardContent>
-													<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
-														<InsertPhotoIcon />
-													</Avatar>
+													<Badge
+														className={classes.badge}
+														badgeContent={
+															<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+														}
+														invisible={moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0}
+													>
+														<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
+															<InsertPhotoIcon />
+														</Avatar>
+													</Badge>
 													<Box mt={1}>
 														<Typography className={classes.typography}>{item.name}</Typography>
 													</Box>
@@ -117,25 +154,6 @@ function StorageGridList() {
 							</Grow>
 						))}
 					</Grid>
-				)}
-				{!pending && isMobile && (
-					<List disablePadding>
-						{storages.map((item) => (
-							<Grow key={`storage-${item.id}`} in>
-								<Box>
-									<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
-										<ListItem className={classes.listItem} button>
-											<Avatar src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
-												<InsertPhotoIcon />
-											</Avatar>
-											<Box ml={1}>{item.name}</Box>
-										</ListItem>
-									</Link>
-									<Divider />
-								</Box>
-							</Grow>
-						))}
-					</List>
 				)}
 				{!pending && storages.length === 0 && <DataEmptyBox message={'첫 저장소 등록의 주인공이 되어 보세요!'} />}
 			</Box>

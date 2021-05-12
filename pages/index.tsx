@@ -38,6 +38,12 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				margin: 0
 			}
+		},
+		box: {
+			marginBottom: theme.spacing(2),
+			[theme.breakpoints.down('md')]: {
+				marginBottom: 0
+			}
 		}
 	})
 );
@@ -95,7 +101,7 @@ function Index() {
 			</Container>
 			<HomeStorageGridList />
 			<HomeNoticeGridList />
-			<Box mb={2} />
+			<Box className={classes.box} />
 		</>
 	);
 }

@@ -178,13 +178,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		avatar: {
 			width: theme.spacing(3.5),
 			height: theme.spacing(3.5),
-			backgroundColor: theme.palette.primary.main
+			backgroundColor: '#FFE400'
 		},
 		icon: {
 			color: 'white'
 		},
 		chip: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB',
+			borderRadius: 5
 		},
 		topAdBox: {
 			marginBottom: theme.spacing(1),
@@ -431,16 +433,16 @@ function DetailContent() {
 							<Box flex={1} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
 								<Box flex={1}>
 									<Button startIcon={<MessageIcon />} disabled>
-										{commentTotalCount}
+										{commentTotalCount.toLocaleString()}
 									</Button>
 									<Button startIcon={<VisibilityIcon />} disabled>
-										{viewCount}
+										{viewCount.toLocaleString()}
 									</Button>
 									<Button startIcon={<ThumbUpAltSharpIcon />} disabled>
-										{thumbUp}
+										{thumbUp.toLocaleString()}
 									</Button>
 									<Button startIcon={<ThumbDownAltSharpIcon />} disabled>
-										{thumbDown}
+										{thumbDown.toLocaleString()}
 									</Button>
 								</Box>
 								<Box>
@@ -553,7 +555,7 @@ function DetailContent() {
 										<Chip
 											className={classes.chip}
 											color={'primary'}
-											label={'원글 출처'}
+											label={'출처'}
 											icon={<LinkIcon />}
 											onClick={handleSource}
 										/>

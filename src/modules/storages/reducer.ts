@@ -24,7 +24,7 @@ const initialState: StoragesState = {
 		isLastPage: true
 	},
 	fetchParams: {
-		per: 20,
+		per: 24,
 		page: 1,
 		name: null,
 		orderBy: 'latest'

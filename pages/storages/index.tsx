@@ -33,11 +33,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			backgroundColor: 'white'
 		},
 		storageContainer: {
-			marginTop: theme.spacing(2),
-			[theme.breakpoints.down('md')]: {
-				marginTop: 0,
-				padding: 0
-			}
+			backgroundColor: 'white',
+			paddingTop: theme.spacing(2)
 		},
 		box: {
 			padding: theme.spacing(2, 0, 0)
@@ -96,7 +93,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderRadius: 4,
 			backgroundColor: theme.palette.grey['50'],
 			[theme.breakpoints.down('md')]: {
-				border: 'none'
+				border: 'none',
+				borderRadius: 'inherit'
 			}
 		}
 	})
@@ -106,6 +104,7 @@ function Storages() {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+	const isXsMobile = useMediaQuery(theme.breakpoints.down('xs'));
 	const {
 		pending,
 		pagination: { totalPages, currentPage },
@@ -185,8 +184,8 @@ function Storages() {
 					color={'primary'}
 					shape={'rounded'}
 					onChange={onHandlePagination}
-					size={isMobile ? 'small' : 'medium'}
-					siblingCount={isMobile ? 0 : 2}
+					size={isXsMobile ? 'small' : 'medium'}
+					siblingCount={isXsMobile ? 1 : 2}
 					disabled={pending}
 				/>
 				<Box pb={2}>

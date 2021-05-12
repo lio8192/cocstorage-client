@@ -331,10 +331,10 @@ function DetailContent() {
 							<Box flex={1} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
 								<Box flex={1}>
 									<Button startIcon={<MessageIcon />} disabled>
-										{commentTotalCount}
+										{commentTotalCount.toLocaleString()}
 									</Button>
 									<Button startIcon={<VisibilityIcon />} disabled>
-										{viewCount}
+										{viewCount.toLocaleString()}
 									</Button>
 								</Box>
 								<Box>

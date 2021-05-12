@@ -1,18 +1,14 @@
 import React, { memo } from 'react';
-import {
-	createStyles, makeStyles, Theme, useTheme
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI
 import Toolbar from '@material-ui/core/Toolbar';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Paper from '@material-ui/core/Paper';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
 import ForumIcon from '@material-ui/icons/Forum';
-import ArchiveIcon from '@material-ui/icons/Archive';
 import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import NearMeIcon from '@material-ui/icons/NearMe';
@@ -40,7 +36,10 @@ const useStyles = makeStyles((theme: Theme) =>
 				}
 			},
 			'& .Mui-selected': {
-				fontWeight: 700
+				fontFamily: 'NanumSquareRoundEB',
+				'& .MuiBottomNavigationAction-label': {
+					display: 'none'
+				}
 			}
 		},
 		toolbar: {
@@ -51,8 +50,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function MobileBottomNavigation() {
 	const classes = useStyles();
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 	const { bottomNavigationTabValue, onChangeBottomNavigation } = useBottomNavigation();
 
 	return (
@@ -72,10 +69,10 @@ function MobileBottomNavigation() {
 						data-page-scope={'storage'}
 					/>
 					<BottomNavigationAction
-						label={'수집 저장소'}
-						icon={<ArchiveIcon />}
-						value={'collect-storage'}
-						data-page-scope={'collect-storage'}
+						label={'새로운 소식'}
+						icon={<NearMeIcon />}
+						value={'notice'}
+						data-page-scope={'notice'}
 					/>
 					<BottomNavigationAction
 						label={'마이페이지'}
@@ -83,14 +80,6 @@ function MobileBottomNavigation() {
 						value={'mypage'}
 						data-page-scope={'mypage'}
 					/>
-					{!isMobile && (
-						<BottomNavigationAction
-							label={'새로운 소식'}
-							icon={<NearMeIcon />}
-							value={'notice'}
-							data-page-scope={'notice'}
-						/>
-					)}
 				</BottomNavigation>
 			</Paper>
 			<Toolbar className={classes.toolbar} />
