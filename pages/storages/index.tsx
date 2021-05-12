@@ -200,7 +200,7 @@ function Storages() {
 								</InputAdornment>
 							)
 						}}
-						placeholder={'저장소명으로 검색'}
+						placeholder={'저장소명 입력 후 엔터를 눌러주세요.'}
 						onKeyUp={onKeyUpStorageSearchTextField}
 						defaultValue={name || ''}
 						disabled={pending}
