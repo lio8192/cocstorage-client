@@ -5,7 +5,6 @@ module.exports = withImages({
 		return config;
 	},
 	env: {
-		PREVIOUS_API_BASE_URL: process.env.PREVIOUS_API_BASE_URL,
 		API_BASE_URL: process.env.API_BASE_URL,
 		X_API_KEY: process.env.X_API_KEY,
 		JWT_SECRET_KEY: process.env.JWT_SECRET_KEY
