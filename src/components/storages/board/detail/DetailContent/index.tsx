@@ -145,7 +145,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& embed': {
 				maxWidth: '100%'
 			},
-			'& .writing_view_box > div': {
+			'& div': {
 				width: 'auto !important'
 			},
 			[theme.breakpoints.down('md')]: {
