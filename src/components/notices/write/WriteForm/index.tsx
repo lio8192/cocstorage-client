@@ -81,20 +81,21 @@ const useStyles = makeStyles((theme: Theme) =>
 				}
 			}
 		},
+		buttonBox: {
+			borderTop: '1px solid #d5d5d5',
+			overflow: 'hidden'
+		},
 		prevButton: {
-			[theme.breakpoints.down('md')]: {
-				borderRadius: 0
-			}
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		button: {
 			color: 'white',
-			[theme.breakpoints.down('md')]: {
-				borderRadius: 0
-			}
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		grid: {
 			marginBottom: theme.spacing(2),
 			[theme.breakpoints.down('md')]: {
+				padding: theme.spacing(1, 2),
 				marginBottom: theme.spacing(0)
 			}
 		},
@@ -223,34 +224,36 @@ function WriteForm() {
 							readOnly={pending}
 						/>
 					</Box>
-					<Grid className={classes.grid} container spacing={!isMobile ? 1 : 0} justify={'flex-end'}>
-						<Grid item xs={isMobile && 6}>
-							<Button
-								fullWidth={isMobile}
-								className={classes.prevButton}
-								variant={'contained'}
-								size={'large'}
-								startIcon={<ArrowBackIcon />}
-								onClick={handlePrevButton}
-							>
-								{'이전'}
-							</Button>
+					<Box className={classes.buttonBox}>
+						<Grid className={classes.grid} container spacing={1} justify={'flex-end'}>
+							<Grid item xs={isMobile && 6}>
+								<Button
+									fullWidth={isMobile}
+									className={classes.prevButton}
+									variant={'contained'}
+									size={'large'}
+									startIcon={<ArrowBackIcon />}
+									onClick={handlePrevButton}
+								>
+									{'이전'}
+								</Button>
+							</Grid>
+							<Grid item xs={isMobile && 6}>
+								<Button
+									fullWidth={isMobile}
+									className={classes.button}
+									variant={'contained'}
+									color={'primary'}
+									size={'large'}
+									startIcon={<DoneIcon />}
+									onClick={onPutNotice}
+									disabled={pending}
+								>
+									{'완료'}
+								</Button>
+							</Grid>
 						</Grid>
-						<Grid item xs={isMobile && 6}>
-							<Button
-								fullWidth={isMobile}
-								className={classes.button}
-								variant={'contained'}
-								color={'primary'}
-								size={'large'}
-								startIcon={<DoneIcon />}
-								onClick={onPutNotice}
-								disabled={pending}
-							>
-								{'완료'}
-							</Button>
-						</Grid>
-					</Grid>
+					</Box>
 				</Container>
 			</Box>
 		</Grow>

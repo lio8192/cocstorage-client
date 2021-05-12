@@ -352,15 +352,18 @@ function Privacy() {
 							</Box>
 							<Box mt={1} ml={2}>
 								{'- 개인정보침해신고센터 (국번없이 118 / '}
-								<a href={'https://privacy.kisa.or.kr'}>{'https://privacy.kisa.or.kr )'}</a>
+								<a href={'https://privacy.kisa.or.kr'}>{'https://privacy.kisa.or.kr'}</a>
+								{')'}
 							</Box>
 							<Box mt={1} ml={2}>
 								{'- 대검찰청 사이버수사과 (국번없이 1301 / '}
-								<a href={'https://www.spo.go.kr'}>{'https://www.spo.go.kr )'}</a>
+								<a href={'https://www.spo.go.kr'}>{'https://www.spo.go.kr'}</a>
+								{')'}
 							</Box>
 							<Box mt={1} ml={2}>
 								{'- 경찰청 사이버안전국 (국번없이 182 / '}
-								<a href={'https://cyberbureau.police.go.kr'}>{'https://cyberbureau.police.go.kr )'}</a>
+								<a href={'https://cyberbureau.police.go.kr'}>{'https://cyberbureau.police.go.kr'}</a>
+								{')'}
 							</Box>
 						</Box>
 					</ListItem>

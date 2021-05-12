@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		button: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		icon: {
 			color: 'white'

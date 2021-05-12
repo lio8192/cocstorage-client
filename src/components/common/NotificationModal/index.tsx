@@ -28,6 +28,9 @@ type NotificationModalProps = {
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
+		button: {
+			fontFamily: 'NanumSquareRoundEB'
+		},
 		icon: {
 			verticalAlign: 'middle'
 		},
@@ -82,7 +85,7 @@ function NotificationModal({
 				<DialogContentText>{contentText}</DialogContentText>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={handleNotificationModal} color={'primary'} autoFocus>
+				<Button className={classes.button} onClick={handleNotificationModal} color={'primary'} autoFocus>
 					{'확인'}
 				</Button>
 			</DialogActions>

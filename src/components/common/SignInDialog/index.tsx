@@ -5,6 +5,7 @@ import {
 
 // Material UI
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -31,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		button: {
 			color: 'white',
+			fontFamily: 'NanumSquareRoundEB'
+		},
+		closeButton: {
 			fontFamily: 'NanumSquareRoundEB'
 		},
 		typography: {
@@ -142,25 +146,35 @@ function SignInDialog() {
 					/>
 				</Box>
 				<Box mt={2}>
-					<Button
-						className={classes.button}
-						fullWidth
-						variant={'contained'}
-						onClick={onPostSignIn}
-						color={'primary'}
-						size={'large'}
-						disabled={pending}
-					>
-						{'로그인'}
-					</Button>
+					<Grid container spacing={1}>
+						<Grid item xs={6} md={12}>
+							<Button
+								className={classes.button}
+								fullWidth
+								variant={'contained'}
+								onClick={onPostSignIn}
+								color={'primary'}
+								size={'large'}
+								disabled={pending}
+							>
+								{'로그인'}
+							</Button>
+						</Grid>
+						{fullScreen && (
+							<Grid item xs={6}>
+								<Button
+									className={classes.closeButton}
+									fullWidth
+									variant={'contained'}
+									onClick={onHandleSignInDialog}
+									size={'large'}
+								>
+									{'닫기'}
+								</Button>
+							</Grid>
+						)}
+					</Grid>
 				</Box>
-				{fullScreen && (
-					<Box mt={1}>
-						<Button fullWidth variant={'contained'} onClick={onHandleSignInDialog} size={'large'}>
-							{'닫기'}
-						</Button>
-					</Box>
-				)}
 				<Box mt={2} mb={3}>
 					<Typography className={classes.typography} variant={'caption'}>
 						{'ⓒ 개념글 저장소 All Rights Reserved.'}

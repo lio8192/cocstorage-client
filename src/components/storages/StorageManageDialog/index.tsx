@@ -41,11 +41,12 @@ const useStyles = makeStyles((theme: Theme) =>
 			backgroundColor: 'white'
 		},
 		title: {
-			marginLeft: theme.spacing(2),
-			flex: 1
+			flex: 1,
+			marginLeft: theme.spacing(2)
 		},
 		button: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		container: {
 			display: 'flex',

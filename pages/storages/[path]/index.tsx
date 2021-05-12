@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		button: {
 			color: 'white',
+			fontFamily: 'NanumSquareRoundEB',
 			[theme.breakpoints.down('md')]: {
 				width: '100%'
 			}

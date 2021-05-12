@@ -86,8 +86,16 @@ const useStyles = makeStyles((theme: Theme) =>
 				}
 			}
 		},
+		buttonBox: {
+			borderTop: '1px solid #d5d5d5',
+			overflow: 'hidden'
+		},
 		button: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB'
+		},
+		prevButton: {
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		grid: {
 			marginBottom: theme.spacing(2),
@@ -270,33 +278,36 @@ function WriteForm() {
 							readOnly={pending}
 						/>
 					</Box>
-					<Grid className={classes.grid} container spacing={1} justify={'flex-end'}>
-						<Grid item xs={isMobile && 6}>
-							<Button
-								fullWidth={isMobile}
-								variant={'contained'}
-								size={'large'}
-								startIcon={<ArrowBackIcon />}
-								onClick={handlePrevButton}
-							>
-								{'이전'}
-							</Button>
+					<Box className={classes.buttonBox}>
+						<Grid className={classes.grid} container spacing={1} justify={'flex-end'}>
+							<Grid item xs={isMobile && 6}>
+								<Button
+									fullWidth={isMobile}
+									className={classes.prevButton}
+									variant={'contained'}
+									size={'large'}
+									startIcon={<ArrowBackIcon />}
+									onClick={handlePrevButton}
+								>
+									{'이전'}
+								</Button>
+							</Grid>
+							<Grid item xs={isMobile && 6}>
+								<Button
+									fullWidth={isMobile}
+									className={classes.button}
+									variant={'contained'}
+									color={'primary'}
+									size={'large'}
+									startIcon={<CreateIcon />}
+									onClick={isAuthenticated ? onPutStorageBoard : onPutNonMemberStorageBoard}
+									disabled={pending}
+								>
+									{'등록'}
+								</Button>
+							</Grid>
 						</Grid>
-						<Grid item xs={isMobile && 6}>
-							<Button
-								fullWidth={isMobile}
-								className={classes.button}
-								variant={'contained'}
-								color={'primary'}
-								size={'large'}
-								startIcon={<CreateIcon />}
-								onClick={isAuthenticated ? onPutStorageBoard : onPutNonMemberStorageBoard}
-								disabled={pending}
-							>
-								{'등록'}
-							</Button>
-						</Grid>
-					</Grid>
+					</Box>
 				</Container>
 			</Box>
 		</Grow>

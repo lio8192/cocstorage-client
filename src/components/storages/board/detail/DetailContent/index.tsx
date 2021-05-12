@@ -550,7 +550,7 @@ function DetailContent() {
 								/>
 							</Box>
 							{sourceCode && (
-								<Box textAlign={'right'}>
+								<Box mb={1} textAlign={'right'}>
 									<Box component={'span'}>
 										<Chip
 											className={classes.chip}

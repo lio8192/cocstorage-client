@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 				whiteSpace: 'nowrap',
 				textOverflow: 'ellipsis',
 				overflow: 'hidden',
+				fontFamily: 'NanumSquareRoundEB',
 				[theme.breakpoints.down('sm')]: {
 					fontSize: 12
 				}

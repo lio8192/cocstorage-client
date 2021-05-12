@@ -29,7 +29,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			position: 'relative'
 		},
 		button: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB'
+		},
+		closeButton: {
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		typography: {
 			color: theme.palette.action.active
@@ -146,7 +150,13 @@ function PasswordAuthDialog({
 							</Button>
 						</Grid>
 						<Grid item xs={6}>
-							<Button fullWidth variant={'contained'} onClick={onHandlePasswordAuthDialog} size={'large'}>
+							<Button
+								className={classes.closeButton}
+								fullWidth
+								variant={'contained'}
+								onClick={onHandlePasswordAuthDialog}
+								size={'large'}
+							>
 								{'닫기'}
 							</Button>
 						</Grid>

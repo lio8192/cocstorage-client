@@ -62,7 +62,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: 'white'
 		},
 		button: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		pagination: {
 			padding: theme.spacing(2),
