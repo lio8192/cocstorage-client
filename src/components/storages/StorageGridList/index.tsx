@@ -137,7 +137,7 @@ function StorageGridList() {
 														badgeContent={
 															<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
 														}
-														invisible={moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0}
+														invisible={moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') > 7}
 													>
 														<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
 															<InsertPhotoIcon />
