@@ -47,9 +47,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			boxShadow: 'none',
 			borderBottom: `1px solid ${theme.palette.grey['50']}`
 		},
-		toolbar: {
-			height: 84
-		},
 		chip: {
 			marginLeft: theme.spacing(1),
 			color: 'white',
@@ -62,8 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		logoBox: {
 			display: 'flex',
 			alignItems: 'center',
-			justifyContent: 'space-between',
-			padding: theme.spacing(3, 0)
+			justifyContent: 'space-between'
 		},
 		logo: {
 			maxWidth: 140,
@@ -185,77 +181,79 @@ function Header() {
 		<>
 			{!openNavigationChip ? (
 				<AppBar className={classes.appBar} position={'static'} color={'inherit'}>
-					<Container>
-						<Box className={classes.logoBox}>
-							<Box>
-								<Box component={'span'} onClick={onHandleLogo}>
-									<img
-										className={classes.logo}
-										src={'https://static.cocstorage.com/images/logo_text.png'}
-										alt={'Logo Img'}
-									/>
+					<Toolbar disableGutters={false}>
+						<Container>
+							<Box className={classes.logoBox}>
+								<Box>
+									<Box component={'span'} onClick={onHandleLogo}>
+										<img
+											className={classes.logo}
+											src={'https://static.cocstorage.com/images/logo_text.png'}
+											alt={'Logo Img'}
+										/>
+									</Box>
+								</Box>
+								<Box>
+									<NoSsr>
+										{isAuthenticated ? (
+											<Box>
+												<Button ref={anchorRef} onClick={handleToggle}>
+													<Box display={'flex'} alignItems={'center'}>
+														<Box display={'flex'} alignItems={'center'} mr={1}>
+															<Typography className={classes.typography} variant={'body1'}>
+																{nickname}
+															</Typography>
+														</Box>
+														<Box>
+															<Avatar className={classes.avatar} src={avatarUrl}>
+																{nickname.charAt(0)}
+															</Avatar>
+														</Box>
+													</Box>
+												</Button>
+												<Popper
+													className={classes.popper}
+													open={open}
+													anchorEl={anchorRef.current}
+													role={undefined}
+													transition
+													disablePortal
+												>
+													{({ TransitionProps, placement }) => (
+														<Grow
+															{...TransitionProps}
+															style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+														>
+															<Paper>
+																<ClickAwayListener onClickAway={handleClose}>
+																	<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
+																		<MenuItem onClick={handleRouterAndClose}>
+																			<ListItemIcon>
+																				<PersonIcon />
+																			</ListItemIcon>
+																			{'마이페이지'}
+																		</MenuItem>
+																		<MenuItem onClick={onDeleteSignOut}>
+																			<ListItemIcon>
+																				<ExitToAppIcon />
+																			</ListItemIcon>
+																			{'로그아웃'}
+																		</MenuItem>
+																	</MenuList>
+																</ClickAwayListener>
+															</Paper>
+														</Grow>
+													)}
+												</Popper>
+											</Box>
+										) : (
+											<Button onClick={onHandleSignInDialog}>{'로그인/회원가입'}</Button>
+										)}
+									</NoSsr>
 								</Box>
 							</Box>
-							<Box>
-								<NoSsr>
-									{isAuthenticated ? (
-										<Box>
-											<Button ref={anchorRef} onClick={handleToggle}>
-												<Box display={'flex'} alignItems={'center'}>
-													<Box display={'flex'} alignItems={'center'} mr={1}>
-														<Typography className={classes.typography} variant={'body1'}>
-															{nickname}
-														</Typography>
-													</Box>
-													<Box>
-														<Avatar className={classes.avatar} src={avatarUrl}>
-															{nickname.charAt(0)}
-														</Avatar>
-													</Box>
-												</Box>
-											</Button>
-											<Popper
-												className={classes.popper}
-												open={open}
-												anchorEl={anchorRef.current}
-												role={undefined}
-												transition
-												disablePortal
-											>
-												{({ TransitionProps, placement }) => (
-													<Grow
-														{...TransitionProps}
-														style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-													>
-														<Paper>
-															<ClickAwayListener onClickAway={handleClose}>
-																<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
-																	<MenuItem onClick={handleRouterAndClose}>
-																		<ListItemIcon>
-																			<PersonIcon />
-																		</ListItemIcon>
-																		{'마이페이지'}
-																	</MenuItem>
-																	<MenuItem onClick={onDeleteSignOut}>
-																		<ListItemIcon>
-																			<ExitToAppIcon />
-																		</ListItemIcon>
-																		{'로그아웃'}
-																	</MenuItem>
-																</MenuList>
-															</ClickAwayListener>
-														</Paper>
-													</Grow>
-												)}
-											</Popper>
-										</Box>
-									) : (
-										<Button onClick={onHandleSignInDialog}>{'로그인/회원가입'}</Button>
-									)}
-								</NoSsr>
-							</Box>
-						</Box>
-					</Container>
+						</Container>
+					</Toolbar>
 				</AppBar>
 			) : (
 				<>
@@ -358,7 +356,7 @@ function Header() {
 							</Toolbar>
 						</AppBar>
 					</HideOnScroll>
-					<Toolbar className={classes.toolbar} />
+					<Toolbar />
 				</>
 			)}
 			{!isMobile && openTab && (

@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			position: 'relative'
 		},
 		button: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		typography: {
 			color: theme.palette.action.active

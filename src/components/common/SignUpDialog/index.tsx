@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			height: 5
 		},
 		button: {
-			color: 'white'
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		typography: {
 			color: theme.palette.action.active
