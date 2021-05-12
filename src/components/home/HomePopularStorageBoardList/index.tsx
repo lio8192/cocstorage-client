@@ -19,6 +19,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import StarIcon from '@material-ui/icons/Star';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -209,9 +211,25 @@ function HomePopularStorageBoardList() {
 								</Box>
 								<Box className={classes.infoBox}>
 									<Typography variant={'caption'}>{item.storage.name}</Typography>
-									<Typography variant={'caption'} color={'textSecondary'}>
+									<Typography variant={'caption'} color={'textSecondary'} noWrap>
 										{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 									</Typography>
+									<Box component={'span'}>
+										<Box component={'span'}>
+											<ThumbUpAltIcon className={classes.infoBoxIcon} color={'action'} fontSize={'small'} />
+										</Box>
+										<Box component={'span'} ml={0.5}>
+											<Typography variant={'caption'}>{item.thumbUp}</Typography>
+										</Box>
+									</Box>
+									<Box component={'span'}>
+										<Box component={'span'}>
+											<VisibilityIcon className={classes.infoBoxIcon} color={'action'} fontSize={'small'} />
+										</Box>
+										<Box component={'span'} ml={0.5}>
+											<Typography variant={'caption'}>{item.viewCount}</Typography>
+										</Box>
+									</Box>
 								</Box>
 							</ListItem>
 						</Link>

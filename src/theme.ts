@@ -27,6 +27,14 @@ const theme = createMuiTheme({
 		}
 	},
 	overrides: {
+		MuiCssBaseline: {
+			'@global': {
+				html: {
+					WebkitFontSmoothing: 'antialiased',
+					MozOsxFontSmoothing: 'antialiased'
+				}
+			}
+		},
 		MuiInput: {
 			underline: {
 				'&:hover:not($disabled):before': {
