@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import {
 	createStyles, makeStyles, Theme, useTheme
@@ -21,9 +21,6 @@ import HomeNoticeGridList from 'components/home/HomeNoticeGridList';
 import HomeStorageGridList from 'components/home/HomeStorageGridList';
 import HomeLatestStorageBoardList from 'components/home/HomeLatestStorageBoardList';
 import HomePopularStorageBoardList from 'components/home/HomePopularStorageBoardList';
-
-// Custom Hooks
-import useHome from 'hooks/home/useHome';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -51,11 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
 function Index() {
 	const classes = useStyles();
 	const theme = useTheme();
-	const { onFetchPackage, onFetchMainContents } = useHome();
-
-	useEffect(() => {
-		onFetchMainContents();
-	}, [onFetchPackage, onFetchMainContents]);
 
 	return (
 		<>

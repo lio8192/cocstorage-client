@@ -23,23 +23,12 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import MenuList from '@material-ui/core/MenuList';
 
 // Material UI Icons
-import WhatshotIcon from '@material-ui/icons/Whatshot';
-import CastIcon from '@material-ui/icons/Cast';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import SchoolIcon from '@material-ui/icons/School';
-import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
-import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 import NearMeIcon from '@material-ui/icons/NearMe';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 
 // Custom Hooks
 import useMobileHeader from 'hooks/common/useMobileHeader';
-
-// Snippets
-import { getCategoryNameByCategoryId } from 'snippets/board';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -116,58 +105,19 @@ function HideOnScroll(props: ScrollProps) {
 	);
 }
 
-function getCategoryIconByCategoryId(categoryId: string | string[]) {
-	let categoryIcon = <CastIcon />;
-
-	switch (categoryId) {
-	case 'daily_popular':
-		categoryIcon = <WhatshotIcon />;
-		break;
-	case 'ib_new1':
-		categoryIcon = <CastIcon />;
-		break;
-	case 'stream':
-		categoryIcon = <PlayArrowIcon />;
-		break;
-	case 'football_new6':
-		categoryIcon = <SportsSoccerIcon />;
-		break;
-	case 'issuezoom':
-		categoryIcon = <CalendarTodayIcon />;
-		break;
-	case 'exam_new':
-		categoryIcon = <SchoolIcon />;
-		break;
-	case 'extra':
-		categoryIcon = <FitnessCenterIcon />;
-		break;
-	case 'baseball_new9':
-		categoryIcon = <SportsBaseballIcon />;
-		break;
-	default:
-		categoryIcon = <CastIcon />;
-		break;
-	}
-
-	return categoryIcon;
-}
-
 function MobileHeader() {
 	const classes = useStyles();
 	const {
 		user: { nickname, avatarUrl, isAuthenticated },
-		id,
 		storage,
 		pending,
-		isBoardDetail,
 		isNewStorage,
 		isNotices,
 		onHandleSignInDialog,
 		onDeleteSignOut,
 		onHandleLogo,
 		onHandleStorageChip,
-		onHandleNoticeChip,
-		onHandleChip
+		onHandleNoticeChip
 	} = useMobileHeader();
 
 	const [open, setOpen] = useState(false);
@@ -233,16 +183,6 @@ function MobileHeader() {
 											size={'small'}
 										/>
 									))}
-								{isBoardDetail && (
-									<Chip
-										className={classes.chip}
-										color={'primary'}
-										label={getCategoryNameByCategoryId(id)}
-										icon={getCategoryIconByCategoryId(id)}
-										onClick={onHandleChip}
-										size={'small'}
-									/>
-								)}
 								{isNotices && (
 									<Chip
 										className={classes.chip}

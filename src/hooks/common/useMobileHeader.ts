@@ -17,8 +17,6 @@ export default function useMobileHeader() {
 	const { storage } = useSelector((state: RootState) => state.storageBoard);
 	const { pending } = useSelector((state: RootState) => state.storageBoardDetail);
 
-	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
-
 	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
 	const isNoticeEdit = useMemo(() => route === '/notices/edit/[id]', [route]);
 	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
@@ -115,7 +113,6 @@ export default function useMobileHeader() {
 		user,
 		storage,
 		pending,
-		isBoardDetail,
 		isNewStorage,
 		isNotices,
 		onHandleSignInDialog,

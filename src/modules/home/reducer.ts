@@ -2,9 +2,6 @@ import { createReducer } from 'typesafe-actions';
 import { HYDRATE } from 'next-redux-wrapper';
 import { HomeActions, HomeState } from './types';
 import {
-	FETCH_MAIN_CONTENTS,
-	FETCH_MAIN_CONTENTS_SUCCEEDED,
-	FETCH_MAIN_CONTENTS_FAILED,
 	FETCH_NOTICES,
 	FETCH_NOTICES_SUCCEEDED,
 	FETCH_NOTICES_FAILED,
@@ -20,21 +17,6 @@ import {
 } from './actions';
 
 const initialState: HomeState = {
-	previousState: {
-		category: {
-			id: null,
-			name: null,
-			register_date: null,
-			update_date: null
-		},
-		boardList: [],
-		dailyPopularList: [],
-		storageList: [],
-		noticeList: [],
-		pending: false,
-		error: false,
-		errorMessage: null
-	},
 	notices: {
 		data: [],
 		pending: false
@@ -60,40 +42,11 @@ const home = createReducer<HomeState, HomeActions>(initialState, {
 			...payload.home
 		};
 
-		if (state.previousState.pending) nextState.previousState.pending = state.previousState.pending;
-
 		return {
 			...state,
 			...nextState
 		};
 	},
-	[FETCH_MAIN_CONTENTS]: (state) => ({
-		...state,
-		previousState: {
-			...state.previousState,
-			pending: true,
-			error: false,
-			errorMessage: null
-		}
-	}),
-	[FETCH_MAIN_CONTENTS_SUCCEEDED]: (state, { payload }) => ({
-		...state,
-		previousState: {
-			...payload,
-			pending: false,
-			error: false,
-			errorMessage: null
-		}
-	}),
-	[FETCH_MAIN_CONTENTS_FAILED]: (state, { payload }) => ({
-		...state,
-		previousState: {
-			...state.previousState,
-			pending: false,
-			error: true,
-			errorMessage: payload
-		}
-	}),
 	[FETCH_NOTICES]: (state) => ({
 		...state,
 		notices: {

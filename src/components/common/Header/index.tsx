@@ -29,14 +29,6 @@ import Slide from '@material-ui/core/Slide';
 import NoSsr from '@material-ui/core/NoSsr';
 
 // Material UI Icons
-import CastIcon from '@material-ui/icons/Cast';
-import WhatshotIcon from '@material-ui/icons/Whatshot';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import SchoolIcon from '@material-ui/icons/School';
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
@@ -47,7 +39,6 @@ import NearMeIcon from '@material-ui/icons/NearMe';
 import useHeader from 'hooks/common/useHeader';
 
 // Snippets
-import { getCategoryNameByCategoryId } from 'snippets/board';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -127,47 +118,10 @@ function HideOnScroll(props: ScrollProps) {
 	);
 }
 
-function getCategoryIconByCategoryId(categoryId: string | string[]) {
-	let categoryIcon: JSX.Element | null = null;
-
-	switch (categoryId) {
-	case 'daily_popular':
-		categoryIcon = <WhatshotIcon />;
-		break;
-	case 'ib_new1':
-		categoryIcon = <CastIcon />;
-		break;
-	case 'stream':
-		categoryIcon = <PlayArrowIcon />;
-		break;
-	case 'football_new6':
-		categoryIcon = <SportsSoccerIcon />;
-		break;
-	case 'issuezoom':
-		categoryIcon = <CalendarTodayIcon />;
-		break;
-	case 'exam_new':
-		categoryIcon = <SchoolIcon />;
-		break;
-	case 'extra':
-		categoryIcon = <FitnessCenterIcon />;
-		break;
-	case 'baseball_new9':
-		categoryIcon = <SportsBaseballIcon />;
-		break;
-	default:
-		categoryIcon = <CastIcon />;
-		break;
-	}
-
-	return categoryIcon;
-}
-
 function Header() {
 	const classes = useStyles();
 	const router = useRouter();
 	const {
-		id,
 		user: { nickname, avatarUrl, isAuthenticated },
 		storage,
 		activatedTab,
@@ -177,7 +131,6 @@ function Header() {
 		isNotices,
 		onHandleTabChange,
 		onHandleLogo,
-		onHandleChip,
 		onHandleStorageChip,
 		onHandleNoticeChip,
 		onHandleSignInDialog,
@@ -330,15 +283,6 @@ function Header() {
 														</Avatar>
 													)}
 													onClick={onHandleStorageChip}
-												/>
-											)}
-											{!isNewStorage && !isNotices && (
-												<Chip
-													className={classes.chip}
-													color={'primary'}
-													label={getCategoryNameByCategoryId(id)}
-													icon={getCategoryIconByCategoryId(id)}
-													onClick={onHandleChip}
 												/>
 											)}
 											{!isNewStorage && isNotices && (

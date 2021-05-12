@@ -4,13 +4,11 @@ import { useRouter } from 'next/router';
 
 // Modules
 import { handleSignInDialog, deleteSignOut } from 'modules/common';
-import { clearBoardsRelatedState } from 'modules/board';
 import { RootState } from 'modules';
 
 export default function useHeader() {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state: RootState) => state.common);
-	const { pagination, searchState } = useSelector((state: RootState) => state.board);
 	const { storage } = useSelector((state: RootState) => state.storageBoard);
 	const router = useRouter();
 	const {
@@ -29,9 +27,6 @@ export default function useHeader() {
 		return pathname;
 	}, [pathname]);
 	const isHome = useMemo(() => route === '/', [route]);
-	const isBoard = useMemo(() => route === '/board', [route]);
-	const isBoardList = useMemo(() => route === '/board/[id]', [route]);
-	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
 	const isNewStorages = useMemo(() => route === '/storages', [route]);
 	const isStorageBoard = useMemo(() => route === '/storages/[path]', [route]);
 	const isStorageBoardWrite = useMemo(() => route === '/storages/[path]/write', [route]);
@@ -46,32 +41,21 @@ export default function useHeader() {
 		isNoticeDetail,
 		isNoticeEdit
 	]);
-	const openTab = useMemo(() => isHome || isNewStorages || isStorageBoard || isNewNotices || isBoard || isBoardList, [
+	const openTab = useMemo(() => isHome || isNewStorages || isStorageBoard || isNewNotices, [
 		isHome,
 		isNewStorages,
 		isStorageBoard,
-		isNewNotices,
-		isBoard,
-		isBoardList
+		isNewNotices
 	]);
 	const openNavigationChip = useMemo(
 		() =>
-			isBoardDetail
-			|| isStorageBoardWrite
+			isStorageBoardWrite
 			|| isStorageBoardDetail
 			|| isStorageBoardEdit
 			|| isNoticeWrite
 			|| isNoticeEdit
 			|| isNoticeDetail,
-		[
-			isBoardDetail,
-			isStorageBoardWrite,
-			isStorageBoardDetail,
-			isStorageBoardEdit,
-			isNoticeWrite,
-			isNoticeDetail,
-			isNoticeEdit
-		]
+		[isStorageBoardWrite, isStorageBoardDetail, isStorageBoardEdit, isNoticeWrite, isNoticeDetail, isNoticeEdit]
 	);
 
 	const isNewStorage = useMemo(
@@ -82,7 +66,6 @@ export default function useHeader() {
 	const onHandleTabChange = useCallback(
 		(event: React.ChangeEvent<{}>, newValue: string) => {
 			const isIndexRoute: boolean = newValue === '/' && true;
-			dispatch(clearBoardsRelatedState());
 
 			if (isIndexRoute) {
 				router
@@ -104,33 +87,8 @@ export default function useHeader() {
 					.then();
 			}
 		},
-		[dispatch, router]
+		[router]
 	);
-
-	const onHandleChip = useCallback(() => {
-		const categoryId = typeof id === 'string' ? id : '';
-
-		const query = {
-			page: pagination.page,
-			...searchState
-		};
-
-		if (!searchState.value) {
-			delete query.value;
-			delete query.type;
-			delete query.handle;
-		}
-
-		router
-			.push(
-				{
-					pathname: '/board/[id]',
-					query
-				},
-				`/board/${categoryId}`
-			)
-			.then();
-	}, [router, id, pagination.page, searchState]);
 
 	const onHandleStorageChip = useCallback(() => {
 		router
@@ -155,14 +113,12 @@ export default function useHeader() {
 	}, [router]);
 
 	const onHandleLogo = useCallback(() => {
-		dispatch(clearBoardsRelatedState());
-
 		router
 			.push({
 				pathname: '/'
 			})
 			.then();
-	}, [dispatch, router]);
+	}, [router]);
 
 	const onHandleSignInDialog = useCallback(() => dispatch(handleSignInDialog()), [dispatch]);
 
@@ -179,7 +135,6 @@ export default function useHeader() {
 		isNotices,
 		onHandleTabChange,
 		onHandleLogo,
-		onHandleChip,
 		onHandleStorageChip,
 		onHandleNoticeChip,
 		onHandleSignInDialog,

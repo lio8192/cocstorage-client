@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Modules
 import { handleSignInDialog } from 'modules/common';
-import { clearBoardsRelatedState } from 'modules/board';
 import { RootState } from 'modules';
 
 export default function useBottomNavigation() {
@@ -14,9 +13,6 @@ export default function useBottomNavigation() {
 	const { route } = router;
 
 	const isHome = useMemo(() => route === '/', [route]);
-	const isBoard = useMemo(() => route === '/board', [route]);
-	const isBoardList = useMemo(() => route === '/board/[id]', [route]);
-	const isBoardDetail = useMemo(() => route === '/board/[id]/[detail]', [route]);
 	const isStorages = useMemo(() => route === '/storages', [route]);
 	const isStorageBoards = useMemo(() => route === '/storages/[path]', [route]);
 	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
@@ -32,11 +28,6 @@ export default function useBottomNavigation() {
 		() => isStorages || isStorageBoards || isStorageBoardDetail || isStorageBoardWrite || isStorageBoardEdit,
 		[isStorages, isStorageBoards, isStorageBoardDetail, isStorageBoardWrite, isStorageBoardEdit]
 	);
-	const isCollectStorage = useMemo(() => isBoard || isBoardList || isBoardDetail, [
-		isBoard,
-		isBoardList,
-		isBoardDetail
-	]);
 	const isNotices = useMemo(() => isNewNotices || isNoticeWrite || isNoticeDetail || isNoticeEdit, [
 		isNewNotices,
 		isNoticeWrite,
@@ -51,9 +42,6 @@ export default function useBottomNavigation() {
 		if (isNewStorages) {
 			return 'storage';
 		}
-		if (isCollectStorage) {
-			return 'collect-storage';
-		}
 		if (isNotices) {
 			return 'notice';
 		}
@@ -61,11 +49,10 @@ export default function useBottomNavigation() {
 			return 'mypage';
 		}
 		return '';
-	}, [isHome, isNewStorages, isCollectStorage, isNotices, isMyPage]);
+	}, [isHome, isNewStorages, isNotices, isMyPage]);
 
 	const onChangeBottomNavigation = useCallback(
 		(event: React.ChangeEvent<{}>, value) => {
-			dispatch(clearBoardsRelatedState());
 			if (value === 'mypage') {
 				if (commonState.user.isAuthenticated) {
 					router.push('/mypage', '/mypage').then();
@@ -74,8 +61,6 @@ export default function useBottomNavigation() {
 				}
 			} else if (value === 'storage') {
 				router.push('/storages', '/storages').then();
-			} else if (value === 'collect-storage') {
-				router.push('/board', '/board').then();
 			} else if (value === 'notice') {
 				router.push('/notices', '/notices').then();
 			} else if (value === 'home') {

@@ -2,9 +2,6 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 
 // Modules
 import {
-	fetchMainContents,
-	fetchMainContentsSucceeded,
-	fetchMainContentsFailed,
 	fetchNotices,
 	fetchNoticesSucceeded,
 	fetchNoticesFailed,
@@ -20,17 +17,7 @@ import {
 } from 'modules/home';
 
 // Service
-import * as PreviousService from 'services/previous/homeService';
 import * as Service from 'services/home';
-
-function* watchMainContents() {
-	try {
-		const response = yield call(PreviousService.fetchMainContents);
-		yield put(fetchMainContentsSucceeded(response.data));
-	} catch (error) {
-		yield put(fetchMainContentsFailed(error));
-	}
-}
 
 function* watchFetchNotices() {
 	try {
@@ -73,7 +60,6 @@ function* homeSaga() {
 	yield takeLatest(fetchStorages, watchFetchStorages);
 	yield takeLatest(fetchLatestStorageBoards, watchFetchLatestStorageBoards);
 	yield takeLatest(fetchPopularStorageBoards, watchFetchPopularStorageBoards);
-	yield takeLatest(fetchMainContents, watchMainContents);
 }
 
 export default homeSaga;
