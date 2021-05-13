@@ -31,13 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
 				whiteSpace: 'nowrap',
 				textOverflow: 'ellipsis',
 				overflow: 'hidden',
-				fontFamily: 'NanumSquareRoundEB',
 				[theme.breakpoints.down('sm')]: {
 					fontSize: 12
 				}
 			},
 			'& .Mui-selected': {
-				fontFamily: 'NanumSquareRoundEB',
 				'& .MuiBottomNavigationAction-label': {
 					display: 'none'
 				}

@@ -84,6 +84,7 @@ const initialState: StorageBoardDetailState = {
 		updatedAt: '',
 		thumbnailUrl: '',
 		commentTotalCount: 0,
+		commentLatestPage: 0,
 		scrapCode: '',
 		sourceCode: ''
 	},
@@ -103,7 +104,7 @@ const initialState: StorageBoardDetailState = {
 			currentPage: 1,
 			prevPage: null,
 			nextPage: null,
-			perPage: 20,
+			perPage: 10,
 			isLastPage: true
 		},
 		fetchParams: {
@@ -111,7 +112,7 @@ const initialState: StorageBoardDetailState = {
 			storageBoardId: 0,
 			per: 10,
 			page: 1,
-			orderBy: 'latest'
+			orderBy: 'old'
 		},
 		pending: false,
 		manage: {
@@ -172,6 +173,7 @@ const storageBoardDetail = createReducer<StorageBoardDetailState, StorageBoardDe
 			updatedAt: '',
 			thumbnailUrl: '',
 			commentTotalCount: 0,
+			commentLatestPage: 0,
 			scrapCode: '',
 			sourceCode: ''
 		},
@@ -239,6 +241,7 @@ const storageBoardDetail = createReducer<StorageBoardDetailState, StorageBoardDe
 			updatedAt: '',
 			thumbnailUrl: '',
 			commentTotalCount: 0,
+			commentLatestPage: 0,
 			scrapCode: '',
 			sourceCode: ''
 		},

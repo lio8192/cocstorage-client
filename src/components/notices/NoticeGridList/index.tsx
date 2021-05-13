@@ -58,7 +58,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		grid: {
 			'& > .MuiGrid-item:first-child': {
-				borderTop: '1px solid #EAEAEA'
+				borderTop: '1px solid #EAEAEA',
+				[theme.breakpoints.down('md')]: {
+					borderTop: 'none'
+				}
 			}
 		},
 		gridItemFirst: {

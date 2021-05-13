@@ -50,6 +50,7 @@
     "jsx-a11y/label-has-associated-control": "off",
     "no-async-promise-executor": "off",
     "no-unused-expressions": "off",
+    "prefer-destructuring": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-curly-brace-presence": ["error", "always"],
     "react/jsx-indent-props": [2, "tab"],

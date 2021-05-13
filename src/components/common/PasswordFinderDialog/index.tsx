@@ -1,9 +1,10 @@
-import React, { memo } from 'react';
+import React, { forwardRef, memo } from 'react';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
 
 // Material UI
+import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -14,6 +15,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Fade from '@material-ui/core/Fade';
+import Slide from '@material-ui/core/Slide';
+// eslint-disable-next-line import/no-unresolved
+import { TransitionProps } from '@material-ui/core/transitions';
 
 // Custom Hooks
 import usePasswordFinder from 'hooks/common/usePasswordFinder';
@@ -23,8 +27,16 @@ const useStyles = makeStyles((theme: Theme) =>
 		root: {
 			position: 'relative'
 		},
+		box: {
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			textOverflow: 'ellipsis'
+		},
 		button: {
 			color: 'white',
+			fontFamily: 'NanumSquareRoundEB'
+		},
+		closeButton: {
 			fontFamily: 'NanumSquareRoundEB'
 		},
 		typography: {
@@ -42,6 +54,12 @@ const useStyles = makeStyles((theme: Theme) =>
 		}
 	})
 );
+
+const Transition = forwardRef<unknown, TransitionProps>((props, ref) => (
+	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+	// @ts-ignore
+	<Slide direction={'up'} ref={ref} {...props} />
+));
 
 function PasswordFinderDialog() {
 	const classes = useStyles();
@@ -64,6 +82,7 @@ function PasswordFinderDialog() {
 			maxWidth={'xs'}
 			open={open}
 			onClose={onHandlePasswordFinderDialog}
+			TransitionComponent={Transition}
 		>
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />
@@ -127,25 +146,35 @@ function PasswordFinderDialog() {
 					</Typography>
 				</Box>
 				<Box mt={2}>
-					<Button
-						className={classes.button}
-						fullWidth
-						variant={'contained'}
-						onClick={onPostPasswordFinder}
-						color={'primary'}
-						size={'large'}
-						disabled={pending}
-					>
-						{'임시 비밀번호 발송'}
-					</Button>
+					<Grid container spacing={1}>
+						<Grid item xs={6} md={12}>
+							<Button
+								className={classes.button}
+								fullWidth
+								variant={'contained'}
+								onClick={onPostPasswordFinder}
+								color={'primary'}
+								size={'large'}
+								disabled={pending}
+							>
+								<Box className={classes.box}>{'임시 비밀번호 발송'}</Box>
+							</Button>
+						</Grid>
+						<Grid item xs={6} md={12}>
+							{fullScreen && (
+								<Button
+									className={classes.closeButton}
+									fullWidth
+									variant={'contained'}
+									onClick={onHandlePasswordFinderDialog}
+									size={'large'}
+								>
+									{'닫기'}
+								</Button>
+							)}
+						</Grid>
+					</Grid>
 				</Box>
-				{fullScreen && (
-					<Box mt={1}>
-						<Button fullWidth variant={'contained'} onClick={onHandlePasswordFinderDialog} size={'large'}>
-							{'닫기'}
-						</Button>
-					</Box>
-				)}
 				<Box mt={2} mb={3}>
 					<Typography className={classes.typography} variant={'caption'}>
 						{'ⓒ 개념글 저장소 All Rights Reserved.'}

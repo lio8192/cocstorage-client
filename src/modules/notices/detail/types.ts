@@ -105,6 +105,7 @@ export type NoticeDetail = {
 	updatedAt: string;
 	thumbnailUrl: string | null;
 	commentTotalCount: number;
+	commentLatestPage: number;
 };
 
 export type NoticeDetailComment = {

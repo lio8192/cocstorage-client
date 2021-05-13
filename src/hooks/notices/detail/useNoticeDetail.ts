@@ -30,23 +30,32 @@ export default function useNoticeDetail() {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
 	const onFetchNoticeDetailComments = useCallback(() => {
+		const noticeId = noticeDetailState.detail.id;
+		const per = noticeDetailState.comments.fetchParams.per;
+		const page = noticeDetailState.detail.commentLatestPage === 0 ? 1 : noticeDetailState.detail.commentLatestPage;
+
 		dispatch(
 			handleNoticeDetailCommentsFetchParams({
-				noticeId: noticeDetailState.detail.id,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				noticeId,
+				per,
+				page,
+				orderBy: 'old'
 			})
 		);
 		dispatch(
 			fetchNoticeDetailComments({
-				noticeId: noticeDetailState.detail.id,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				noticeId,
+				per,
+				page,
+				orderBy: 'old'
 			})
 		);
-	}, [dispatch, noticeDetailState.detail.id]);
+	}, [
+		dispatch,
+		noticeDetailState.detail.id,
+		noticeDetailState.detail.commentLatestPage,
+		noticeDetailState.comments.fetchParams.per
+	]);
 
 	const onHandleNoticeDetailCommentsPagination = useCallback(
 		(event: React.ChangeEvent<unknown>, value: number) => {

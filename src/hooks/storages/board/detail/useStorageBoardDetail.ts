@@ -33,25 +33,36 @@ export default function useStorageBoardDetail() {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
 	const onFetchStorageBoardDetailComments = useCallback(() => {
+		const storageId = storageBoardDetailState.detail.storage.id;
+		const storageBoardId = storageBoardDetailState.detail.id;
+		const per = storageBoardDetailState.comments.fetchParams.per;
+		const page =			storageBoardDetailState.detail.commentLatestPage === 0 ? 1 : storageBoardDetailState.detail.commentLatestPage;
+
 		dispatch(
 			handleStorageBoardDetailCommentsFetchParams({
-				storageId: storageBoardDetailState.detail.storage.id,
-				storageBoardId: storageBoardDetailState.detail.id,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				storageId,
+				storageBoardId,
+				per,
+				page,
+				orderBy: 'old'
 			})
 		);
 		dispatch(
 			fetchStorageBoardDetailComments({
-				storageId: storageBoardDetailState.detail.storage.id,
-				storageBoardId: storageBoardDetailState.detail.id,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				storageId,
+				storageBoardId,
+				per,
+				page,
+				orderBy: 'old'
 			})
 		);
-	}, [dispatch, storageBoardDetailState.detail.storage.id, storageBoardDetailState.detail.id]);
+	}, [
+		dispatch,
+		storageBoardDetailState.detail.storage.id,
+		storageBoardDetailState.detail.id,
+		storageBoardDetailState.detail.commentLatestPage,
+		storageBoardDetailState.comments.fetchParams.per
+	]);
 
 	const onHandleStorageBoardDetailCommentsPagination = useCallback(
 		(event: React.ChangeEvent<unknown>, value: number) => {

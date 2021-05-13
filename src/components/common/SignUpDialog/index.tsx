@@ -1,9 +1,10 @@
-import React, { memo } from 'react';
+import React, { forwardRef, memo } from 'react';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
 
 // Material UI
+import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -19,6 +20,9 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Fade from '@material-ui/core/Fade';
+import Slide from '@material-ui/core/Slide';
+// eslint-disable-next-line import/no-unresolved
+import { TransitionProps } from '@material-ui/core/transitions';
 
 // Material UI Icons
 import Visibility from '@material-ui/icons/Visibility';
@@ -41,6 +45,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB'
 		},
+		closeButton: {
+			fontFamily: 'NanumSquareRoundEB'
+		},
 		typography: {
 			color: theme.palette.action.active
 		},
@@ -55,6 +62,12 @@ const useStyles = makeStyles((theme: Theme) =>
 		}
 	})
 );
+
+const Transition = forwardRef<unknown, TransitionProps>((props, ref) => (
+	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+	// @ts-ignore
+	<Slide direction={'up'} ref={ref} {...props} />
+));
 
 function SignUpDialog() {
 	const classes = useStyles();
@@ -81,6 +94,7 @@ function SignUpDialog() {
 			maxWidth={'xs'}
 			open={open}
 			onClose={onHandleSignUpDialog}
+			TransitionComponent={Transition}
 		>
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />
@@ -185,28 +199,38 @@ function SignUpDialog() {
 					</Box>
 				</Box>
 				<Box mt={2}>
-					<Button
-						className={classes.button}
-						fullWidth
-						variant={'contained'}
-						onClick={onPostSignUp}
-						color={'primary'}
-						size={'large'}
-						disabled={pending}
-					>
-						{'가입하기'}
-					</Button>
+					<Grid container spacing={1}>
+						<Grid item xs={6} md={12}>
+							<Button
+								className={classes.button}
+								fullWidth
+								variant={'contained'}
+								onClick={onPostSignUp}
+								color={'primary'}
+								size={'large'}
+								disabled={pending}
+							>
+								{'가입하기'}
+							</Button>
+						</Grid>
+						{fullScreen && (
+							<Grid item xs={6}>
+								<Button
+									className={classes.closeButton}
+									fullWidth
+									variant={'contained'}
+									onClick={onHandleSignUpDialog}
+									size={'large'}
+								>
+									{'닫기'}
+								</Button>
+							</Grid>
+						)}
+					</Grid>
 				</Box>
 				{policy.error && (
 					<Box mt={1}>
 						<FormHelperText error={policy.error}>{policy.helperText}</FormHelperText>
-					</Box>
-				)}
-				{fullScreen && (
-					<Box mt={1}>
-						<Button fullWidth variant={'contained'} onClick={onHandleSignUpDialog} size={'large'}>
-							{'닫기'}
-						</Button>
 					</Box>
 				)}
 				<Box mt={2} mb={3}>

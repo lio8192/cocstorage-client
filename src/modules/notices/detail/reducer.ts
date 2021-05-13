@@ -59,7 +59,8 @@ const initialState: NoticeDetailState = {
 		createdAt: '',
 		updatedAt: '',
 		thumbnailUrl: '',
-		commentTotalCount: 0
+		commentTotalCount: 0,
+		commentLatestPage: 0
 	},
 	comments: {
 		data: [],
@@ -68,14 +69,14 @@ const initialState: NoticeDetailState = {
 			currentPage: 1,
 			prevPage: null,
 			nextPage: null,
-			perPage: 20,
+			perPage: 10,
 			isLastPage: true
 		},
 		fetchParams: {
 			noticeId: 0,
 			per: 10,
 			page: 1,
-			orderBy: 'latest'
+			orderBy: 'old'
 		},
 		pending: false,
 		manage: {
@@ -125,7 +126,8 @@ const noticeDetail = createReducer<NoticeDetailState, NoticeDetailActions>(initi
 			createdAt: '',
 			updatedAt: '',
 			thumbnailUrl: '',
-			commentTotalCount: 0
+			commentTotalCount: 0,
+			commentLatestPage: 0
 		},
 		comments: {
 			data: [],

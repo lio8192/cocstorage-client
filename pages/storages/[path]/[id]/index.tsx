@@ -68,13 +68,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		adBox: {
 			marginTop: theme.spacing(2),
-			border: '1px solid #EAEAEA',
-			borderRadius: 4,
-			backgroundColor: theme.palette.grey['50'],
-			[theme.breakpoints.down('md')]: {
-				border: 'none',
-				borderRadius: 'inherit'
-			}
+			backgroundColor: theme.palette.grey['50']
 		}
 	})
 );

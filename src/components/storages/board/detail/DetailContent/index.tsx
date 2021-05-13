@@ -189,12 +189,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderRadius: 5
 		},
 		topAdBox: {
-			marginBottom: theme.spacing(1),
-			border: '1px solid #EAEAEA',
-			borderRadius: 4,
 			backgroundColor: theme.palette.grey['50'],
 			[theme.breakpoints.down('md')]: {
-				border: 'none'
+				borderRadius: 'inherit'
 			}
 		}
 	})
@@ -536,19 +533,19 @@ function DetailContent() {
 								</Box>
 							</Box>
 						</Box>
+						<Box className={classes.topAdBox}>
+							<GoogleAdSense
+								html={
+									'<ins class="adsbygoogle"'
+									+ 'style="display:block"'
+									+ 'data-ad-client="ca-pub-5809905264951057"'
+									+ 'data-ad-slot="8033291397"'
+									+ 'data-ad-format="auto"'
+									+ 'data-full-width-responsive="true"></ins>'
+								}
+							/>
+						</Box>
 						<Box className={classes.contentBox}>
-							<Box className={classes.topAdBox}>
-								<GoogleAdSense
-									html={
-										'<ins class="adsbygoogle"'
-										+ 'style="display:block"'
-										+ 'data-ad-client="ca-pub-5809905264951057"'
-										+ 'data-ad-slot="8033291397"'
-										+ 'data-ad-format="auto"'
-										+ 'data-full-width-responsive="true"></ins>'
-									}
-								/>
-							</Box>
 							{sourceCode && (
 								<Box mb={1} textAlign={'right'}>
 									<Box component={'span'}>
