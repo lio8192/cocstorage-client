@@ -73,6 +73,7 @@ function NoticeDetail() {
 		deleteAuthDialogBody,
 		showPassword,
 		onShowDeleteAuthDialogPassword,
+		onPutNoticeDetailViewCount,
 		onFetchNoticeDetailComments,
 		onHandleNoticeDetailCommentsPagination,
 		onHandleDeleteAuthDialog,
@@ -82,9 +83,10 @@ function NoticeDetail() {
 
 	useEffect(() => {
 		if (noticeId !== 0) {
+			onPutNoticeDetailViewCount();
 			onFetchNoticeDetailComments();
 		}
-	}, [noticeId, onFetchNoticeDetailComments]);
+	}, [noticeId, onPutNoticeDetailViewCount, onFetchNoticeDetailComments]);
 
 	return (
 		<>

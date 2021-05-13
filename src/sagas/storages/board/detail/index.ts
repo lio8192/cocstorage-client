@@ -10,7 +10,9 @@ import {
 	fetchStorageBoardDetail,
 	fetchStorageBoardDetailFailed,
 	fetchStorageBoardDetailSucceeded,
+	putStorageBoardDetailViewCount,
 	putStorageBoardDetailViewCountSucceeded,
+	putStorageBoardDetailViewCountFailed,
 	putStorageBoardDetailRecommend,
 	putStorageBoardDetailRecommendSucceeded,
 	putStorageBoardDetailRecommendFailed,
@@ -72,8 +74,6 @@ function* watchFetchStorageDetailAndStorageBoardDetail(
 		yield put(fetchStorageDetailSucceeded(response.data));
 		const detailResponse = yield call(Service.fetchStorageBoardDetail, response.data.id, id);
 		yield put(fetchStorageDetailAndStorageBoardDetailSucceeded(detailResponse.data));
-		const viewCountResponse = yield call(Service.putStorageBoardDetailViewCount, response.data.id, id);
-		yield put(putStorageBoardDetailViewCountSucceeded(viewCountResponse.data.viewCount));
 	} catch (error) {
 		yield put(fetchStorageDetailAndStorageBoardDetailFailed());
 		if (error.response.status === 404) {
@@ -107,8 +107,6 @@ function* watchFetchStorageBoardDetail(action: ActionType<typeof fetchStorageBoa
 	try {
 		const response = yield call(Service.fetchStorageBoardDetail, storageId, id);
 		yield put(fetchStorageBoardDetailSucceeded(response.data));
-		yield call(Service.putStorageBoardDetailViewCount, storageId, id);
-		yield put(putStorageBoardDetailViewCountSucceeded(response.data.viewCount));
 	} catch (error) {
 		yield put(fetchStorageBoardDetailFailed());
 		if (error.response.status === 404) {
@@ -132,6 +130,18 @@ function* watchFetchStorageBoardDetail(action: ActionType<typeof fetchStorageBoa
 				})
 			);
 		}
+	}
+}
+
+function* watchPutStorageBoardDetailViewCount(action: ActionType<typeof putStorageBoardDetailViewCount>) {
+	const {
+		payload: { storageId, id }
+	} = action;
+	try {
+		const response = yield call(Service.putStorageBoardDetailViewCount, storageId, id);
+		yield put(putStorageBoardDetailViewCountSucceeded(response.data.viewCount));
+	} catch (error) {
+		yield put(putStorageBoardDetailViewCountFailed());
 	}
 }
 
@@ -466,6 +476,7 @@ function* watchDeleteNonMemberStorageBoardDetailReply(
 function* storageBoardDetailSaga() {
 	yield takeLatest(fetchStorageDetailAndStorageBoardDetail, watchFetchStorageDetailAndStorageBoardDetail);
 	yield takeLatest(fetchStorageBoardDetail, watchFetchStorageBoardDetail);
+	yield takeLatest(putStorageBoardDetailViewCount, watchPutStorageBoardDetailViewCount);
 	yield takeLatest(putStorageBoardDetailRecommend, watchPutStorageBoardDetailRecommend);
 	yield takeLatest(putNonMemberStorageBoardDetailRecommend, watchPutNonMemberStorageBoardDetailRecommend);
 	yield takeLatest(fetchStorageBoardDetailComments, watchFetchStorageBoardDetailComments);

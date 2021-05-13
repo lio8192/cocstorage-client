@@ -7,7 +7,9 @@ import {
 	fetchNoticeDetail,
 	fetchNoticeDetailSucceeded,
 	fetchNoticeDetailFailed,
+	putNoticeDetailViewCount,
 	putNoticeDetailViewCountSucceeded,
+	putNoticeDetailViewCountFailed,
 	fetchNoticeDetailComments,
 	fetchNoticeDetailCommentsSucceeded,
 	fetchNoticeDetailCommentsFailed,
@@ -50,10 +52,8 @@ import { getErrorMessageByCode } from 'snippets/common';
 function* watchFetchNoticeDetail(action: ActionType<typeof fetchNoticeDetail>) {
 	const { payload } = action;
 	try {
-		let response = yield call(Service.fetchNoticeDetail, payload);
+		const response = yield call(Service.fetchNoticeDetail, payload);
 		yield put(fetchNoticeDetailSucceeded(response.data));
-		response = yield call(Service.putNoticeDetailViewCount, payload);
-		yield put(putNoticeDetailViewCountSucceeded(response.data.viewCount));
 	} catch (error) {
 		yield put(fetchNoticeDetailFailed());
 		if (error.response.status === 404) {
@@ -77,6 +77,16 @@ function* watchFetchNoticeDetail(action: ActionType<typeof fetchNoticeDetail>) {
 				})
 			);
 		}
+	}
+}
+
+function* watchPutNoticeDetailViewCount(action: ActionType<typeof putNoticeDetailViewCount>) {
+	const { payload } = action;
+	try {
+		const response = yield call(Service.putNoticeDetailViewCount, payload);
+		yield put(putNoticeDetailViewCountSucceeded(response.data.viewCount));
+	} catch (error) {
+		yield put(putNoticeDetailViewCountFailed());
 	}
 }
 
@@ -342,6 +352,7 @@ function* watchDeleteNonMemberNoticeDetailReply(action: ActionType<typeof delete
 
 function* noticeDetailSaga() {
 	yield takeLatest(fetchNoticeDetail, watchFetchNoticeDetail);
+	yield takeLatest(putNoticeDetailViewCount, watchPutNoticeDetailViewCount);
 	yield takeLatest(fetchNoticeDetailComments, watchFetchNoticeDetailComments);
 	yield takeLatest(postNoticeDetailComment, watchPostNoticeDetailComment);
 	yield takeLatest(postNonMemberNoticeDetailComment, watchPostNonMemberNoticeDetailComment);

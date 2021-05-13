@@ -5,7 +5,9 @@ import {
 	FETCH_NOTICE_DETAIL,
 	FETCH_NOTICE_DETAIL_SUCCEEDED,
 	FETCH_NOTICE_DETAIL_FAILED,
+	PUT_NOTICE_DETAIL_VIEW_COUNT,
 	PUT_NOTICE_DETAIL_VIEW_COUNT_SUCCEEDED,
+	PUT_NOTICE_DETAIL_VIEW_COUNT_FAILED,
 	FETCH_NOTICE_DETAIL_COMMENTS,
 	FETCH_NOTICE_DETAIL_COMMENTS_SUCCEEDED,
 	FETCH_NOTICE_DETAIL_COMMENTS_FAILED,
@@ -177,6 +179,7 @@ const noticeDetail = createReducer<NoticeDetailState, NoticeDetailActions>(initi
 		...state,
 		pending: false
 	}),
+	[PUT_NOTICE_DETAIL_VIEW_COUNT]: (state) => state,
 	[PUT_NOTICE_DETAIL_VIEW_COUNT_SUCCEEDED]: (state, { payload: data }) => ({
 		...state,
 		detail: {
@@ -184,6 +187,7 @@ const noticeDetail = createReducer<NoticeDetailState, NoticeDetailActions>(initi
 			viewCount: data
 		}
 	}),
+	[PUT_NOTICE_DETAIL_VIEW_COUNT_FAILED]: (state) => state,
 	[FETCH_NOTICE_DETAIL_COMMENTS]: (state) => ({
 		...state,
 		comments: {

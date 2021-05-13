@@ -7,7 +7,9 @@ import {
 	FETCH_STORAGE_BOARD_DETAIL,
 	FETCH_STORAGE_BOARD_DETAIL_SUCCEEDED,
 	FETCH_STORAGE_BOARD_DETAIL_FAILED,
+	PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT,
 	PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_SUCCEEDED,
+	PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_FAILED,
 	PUT_STORAGE_BOARD_DETAIL_RECOMMEND,
 	PUT_STORAGE_BOARD_DETAIL_RECOMMEND_SUCCEEDED,
 	PUT_STORAGE_BOARD_DETAIL_RECOMMEND_FAILED,
@@ -279,6 +281,7 @@ const storageBoardDetail = createReducer<StorageBoardDetailState, StorageBoardDe
 		...state,
 		pending: true
 	}),
+	[PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT]: (state) => state,
 	[PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_SUCCEEDED]: (state, { payload: data }) => ({
 		...state,
 		detail: {
@@ -286,6 +289,7 @@ const storageBoardDetail = createReducer<StorageBoardDetailState, StorageBoardDe
 			viewCount: data
 		}
 	}),
+	[PUT_STORAGE_BOARD_DETAIL_VIEW_COUNT_FAILED]: (state) => state,
 	[PUT_STORAGE_BOARD_DETAIL_RECOMMEND]: (state) => ({
 		...state,
 		recommend: {

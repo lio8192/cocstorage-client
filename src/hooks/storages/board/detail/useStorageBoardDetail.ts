@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Modules
 import {
+	putStorageBoardDetailViewCount,
 	closeStorageBoardDetailRecommendErrorSnackbar,
 	closeStorageBoardDetailRecommendSnackbar,
 	fetchStorageBoardDetailComments,
@@ -31,6 +32,15 @@ export default function useStorageBoardDetail() {
 	});
 
 	const [showPassword, setShowPassword] = useState<boolean>(false);
+
+	const onPutStorageBoardDetailViewCount = useCallback(() => {
+		dispatch(
+			putStorageBoardDetailViewCount({
+				storageId: storageBoardDetailState.detail.storage.id,
+				id: storageBoardDetailState.detail.id
+			})
+		);
+	}, [dispatch, storageBoardDetailState.detail.storage.id, storageBoardDetailState.detail.id]);
 
 	const onFetchStorageBoardDetailComments = useCallback(() => {
 		const storageId = storageBoardDetailState.detail.storage.id;
@@ -198,6 +208,7 @@ export default function useStorageBoardDetail() {
 		...storageBoardDetailState,
 		deleteAuthDialogBody,
 		showPassword,
+		onPutStorageBoardDetailViewCount,
 		onCloseStorageBoardDetailRecommendSnackbar,
 		onCloseStorageBoardDetailRecommendErrorSnackbar,
 		onFetchStorageBoardDetailComments,

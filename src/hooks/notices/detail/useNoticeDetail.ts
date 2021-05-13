@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Modules
 import {
+	putNoticeDetailViewCount,
 	fetchNoticeDetailComments,
 	handleNoticeDetailCommentsFetchParams,
 	handleNoticeDetailDeleteAuthDialog,
@@ -28,6 +29,10 @@ export default function useNoticeDetail() {
 	});
 
 	const [showPassword, setShowPassword] = useState<boolean>(false);
+
+	const onPutNoticeDetailViewCount = useCallback(() => {
+		dispatch(putNoticeDetailViewCount(noticeDetailState.detail.id));
+	}, [dispatch, noticeDetailState.detail.id]);
 
 	const onFetchNoticeDetailComments = useCallback(() => {
 		const noticeId = noticeDetailState.detail.id;
@@ -171,6 +176,7 @@ export default function useNoticeDetail() {
 		...noticeDetailState,
 		deleteAuthDialogBody,
 		showPassword,
+		onPutNoticeDetailViewCount,
 		onFetchNoticeDetailComments,
 		onHandleNoticeDetailCommentsPagination,
 		onHandleDeleteAuthDialog,

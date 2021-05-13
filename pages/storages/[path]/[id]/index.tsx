@@ -107,6 +107,7 @@ function StorageBoardDetail() {
 		},
 		deleteAuthDialogBody,
 		showPassword,
+		onPutStorageBoardDetailViewCount,
 		onShowDeleteAuthDialogPassword,
 		onCloseStorageBoardDetailRecommendSnackbar,
 		onCloseStorageBoardDetailRecommendErrorSnackbar,
@@ -119,9 +120,10 @@ function StorageBoardDetail() {
 
 	useEffect(() => {
 		if (storageId !== 0 && storageBoardId !== 0) {
+			onPutStorageBoardDetailViewCount();
 			onFetchStorageBoardDetailComments();
 		}
-	}, [storageId, storageBoardId, onFetchStorageBoardDetailComments]);
+	}, [storageId, storageBoardId, onPutStorageBoardDetailViewCount, onFetchStorageBoardDetailComments]);
 
 	return (
 		<>
