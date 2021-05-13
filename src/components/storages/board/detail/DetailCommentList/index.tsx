@@ -170,12 +170,6 @@ const useStyles = makeStyles((theme: Theme) =>
 				padding: theme.spacing(2, 2, 1, 2)
 			}
 		},
-		commentListItemDate: {
-			color: theme.palette.grey.A200,
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(1, 2, 0, 2)
-			}
-		},
 		commentListItemDateSkeleton: {
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0, 2, 0, 2)
@@ -605,9 +599,7 @@ function DetailCommentList() {
 															</>
 														)}
 													</Box>
-													<Hidden mdDown>
-														<Box>{moment(item.createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
-													</Hidden>
+													<Box>{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}</Box>
 												</Box>
 											</Grid>
 											<Grid item xs={2}>
@@ -716,11 +708,6 @@ function DetailCommentList() {
 												{`답글 ${item.replies.length}`}
 											</Button>
 										</Box>
-										<Hidden lgUp>
-											<Box className={classes.commentListItemDate}>
-												{moment(item.createdAt).format('YYYY. MM. DD HH:mm:ss')}
-											</Box>
-										</Hidden>
 									</Box>
 									{item.replies.map((reply) => (
 										<Box key={`storage-board-detail-comment-reply-${reply.id}`} className={classes.replyBox}>
@@ -756,9 +743,7 @@ function DetailCommentList() {
 																</>
 															)}
 														</Box>
-														<Hidden mdDown>
-															<Box>{moment(reply.createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
-														</Hidden>
+														<Box>{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}</Box>
 													</Box>
 												</Grid>
 												<Grid item xs={2}>
@@ -859,11 +844,6 @@ function DetailCommentList() {
 													</span>
 												))}
 											</Box>
-											<Hidden lgUp>
-												<Box className={classes.replyBoxItemWriterDate}>
-													{moment(reply.createdAt).format('YYYY. MM. DD HH:mm:ss')}
-												</Box>
-											</Hidden>
 										</Box>
 									))}
 									{item.selected && (
