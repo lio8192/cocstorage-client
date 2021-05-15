@@ -216,7 +216,7 @@ function Header() {
 														)
 													}
 												>
-													{paletteType === 'light' ? '다크모드' : '라이트모드'}
+													{paletteType === 'light' ? '다크 모드' : '라이트 모드'}
 												</Button>
 												<Button ref={anchorRef} onClick={handleToggle}>
 													<Box display={'flex'} alignItems={'center'}>
@@ -280,7 +280,7 @@ function Header() {
 														)
 													}
 												>
-													{paletteType === 'light' ? '다크모드' : '라이트모드'}
+													{paletteType === 'light' ? '다크 모드' : '라이트 모드'}
 												</Button>
 												<Button onClick={onHandleSignInDialog} startIcon={<ExitToAppIcon color={'action'} />}>
 													{'로그인'}
@@ -350,7 +350,7 @@ function Header() {
 																)
 															}
 														>
-															{paletteType === 'light' ? '다크모드' : '라이트모드'}
+															{paletteType === 'light' ? '다크 모드' : '라이트 모드'}
 														</Button>
 														<Button ref={anchorRef} onClick={handleToggle}>
 															<Box display={'flex'} alignItems={'center'}>
@@ -414,7 +414,7 @@ function Header() {
 																)
 															}
 														>
-															{paletteType === 'light' ? '다크모드' : '라이트모드'}
+															{paletteType === 'light' ? '다크 모드' : '라이트 모드'}
 														</Button>
 														<Button onClick={onHandleSignInDialog} startIcon={<ExitToAppIcon color={'action'} />}>
 															{'로그인'}
