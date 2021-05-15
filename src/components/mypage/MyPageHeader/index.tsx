@@ -13,7 +13,11 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			height: 200,
-			background: `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
+			borderTop: theme.palette.type === 'dark' ? `1px solid ${theme.palette.grey['50']}` : 'none',
+			background:
+				theme.palette.type === 'light'
+					? `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`
+					: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				height: 'auto'
 			}

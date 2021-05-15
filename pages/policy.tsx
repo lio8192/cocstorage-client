@@ -15,7 +15,8 @@ import ListItem from '@material-ui/core/ListItem';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			background: 'linear-gradient(to right, #E0C3FC, #8EC5FC)',
+			background:
+				theme.palette.type === 'light' ? 'linear-gradient(to right, #E0C3FC, #8EC5FC)' : theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				height: 'auto'
 			}
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		contentContainer: {
 			paddingTop: theme.spacing(1),
-			backgroundColor: 'white'
+			backgroundColor: theme.palette.background.default
 		},
 		typography: {
 			color: 'white',

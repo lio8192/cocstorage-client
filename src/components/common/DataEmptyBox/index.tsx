@@ -12,7 +12,7 @@ import Avatar from '@material-ui/core/Avatar';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: 'white'
+			backgroundColor: theme.palette.background.default
 		},
 		avatar: {
 			width: theme.spacing(7),

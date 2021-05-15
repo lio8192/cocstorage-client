@@ -68,6 +68,7 @@ function SignInDialog() {
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 	const {
+		paletteType,
 		open,
 		pending,
 		postSignInBody: { email, password, showPassword },
@@ -96,14 +97,22 @@ function SignInDialog() {
 					<Box textAlign={'center'}>
 						<img
 							className={classes.icon}
-							src={'https://static.cocstorage.com/images/icon.png'}
+							src={
+								paletteType === 'light'
+									? 'https://static.cocstorage.com/images/icon.png'
+									: 'https://static.cocstorage.com/images/icon_black.png'
+							}
 							alt={'SignInDialog Logo Img'}
 						/>
 					</Box>
 					<Box textAlign={'center'}>
 						<img
 							className={classes.logo}
-							src={'https://static.cocstorage.com/images/logo_text.png'}
+							src={
+								paletteType === 'light'
+									? 'https://static.cocstorage.com/images/logo_text.png'
+									: 'https://static.cocstorage.com/images/logo_text_black.png'
+							}
 							alt={'SignInDialog Logo Img'}
 						/>
 					</Box>
@@ -161,9 +170,9 @@ function SignInDialog() {
 							<Button
 								className={classes.button}
 								fullWidth
+								color={'primary'}
 								variant={'contained'}
 								onClick={onPostSignIn}
-								color={'primary'}
 								size={'large'}
 								disabled={pending}
 							>

@@ -1,8 +1,6 @@
 import React, { memo } from 'react';
 import Link from 'next/link';
-import {
-	createStyles, makeStyles, Theme, useTheme
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import moment from 'moment';
 
 // Material UI
@@ -13,8 +11,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
+import Hidden from '@material-ui/core/Hidden';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
@@ -36,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		root: {
 			height: '100%',
 			border: `1px solid ${theme.palette.grey['50']}`,
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: 0,
 				border: 'none'
@@ -44,7 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		typography: {
 			fontWeight: 700,
-			color: '#3d3d3d',
 			cursor: 'default'
 		},
 		chip: {
@@ -127,6 +124,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		skeleton: {
 			display: 'inline-block'
+		},
+		divider: {
+			backgroundColor: theme.palette.grey['50']
 		}
 	})
 );
@@ -136,8 +136,6 @@ function HomePopularStorageBoardList() {
 	const {
 		popularStorageBoards: { data, pending }
 	} = useHomePopularStorageBoardList();
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	return (
 		<Box className={classes.root}>
@@ -148,7 +146,9 @@ function HomePopularStorageBoardList() {
 					</Typography>
 				</Box>
 			</Box>
-			{!isMobile && <Divider />}
+			<Hidden implementation={'css'} mdDown>
+				<Divider className={classes.divider} />
+			</Hidden>
 			<List className={classes.list} disablePadding>
 				{pending
 					&& [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (

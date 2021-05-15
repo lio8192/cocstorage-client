@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
 // Modules
-import { handleSignInDialog, deleteSignOut, handleDrawer } from 'modules/common';
+import { handleSignInDialog, deleteSignOut, handlePaletteType } from 'modules/common';
 import { RootState } from 'modules';
 
 export default function useMobileHeader() {
@@ -13,7 +13,7 @@ export default function useMobileHeader() {
 		route,
 		query: { id }
 	} = router;
-	const { user } = useSelector((state: RootState) => state.common);
+	const { user, paletteType } = useSelector((state: RootState) => state.common);
 	const { storage } = useSelector((state: RootState) => state.storageBoard);
 	const { pending } = useSelector((state: RootState) => state.storageBoardDetail);
 
@@ -38,22 +38,6 @@ export default function useMobileHeader() {
 	const onHandleSignInDialog = useCallback(() => dispatch(handleSignInDialog()), [dispatch]);
 	const onDeleteSignOut = useCallback(() => dispatch(deleteSignOut()), [dispatch]);
 
-	const onHandleChip = useCallback(() => {
-		const categoryId = typeof id === 'string' ? id : '';
-
-		router
-			.push(
-				{
-					pathname: '/board/[id]',
-					query: {
-						id: categoryId
-					}
-				},
-				`/board/${categoryId}`
-			)
-			.then();
-	}, [router, id]);
-
 	const onHandleLogo = useCallback(() => {
 		router
 			.push(
@@ -64,27 +48,6 @@ export default function useMobileHeader() {
 			)
 			.then();
 	}, [router]);
-
-	const onHandleDrawerMenu = useCallback(
-		(event: React.MouseEvent<HTMLDivElement>) => {
-			const categoryId: string = event.currentTarget.getAttribute('data-category-id') || '';
-
-			router
-				.push(
-					{
-						pathname: '/board/[id]',
-						query: {
-							id: categoryId
-						}
-					},
-					`/board/${categoryId}`
-				)
-				.then();
-
-			dispatch(handleDrawer());
-		},
-		[dispatch, router]
-	);
 
 	const onHandleStorageChip = useCallback(() => {
 		router
@@ -108,7 +71,19 @@ export default function useMobileHeader() {
 			.then();
 	}, [router]);
 
+	const onHandlePaletteType = useCallback(
+		(event: React.MouseEvent<HTMLButtonElement>) => {
+			const type = event.currentTarget.getAttribute('data-palette-type') || 'light';
+
+			window.localStorage.setItem('coc-palette-type', type);
+
+			dispatch(handlePaletteType(type));
+		},
+		[dispatch]
+	);
+
 	return {
+		paletteType,
 		id,
 		user,
 		storage,
@@ -118,9 +93,8 @@ export default function useMobileHeader() {
 		onHandleSignInDialog,
 		onDeleteSignOut,
 		onHandleStorageChip,
-		onHandleChip,
 		onHandleNoticeChip,
 		onHandleLogo,
-		onHandleDrawerMenu
+		onHandlePaletteType
 	};
 }

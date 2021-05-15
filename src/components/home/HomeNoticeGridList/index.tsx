@@ -48,13 +48,12 @@ const useStyles = makeStyles((theme: Theme) =>
 			display: 'flex',
 			alignItems: 'center',
 			justifyContent: 'space-between',
-			backgroundColor: 'white'
+			backgroundColor: theme.palette.background.default
 		},
 		title: {
 			width: '100%',
 			paddingBottom: theme.spacing(1),
 			fontWeight: 700,
-			color: '#3d3d3d',
 			cursor: 'default',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 3)
@@ -96,13 +95,13 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		grid: {
-			backgroundColor: 'white'
+			backgroundColor: theme.palette.background.default
 		},
 		gridItem: {
 			width: '100%'
 		},
 		card: {
-			border: '1px solid #EAEAEA'
+			border: `1px solid ${theme.palette.grey['50']}`
 		},
 		media: {
 			height: 200
@@ -146,7 +145,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		listBox: {
 			maxWidth: '100%',
 			height: '100%',
-			border: '1px solid #EAEAEA',
+			border: `1px solid ${theme.palette.grey['50']}`,
 			[theme.breakpoints.down('md')]: {
 				border: 'none'
 			}
@@ -206,8 +205,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			lineClamp: 2
 		},
 		nicknameTypography: {
-			fontWeight: 700,
-			color: theme.palette.grey.A700
+			fontWeight: 700
 		}
 	})
 );

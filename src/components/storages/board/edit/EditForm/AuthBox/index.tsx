@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			justifyContent: 'center',
 			width: '100%',
 			height: '100%',
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			zIndex: 10
 		},
 		icon: {

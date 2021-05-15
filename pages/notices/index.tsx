@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		container: {
 			paddingTop: theme.spacing(2),
 			paddingBottom: theme.spacing(2),
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0)
 			}
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		adminContainer: {
 			paddingBottom: theme.spacing(1),
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				paddingTop: theme.spacing(2),
 				paddingBottom: theme.spacing(0)

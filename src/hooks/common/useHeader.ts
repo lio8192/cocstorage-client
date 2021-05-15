@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
 // Modules
-import { handleSignInDialog, deleteSignOut } from 'modules/common';
+import { handleSignInDialog, deleteSignOut, handlePaletteType } from 'modules/common';
 import { RootState } from 'modules';
 
 export default function useHeader() {
 	const dispatch = useDispatch();
-	const { user } = useSelector((state: RootState) => state.common);
+	const { paletteType, user } = useSelector((state: RootState) => state.common);
 	const { storage } = useSelector((state: RootState) => state.storageBoard);
 	const router = useRouter();
 	const {
@@ -124,7 +124,19 @@ export default function useHeader() {
 
 	const onDeleteSignOut = useCallback(() => dispatch(deleteSignOut()), [dispatch]);
 
+	const onHandlePaletteType = useCallback(
+		(event: React.MouseEvent<HTMLButtonElement>) => {
+			const type = event.currentTarget.getAttribute('data-palette-type') || 'light';
+
+			window.localStorage.setItem('coc-palette-type', type);
+
+			dispatch(handlePaletteType(type));
+		},
+		[dispatch]
+	);
+
 	return {
+		paletteType,
 		id,
 		user,
 		storage,
@@ -138,6 +150,7 @@ export default function useHeader() {
 		onHandleStorageChip,
 		onHandleNoticeChip,
 		onHandleSignInDialog,
-		onDeleteSignOut
+		onDeleteSignOut,
+		onHandlePaletteType
 	};
 }

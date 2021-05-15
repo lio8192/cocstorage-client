@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { forwardRef, memo } from 'react';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
@@ -17,6 +17,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Fade from '@material-ui/core/Fade';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Slide from '@material-ui/core/Slide';
+// eslint-disable-next-line import/no-unresolved
+import { TransitionProps } from '@material-ui/core/transitions';
 
 // Material UI Icons
 import Visibility from '@material-ui/icons/Visibility';
@@ -48,6 +51,12 @@ const useStyles = makeStyles((theme: Theme) =>
 		}
 	})
 );
+
+const Transition = forwardRef<unknown, TransitionProps>((props, ref) => (
+	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+	// @ts-ignore
+	<Slide direction={'up'} ref={ref} {...props} />
+));
 
 export type PasswordAuthDialogBody = {
 	password: string;
@@ -90,6 +99,7 @@ function PasswordAuthDialog({
 			maxWidth={'xs'}
 			open={open}
 			onClose={onHandlePasswordAuthDialog}
+			TransitionComponent={Transition}
 		>
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />
@@ -140,9 +150,9 @@ function PasswordAuthDialog({
 							<Button
 								className={classes.button}
 								fullWidth
+								color={'primary'}
 								variant={'contained'}
 								onClick={onRequestPasswordAuth}
-								color={'primary'}
 								size={'large'}
 								disabled={pending}
 							>

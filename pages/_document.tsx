@@ -5,14 +5,12 @@ import Document, {
 
 // Material UI
 import { ServerStyleSheets } from '@material-ui/core/styles';
-import theme from 'theme';
 
 export default class CustomDocument extends Document {
 	render() {
 		return (
 			<Html lang={'ko'}>
-				<Head />
-				<body style={{ backgroundColor: theme.palette.background.default }}>
+				<Head>
 					<script async src={'https://www.googletagmanager.com/gtag/js?id=G-20GMQTM36F'} />
 					<script
 						/* eslint-disable-next-line react/no-danger */
@@ -24,6 +22,8 @@ export default class CustomDocument extends Document {
 								+ '  gtag(\'config\', \'G-20GMQTM36F\');'
 						}}
 					/>
+				</Head>
+				<body>
 					<Main />
 					<NextScript />
 				</body>

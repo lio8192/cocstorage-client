@@ -1,10 +1,10 @@
 import { createReducer } from 'typesafe-actions';
 import { HYDRATE } from 'next-redux-wrapper';
-import { CommonActions, CommonState } from 'modules/common/types';
 
 // Snippets
-import { setUserStateByJsonWebToken, updateUserStateByJsonWebToken } from 'snippets/common';
+import { setUserStateByJsonWebToken, updateUserStateByJsonWebToken, setPaletteType } from 'snippets/common';
 
+import { CommonActions, CommonState } from './types';
 import {
 	HANDLE_SIGN_IN_DIALOG,
 	HANDLE_SIGN_UP_DIALOG,
@@ -25,11 +25,12 @@ import {
 	SET_USER_AUTHENTICATION,
 	UPDATE_USER_AUTHENTICATION,
 	DELETE_SIGN_OUT_SUCCEEDED,
-	HANDLE_DRAWER
+	HANDLE_PALETTE_TYPE,
+	SET_PALETTE_TYPE
 } from './actions';
 
 const initialState: CommonState = {
-	drawerOpen: false,
+	paletteType: 'light',
 	signIn: {
 		open: false,
 		pending: false
@@ -70,6 +71,7 @@ const common = createReducer<CommonState, CommonActions>(initialState, {
 			...payload.common
 		};
 
+		if (state.paletteType) nextState.paletteType = state.paletteType;
 		if (state.user) nextState.user = state.user;
 
 		return {
@@ -232,9 +234,13 @@ const common = createReducer<CommonState, CommonActions>(initialState, {
 			isAuthenticated: false
 		}
 	}),
-	[HANDLE_DRAWER]: (state) => ({
+	[HANDLE_PALETTE_TYPE]: (state, { payload: paletteType }) => ({
 		...state,
-		drawerOpen: !state.drawerOpen
+		paletteType
+	}),
+	[SET_PALETTE_TYPE]: (state) => ({
+		...state,
+		paletteType: setPaletteType()
 	})
 });
 

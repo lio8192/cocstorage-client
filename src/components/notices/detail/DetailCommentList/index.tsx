@@ -54,7 +54,7 @@ moment.locale('ko');
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: 'white'
+			backgroundColor: theme.palette.background.default
 		},
 		commentOrderList: {
 			display: 'flex',
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: 'auto',
 			padding: 0,
 			cursor: 'pointer',
-			color: theme.palette.grey.A200,
+			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
 			transition: 'color .5s',
 			'&::after': {
 				content: '""',
@@ -87,12 +87,15 @@ const useStyles = makeStyles((theme: Theme) =>
 				display: 'none'
 			},
 			'&:hover': {
-				backgroundColor: 'white !important',
+				backgroundColor: 'none !important',
 				color: theme.palette.primary.main
 			},
 			'&.Mui-selected': {
-				backgroundColor: 'white',
+				backgroundColor: theme.palette.type === 'light' ? 'white' : theme.palette.background.default,
 				color: theme.palette.primary.main
+			},
+			'&.Mui-selected:hover': {
+				backgroundColor: 'none !important'
 			},
 			'& p': {
 				fontFamily: 'NanumSquareRoundEB'
@@ -132,7 +135,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		commentListItemWriterBox: {
 			display: 'flex',
 			alignItems: 'center',
-			color: theme.palette.grey.A200,
+			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
 			'& > div::after': {
 				content: '""',
 				display: 'inline-block',
@@ -157,7 +160,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginLeft: theme.spacing(1),
 			fontSize: 16,
 			fontWeight: 700,
-			color: theme.palette.grey.A700
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		},
 		commentListItemContent: {
 			paddingTop: theme.spacing(1),
@@ -179,7 +182,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		replyBox: {
 			padding: theme.spacing(2),
-			backgroundColor: '#fafafa',
+			backgroundColor: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(2, 3),
 				borderBottom: `1px solid ${theme.palette.grey['50']}`
@@ -191,7 +194,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		replyBoxItemWriterBox: {
 			display: 'flex',
 			alignItems: 'center',
-			color: theme.palette.grey.A200,
+			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
 			'&::before': {
 				content: '""',
 				display: 'inline-block',
@@ -225,7 +228,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginLeft: theme.spacing(1),
 			fontSize: 16,
 			fontWeight: 700,
-			color: theme.palette.grey.A700
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		},
 		replyBoxItemContent: {
 			padding: theme.spacing(1, 0, 0, 3),
@@ -237,7 +240,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		replyBoxItemWriterDateSkeleton: {
-			color: theme.palette.grey.A200,
+			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0, 0, 0, 3)
 			}

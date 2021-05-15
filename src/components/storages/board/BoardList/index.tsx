@@ -52,12 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		listItemAd: {
 			width: '100%',
-			paddingTop: theme.spacing(1.5),
+			paddingTop: theme.spacing(1),
 			textAlign: 'center',
-			backgroundColor: '#fafafa',
-			'& ins': {
-				marginLeft: '0 !important'
-			}
+			backgroundColor: theme.palette.type === 'light' ? '#E5EDF8' : theme.palette.background.paper
 		},
 		icon: {
 			verticalAlign: 'middle'
@@ -114,7 +111,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderRadius: 5
 		},
 		typography: {
-			color: theme.palette.grey.A700
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		}
 	})
 );

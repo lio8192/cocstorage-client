@@ -23,7 +23,7 @@ export type PostSignInBody = {
 
 export default function useSignIn() {
 	const dispatch = useDispatch();
-	const commonState = useSelector((state: RootState) => state.common);
+	const { paletteType, signIn } = useSelector((state: RootState) => state.common);
 
 	const [postSignInBody, setPostSignInBody] = useState<PostSignInBody>({
 		email: {
@@ -125,7 +125,7 @@ export default function useSignIn() {
 	}, [dispatch, postSignInBody]);
 
 	useEffect(() => {
-		if (!commonState.signIn.open) {
+		if (!signIn.open) {
 			setPostSignInBody({
 				email: {
 					value: '',
@@ -140,10 +140,11 @@ export default function useSignIn() {
 				showPassword: false
 			});
 		}
-	}, [commonState.signIn.open]);
+	}, [signIn.open]);
 
 	return {
-		...commonState.signIn,
+		...signIn,
+		paletteType,
 		postSignInBody,
 		onHandleSignInDialog,
 		onHandleSignUpDialog,

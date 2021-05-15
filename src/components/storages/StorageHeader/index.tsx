@@ -13,7 +13,10 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			height: 'auto',
-			background: `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`
+			background:
+				theme.palette.type === 'light'
+					? `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`
+					: theme.palette.background.paper
 		},
 		container: {
 			display: 'flex',

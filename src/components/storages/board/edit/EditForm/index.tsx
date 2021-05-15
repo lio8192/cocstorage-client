@@ -11,11 +11,11 @@ import Box from '@material-ui/core/Box';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import MUIRichTextEditor from 'mui-rte';
 import TextField from '@material-ui/core/TextField';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import NoSsr from '@material-ui/core/NoSsr';
 import Grow from '@material-ui/core/Grow';
-import MUIRichTextEditor from 'mui-rte';
 
 // Material UI Icons
 import Visibility from '@material-ui/icons/Visibility';
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
 			marginTop: theme.spacing(3),
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				marginTop: theme.spacing(0),
 				padding: theme.spacing(0)
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			minHeight: 500,
 			margin: theme.spacing(1, 0, 1),
 			padding: theme.spacing(0, '14px'),
-			border: '1px solid rgba(0, 0, 0, 0.23)',
+			border: `1px solid ${theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)'}`,
 			borderRadius: 4,
 			'& img': {
 				maxWidth: '100%'
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				margin: theme.spacing(0),
 				border: 'none',
-				borderTop: `1px solid ${theme.palette.grey.A100}`,
+				borderTop: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`,
 				borderRadius: 0
 			}
 		},
@@ -88,8 +88,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		buttonBox: {
-			borderTop: '1px solid #d5d5d5',
-			overflow: 'hidden'
+			overflow: 'hidden',
+			[theme.breakpoints.down('md')]: {
+				borderTop: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`
+			}
 		},
 		button: {
 			color: 'white',

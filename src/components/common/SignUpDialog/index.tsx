@@ -74,6 +74,7 @@ function SignUpDialog() {
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 	const {
+		paletteType,
 		open,
 		pending,
 		postSignUpBody: {
@@ -104,15 +105,23 @@ function SignUpDialog() {
 					<Box textAlign={'center'}>
 						<img
 							className={classes.icon}
-							src={'https://static.cocstorage.com/images/icon.png'}
-							alt={'SignUpDialog Logo Img'}
+							src={
+								paletteType === 'light'
+									? 'https://static.cocstorage.com/images/icon.png'
+									: 'https://static.cocstorage.com/images/icon_black.png'
+							}
+							alt={'SignInDialog Logo Img'}
 						/>
 					</Box>
 					<Box textAlign={'center'}>
 						<img
 							className={classes.logo}
-							src={'https://static.cocstorage.com/images/logo_text.png'}
-							alt={'SignUpDialog Logo Img'}
+							src={
+								paletteType === 'light'
+									? 'https://static.cocstorage.com/images/logo_text.png'
+									: 'https://static.cocstorage.com/images/logo_text_black.png'
+							}
+							alt={'SignInDialog Logo Img'}
 						/>
 					</Box>
 				</Box>
@@ -204,9 +213,9 @@ function SignUpDialog() {
 							<Button
 								className={classes.button}
 								fullWidth
+								color={'primary'}
 								variant={'contained'}
 								onClick={onPostSignUp}
-								color={'primary'}
 								size={'large'}
 								disabled={pending}
 							>

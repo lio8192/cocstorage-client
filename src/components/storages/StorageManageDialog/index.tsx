@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		appBar: {
 			position: 'relative',
 			paddingRight: '0 !important',
-			backgroundColor: 'white'
+			backgroundColor: theme.palette.background.default
 		},
 		title: {
 			flex: 1,

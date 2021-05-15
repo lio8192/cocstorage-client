@@ -47,7 +47,7 @@ moment.locale('ko');
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: 0
 			}
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			display: 'flex',
 			alignItems: 'center',
 			padding: theme.spacing(2, 0, 1, 0),
-			color: theme.palette.grey.A700,
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : '',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(2, 3, 0, 3)
 			},
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			justifyContent: 'space-between',
 			marginBottom: theme.spacing(2),
 			padding: theme.spacing(1, 0),
-			color: theme.palette.grey.A200,
+			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 3, 0, 3)
 			},
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		nicknameBox: {
 			fontSize: 16,
 			fontWeight: 700,
-			color: theme.palette.grey.A700
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		},
 		writerAvatar: {
 			[theme.breakpoints.down('md')]: {
@@ -119,13 +119,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderRight: 'none',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(2, 3)
-			}
-		},
-		adBox: {
-			'& ins': {
-				margin: theme.spacing(1, 0),
-				marginLeft: '0 !important',
-				textAlign: 'center'
 			}
 		},
 		contentBox: {
@@ -166,7 +159,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		backdrop: {
 			zIndex: theme.zIndex.drawer + 1,
-			color: '#fff'
+			color: theme.palette.type === 'light' ? '#fff' : ''
 		},
 		popper: {
 			left: '-50px !important',
@@ -184,15 +177,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: 'white'
 		},
 		chip: {
+			borderRadius: 5,
 			color: 'white',
-			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5
-		},
-		topAdBox: {
-			backgroundColor: theme.palette.grey['50'],
-			[theme.breakpoints.down('md')]: {
-				borderRadius: 'inherit'
-			}
+			fontFamily: 'NanumSquareRoundEB'
 		}
 	})
 );
@@ -533,18 +520,16 @@ function DetailContent() {
 								</Box>
 							</Box>
 						</Box>
-						<Box className={classes.topAdBox}>
-							<GoogleAdSense
-								html={
-									'<ins class="adsbygoogle"'
-									+ 'style="display:block"'
-									+ 'data-ad-client="ca-pub-5809905264951057"'
-									+ 'data-ad-slot="8033291397"'
-									+ 'data-ad-format="auto"'
-									+ 'data-full-width-responsive="true"></ins>'
-								}
-							/>
-						</Box>
+						<GoogleAdSense
+							html={
+								'<ins class="adsbygoogle"'
+								+ 'style="display:block"'
+								+ 'data-ad-client="ca-pub-5809905264951057"'
+								+ 'data-ad-slot="8033291397"'
+								+ 'data-ad-format="auto"'
+								+ 'data-full-width-responsive="true"></ins>'
+							}
+						/>
 						<Box className={classes.contentBox}>
 							{sourceCode && (
 								<Box mb={2} textAlign={'right'}>

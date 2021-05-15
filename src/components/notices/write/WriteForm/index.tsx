@@ -9,10 +9,10 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import MUIRichTextEditor from 'mui-rte';
 import TextField from '@material-ui/core/TextField';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Grow from '@material-ui/core/Grow';
-import MUIRichTextEditor from 'mui-rte';
 
 // Material UI Icons
 import DoneIcon from '@material-ui/icons/Done';
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
 			marginTop: theme.spacing(3),
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				marginTop: theme.spacing(0),
 				padding: theme.spacing(0)
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			minHeight: 500,
 			margin: theme.spacing(1, 0, 1),
 			padding: theme.spacing(0, '14px'),
-			border: '1px solid rgba(0, 0, 0, 0.23)',
+			border: `1px solid ${theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)'}`,
 			borderRadius: 4,
 			'& img': {
 				maxWidth: '100%'
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				margin: theme.spacing(0),
 				border: 'none',
-				borderTop: `1px solid ${theme.palette.grey.A100}`,
+				borderTop: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`,
 				borderRadius: 0
 			}
 		},
@@ -82,8 +82,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		buttonBox: {
-			borderTop: '1px solid #d5d5d5',
-			overflow: 'hidden'
+			overflow: 'hidden',
+			[theme.breakpoints.down('md')]: {
+				borderTop: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`
+			}
 		},
 		prevButton: {
 			fontFamily: 'NanumSquareRoundEB'
@@ -98,17 +100,6 @@ const useStyles = makeStyles((theme: Theme) =>
 				padding: theme.spacing(1, 2),
 				marginBottom: theme.spacing(0)
 			}
-		},
-		authenticationBox: {
-			position: 'absolute',
-			top: 0,
-			display: 'flex',
-			alignItems: 'center',
-			justifyContent: 'center',
-			width: '100%',
-			height: '100%',
-			backgroundColor: 'white',
-			zIndex: 10
 		},
 		icon: {
 			verticalAlign: 'middle'

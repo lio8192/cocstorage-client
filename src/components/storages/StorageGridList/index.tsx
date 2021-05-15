@@ -30,7 +30,7 @@ moment.locale('ko');
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		card: {
-			border: '1px solid #EAEAEA',
+			border: `1px solid ${theme.palette.grey['50']}`,
 			[theme.breakpoints.down('md')]: {
 				border: 'none',
 				textAlign: 'center'
@@ -38,7 +38,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		cardContentHead: {
 			padding: theme.spacing(3),
-			background: 'linear-gradient(rgb(244, 245, 247) 100%, rgb(255, 255, 255) 35%, rgb(255, 255, 255) 100%)',
+			background:
+				theme.palette.type === 'light'
+					? 'linear-gradient(rgb(244, 245, 247) 100%, rgb(255, 255, 255) 35%, rgb(255, 255, 255) 100%)'
+					: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: 0
 			}
@@ -144,7 +147,7 @@ function StorageGridList() {
 														</Avatar>
 													</Badge>
 													<Box mt={1}>
-														<Typography className={classes.typography}>{item.name}</Typography>
+														<Typography className={classes.typography} noWrap>{item.name}</Typography>
 													</Box>
 												</CardContent>
 											</CardActionArea>

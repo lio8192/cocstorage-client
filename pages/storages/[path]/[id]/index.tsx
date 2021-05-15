@@ -7,7 +7,6 @@ import {
 // Material UI
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -39,7 +38,7 @@ import useStorageBoardDetail from 'hooks/storages/board/detail/useStorageBoardDe
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: 0
 			}
@@ -47,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		grid: {
 			borderRight: '1px solid rgba(0, 0, 0, 0.23)',
 			[theme.breakpoints.down('md')]: {
-				borderColor: '#EAEAEA'
+				borderColor: theme.palette.grey['50']
 			}
 		},
 		pagination: {
@@ -55,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& > ul': {
 				justifyContent: 'center',
 				'& *': {
-					color: 'rgba(0, 0, 0, 0.5)'
+					color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.5)' : ''
 				},
 				'& .Mui-selected': {
 					color: 'white'
@@ -64,11 +63,12 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		backdrop: {
 			zIndex: theme.zIndex.drawer + 1,
-			color: '#fff'
+			color: theme.palette.background.default
 		},
-		adBox: {
-			marginTop: theme.spacing(2),
-			backgroundColor: theme.palette.grey['50']
+		snackbar: {
+			[theme.breakpoints.down('md')]: {
+				bottom: theme.spacing(8)
+			}
 		}
 	})
 );
@@ -187,18 +187,16 @@ function StorageBoardDetail() {
 				<Grid container>
 					<Grid item xs={12} sm={12} md={12} lg={12}>
 						<DetailContent />
-						<Box className={classes.adBox}>
-							<GoogleAdSense
-								html={
-									'<ins class="adsbygoogle"'
-									+ 'style="display:block"'
-									+ 'data-ad-client="ca-pub-5809905264951057"'
-									+ 'data-ad-slot="8033291397"'
-									+ 'data-ad-format="auto"'
-									+ 'data-full-width-responsive="true"></ins>'
-								}
-							/>
-						</Box>
+						<GoogleAdSense
+							html={
+								'<ins class="adsbygoogle"'
+								+ 'style="display:block"'
+								+ 'data-ad-client="ca-pub-5809905264951057"'
+								+ 'data-ad-slot="8033291397"'
+								+ 'data-ad-format="auto"'
+								+ 'data-full-width-responsive="true"></ins>'
+							}
+						/>
 						<DetailCommentList />
 						{pagination.totalPages > 0 && (
 							<Pagination
@@ -228,6 +226,7 @@ function StorageBoardDetail() {
 				onRequestPasswordAuth={onDeleteNonMemberStorageBoardDetail}
 			/>
 			<Snackbar
+				className={classes.snackbar}
 				open={open}
 				onClose={onCloseStorageBoardDetailRecommendSnackbar}
 				TransitionComponent={SlideTransition}
@@ -238,6 +237,7 @@ function StorageBoardDetail() {
 				</Alert>
 			</Snackbar>
 			<Snackbar
+				className={classes.snackbar}
 				open={errorOpen}
 				onClose={onCloseStorageBoardDetailRecommendErrorSnackbar}
 				TransitionComponent={SlideTransition}

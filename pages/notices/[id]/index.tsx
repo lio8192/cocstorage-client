@@ -27,7 +27,7 @@ import useNoticeDetail from 'hooks/notices/detail/useNoticeDetail';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: 0
 			}
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		grid: {
 			borderRight: '1px solid rgba(0, 0, 0, 0.23)',
 			[theme.breakpoints.down('md')]: {
-				borderColor: '#EAEAEA'
+				borderColor: theme.palette.grey['50']
 			}
 		},
 		pagination: {
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& > ul': {
 				justifyContent: 'center',
 				'& *': {
-					color: 'rgba(0, 0, 0, 0.5)'
+					color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.5)' : ''
 				},
 				'& .Mui-selected': {
 					color: 'white'
@@ -122,7 +122,6 @@ function NoticeDetail() {
 				<Grid container>
 					<Grid item xs={12}>
 						<DetailContent />
-						<DetailCommentWriteForm />
 						<DetailCommentList />
 						{pagination.totalPages > 0 && (
 							<Pagination
@@ -136,6 +135,7 @@ function NoticeDetail() {
 								siblingCount={isMobile ? 0 : 2}
 							/>
 						)}
+						<DetailCommentWriteForm />
 					</Grid>
 				</Grid>
 			</Container>

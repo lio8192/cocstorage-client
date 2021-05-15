@@ -57,30 +57,32 @@ const useStyles = makeStyles((theme: Theme) =>
 			paddingBottom: theme.spacing(1)
 		},
 		grid: {
+			backgroundColor: theme.palette.background.default,
 			'& > .MuiGrid-item:first-child': {
-				borderTop: '1px solid #EAEAEA',
+				borderTop: `1px solid ${theme.palette.grey['50']}`,
 				[theme.breakpoints.down('md')]: {
 					borderTop: 'none'
 				}
 			}
 		},
 		gridItemFirst: {
-			borderTop: '1px solid #EAEAEA',
+			borderTop: `1px solid ${theme.palette.grey['50']}`,
+			backgroundColor: 'red !important',
 			[theme.breakpoints.down('md')]: {
 				borderTop: 'none'
 			}
 		},
-		gridContainer: {
-			// '& > .MuiGrid-item:first-child': {
-			// 	borderTop: '1px solid'
-			// }
-		},
 		gridItemContainer: {
-			height: '100%'
+			height: '100%',
+			[theme.breakpoints.down('md')]: {
+				'& .MuiPaper-root': {
+					backgroundColor: theme.palette.background.default
+				}
+			}
 		},
 		gridCard: {
 			height: '100%',
-			border: '1px solid #EAEAEA',
+			border: `1px solid ${theme.palette.grey['50']}`,
 			borderTop: 'none',
 			borderLeft: 'none',
 			[theme.breakpoints.down('md')]: {
@@ -88,7 +90,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		gridCardActionArea: {
-			border: '1px solid #EAEAEA',
+			border: `1px solid ${theme.palette.grey['50']}`,
 			borderTop: 'none',
 			[theme.breakpoints.down('md')]: {
 				border: 'none'
@@ -288,8 +290,14 @@ function NoticeGridList() {
 						);
 					}
 					return (
-						// eslint-disable-next-line react/no-array-index-key
-						<Grid key={`notice-section-1-${item.length}-${index}`} item xs={12} lg={6}>
+						<Grid
+							className={classes.gridItemContainer}
+							// eslint-disable-next-line react/no-array-index-key
+							key={`notice-section-1-${item.length}-${index}`}
+							item
+							xs={12}
+							lg={6}
+						>
 							<Hidden xsDown>
 								<Grid container>
 									{item.map((notice) => (

@@ -37,14 +37,14 @@ moment.locale('ko');
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: 0
 			}
 		},
 		subjectBox: {
 			padding: theme.spacing(2, 0, 1, 0),
-			color: theme.palette.grey.A700,
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : '',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(2, 3, 0, 3)
 			},
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			justifyContent: 'space-between',
 			marginBottom: theme.spacing(2),
 			padding: theme.spacing(1, 0),
-			color: theme.palette.grey.A200,
+			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 3, 0, 3)
 			},
@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginLeft: theme.spacing(1),
 			fontSize: 16,
 			fontWeight: 700,
-			color: theme.palette.grey.A700
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		},
 		otherInfoBox: {
 			display: 'flex',
@@ -150,7 +150,7 @@ const useStyles = makeStyles((theme: Theme) =>
 				padding: theme.spacing(2),
 				borderRadius: '0',
 				borderColor: theme.palette.grey['50'],
-				color: theme.palette.grey.A200
+				color: theme.palette.type === 'light' ? theme.palette.grey.A200 : ''
 			}
 		},
 		backdrop: {

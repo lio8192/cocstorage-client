@@ -8,9 +8,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AppBar from '@material-ui/core/AppBar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -26,6 +25,8 @@ import MenuList from '@material-ui/core/MenuList';
 import NearMeIcon from '@material-ui/icons/NearMe';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 // Custom Hooks
 import useMobileHeader from 'hooks/common/useMobileHeader';
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		root: {
 			border: 'none',
 			borderBottom: `1px solid ${theme.palette.grey['50']}`,
-			backgroundColor: 'white'
+			backgroundColor: theme.palette.background.paper
 		},
 		toolbar: {
 			minHeight: 52,
@@ -79,8 +80,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			verticalAlign: 'middle'
 		},
 		avatar: {
-			width: theme.spacing(4),
-			height: theme.spacing(4)
+			width: theme.spacing(3),
+			height: theme.spacing(3)
 		},
 		popper: {
 			left: '-20px !important',
@@ -108,6 +109,7 @@ function HideOnScroll(props: ScrollProps) {
 function MobileHeader() {
 	const classes = useStyles();
 	const {
+		paletteType,
 		user: { nickname, avatarUrl, isAuthenticated },
 		storage,
 		pending,
@@ -117,7 +119,8 @@ function MobileHeader() {
 		onDeleteSignOut,
 		onHandleLogo,
 		onHandleStorageChip,
-		onHandleNoticeChip
+		onHandleNoticeChip,
+		onHandlePaletteType
 	} = useMobileHeader();
 
 	const [open, setOpen] = useState(false);
@@ -152,6 +155,12 @@ function MobileHeader() {
 		prevOpen.current = open;
 	}, [open]);
 
+	useEffect(() => {
+		if (isAuthenticated) {
+			setOpen(false);
+		}
+	}, [isAuthenticated]);
+
 	return (
 		<>
 			<HideOnScroll>
@@ -162,7 +171,11 @@ function MobileHeader() {
 								<Box component={'span'} onClick={onHandleLogo}>
 									<img
 										className={classes.appBarLogo}
-										src={'https://static.cocstorage.com/images/logo_text.png'}
+										src={
+											paletteType === 'light'
+												? 'https://static.cocstorage.com/images/logo_text.png'
+												: 'https://static.cocstorage.com/images/logo_text_black.png'
+										}
 										alt={'Logo Img'}
 									/>
 								</Box>
@@ -172,7 +185,6 @@ function MobileHeader() {
 									) : (
 										<Chip
 											className={classes.chip}
-											color={'primary'}
 											label={storage.name}
 											avatar={(
 												<Avatar src={storage.avatarUrl || ''}>
@@ -180,41 +192,55 @@ function MobileHeader() {
 												</Avatar>
 											)}
 											onClick={onHandleStorageChip}
+											color={'primary'}
 											size={'small'}
 										/>
 									))}
 								{isNotices && (
 									<Chip
 										className={classes.chip}
-										color={'primary'}
 										label={'새로운 소식'}
 										icon={<NearMeIcon />}
 										onClick={onHandleNoticeChip}
+										color={'primary'}
 										size={'small'}
 									/>
 								)}
 							</Box>
 						</Box>
 						{!isAuthenticated ? (
-							<Button onClick={onHandleSignInDialog} startIcon={<ExitToAppIcon color={'action'} />}>
-								{'로그인'}
-							</Button>
+							<>
+								<IconButton
+									data-palette-type={paletteType === 'light' ? 'dark' : 'light'}
+									onClick={onHandlePaletteType}
+								>
+									{paletteType === 'light' ? (
+										<Brightness4Icon color={'action'} />
+									) : (
+										<Brightness7Icon color={'action'} />
+									)}
+								</IconButton>
+								<IconButton onClick={onHandleSignInDialog}>
+									<ExitToAppIcon color={'action'} />
+								</IconButton>
+							</>
 						) : (
-							<Box>
-								<Button ref={anchorRef} onClick={handleToggle}>
-									<Box display={'flex'} alignItems={'center'}>
-										<Box display={'flex'} alignItems={'center'} mr={1}>
-											<Typography className={classes.typography} variant={'body1'}>
-												{nickname}
-											</Typography>
-										</Box>
-										<Box>
-											<Avatar className={classes.avatar} src={avatarUrl}>
-												{nickname.charAt(0)}
-											</Avatar>
-										</Box>
-									</Box>
-								</Button>
+							<>
+								<IconButton
+									data-palette-type={paletteType === 'light' ? 'dark' : 'light'}
+									onClick={onHandlePaletteType}
+								>
+									{paletteType === 'light' ? (
+										<Brightness4Icon color={'action'} />
+									) : (
+										<Brightness7Icon color={'action'} />
+									)}
+								</IconButton>
+								<IconButton ref={anchorRef} onClick={handleToggle}>
+									<Avatar className={classes.avatar} src={avatarUrl}>
+										{nickname.charAt(0)}
+									</Avatar>
+								</IconButton>
 								<Popper
 									className={classes.popper}
 									open={open}
@@ -243,7 +269,7 @@ function MobileHeader() {
 										</Grow>
 									)}
 								</Popper>
-							</Box>
+							</>
 						)}
 					</Toolbar>
 				</AppBar>

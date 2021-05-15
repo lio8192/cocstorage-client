@@ -54,13 +54,12 @@ const useStyles = makeStyles((theme: Theme) =>
 			display: 'flex',
 			alignItems: 'center',
 			justifyContent: 'space-between',
-			backgroundColor: 'white'
+			backgroundColor: theme.palette.background.default
 		},
 		title: {
 			width: '100%',
 			paddingBottom: theme.spacing(1),
 			fontWeight: 700,
-			color: '#3d3d3d',
 			cursor: 'default',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 3)
@@ -79,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		grid: {
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0, 3, 1)
 			},
@@ -88,11 +87,14 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		card: {
-			border: '1px solid #EAEAEA'
+			border: `1px solid ${theme.palette.grey['50']}`
 		},
 		cardContentHead: {
 			padding: theme.spacing(3),
-			background: 'linear-gradient(rgb(244, 245, 247) 100%, rgb(255, 255, 255) 35%, rgb(255, 255, 255) 100%)'
+			background:
+				theme.palette.type === 'light'
+					? 'linear-gradient(rgb(244, 245, 247) 100%, rgb(255, 255, 255) 35%, rgb(255, 255, 255) 100%)'
+					: theme.palette.background.default
 		},
 		avatar: {
 			width: theme.spacing(7),
@@ -117,7 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: 'white'
 		},
 		list: {
-			backgroundColor: 'white'
+			backgroundColor: theme.palette.background.default
 		},
 		listItem: {
 			padding: theme.spacing(1, 3),

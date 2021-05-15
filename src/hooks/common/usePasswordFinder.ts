@@ -20,7 +20,7 @@ export type PostPasswordFinderBody = {
 
 export default function usePasswordFinder() {
 	const dispatch = useDispatch();
-	const commonState = useSelector((state: RootState) => state.common);
+	const { paletteType, passwordFinder } = useSelector((state: RootState) => state.common);
 
 	const [postPasswordFinderBody, setPostPasswordFinderBody] = useState<PostPasswordFinderBody>({
 		name: {
@@ -112,7 +112,7 @@ export default function usePasswordFinder() {
 	}, [dispatch, postPasswordFinderBody]);
 
 	useEffect(() => {
-		if (!commonState.passwordFinder.open) {
+		if (!passwordFinder.open) {
 			setPostPasswordFinderBody({
 				name: {
 					value: '',
@@ -126,10 +126,11 @@ export default function usePasswordFinder() {
 				}
 			});
 		}
-	}, [commonState.passwordFinder.open]);
+	}, [passwordFinder.open]);
 
 	return {
-		...commonState.passwordFinder,
+		...passwordFinder,
+		paletteType,
 		postPasswordFinderBody,
 		onHandleSignInDialog,
 		onHandlePasswordFinderDialog,

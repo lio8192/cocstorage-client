@@ -34,6 +34,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import NearMeIcon from '@material-ui/icons/NearMe';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 // Custom Hooks
 import useHeader from 'hooks/common/useHeader';
@@ -118,6 +120,7 @@ function Header() {
 	const classes = useStyles();
 	const router = useRouter();
 	const {
+		paletteType,
 		user: { nickname, avatarUrl, isAuthenticated },
 		storage,
 		activatedTab,
@@ -130,7 +133,8 @@ function Header() {
 		onHandleStorageChip,
 		onHandleNoticeChip,
 		onHandleSignInDialog,
-		onDeleteSignOut
+		onDeleteSignOut,
+		onHandlePaletteType
 	} = useHeader();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -188,7 +192,11 @@ function Header() {
 									<Box component={'span'} onClick={onHandleLogo}>
 										<img
 											className={classes.logo}
-											src={'https://static.cocstorage.com/images/logo_text.png'}
+											src={
+												paletteType === 'light'
+													? 'https://static.cocstorage.com/images/logo_text.png'
+													: 'https://static.cocstorage.com/images/logo_text_black.png'
+											}
 											alt={'Logo Img'}
 										/>
 									</Box>
@@ -196,7 +204,20 @@ function Header() {
 								<Box>
 									<NoSsr>
 										{isAuthenticated ? (
-											<Box>
+											<>
+												<Button
+													onClick={onHandlePaletteType}
+													data-palette-type={paletteType === 'light' ? 'dark' : 'light'}
+													startIcon={
+														paletteType === 'light' ? (
+															<Brightness4Icon color={'action'} />
+														) : (
+															<Brightness7Icon color={'action'} />
+														)
+													}
+												>
+													{paletteType === 'light' ? '다크모드' : '라이트모드'}
+												</Button>
 												<Button ref={anchorRef} onClick={handleToggle}>
 													<Box display={'flex'} alignItems={'center'}>
 														<Box display={'flex'} alignItems={'center'} mr={1}>
@@ -245,9 +266,26 @@ function Header() {
 														</Grow>
 													)}
 												</Popper>
-											</Box>
+											</>
 										) : (
-											<Button onClick={onHandleSignInDialog}>{'로그인/회원가입'}</Button>
+											<>
+												<Button
+													onClick={onHandlePaletteType}
+													data-palette-type={paletteType === 'light' ? 'dark' : 'light'}
+													startIcon={
+														paletteType === 'light' ? (
+															<Brightness4Icon color={'action'} />
+														) : (
+															<Brightness7Icon color={'action'} />
+														)
+													}
+												>
+													{paletteType === 'light' ? '다크모드' : '라이트모드'}
+												</Button>
+												<Button onClick={onHandleSignInDialog} startIcon={<ExitToAppIcon color={'action'} />}>
+													{'로그인'}
+												</Button>
+											</>
 										)}
 									</NoSsr>
 								</Box>
@@ -266,14 +304,17 @@ function Header() {
 											<Box component={'span'} onClick={onHandleLogo}>
 												<img
 													className={classes.logo}
-													src={'https://static.cocstorage.com/images/logo_text.png'}
+													src={
+														paletteType === 'light'
+															? 'https://static.cocstorage.com/images/logo_text.png'
+															: 'https://static.cocstorage.com/images/logo_text_black.png'
+													}
 													alt={'Logo Img'}
 												/>
 											</Box>
 											{isNewStorage && (
 												<Chip
 													className={classes.chip}
-													color={'primary'}
 													label={storage.name}
 													avatar={(
 														<Avatar src={storage.avatarUrl || ''}>
@@ -281,22 +322,36 @@ function Header() {
 														</Avatar>
 													)}
 													onClick={onHandleStorageChip}
+													color={'primary'}
 												/>
 											)}
 											{!isNewStorage && isNotices && (
 												<Chip
 													className={classes.chip}
-													color={'primary'}
 													label={'새로운 소식'}
 													icon={<NearMeIcon />}
 													onClick={onHandleNoticeChip}
+													color={'primary'}
 												/>
 											)}
 										</Box>
 										<Box>
 											<NoSsr>
 												{isAuthenticated ? (
-													<Box>
+													<>
+														<Button
+															onClick={onHandlePaletteType}
+															data-palette-type={paletteType === 'light' ? 'dark' : 'light'}
+															startIcon={
+																paletteType === 'light' ? (
+																	<Brightness4Icon color={'action'} />
+																) : (
+																	<Brightness7Icon color={'action'} />
+																)
+															}
+														>
+															{paletteType === 'light' ? '다크모드' : '라이트모드'}
+														</Button>
 														<Button ref={anchorRef} onClick={handleToggle}>
 															<Box display={'flex'} alignItems={'center'}>
 																<Box display={'flex'} alignItems={'center'} mr={1}>
@@ -345,9 +400,26 @@ function Header() {
 																</Grow>
 															)}
 														</Popper>
-													</Box>
+													</>
 												) : (
-													<Button onClick={onHandleSignInDialog}>{'로그인/회원가입'}</Button>
+													<>
+														<Button
+															onClick={onHandlePaletteType}
+															data-palette-type={paletteType === 'light' ? 'dark' : 'light'}
+															startIcon={
+																paletteType === 'light' ? (
+																	<Brightness4Icon color={'action'} />
+																) : (
+																	<Brightness7Icon color={'action'} />
+																)
+															}
+														>
+															{paletteType === 'light' ? '다크모드' : '라이트모드'}
+														</Button>
+														<Button onClick={onHandleSignInDialog} startIcon={<ExitToAppIcon color={'action'} />}>
+															{'로그인'}
+														</Button>
+													</>
 												)}
 											</NoSsr>
 										</Box>
@@ -360,29 +432,27 @@ function Header() {
 				</>
 			)}
 			{!isMobile && openTab && (
-				<Box>
-					<Paper className={classes.paper} variant={'outlined'} square>
-						<Container>
-							<Tabs
-								indicatorColor={'primary'}
-								textColor={'primary'}
-								value={
-									activatedTab === '/'
-									|| activatedTab.indexOf('/storages') !== -1
-									|| activatedTab.indexOf('/notices') !== -1
-										? activatedTab
-										: '/storages'
-								}
-								onChange={onHandleTabChange}
-								className={classes.indicator}
-							>
-								<Tab icon={<HomeIcon />} value={'/'} />
-								<Tab label={'커뮤니티 저장소'} value={'/storages'} />
-								<Tab label={'새로운 소식'} value={'/notices'} />
-							</Tabs>
-						</Container>
-					</Paper>
-				</Box>
+				<Paper className={classes.paper} variant={'outlined'} square>
+					<Container>
+						<Tabs
+							indicatorColor={'primary'}
+							textColor={'primary'}
+							value={
+								activatedTab === '/'
+								|| activatedTab.indexOf('/storages') !== -1
+								|| activatedTab.indexOf('/notices') !== -1
+									? activatedTab
+									: '/storages'
+							}
+							onChange={onHandleTabChange}
+							className={classes.indicator}
+						>
+							<Tab icon={<HomeIcon />} value={'/'} />
+							<Tab label={'커뮤니티 저장소'} value={'/storages'} />
+							<Tab label={'새로운 소식'} value={'/notices'} />
+						</Tabs>
+					</Container>
+				</Paper>
 			)}
 		</>
 	);

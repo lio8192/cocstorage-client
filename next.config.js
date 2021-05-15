@@ -2,6 +2,10 @@ const withImages = require('next-images');
 
 module.exports = withImages({
 	webpack(config) {
+		config.module.rules.push({
+			test: /\.(woff2)$/,
+			loader: 'url-loader?limit=1000000'
+		});
 		return config;
 	},
 	env: {

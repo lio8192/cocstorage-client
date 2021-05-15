@@ -1,8 +1,6 @@
 import React, { memo } from 'react';
 import Link from 'next/link';
-import {
-	createStyles, makeStyles, Theme, useTheme
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import moment from 'moment';
 
 // Material UI
@@ -13,7 +11,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Hidden from '@material-ui/core/Hidden';
 
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
@@ -32,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		root: {
 			height: '100%',
 			border: `1px solid ${theme.palette.grey['50']}`,
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: 0,
 				border: 'none'
@@ -40,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		typography: {
 			fontWeight: 700,
-			color: '#3d3d3d',
 			cursor: 'default'
 		},
 		chip: {
@@ -58,10 +55,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			justifyContent: 'space-between',
 			padding: theme.spacing(1, 2),
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(1, 3)
+				padding: theme.spacing(2, 3, 1)
 			},
 			[theme.breakpoints.down('xs')]: {
-				padding: theme.spacing(1, 2)
+				padding: theme.spacing(2, 2, 1)
 			}
 		},
 		list: {
@@ -117,6 +114,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		skeleton: {
 			display: 'inline-block'
+		},
+		divider: {
+			backgroundColor: theme.palette.grey['50']
 		}
 	})
 );
@@ -126,8 +126,6 @@ function HomeLatestStorageBoardList() {
 	const {
 		latestStorageBoards: { data, pending }
 	} = useHomeLatestStorageBoardList();
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	return (
 		<Box className={classes.root}>
@@ -138,7 +136,9 @@ function HomeLatestStorageBoardList() {
 					</Typography>
 				</Box>
 			</Box>
-			{!isMobile && <Divider />}
+			<Hidden implementation={'css'} mdDown>
+				<Divider className={classes.divider} />
+			</Hidden>
 			<List className={classes.list} disablePadding>
 				{pending
 					&& [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (

@@ -30,17 +30,17 @@ import useStorages from 'hooks/storages/useStorages';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
-			backgroundColor: 'white'
+			backgroundColor: theme.palette.background.default
 		},
 		storageContainer: {
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			paddingTop: theme.spacing(2)
 		},
 		box: {
 			padding: theme.spacing(2, 0, 0)
 		},
 		card: {
-			border: '1px solid #EAEAEA'
+			border: `1px solid ${theme.palette.grey['50']}`
 		},
 		cardContentHead: {
 			padding: theme.spacing(3),
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& > ul': {
 				justifyContent: 'center',
 				'& *': {
-					color: 'rgba(0, 0, 0, 0.5)'
+					color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.5)' : ''
 				},
 				'& .Mui-selected': {
 					color: 'white'
@@ -90,11 +90,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		adBox: {
-			border: '1px solid #EAEAEA',
 			borderRadius: 4,
-			backgroundColor: theme.palette.grey['50'],
+			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
-				border: 'none',
 				borderRadius: 'inherit'
 			}
 		}

@@ -20,19 +20,19 @@ import useDetailReplyWriteForm from 'hooks/notices/detail/useDetailReplyWriteFor
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			border: '1px solid #EAEAEA',
+			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				marginTop: -1,
 				borderRadius: 0
 			}
 		},
 		grid: {
-			borderBottom: '1px solid #EAEAEA'
+			borderBottom: `1px solid ${theme.palette.grey['50']}`
 		},
 		inputBaseGrid: {
-			borderRight: '1px solid #EAEAEA'
+			borderRight: `1px solid ${theme.palette.grey['50']}`
 		},
 		inputBase: {
 			padding: '18.5px 14px'

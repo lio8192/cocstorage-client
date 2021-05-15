@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			[theme.breakpoints.down('md')]: {
-				backgroundColor: '#eff1f5'
+				backgroundColor: theme.palette.type === 'light' ? '#eff1f5' : theme.palette.background.paper
 			}
 		},
 		linearProgress: {
@@ -79,10 +79,10 @@ function Layout({ children }: LayoutProps) {
 			<Box maxWidth={'lg'} className={classes.root}>
 				{children}
 			</Box>
-			<Hidden mdDown>
+			<Hidden implementation={'css'} mdDown>
 				<Footer />
 			</Hidden>
-			<Hidden lgUp>
+			<Hidden implementation={'css'} lgUp>
 				<MobileBottomNavigation />
 			</Hidden>
 			<SignInDialog />

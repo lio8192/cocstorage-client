@@ -49,12 +49,13 @@ import { getSearchTypeLabelByType } from 'snippets/storageBoard';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				marginBottom: 1
 			}
 		},
 		tabs: {
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			'& *': {
 				fontFamily: 'NanumSquareRoundEB'
 			},
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		container: {
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0)
 			}
@@ -87,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& > ul': {
 				justifyContent: 'center',
 				'& *': {
-					color: 'rgba(0, 0, 0, 0.5)'
+					color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.5)' : ''
 				},
 				'& .Mui-selected': {
 					color: 'white'
@@ -108,12 +109,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		adBox: {
 			marginBottom: theme.spacing(2),
-			border: '1px solid #EAEAEA',
 			borderRadius: 4,
-			backgroundColor: theme.palette.grey['50'],
+			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
 				marginBottom: 0,
-				border: 'none',
 				borderRadius: 'inherit'
 			}
 		}

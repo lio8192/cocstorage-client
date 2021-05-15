@@ -1,16 +1,22 @@
 import React, { useEffect, memo } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI
 import Box from '@material-ui/core/Box';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
+			minHeight: 100,
 			margin: 'auto',
 			textAlign: 'center',
-			'& img': {
-				maxWidth: 30
+			backgroundColor: theme.palette.type === 'light' ? '#E5EDF8' : theme.palette.background.paper,
+			backgroundImage: 'url("https://static.cocstorage.com/images/ad_icon.png")',
+			backgroundSize: 80,
+			backgroundRepeat: 'no-repeat',
+			backgroundPosition: 'center center',
+			'& ins': {
+				marginLeft: '0 !important'
 			}
 		}
 	})

@@ -116,3 +116,13 @@ export const updateUserStateByJsonWebToken = (data: User): User => {
 
 	return data;
 };
+
+export const setPaletteType = (): string => {
+	let paletteType = 'light';
+
+	if (typeof window !== 'undefined') {
+		paletteType = window.localStorage.getItem('coc-palette-type') || 'light';
+	}
+
+	return paletteType;
+};

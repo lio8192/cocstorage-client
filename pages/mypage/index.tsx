@@ -35,13 +35,13 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			marginTop: theme.spacing(3),
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				marginTop: theme.spacing(0)
 			}
 		},
 		tabs: {
-			backgroundColor: 'white',
+			backgroundColor: theme.palette.background.paper,
 			'& *': {
 				fontFamily: 'NanumSquareRoundEB'
 			},

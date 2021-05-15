@@ -22,7 +22,8 @@ import {
 	deleteSignOut,
 	deleteSignOutSucceeded,
 	deleteSignOutFailed,
-	handleDrawer
+	handlePaletteType,
+	setPaletteType
 } from './actions';
 
 const actions = {
@@ -48,7 +49,8 @@ const actions = {
 	deleteSignOut,
 	deleteSignOutSucceeded,
 	deleteSignOutFailed,
-	handleDrawer
+	handlePaletteType,
+	setPaletteType
 };
 
 export type CommonActions = ActionType<typeof actions>;
@@ -70,7 +72,7 @@ export type User = {
 };
 
 export type CommonState = {
-	drawerOpen: boolean;
+	paletteType: string;
 	signIn: {
 		open: boolean;
 		pending: boolean;
