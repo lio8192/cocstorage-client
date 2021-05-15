@@ -154,12 +154,19 @@ export default function useStorageBoardDetail() {
 				})
 			);
 		} else if (storageBoardDetailState.manage.deleteAuth.type === 'comment') {
+			let page = storageBoardDetailState.comments.pagination.currentPage;
+
+			if (page !== 1 && storageBoardDetailState.comments.data.length === 1) page -= 1;
+
 			dispatch(
 				deleteNonMemberStorageBoardDetailComment({
 					storageId: storageBoardDetailState.detail.storage.id,
 					storageBoardId: storageBoardDetailState.detail.id,
 					id: storageBoardDetailState.manage.deleteAuth.dataId,
-					password
+					password,
+					page,
+					per: storageBoardDetailState.comments.fetchParams.per,
+					orderBy: storageBoardDetailState.comments.fetchParams.orderBy
 				})
 			);
 		} else if (storageBoardDetailState.manage.deleteAuth.type === 'reply') {
@@ -182,7 +189,9 @@ export default function useStorageBoardDetail() {
 					storageBoardCommentId,
 					id: storageBoardDetailState.manage.deleteAuth.dataId,
 					password,
-					page: storageBoardDetailState.comments.fetchParams.page
+					page: storageBoardDetailState.comments.fetchParams.page,
+					per: storageBoardDetailState.comments.fetchParams.per,
+					orderBy: storageBoardDetailState.comments.fetchParams.orderBy
 				})
 			);
 		}
@@ -201,6 +210,9 @@ export default function useStorageBoardDetail() {
 		storageBoardDetailState.manage.deleteAuth.dataId,
 		storageBoardDetailState.comments.data,
 		storageBoardDetailState.comments.fetchParams.page,
+		storageBoardDetailState.comments.fetchParams.per,
+		storageBoardDetailState.comments.fetchParams.orderBy,
+		storageBoardDetailState.comments.pagination.currentPage,
 		deleteAuthDialogBody
 	]);
 

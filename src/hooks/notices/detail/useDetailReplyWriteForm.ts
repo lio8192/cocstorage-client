@@ -58,7 +58,9 @@ export default function useDetailReplyWriteForm() {
 				noticeId: noticeDetailState.detail.id,
 				noticeCommentId: noticeDetailState.comments.manage.id,
 				content,
-				page: noticeDetailState.comments.fetchParams.page
+				page: noticeDetailState.comments.fetchParams.page,
+				per: noticeDetailState.comments.fetchParams.per,
+				orderBy: noticeDetailState.comments.fetchParams.orderBy
 			})
 		);
 
@@ -73,6 +75,8 @@ export default function useDetailReplyWriteForm() {
 		noticeDetailState.detail.id,
 		noticeDetailState.comments.manage.id,
 		noticeDetailState.comments.fetchParams.page,
+		noticeDetailState.comments.fetchParams.per,
+		noticeDetailState.comments.fetchParams.orderBy,
 		postNoticeDetailReplyBody
 	]);
 
@@ -110,7 +114,9 @@ export default function useDetailReplyWriteForm() {
 				nickname,
 				password,
 				content,
-				page: noticeDetailState.comments.fetchParams.page
+				page: noticeDetailState.comments.fetchParams.page,
+				per: noticeDetailState.comments.fetchParams.per,
+				orderBy: noticeDetailState.comments.fetchParams.orderBy
 			})
 		);
 
@@ -125,6 +131,8 @@ export default function useDetailReplyWriteForm() {
 		noticeDetailState.detail.id,
 		noticeDetailState.comments.manage.id,
 		noticeDetailState.comments.fetchParams.page,
+		noticeDetailState.comments.fetchParams.per,
+		noticeDetailState.comments.fetchParams.orderBy,
 		postNoticeDetailReplyBody
 	]);
 

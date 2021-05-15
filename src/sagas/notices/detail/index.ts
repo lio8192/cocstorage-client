@@ -122,9 +122,9 @@ function* watchPostNoticeDetailComment(action: ActionType<typeof postNoticeDetai
 		yield put(
 			fetchNoticeDetailComments({
 				noticeId: payload.noticeId,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				page: payload.page || 1,
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -149,9 +149,9 @@ function* watchPostNonMemberNoticeDetailComment(action: ActionType<typeof postNo
 		yield put(
 			fetchNoticeDetailComments({
 				noticeId: payload.noticeId,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				page: payload.page || 1,
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -176,9 +176,9 @@ function* watchPostNoticeDetailReply(action: ActionType<typeof postNoticeDetailR
 		yield put(
 			fetchNoticeDetailComments({
 				noticeId: payload.noticeId,
-				per: 5,
 				page: payload.page || 1,
-				orderBy: 'latest'
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -203,9 +203,9 @@ function* watchPostNonMemberNoticeDetailReply(action: ActionType<typeof postNonM
 		yield put(
 			fetchNoticeDetailComments({
 				noticeId: payload.noticeId,
-				per: 5,
 				page: payload.page || 1,
-				orderBy: 'latest'
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -250,9 +250,9 @@ function* watchDeleteNoticeDetailComment(action: ActionType<typeof deleteNoticeD
 		yield put(
 			fetchNoticeDetailComments({
 				noticeId: payload.noticeId,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				page: payload.page || 1,
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -277,9 +277,9 @@ function* watchDeleteNonMemberNoticeDetailComment(action: ActionType<typeof dele
 		yield put(
 			fetchNoticeDetailComments({
 				noticeId: payload.noticeId,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				page: payload.page || 1,
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -304,9 +304,9 @@ function* watchDeleteNoticeDetailReply(action: ActionType<typeof deleteNoticeDet
 		yield put(
 			fetchNoticeDetailComments({
 				noticeId: payload.noticeId,
-				per: 5,
 				page: payload.page || 1,
-				orderBy: 'latest'
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -331,9 +331,9 @@ function* watchDeleteNonMemberNoticeDetailReply(action: ActionType<typeof delete
 		yield put(
 			fetchNoticeDetailComments({
 				noticeId: payload.noticeId,
-				per: 5,
 				page: payload.page || 1,
-				orderBy: 'latest'
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {

@@ -159,7 +159,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		backdrop: {
 			zIndex: theme.zIndex.drawer + 1,
-			color: theme.palette.type === 'light' ? '#fff' : ''
+			color: '#fff'
 		},
 		popper: {
 			left: '-50px !important',

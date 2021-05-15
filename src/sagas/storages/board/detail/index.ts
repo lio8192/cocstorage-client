@@ -212,9 +212,9 @@ function* watchPostStorageBoardDetailComment(action: ActionType<typeof postStora
 			fetchStorageBoardDetailComments({
 				storageId: payload.storageId,
 				storageBoardId: payload.storageBoardId,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				per: payload.per || 10,
+				page: payload.page || 1,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -242,9 +242,9 @@ function* watchPostNonMemberStorageBoardDetailComment(
 			fetchStorageBoardDetailComments({
 				storageId: payload.storageId,
 				storageBoardId: payload.storageBoardId,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				per: payload.per || 10,
+				page: payload.page || 1,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -270,9 +270,9 @@ function* watchPostStorageBoardDetailReply(action: ActionType<typeof postStorage
 			fetchStorageBoardDetailComments({
 				storageId: payload.storageId,
 				storageBoardId: payload.storageBoardId,
-				per: 5,
+				per: payload.per || 10,
 				page: payload.page || 1,
-				orderBy: 'latest'
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -298,9 +298,9 @@ function* watchPostNonMemberStorageBoardDetailReply(action: ActionType<typeof po
 			fetchStorageBoardDetailComments({
 				storageId: payload.storageId,
 				storageBoardId: payload.storageBoardId,
-				per: 5,
+				per: payload.per || 10,
 				page: payload.page || 1,
-				orderBy: 'latest'
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -366,9 +366,9 @@ function* watchDeleteStorageBoardDetailComment(action: ActionType<typeof deleteS
 			fetchStorageBoardDetailComments({
 				storageId: payload.storageId,
 				storageBoardId: payload.storageBoardId,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				page: payload.page || 1,
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -396,9 +396,9 @@ function* watchDeleteNonMemberStorageBoardDetailComment(
 			fetchStorageBoardDetailComments({
 				storageId: payload.storageId,
 				storageBoardId: payload.storageBoardId,
-				per: 5,
-				page: 1,
-				orderBy: 'latest'
+				page: payload.page || 1,
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -424,9 +424,9 @@ function* watchDeleteStorageBoardDetailReply(action: ActionType<typeof deleteSto
 			fetchStorageBoardDetailComments({
 				storageId: payload.storageId,
 				storageBoardId: payload.storageBoardId,
-				per: 5,
 				page: payload.page || 1,
-				orderBy: 'latest'
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {
@@ -454,9 +454,9 @@ function* watchDeleteNonMemberStorageBoardDetailReply(
 			fetchStorageBoardDetailComments({
 				storageId: payload.storageId,
 				storageBoardId: payload.storageBoardId,
-				per: 5,
 				page: payload.page || 1,
-				orderBy: 'latest'
+				per: payload.per || 10,
+				orderBy: payload.orderBy || 'latest'
 			})
 		);
 	} catch (error) {

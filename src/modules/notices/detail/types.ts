@@ -176,6 +176,9 @@ export type FetchNoticeDetailCommentsPayload = {
 export type PostNoticeDetailCommentPayload = {
 	noticeId: number;
 	content: string;
+	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type PostNonMemberNoticeDetailCommentPayload = {
@@ -183,6 +186,9 @@ export type PostNonMemberNoticeDetailCommentPayload = {
 	nickname: string | null;
 	password: string | null;
 	content: string;
+	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type PostNoticeDetailReplyPayload = {
@@ -190,6 +196,8 @@ export type PostNoticeDetailReplyPayload = {
 	noticeCommentId: number;
 	content: string;
 	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type PostNonMemberNoticeDetailReplyPayload = {
@@ -199,6 +207,8 @@ export type PostNonMemberNoticeDetailReplyPayload = {
 	password: string | null;
 	content: string;
 	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type DeleteNoticeDetailPayload = {
@@ -208,12 +218,18 @@ export type DeleteNoticeDetailPayload = {
 export type DeleteNoticeDetailCommentPayload = {
 	noticeId: number;
 	id: number;
+	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type DeleteNonMemberNoticeDetailCommentPayload = {
 	noticeId: number;
 	id: number;
 	password: string;
+	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type DeleteNoticeDetailReplyPayload = {
@@ -221,6 +237,8 @@ export type DeleteNoticeDetailReplyPayload = {
 	noticeCommentId: number;
 	id: number;
 	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type DeleteNonMemberNoticeDetailReplyPayload = {
@@ -229,6 +247,8 @@ export type DeleteNonMemberNoticeDetailReplyPayload = {
 	id: number;
 	password: string;
 	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type NoticeDetailState = {

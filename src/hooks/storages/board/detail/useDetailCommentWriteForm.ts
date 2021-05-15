@@ -56,11 +56,21 @@ export default function useDetailCommentWriteForm() {
 			return false;
 		}
 
+		let page =			storageBoardDetailState.comments.pagination.nextPage || storageBoardDetailState.comments.pagination.currentPage;
+
+		if (
+			!storageBoardDetailState.comments.pagination.nextPage
+			&& storageBoardDetailState.comments.data.length === storageBoardDetailState.comments.fetchParams.per
+		) page += 1;
+
 		dispatch(
 			postStorageBoardDetailComment({
 				storageId: storageBoardDetailState.detail.storage.id,
 				storageBoardId: storageBoardDetailState.detail.id,
-				content
+				content,
+				page,
+				per: storageBoardDetailState.comments.fetchParams.per,
+				orderBy: storageBoardDetailState.comments.fetchParams.orderBy
 			})
 		);
 
@@ -74,6 +84,11 @@ export default function useDetailCommentWriteForm() {
 		enqueueSnackbar,
 		storageBoardDetailState.detail.storage.id,
 		storageBoardDetailState.detail.id,
+		storageBoardDetailState.comments.data,
+		storageBoardDetailState.comments.fetchParams.per,
+		storageBoardDetailState.comments.fetchParams.orderBy,
+		storageBoardDetailState.comments.pagination.nextPage,
+		storageBoardDetailState.comments.pagination.currentPage,
 		postStorageBoardDetailCommentBody
 	]);
 
@@ -104,13 +119,23 @@ export default function useDetailCommentWriteForm() {
 			return false;
 		}
 
+		let page =			storageBoardDetailState.comments.pagination.nextPage || storageBoardDetailState.comments.pagination.currentPage;
+
+		if (
+			!storageBoardDetailState.comments.pagination.nextPage
+			&& storageBoardDetailState.comments.data.length === storageBoardDetailState.comments.fetchParams.per
+		) page += 1;
+
 		dispatch(
 			postNonMemberStorageBoardDetailComment({
 				storageId: storageBoardDetailState.detail.storage.id,
 				storageBoardId: storageBoardDetailState.detail.id,
 				nickname,
 				password,
-				content
+				content,
+				page,
+				per: storageBoardDetailState.comments.fetchParams.per,
+				orderBy: storageBoardDetailState.comments.fetchParams.orderBy
 			})
 		);
 
@@ -124,6 +149,11 @@ export default function useDetailCommentWriteForm() {
 		enqueueSnackbar,
 		storageBoardDetailState.detail.storage.id,
 		storageBoardDetailState.detail.id,
+		storageBoardDetailState.comments.data,
+		storageBoardDetailState.comments.fetchParams.per,
+		storageBoardDetailState.comments.fetchParams.orderBy,
+		storageBoardDetailState.comments.pagination.nextPage,
+		storageBoardDetailState.comments.pagination.currentPage,
 		postStorageBoardDetailCommentBody
 	]);
 

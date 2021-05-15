@@ -47,14 +47,28 @@ export default function useDetailCommentList() {
 		(event: React.MouseEvent<HTMLLIElement>) => {
 			const id = Number(event.currentTarget.getAttribute('data-comment-id') || 0);
 
+			let page = noticeDetailState.comments.pagination.currentPage;
+
+			if (page !== 1 && noticeDetailState.comments.data.length === 1) page -= 1;
+
 			dispatch(
 				deleteNoticeDetailComment({
 					noticeId: noticeDetailState.detail.id,
-					id
+					id,
+					page,
+					per: noticeDetailState.comments.fetchParams.per,
+					orderBy: noticeDetailState.comments.fetchParams.orderBy
 				})
 			);
 		},
-		[dispatch, noticeDetailState.detail.id]
+		[
+			dispatch,
+			noticeDetailState.detail.id,
+			noticeDetailState.comments.data,
+			noticeDetailState.comments.fetchParams.per,
+			noticeDetailState.comments.fetchParams.orderBy,
+			noticeDetailState.comments.pagination.currentPage
+		]
 	);
 
 	const onDeleteNoticeDetailReply = useCallback(
@@ -67,11 +81,19 @@ export default function useDetailCommentList() {
 					noticeId: noticeDetailState.detail.id,
 					noticeCommentId,
 					id,
-					page: noticeDetailState.comments.fetchParams.page
+					page: noticeDetailState.comments.fetchParams.page,
+					per: noticeDetailState.comments.fetchParams.per,
+					orderBy: noticeDetailState.comments.fetchParams.orderBy
 				})
 			);
 		},
-		[dispatch, noticeDetailState.detail.id, noticeDetailState.comments.fetchParams.page]
+		[
+			dispatch,
+			noticeDetailState.detail.id,
+			noticeDetailState.comments.fetchParams.page,
+			noticeDetailState.comments.fetchParams.per,
+			noticeDetailState.comments.fetchParams.orderBy
+		]
 	);
 
 	return {

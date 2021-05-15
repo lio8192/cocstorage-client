@@ -62,7 +62,9 @@ export default function useDetailReplyWriteForm() {
 				storageBoardId: storageBoardDetailState.detail.id,
 				storageBoardCommentId: storageBoardDetailState.comments.manage.id,
 				content,
-				page: storageBoardDetailState.comments.fetchParams.page
+				page: storageBoardDetailState.comments.fetchParams.page,
+				per: storageBoardDetailState.comments.fetchParams.per,
+				orderBy: storageBoardDetailState.comments.fetchParams.orderBy
 			})
 		);
 
@@ -78,6 +80,8 @@ export default function useDetailReplyWriteForm() {
 		storageBoardDetailState.detail.id,
 		storageBoardDetailState.comments.manage.id,
 		storageBoardDetailState.comments.fetchParams.page,
+		storageBoardDetailState.comments.fetchParams.per,
+		storageBoardDetailState.comments.fetchParams.orderBy,
 		postStorageBoardDetailReplyBody
 	]);
 
@@ -116,7 +120,9 @@ export default function useDetailReplyWriteForm() {
 				nickname,
 				password,
 				content,
-				page: storageBoardDetailState.comments.fetchParams.page
+				page: storageBoardDetailState.comments.fetchParams.page,
+				per: storageBoardDetailState.comments.fetchParams.per,
+				orderBy: storageBoardDetailState.comments.fetchParams.orderBy
 			})
 		);
 
@@ -132,6 +138,8 @@ export default function useDetailReplyWriteForm() {
 		storageBoardDetailState.detail.id,
 		storageBoardDetailState.comments.manage.id,
 		storageBoardDetailState.comments.fetchParams.page,
+		storageBoardDetailState.comments.fetchParams.per,
+		storageBoardDetailState.comments.fetchParams.orderBy,
 		postStorageBoardDetailReplyBody
 	]);
 

@@ -53,10 +53,20 @@ export default function useDetailCommentWriteForm() {
 			return false;
 		}
 
+		let page = noticeDetailState.comments.pagination.nextPage || noticeDetailState.comments.pagination.currentPage;
+
+		if (
+			!noticeDetailState.comments.pagination.nextPage
+			&& noticeDetailState.comments.data.length === noticeDetailState.comments.fetchParams.per
+		) page += 1;
+
 		dispatch(
 			postNoticeDetailComment({
 				noticeId: noticeDetailState.detail.id,
-				content
+				content,
+				page,
+				per: noticeDetailState.comments.fetchParams.per,
+				orderBy: noticeDetailState.comments.fetchParams.orderBy
 			})
 		);
 
@@ -65,7 +75,17 @@ export default function useDetailCommentWriteForm() {
 			content: ''
 		});
 		return true;
-	}, [dispatch, enqueueSnackbar, noticeDetailState.detail.id, postNoticeDetailCommentBody]);
+	}, [
+		dispatch,
+		enqueueSnackbar,
+		noticeDetailState.detail.id,
+		noticeDetailState.comments.data,
+		noticeDetailState.comments.fetchParams.per,
+		noticeDetailState.comments.fetchParams.orderBy,
+		noticeDetailState.comments.pagination.nextPage,
+		noticeDetailState.comments.pagination.currentPage,
+		postNoticeDetailCommentBody
+	]);
 
 	const onPostNonMemberNoticeDetailComment = useCallback(() => {
 		const { nickname, password, content } = postNoticeDetailCommentBody;
@@ -94,12 +114,22 @@ export default function useDetailCommentWriteForm() {
 			return false;
 		}
 
+		let page = noticeDetailState.comments.pagination.nextPage || noticeDetailState.comments.pagination.currentPage;
+
+		if (
+			!noticeDetailState.comments.pagination.nextPage
+			&& noticeDetailState.comments.data.length === noticeDetailState.comments.fetchParams.per
+		) page += 1;
+
 		dispatch(
 			postNonMemberNoticeDetailComment({
 				noticeId: noticeDetailState.detail.id,
 				nickname,
 				password,
-				content
+				content,
+				page,
+				per: noticeDetailState.comments.fetchParams.per,
+				orderBy: noticeDetailState.comments.fetchParams.orderBy
 			})
 		);
 
@@ -108,7 +138,17 @@ export default function useDetailCommentWriteForm() {
 			content: ''
 		});
 		return true;
-	}, [dispatch, enqueueSnackbar, noticeDetailState.detail.id, postNoticeDetailCommentBody]);
+	}, [
+		dispatch,
+		enqueueSnackbar,
+		noticeDetailState.detail.id,
+		noticeDetailState.comments.data,
+		noticeDetailState.comments.fetchParams.per,
+		noticeDetailState.comments.fetchParams.orderBy,
+		noticeDetailState.comments.pagination.nextPage,
+		noticeDetailState.comments.pagination.currentPage,
+		postNoticeDetailCommentBody
+	]);
 
 	return {
 		...noticeDetailState,

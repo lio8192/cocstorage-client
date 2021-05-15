@@ -147,7 +147,9 @@ function StorageGridList() {
 														</Avatar>
 													</Badge>
 													<Box mt={1}>
-														<Typography className={classes.typography} noWrap>{item.name}</Typography>
+														<Typography className={classes.typography} noWrap>
+															{item.name}
+														</Typography>
 													</Box>
 												</CardContent>
 											</CardActionArea>

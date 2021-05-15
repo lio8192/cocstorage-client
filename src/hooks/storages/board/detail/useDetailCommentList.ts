@@ -47,15 +47,30 @@ export default function useDetailCommentList() {
 		(event: React.MouseEvent<HTMLLIElement>) => {
 			const id = Number(event.currentTarget.getAttribute('data-comment-id') || 0);
 
+			let page = storageBoardDetailState.comments.pagination.currentPage;
+
+			if (page !== 1 && storageBoardDetailState.comments.data.length === 1) page -= 1;
+
 			dispatch(
 				deleteStorageBoardDetailComment({
 					storageId: storageBoardDetailState.detail.storage.id,
 					storageBoardId: storageBoardDetailState.detail.id,
-					id
+					id,
+					page,
+					per: storageBoardDetailState.comments.fetchParams.per,
+					orderBy: storageBoardDetailState.comments.fetchParams.orderBy
 				})
 			);
 		},
-		[dispatch, storageBoardDetailState.detail.id, storageBoardDetailState.detail.storage.id]
+		[
+			dispatch,
+			storageBoardDetailState.detail.id,
+			storageBoardDetailState.detail.storage.id,
+			storageBoardDetailState.comments.data,
+			storageBoardDetailState.comments.fetchParams.per,
+			storageBoardDetailState.comments.fetchParams.orderBy,
+			storageBoardDetailState.comments.pagination.currentPage
+		]
 	);
 
 	const onDeleteStorageBoardDetailReply = useCallback(
@@ -69,7 +84,9 @@ export default function useDetailCommentList() {
 					storageBoardId: storageBoardDetailState.detail.id,
 					storageBoardCommentId,
 					id,
-					page: storageBoardDetailState.comments.fetchParams.page
+					page: storageBoardDetailState.comments.fetchParams.page,
+					per: storageBoardDetailState.comments.fetchParams.per,
+					orderBy: storageBoardDetailState.comments.fetchParams.orderBy
 				})
 			);
 		},
@@ -77,7 +94,9 @@ export default function useDetailCommentList() {
 			dispatch,
 			storageBoardDetailState.detail.id,
 			storageBoardDetailState.detail.storage.id,
-			storageBoardDetailState.comments.fetchParams.page
+			storageBoardDetailState.comments.fetchParams.page,
+			storageBoardDetailState.comments.fetchParams.per,
+			storageBoardDetailState.comments.fetchParams.orderBy
 		]
 	);
 

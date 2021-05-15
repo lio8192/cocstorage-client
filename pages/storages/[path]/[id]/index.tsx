@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		backdrop: {
 			zIndex: theme.zIndex.drawer + 1,
-			color: theme.palette.background.default
+			color: '#fff'
 		},
 		snackbar: {
 			[theme.breakpoints.down('md')]: {

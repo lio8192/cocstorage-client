@@ -230,6 +230,9 @@ export type PostStorageBoardDetailCommentPayload = {
 	storageId: number;
 	storageBoardId: number;
 	content: string;
+	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type PostNonMemberStorageBoardDetailCommentPayload = {
@@ -238,6 +241,9 @@ export type PostNonMemberStorageBoardDetailCommentPayload = {
 	nickname: string | null;
 	password: string | null;
 	content: string;
+	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type PostStorageBoardDetailReplyPayload = {
@@ -246,6 +252,8 @@ export type PostStorageBoardDetailReplyPayload = {
 	storageBoardCommentId: number;
 	content: string;
 	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type PostNonMemberStorageBoardDetailReplyPayload = {
@@ -256,6 +264,8 @@ export type PostNonMemberStorageBoardDetailReplyPayload = {
 	password: string | null;
 	content: string;
 	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type DeleteStorageBoardDetailPayload = {
@@ -273,6 +283,9 @@ export type DeleteStorageBoardDetailCommentPayload = {
 	storageId: number;
 	storageBoardId: number;
 	id: number;
+	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type DeleteNonMemberStorageBoardDetailCommentPayload = {
@@ -280,6 +293,9 @@ export type DeleteNonMemberStorageBoardDetailCommentPayload = {
 	storageBoardId: number;
 	id: number;
 	password: string;
+	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type DeleteStorageBoardDetailReplyPayload = {
@@ -288,6 +304,8 @@ export type DeleteStorageBoardDetailReplyPayload = {
 	storageBoardCommentId: number;
 	id: number;
 	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type DeleteNonMemberStorageBoardDetailReplyPayload = {
@@ -297,6 +315,8 @@ export type DeleteNonMemberStorageBoardDetailReplyPayload = {
 	id: number;
 	password: string;
 	page?: number;
+	per?: number;
+	orderBy?: string;
 };
 
 export type StorageBoardDetailState = {

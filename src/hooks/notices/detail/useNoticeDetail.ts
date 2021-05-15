@@ -125,11 +125,18 @@ export default function useNoticeDetail() {
 		}
 
 		if (noticeDetailState.manage.deleteAuth.type === 'comment') {
+			let page = noticeDetailState.comments.pagination.currentPage;
+
+			if (page !== 1 && noticeDetailState.comments.data.length === 1) page -= 1;
+
 			dispatch(
 				deleteNonMemberNoticeDetailComment({
 					noticeId: noticeDetailState.detail.id,
 					id: noticeDetailState.manage.deleteAuth.dataId,
-					password
+					password,
+					page,
+					per: noticeDetailState.comments.fetchParams.per,
+					orderBy: noticeDetailState.comments.fetchParams.orderBy
 				})
 			);
 		} else if (noticeDetailState.manage.deleteAuth.type === 'reply') {
@@ -151,7 +158,9 @@ export default function useNoticeDetail() {
 					noticeCommentId,
 					id: noticeDetailState.manage.deleteAuth.dataId,
 					password,
-					page: noticeDetailState.comments.fetchParams.page
+					page: noticeDetailState.comments.fetchParams.page,
+					per: noticeDetailState.comments.fetchParams.per,
+					orderBy: noticeDetailState.comments.fetchParams.orderBy
 				})
 			);
 		}
@@ -169,6 +178,9 @@ export default function useNoticeDetail() {
 		noticeDetailState.manage.deleteAuth.dataId,
 		noticeDetailState.comments.data,
 		noticeDetailState.comments.fetchParams.page,
+		noticeDetailState.comments.fetchParams.per,
+		noticeDetailState.comments.fetchParams.orderBy,
+		noticeDetailState.comments.pagination.currentPage,
 		deleteAuthDialogBody
 	]);
 
