@@ -182,7 +182,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		replyBox: {
 			padding: theme.spacing(2),
-			backgroundColor: theme.palette.background.paper,
+			backgroundColor: theme.palette.type === 'light' ? '#fafafa' : theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(2, 3),
 				borderBottom: `1px solid ${theme.palette.grey['50']}`
