@@ -55,10 +55,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			justifyContent: 'space-between',
 			padding: theme.spacing(1, 2),
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(2, 3, 1)
+				padding: theme.spacing(1, 3)
 			},
 			[theme.breakpoints.down('xs')]: {
-				padding: theme.spacing(2, 2, 1)
+				padding: theme.spacing(1, 2)
 			}
 		},
 		list: {

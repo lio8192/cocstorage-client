@@ -58,10 +58,10 @@ export const fetchStorageDetailSucceeded = createAction(FETCH_STORAGE_DETAIL_SUC
 export const fetchStorageDetailFailed = createAction(FETCH_STORAGE_DETAIL_FAILED)();
 
 export const fetchStorageBoards = createAction(FETCH_STORAGE_BOARDS)<FetchStorageBoardsPayload>();
-export const fetchStorageBoardsSucceeded = createAction(FETCH_STORAGE_BOARDS_SUCCEEDED)<{
-	boards: StorageBoard[];
-	pagination: Pagination;
-}>();
+export const fetchStorageBoardsSucceeded =	createAction(FETCH_STORAGE_BOARDS_SUCCEEDED)<{
+		boards: StorageBoard[];
+		pagination: Pagination;
+	}>();
 export const fetchStorageBoardsFailed = createAction(FETCH_STORAGE_BOARDS_FAILED)();
 
 export const handleFetchParams = createAction(HANDLE_FETCH_PARAMS)<FetchParams>();

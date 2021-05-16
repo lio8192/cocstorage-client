@@ -67,7 +67,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		gridItemFirst: {
 			borderTop: `1px solid ${theme.palette.grey['50']}`,
-			backgroundColor: 'red !important',
 			[theme.breakpoints.down('md')]: {
 				borderTop: 'none'
 			}
@@ -213,7 +212,7 @@ function NoticeGridList() {
 											>
 												<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
 													<Card className={classes.gridCard} square elevation={0}>
-														<CardActionArea className={classes.cardActionArea}>
+														<CardActionArea component={'div'} className={classes.cardActionArea}>
 															{notice.thumbnailUrl ? (
 																<CardMedia
 																	className={classes.media}

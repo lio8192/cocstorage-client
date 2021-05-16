@@ -20,20 +20,18 @@ export default function useMobileHeader() {
 	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
 	const isNoticeEdit = useMemo(() => route === '/notices/edit/[id]', [route]);
 	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
-	const isNotices = useMemo(() => isNoticeWrite || isNoticeDetail || isNoticeEdit, [
-		isNoticeWrite,
-		isNoticeDetail,
-		isNoticeEdit
-	]);
+	const isNotices = useMemo(
+		() => isNoticeWrite || isNoticeDetail || isNoticeEdit,
+		[isNoticeWrite, isNoticeDetail, isNoticeEdit]
+	);
 
 	const isStorageBoardWrite = useMemo(() => route === '/storages/[path]/write', [route]);
 	const isStorageBoardEdit = useMemo(() => route === '/storages/[path]/edit/[id]', [route]);
 	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
-	const isNewStorage = useMemo(() => isStorageBoardWrite || isStorageBoardDetail || isStorageBoardEdit, [
-		isStorageBoardWrite,
-		isStorageBoardDetail,
-		isStorageBoardEdit
-	]);
+	const isNewStorage = useMemo(
+		() => isStorageBoardWrite || isStorageBoardDetail || isStorageBoardEdit,
+		[isStorageBoardWrite, isStorageBoardDetail, isStorageBoardEdit]
+	);
 
 	const onHandleSignInDialog = useCallback(() => dispatch(handleSignInDialog()), [dispatch]);
 	const onDeleteSignOut = useCallback(() => dispatch(deleteSignOut()), [dispatch]);

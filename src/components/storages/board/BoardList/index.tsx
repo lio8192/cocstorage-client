@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		listItemAd: {
 			width: '100%',
-			paddingTop: theme.spacing(1),
+			paddingTop: theme.spacing(1.6),
 			textAlign: 'center',
 			backgroundColor: theme.palette.type === 'light' ? '#E5EDF8' : theme.palette.background.paper
 		},

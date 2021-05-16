@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			backgroundColor: theme.palette.background.paper
 		},
 		toolbar: {
-			minHeight: 52,
 			padding: theme.spacing(0.5, 3),
 			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(0.5, 2)

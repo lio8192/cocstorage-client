@@ -43,10 +43,10 @@ export const changeMyPageTab = createAction(CHANGE_MY_PAGE_TAB)<number>();
 export const handlePrivacyAuthDialog = createAction(HANDLE_PRIVACY_AUTH_DIALOG)();
 
 export const fetchPrivacy = createAction(FETCH_PRIVACY)<FetchPrivacyPayload>();
-export const fetchPrivacySucceeded = createAction(FETCH_PRIVACY_SUCCEEDED)<{
-	name: string;
-	email: string;
-}>();
+export const fetchPrivacySucceeded =	createAction(FETCH_PRIVACY_SUCCEEDED)<{
+		name: string;
+		email: string;
+	}>();
 export const fetchPrivacyFailed = createAction(FETCH_PRIVACY_FAILED)();
 
 export const clearPrivacy = createAction(CLEAR_PRIVACY)();

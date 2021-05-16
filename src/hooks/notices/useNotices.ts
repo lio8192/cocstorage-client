@@ -14,10 +14,10 @@ export default function useNotices() {
 	} = useSelector((state: RootState) => state.common);
 	const noticesState = useSelector((state: RootState) => state.notices);
 
-	const onFetchNotices = useCallback(() => dispatch(fetchNotices(noticesState.fetchParams)), [
-		dispatch,
-		noticesState.fetchParams
-	]);
+	const onFetchNotices = useCallback(
+		() => dispatch(fetchNotices(noticesState.fetchParams)),
+		[dispatch, noticesState.fetchParams]
+	);
 
 	const onFetchFirstNotices = useCallback(
 		() =>

@@ -14,10 +14,10 @@ export default function useNoticeEdit() {
 	} = useSelector((state: RootState) => state.common);
 	const noticesState = useSelector((state: RootState) => state.notices);
 
-	const onFetchNoticeEditDetail = useCallback(() => dispatch(fetchNoticeEditDetail(Number(router.query.id || 0))), [
-		dispatch,
-		router
-	]);
+	const onFetchNoticeEditDetail = useCallback(
+		() => dispatch(fetchNoticeEditDetail(Number(router.query.id || 0))),
+		[dispatch, router]
+	);
 
 	return {
 		...noticesState,

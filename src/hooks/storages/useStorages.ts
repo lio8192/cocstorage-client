@@ -13,10 +13,10 @@ export default function useStorages() {
 	} = useSelector((state: RootState) => state.common);
 	const storagesState = useSelector((state: RootState) => state.storages);
 
-	const onFetchStorages = useCallback(() => dispatch(fetchStorages(storagesState.fetchParams)), [
-		dispatch,
-		storagesState.fetchParams
-	]);
+	const onFetchStorages = useCallback(
+		() => dispatch(fetchStorages(storagesState.fetchParams)),
+		[dispatch, storagesState.fetchParams]
+	);
 
 	const onKeyUpStorageSearchTextField = useCallback(
 		(event: React.KeyboardEvent<HTMLInputElement>) => {

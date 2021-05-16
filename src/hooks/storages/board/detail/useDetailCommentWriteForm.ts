@@ -20,10 +20,7 @@ export default function useDetailCommentWriteForm() {
 	} = useSelector((state: RootState) => state.common);
 	const storageBoardDetailState = useSelector((state: RootState) => state.storageBoardDetail);
 
-	const [
-		postStorageBoardDetailCommentBody,
-		setPostStorageBoardDetailCommentBody
-	] = useState<PostStorageBoardDetailCommentBody>({
+	const [postStorageBoardDetailCommentBody, setPostStorageBoardDetailCommentBody] =		useState<PostStorageBoardDetailCommentBody>({
 		nickname: null,
 		password: null,
 		content: ''

@@ -20,10 +20,7 @@ export default function useDetailReplyWriteForm() {
 	} = useSelector((state: RootState) => state.common);
 	const storageBoardDetailState = useSelector((state: RootState) => state.storageBoardDetail);
 
-	const [
-		postStorageBoardDetailReplyBody,
-		setPostStorageBoardDetailReplyBody
-	] = useState<PostStorageBoardDetailReplyBody>({
+	const [postStorageBoardDetailReplyBody, setPostStorageBoardDetailReplyBody] =		useState<PostStorageBoardDetailReplyBody>({
 		nickname: null,
 		password: null,
 		content: ''

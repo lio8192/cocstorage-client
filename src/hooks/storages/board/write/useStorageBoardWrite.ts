@@ -12,10 +12,10 @@ export default function useStorageBoardWrite() {
 	} = useSelector((state: RootState) => state.common);
 	const storageBoardState = useSelector((state: RootState) => state.storageBoard);
 
-	const onPostStorageBoardDraft = useCallback(() => dispatch(postStorageBoardDraft(storageBoardState.storage.id)), [
-		dispatch,
-		storageBoardState.storage.id
-	]);
+	const onPostStorageBoardDraft = useCallback(
+		() => dispatch(postStorageBoardDraft(storageBoardState.storage.id)),
+		[dispatch, storageBoardState.storage.id]
+	);
 	const onPostNonMemberStorageBoardDraft = useCallback(
 		() => dispatch(postNonMemberStorageBoardDraft(storageBoardState.storage.id)),
 		[dispatch, storageBoardState.storage.id]

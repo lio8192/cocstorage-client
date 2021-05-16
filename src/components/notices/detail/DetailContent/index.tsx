@@ -182,9 +182,10 @@ function DetailContent() {
 	const [open, setOpen] = useState(false);
 	const anchorRef = useRef<HTMLButtonElement>(null);
 
-	const handleEditRouter = useCallback(() => Router.push('/notices/edit/[id]', `/notices/edit/${noticeId}/`).then(), [
-		noticeId
-	]);
+	const handleEditRouter = useCallback(
+		() => Router.push('/notices/edit/[id]', `/notices/edit/${noticeId}/`).then(),
+		[noticeId]
+	);
 
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen);

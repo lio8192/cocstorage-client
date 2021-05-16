@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			},
 			'&.Mui-selected': {
 				backgroundColor: theme.palette.type === 'light' ? 'white' : theme.palette.background.default,
-				color: theme.palette.type === 'light' ? theme.palette.primary.main : ''
+				color: theme.palette.primary.main
 			},
 			'&.Mui-selected:hover': {
 				backgroundColor: 'none !important'

@@ -28,12 +28,10 @@ export default function useBottomNavigation() {
 		() => isStorages || isStorageBoards || isStorageBoardDetail || isStorageBoardWrite || isStorageBoardEdit,
 		[isStorages, isStorageBoards, isStorageBoardDetail, isStorageBoardWrite, isStorageBoardEdit]
 	);
-	const isNotices = useMemo(() => isNewNotices || isNoticeWrite || isNoticeDetail || isNoticeEdit, [
-		isNewNotices,
-		isNoticeWrite,
-		isNoticeDetail,
-		isNoticeEdit
-	]);
+	const isNotices = useMemo(
+		() => isNewNotices || isNoticeWrite || isNoticeDetail || isNoticeEdit,
+		[isNewNotices, isNoticeWrite, isNoticeDetail, isNoticeEdit]
+	);
 
 	const bottomNavigationTabValue = useMemo(() => {
 		if (isHome) {
