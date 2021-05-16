@@ -107,7 +107,7 @@ function PasswordFinderDialog() {
 							src={
 								paletteType === 'light'
 									? 'https://static.cocstorage.com/images/logo_text.png'
-									: 'https://static.cocstorage.com/images/logo_text_black.png'
+									: 'https://static.cocstorage.com/images/logo_text_white.png'
 							}
 							alt={'SignInDialog Logo Img'}
 						/>

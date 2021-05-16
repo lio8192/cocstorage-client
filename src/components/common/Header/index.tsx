@@ -181,6 +181,12 @@ function Header() {
 		prevOpen.current = open;
 	}, [open]);
 
+	useEffect(() => {
+		if (isAuthenticated) {
+			setOpen(false);
+		}
+	}, [isAuthenticated]);
+
 	return (
 		<>
 			{!openNavigationChip ? (
@@ -195,7 +201,7 @@ function Header() {
 											src={
 												paletteType === 'light'
 													? 'https://static.cocstorage.com/images/logo_text.png'
-													: 'https://static.cocstorage.com/images/logo_text_black.png'
+													: 'https://static.cocstorage.com/images/logo_text_white.png'
 											}
 											alt={'Logo Img'}
 										/>
@@ -307,7 +313,7 @@ function Header() {
 													src={
 														paletteType === 'light'
 															? 'https://static.cocstorage.com/images/logo_text.png'
-															: 'https://static.cocstorage.com/images/logo_text_black.png'
+															: 'https://static.cocstorage.com/images/logo_text_white.png'
 													}
 													alt={'Logo Img'}
 												/>
