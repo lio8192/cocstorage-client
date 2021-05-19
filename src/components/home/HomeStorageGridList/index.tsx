@@ -1,6 +1,5 @@
-import React, { useCallback, memo } from 'react';
+import React, { memo } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
@@ -150,14 +149,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function HomeStorageGridList() {
 	const classes = useStyles();
-	const router = useRouter();
 	const {
 		storages: { data, pending }
 	} = useHomeStorageGridList();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-	const handleNavigateButtonRoute = useCallback(() => router.push('/storages', '/storages').then(), [router]);
 
 	return (
 		<Container className={classes.root}>
@@ -169,9 +165,11 @@ function HomeStorageGridList() {
 						</Typography>
 					</Box>
 					<Box className={classes.navigate}>
-						<Button endIcon={<NavigateNextIcon color={'action'} />} onClick={handleNavigateButtonRoute}>
-							{'더 보기'}
-						</Button>
+						<Link href={'/storages'} as={'/storages'}>
+							<a className={classes.anchor}>
+								<Button endIcon={<NavigateNextIcon color={'action'} />}>{'더 보기'}</Button>
+							</a>
+						</Link>
 					</Box>
 				</Box>
 				{pending && !isMobile && (

@@ -109,14 +109,6 @@ export default function useHeader() {
 			.then();
 	}, [router]);
 
-	const onHandleLogo = useCallback(() => {
-		router
-			.push({
-				pathname: '/'
-			})
-			.then();
-	}, [router]);
-
 	const onHandleSignInDialog = useCallback(() => dispatch(handleSignInDialog()), [dispatch]);
 
 	const onDeleteSignOut = useCallback(() => dispatch(deleteSignOut()), [dispatch]);
@@ -143,7 +135,6 @@ export default function useHeader() {
 		isNewStorage,
 		isNotices,
 		onHandleTabChange,
-		onHandleLogo,
 		onHandleStorageChip,
 		onHandleNoticeChip,
 		onHandleSignInDialog,

@@ -1,6 +1,7 @@
 import React, {
 	useEffect, useState, useRef, memo
 } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
 	makeStyles, createStyles, Theme, useTheme
@@ -129,7 +130,6 @@ function Header() {
 		isNewStorage,
 		isNotices,
 		onHandleTabChange,
-		onHandleLogo,
 		onHandleStorageChip,
 		onHandleNoticeChip,
 		onHandleSignInDialog,
@@ -195,16 +195,20 @@ function Header() {
 						<Container>
 							<Box className={classes.logoBox}>
 								<Box>
-									<Box component={'span'} onClick={onHandleLogo}>
-										<img
-											className={classes.logo}
-											src={
-												paletteType === 'light'
-													? 'https://static.cocstorage.com/images/logo_text.png'
-													: 'https://static.cocstorage.com/images/logo_text_white.png'
-											}
-											alt={'Logo Img'}
-										/>
+									<Box component={'span'}>
+										<Link href={'/'} as={'/'}>
+											<a>
+												<img
+													className={classes.logo}
+													src={
+														paletteType === 'light'
+															? 'https://static.cocstorage.com/images/logo_text.png'
+															: 'https://static.cocstorage.com/images/logo_text_white.png'
+													}
+													alt={'Logo Img'}
+												/>
+											</a>
+										</Link>
 									</Box>
 								</Box>
 								<Box>
@@ -307,16 +311,20 @@ function Header() {
 								<Container>
 									<Box className={classes.logoBox}>
 										<Box>
-											<Box component={'span'} onClick={onHandleLogo}>
-												<img
-													className={classes.logo}
-													src={
-														paletteType === 'light'
-															? 'https://static.cocstorage.com/images/logo_text.png'
-															: 'https://static.cocstorage.com/images/logo_text_white.png'
-													}
-													alt={'Logo Img'}
-												/>
+											<Box component={'span'}>
+												<Link href={'/'} as={'/'}>
+													<a>
+														<img
+															className={classes.logo}
+															src={
+																paletteType === 'light'
+																	? 'https://static.cocstorage.com/images/logo_text.png'
+																	: 'https://static.cocstorage.com/images/logo_text_white.png'
+															}
+															alt={'Logo Img'}
+														/>
+													</a>
+												</Link>
 											</Box>
 											{isNewStorage && (
 												<Chip
