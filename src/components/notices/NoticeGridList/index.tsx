@@ -216,11 +216,7 @@ function NoticeGridList() {
 							return (
 								// eslint-disable-next-line react/no-array-index-key
 								<Grow key={`notice-section-2-${item.length}-${index}`} in>
-									<Grid
-										item
-										xs={12}
-										lg={6}
-									>
+									<Grid item xs={12} lg={6}>
 										<Grid className={classes.gridItemContainer} container>
 											{item.map((notice) => (
 												<Grid
@@ -247,7 +243,8 @@ function NoticeGridList() {
 																<CardContent className={classes.cardContent}>
 																	<Typography
 																		className={clsx(classes.typography, {
-																			[classes.typographyWithBadge]: moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0
+																			[classes.typographyWithBadge]:
+																				moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0
 																		})}
 																		variant={'body1'}
 																		noWrap
@@ -348,7 +345,8 @@ function NoticeGridList() {
 																	<CardContent className={classes.cardContentForList}>
 																		<Typography
 																			className={clsx(classes.typography, {
-																				[classes.typographyWithBadge]: moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0
+																				[classes.typographyWithBadge]:
+																					moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0
 																			})}
 																			variant={'body1'}
 																			noWrap
@@ -438,7 +436,8 @@ function NoticeGridList() {
 																<CardContent className={classes.cardContent}>
 																	<Typography
 																		className={clsx(classes.typography, {
-																			[classes.typographyWithBadge]: moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0
+																			[classes.typographyWithBadge]:
+																				moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0
 																		})}
 																		variant={'body1'}
 																		noWrap
