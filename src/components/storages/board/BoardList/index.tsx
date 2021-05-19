@@ -44,6 +44,15 @@ const useStyles = makeStyles((theme: Theme) =>
 			maxWidth: '100%',
 			padding: theme.spacing(0)
 		},
+		box: {
+			'& a': {
+				color: 'inherit',
+				textDecoration: 'none'
+			},
+			'& a:visited .storage-board-subject': {
+				color: theme.palette.grey.A200
+			}
+		},
 		listItem: {
 			maxWidth: '100%'
 		},
@@ -108,7 +117,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		chip: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5
+			borderRadius: 5,
+			cursor: 'pointer'
 		},
 		typography: {
 			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
@@ -123,13 +133,14 @@ function BoardList() {
 	const {
 		pending,
 		storage: { path },
-		boards
+		boards,
+		fetchSearchParams: { value }
 	} = useBoardList();
 
 	return (
 		<List className={classes.root} component={'div'}>
 			{pending
-				&& Array.from({ length: 10 }, (value, index) => index).map((item, index) => (
+				&& Array.from({ length: 10 }, (number, index) => index).map((item, index) => (
 					<Grow key={`storage-board-dummy-${item}`} in>
 						<Box>
 							{isMobile && index === 0 && <Divider />}
@@ -175,82 +186,84 @@ function BoardList() {
 			{!pending
 				&& boards.map((item, index) => (
 					<Grow key={`storage-board-${item.id}`} in>
-						<Box>
+						<Box className={classes.box}>
 							{isMobile && index === 0 && <Divider />}
-							<ListItem key={`storage-boards-${item.id}`} className={classes.listItem} button>
-								<Link href={'/storages/[path]/[id]'} as={`/storages/${path}/${item.id}`}>
-									<Box className={classes.listItemBox}>
-										<Box display={'flex'} alignItems={'center'}>
-											<ListItemIcon>
-												<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
-													{item.isPopular && (
-														<Avatar className={classes.avatarStar} variant={'rounded'}>
-															<StarIcon />
-														</Avatar>
-													)}
-													{item.hasImage ? (
-														<Avatar className={classes.avatar} variant={'rounded'}>
-															<ImageIcon />
-														</Avatar>
-													) : (
-														<Avatar className={classes.avatarNote} variant={'rounded'}>
-															<NotesIcon />
-														</Avatar>
-													)}
-													{item.hasVideo ? (
-														<Avatar className={classes.avatar} variant={'rounded'}>
-															<VideocamIcon />
-														</Avatar>
-													) : (
-														<Avatar className={classes.avatarNote} variant={'rounded'}>
-															<NotesIcon />
-														</Avatar>
-													)}
-												</AvatarGroup>
-											</ListItemIcon>
-											<Typography noWrap variant={'subtitle2'}>
-												{item.subject}
-											</Typography>
-											<Box className={classes.commentCountBox}>{`[${item.commentTotalCount}]`}</Box>
-											{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
-												<Box ml={1}>
-													<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
-												</Box>
-											)}
-										</Box>
-										<Box display={'flex'} alignItems={'center'} mt={1}>
-											<Avatar
-												className={classes.avatarUser}
-												src={item.isMember && item.user ? item.user.avatarUrl || '' : ''}
-											/>
-											<Box className={classes.writerInfoBox} ml={1}>
-												<Typography className={classes.typography} variant={'caption'}>
-													{item.isMember && item.user ? item.user.nickname : item.nickname}
+							<Link href={'/storages/[path]/[id]'} as={`/storages/${path}/${item.id}`}>
+								<a>
+									<ListItem key={`storage-boards-${item.id}`} className={classes.listItem} button>
+										<Box className={classes.listItemBox}>
+											<Box display={'flex'} alignItems={'center'}>
+												<ListItemIcon>
+													<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
+														{item.isPopular && (
+															<Avatar className={classes.avatarStar} variant={'rounded'}>
+																<StarIcon />
+															</Avatar>
+														)}
+														{item.hasImage ? (
+															<Avatar className={classes.avatar} variant={'rounded'}>
+																<ImageIcon />
+															</Avatar>
+														) : (
+															<Avatar className={classes.avatarNote} variant={'rounded'}>
+																<NotesIcon />
+															</Avatar>
+														)}
+														{item.hasVideo ? (
+															<Avatar className={classes.avatar} variant={'rounded'}>
+																<VideocamIcon />
+															</Avatar>
+														) : (
+															<Avatar className={classes.avatarNote} variant={'rounded'}>
+																<NotesIcon />
+															</Avatar>
+														)}
+													</AvatarGroup>
+												</ListItemIcon>
+												<Typography className={'storage-board-subject'} noWrap variant={'subtitle2'}>
+													{item.subject}
 												</Typography>
-												<Typography variant={'caption'}>
-													{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
-												</Typography>
-												<Box component={'span'}>
+												<Box className={classes.commentCountBox}>{`[${item.commentTotalCount}]`}</Box>
+												{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
+													<Box ml={1}>
+														<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+													</Box>
+												)}
+											</Box>
+											<Box display={'flex'} alignItems={'center'} mt={1}>
+												<Avatar
+													className={classes.avatarUser}
+													src={item.isMember && item.user ? item.user.avatarUrl || '' : ''}
+												/>
+												<Box className={classes.writerInfoBox} ml={1}>
+													<Typography className={classes.typography} variant={'caption'}>
+														{item.isMember && item.user ? item.user.nickname : item.nickname}
+													</Typography>
+													<Typography variant={'caption'}>
+														{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+													</Typography>
 													<Box component={'span'}>
-														<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />
+														<Box component={'span'}>
+															<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />
+														</Box>
+														<Box component={'span'} ml={0.5}>
+															<Typography variant={'caption'}>{item.thumbUp}</Typography>
+														</Box>
 													</Box>
-													<Box component={'span'} ml={0.5}>
-														<Typography variant={'caption'}>{item.thumbUp}</Typography>
-													</Box>
-												</Box>
-												<Box component={'span'}>
 													<Box component={'span'}>
-														<VisibilityIcon className={classes.icon} color={'action'} fontSize={'small'} />
-													</Box>
-													<Box component={'span'} ml={0.5}>
-														<Typography variant={'caption'}>{item.viewCount}</Typography>
+														<Box component={'span'}>
+															<VisibilityIcon className={classes.icon} color={'action'} fontSize={'small'} />
+														</Box>
+														<Box component={'span'} ml={0.5}>
+															<Typography variant={'caption'}>{item.viewCount}</Typography>
+														</Box>
 													</Box>
 												</Box>
 											</Box>
 										</Box>
-									</Box>
-								</Link>
-							</ListItem>
+									</ListItem>
+								</a>
+							</Link>
 							{isMobile && index < 19 && <Divider />}
 							{isMobile && index + 1 === 5 && (
 								<>
@@ -270,7 +283,10 @@ function BoardList() {
 						</Box>
 					</Grow>
 				))}
-			{!pending && boards.length === 0 && <DataEmptyBox message={'아직 개념글이 존재하지 않아요.'} />}
+			{!pending && !value && boards.length === 0 && <DataEmptyBox message={'아직 개념글이 존재하지 않아요.'} />}
+			{!pending && value && boards.length === 0 && (
+				<DataEmptyBox message={`"${value}" 에 대한 검색 결과가 존재하지 않아요.`} />
+			)}
 		</List>
 	);
 }

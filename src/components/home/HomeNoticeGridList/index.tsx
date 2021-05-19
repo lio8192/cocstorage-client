@@ -78,6 +78,11 @@ const useStyles = makeStyles((theme: Theme) =>
 				paddingTop: theme.spacing(1)
 			}
 		},
+		anchor: {
+			width: '100%',
+			color: 'inherit',
+			textDecoration: 'none'
+		},
 		avatar: {
 			marginRight: theme.spacing(1),
 			[theme.breakpoints.down('md')]: {
@@ -109,7 +114,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		chip: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5
+			borderRadius: 5,
+			cursor: 'pointer'
 		},
 		infoBox: {
 			display: 'flex',
@@ -309,54 +315,56 @@ function HomeNoticeGridList() {
 									<Hidden key={`home-notice-main-${item.id}`} mdDown>
 										<Grid item lg={6}>
 											<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
-												<Card className={classes.card} square elevation={0}>
-													<CardActionArea>
-														<CardMedia
-															className={classes.media}
-															image={item.thumbnailUrl || ''}
-															title={'Contemplative Reptile'}
-														/>
-														<CardContent>
-															<Box display={'flex'} alignItems={'center'}>
-																<Box maxWidth={'90%'}>
-																	<Typography noWrap variant={'h5'}>
-																		{item.subject}
-																	</Typography>
-																</Box>
-																{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
-																	<Box ml={1}>
-																		<Chip
-																			className={classes.chip}
-																			label={'N'}
-																			color={'primary'}
-																			size={isMobile ? 'small' : 'medium'}
-																		/>
+												<a className={classes.anchor}>
+													<Card className={classes.card} square elevation={0}>
+														<CardActionArea>
+															<CardMedia
+																className={classes.media}
+																image={item.thumbnailUrl || ''}
+																title={'Contemplative Reptile'}
+															/>
+															<CardContent>
+																<Box display={'flex'} alignItems={'center'}>
+																	<Box maxWidth={'90%'}>
+																		<Typography noWrap variant={'h5'}>
+																			{item.subject}
+																		</Typography>
 																	</Box>
-																)}
-															</Box>
-															<Box mt={1}>
-																<Typography
-																	className={classes.descriptionTypography}
-																	variant={'body2'}
-																	color={'textSecondary'}
-																>
-																	{item.description}
-																</Typography>
-															</Box>
-															<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-																<Box className={classes.infoBox}>
-																	<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
-																	<Typography className={classes.nicknameTypography} variant={'caption'}>
-																		{item.user.nickname}
-																	</Typography>
-																	<Typography variant={'caption'} color={'textSecondary'}>
-																		{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+																	{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
+																		<Box ml={1}>
+																			<Chip
+																				className={classes.chip}
+																				label={'N'}
+																				color={'primary'}
+																				size={isMobile ? 'small' : 'medium'}
+																			/>
+																		</Box>
+																	)}
+																</Box>
+																<Box mt={1}>
+																	<Typography
+																		className={classes.descriptionTypography}
+																		variant={'body2'}
+																		color={'textSecondary'}
+																	>
+																		{item.description}
 																	</Typography>
 																</Box>
-															</Box>
-														</CardContent>
-													</CardActionArea>
-												</Card>
+																<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
+																	<Box className={classes.infoBox}>
+																		<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
+																		<Typography className={classes.nicknameTypography} variant={'caption'}>
+																			{item.user.nickname}
+																		</Typography>
+																		<Typography variant={'caption'} color={'textSecondary'}>
+																			{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+																		</Typography>
+																	</Box>
+																</Box>
+															</CardContent>
+														</CardActionArea>
+													</Card>
+												</a>
 											</Link>
 										</Grid>
 									</Hidden>
@@ -373,36 +381,38 @@ function HomeNoticeGridList() {
 												<Hidden key={`home-notice-m-${item.id}`} lgUp>
 													<ListItem className={classes.listItem} button>
 														<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
-															<Box width={'100%'}>
-																<Box className={classes.listItemBox}>
-																	<Box className={classes.subjectBox}>
-																		<Typography className={classes.typography} variant={'body2'} noWrap>
-																			{item.subject}
-																		</Typography>
-																		{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
-																			<Box ml={1}>
-																				<Chip
-																					className={classes.chip}
-																					label={'N'}
-																					color={'primary'}
-																					size={isMobile ? 'small' : 'medium'}
-																				/>
-																			</Box>
-																		)}
+															<a className={classes.anchor}>
+																<Box width={'100%'}>
+																	<Box className={classes.listItemBox}>
+																		<Box className={classes.subjectBox}>
+																			<Typography className={classes.typography} variant={'body2'} noWrap>
+																				{item.subject}
+																			</Typography>
+																			{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
+																				<Box ml={1}>
+																					<Chip
+																						className={classes.chip}
+																						label={'N'}
+																						color={'primary'}
+																						size={isMobile ? 'small' : 'medium'}
+																					/>
+																				</Box>
+																			)}
+																		</Box>
+																	</Box>
+																	<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
+																		<Box className={classes.listInfoBox}>
+																			<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
+																			<Typography className={classes.nicknameTypography} variant={'caption'}>
+																				{item.user.nickname}
+																			</Typography>
+																			<Typography variant={'caption'} color={'textSecondary'}>
+																				{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+																			</Typography>
+																		</Box>
 																	</Box>
 																</Box>
-																<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-																	<Box className={classes.listInfoBox}>
-																		<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
-																		<Typography className={classes.nicknameTypography} variant={'caption'}>
-																			{item.user.nickname}
-																		</Typography>
-																		<Typography variant={'caption'} color={'textSecondary'}>
-																			{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
-																		</Typography>
-																	</Box>
-																</Box>
-															</Box>
+															</a>
 														</Link>
 													</ListItem>
 												</Hidden>
@@ -411,31 +421,33 @@ function HomeNoticeGridList() {
 										return (
 											<ListItem key={`home-notice-${item.id}`} className={classes.listItem} button>
 												<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
-													<Box width={'100%'}>
-														<Box className={classes.listItemBox}>
-															<Box className={classes.subjectBox}>
-																<Typography className={classes.typography} variant={'body2'} noWrap>
-																	{item.subject}
-																</Typography>
-																{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
-																	<Box ml={1}>
-																		<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
-																	</Box>
-																)}
+													<a className={classes.anchor}>
+														<Box width={'100%'}>
+															<Box className={classes.listItemBox}>
+																<Box className={classes.subjectBox}>
+																	<Typography className={classes.typography} variant={'body2'} noWrap>
+																		{item.subject}
+																	</Typography>
+																	{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
+																		<Box ml={1}>
+																			<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+																		</Box>
+																	)}
+																</Box>
+															</Box>
+															<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
+																<Box className={classes.listInfoBox}>
+																	<Avatar className={classes.avatarBig} src={item.user.avatarUrl || ''} />
+																	<Typography className={classes.nicknameTypography} variant={'caption'}>
+																		{item.user.nickname}
+																	</Typography>
+																	<Typography variant={'caption'} color={'textSecondary'}>
+																		{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+																	</Typography>
+																</Box>
 															</Box>
 														</Box>
-														<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-															<Box className={classes.listInfoBox}>
-																<Avatar className={classes.avatarBig} src={item.user.avatarUrl || ''} />
-																<Typography className={classes.nicknameTypography} variant={'caption'}>
-																	{item.user.nickname}
-																</Typography>
-																<Typography variant={'caption'} color={'textSecondary'}>
-																	{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
-																</Typography>
-															</Box>
-														</Box>
-													</Box>
+													</a>
 												</Link>
 											</ListItem>
 										);

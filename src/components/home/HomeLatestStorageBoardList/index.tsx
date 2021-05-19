@@ -43,7 +43,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		chip: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5
+			borderRadius: 5,
+			cursor: 'pointer'
 		},
 		commentBox: {
 			marginLeft: theme.spacing(1),
@@ -72,6 +73,13 @@ const useStyles = makeStyles((theme: Theme) =>
 			},
 			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(1, 2)
+			}
+		},
+		anchor: {
+			color: 'inherit',
+			textDecoration: 'none',
+			'&:visited .storage-board-subject': {
+				color: theme.palette.grey.A200
 			}
 		},
 		icon: {
@@ -172,32 +180,34 @@ function HomeLatestStorageBoardList() {
 							href={'/storages/[path]/[id]'}
 							as={`/storages/${item.storage.path}/${item.id}`}
 						>
-							<ListItem className={classes.listItem} button>
-								<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
-									<Box className={classes.listItemBox}>
-										<Avatar className={classes.avatar} src={item.storage.avatarUrl || ''}>
-											<InsertPhotoIcon className={classes.icon} />
-										</Avatar>
-									</Box>
-									<Typography variant={'body2'} noWrap>
-										{item.subject}
-									</Typography>
-									<Box className={classes.commentBox} component={'span'}>
-										{`[${item.commentTotalCount}]`}
-									</Box>
-									{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
-										<Box ml={1}>
-											<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+							<a className={classes.anchor}>
+								<ListItem className={classes.listItem} button>
+									<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
+										<Box className={classes.listItemBox}>
+											<Avatar className={classes.avatar} src={item.storage.avatarUrl || ''}>
+												<InsertPhotoIcon className={classes.icon} />
+											</Avatar>
 										</Box>
-									)}
-								</Box>
-								<Box className={classes.infoBox}>
-									<Typography variant={'caption'}>{item.storage.name}</Typography>
-									<Typography variant={'caption'} color={'textSecondary'} noWrap>
-										{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
-									</Typography>
-								</Box>
-							</ListItem>
+										<Typography className={'storage-board-subject'} variant={'body2'} noWrap>
+											{item.subject}
+										</Typography>
+										<Box className={classes.commentBox} component={'span'}>
+											{`[${item.commentTotalCount}]`}
+										</Box>
+										{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
+											<Box ml={1}>
+												<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+											</Box>
+										)}
+									</Box>
+									<Box className={classes.infoBox}>
+										<Typography variant={'caption'}>{item.storage.name}</Typography>
+										<Typography variant={'caption'} color={'textSecondary'} noWrap>
+											{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+										</Typography>
+									</Box>
+								</ListItem>
+							</a>
 						</Link>
 					))}
 				{!pending && data.length === 0 && (

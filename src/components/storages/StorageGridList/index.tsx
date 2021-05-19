@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme: Theme) =>
 				padding: 0
 			}
 		},
+		anchor: {
+			color: 'inherit',
+			textDecoration: 'none'
+		},
 		avatar: {
 			width: theme.spacing(7),
 			height: theme.spacing(7),
@@ -97,7 +101,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		chip: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5
+			borderRadius: 5,
+			cursor: 'pointer'
 		},
 		badge: {
 			'& .MuiBadge-anchorOriginTopRightRectangle': {
@@ -114,7 +119,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function StorageGridList() {
 	const classes = useStyles();
-	const { pending, storages } = useStorageGridList();
+	const {
+		pending,
+		storages,
+		fetchParams: { name }
+	} = useStorageGridList();
 	return (
 		<Box>
 			<Box>
@@ -131,36 +140,43 @@ function StorageGridList() {
 							<Grow key={`storage-${item.id}`} in>
 								<Grid item xs={4} sm={2}>
 									<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
-										<Card className={classes.card} elevation={0}>
-											<CardActionArea>
-												<CardContent className={classes.cardContentHead} />
-												<CardContent>
-													<Badge
-														className={classes.badge}
-														badgeContent={
-															<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
-														}
-														invisible={moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') > 7}
-													>
-														<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
-															<InsertPhotoIcon />
-														</Avatar>
-													</Badge>
-													<Box mt={1}>
-														<Typography className={classes.typography} noWrap>
-															{item.name}
-														</Typography>
-													</Box>
-												</CardContent>
-											</CardActionArea>
-										</Card>
+										<a className={classes.anchor}>
+											<Card className={classes.card} elevation={0}>
+												<CardActionArea>
+													<CardContent className={classes.cardContentHead} />
+													<CardContent>
+														<Badge
+															className={classes.badge}
+															badgeContent={
+																<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+															}
+															invisible={moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') > 7}
+														>
+															<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
+																<InsertPhotoIcon />
+															</Avatar>
+														</Badge>
+														<Box mt={1}>
+															<Typography className={classes.typography} noWrap>
+																{item.name}
+															</Typography>
+														</Box>
+													</CardContent>
+												</CardActionArea>
+											</Card>
+										</a>
 									</Link>
 								</Grid>
 							</Grow>
 						))}
 					</Grid>
 				)}
-				{!pending && storages.length === 0 && <DataEmptyBox message={'첫 저장소 등록의 주인공이 되어 보세요!'} />}
+				{!pending && !name && storages.length === 0 && (
+					<DataEmptyBox message={'첫 저장소 등록의 주인공이 되어 보세요!'} />
+				)}
+				{!pending && name && storages.length === 0 && (
+					<DataEmptyBox message={`"${name}" 에 대한 검색 결과가 존재하지 않아요.`} />
+				)}
 			</Box>
 		</Box>
 	);

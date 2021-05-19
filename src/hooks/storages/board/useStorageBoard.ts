@@ -136,6 +136,9 @@ export default function useStorageBoard() {
 		if (router.query.value) {
 			setSearchType(String(router.query.type || 'all'));
 			setSearchValue(String(router.query.value || ''));
+		} else {
+			setSearchType('all');
+			setSearchValue('');
 		}
 	}, [router]);
 

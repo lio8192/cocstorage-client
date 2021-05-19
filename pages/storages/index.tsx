@@ -176,17 +176,21 @@ function Storages() {
 						{'새 저장소 등록'}
 					</Button>
 				</Box>
-				<Pagination
-					className={classes.pagination}
-					page={currentPage}
-					count={totalPages}
-					color={'primary'}
-					shape={'rounded'}
-					onChange={onHandlePagination}
-					size={isXsMobile ? 'small' : 'medium'}
-					siblingCount={isXsMobile ? 1 : 2}
-					disabled={pending}
-				/>
+				{totalPages > 0 ? (
+					<Pagination
+						className={classes.pagination}
+						page={currentPage}
+						count={totalPages}
+						color={'primary'}
+						shape={'rounded'}
+						onChange={onHandlePagination}
+						size={isXsMobile ? 'small' : 'medium'}
+						siblingCount={isXsMobile ? 1 : 2}
+						disabled={pending}
+					/>
+				) : (
+					<Box className={classes.pagination} />
+				)}
 				<Box pb={2}>
 					<TextField
 						fullWidth

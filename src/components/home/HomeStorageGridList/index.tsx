@@ -50,6 +50,10 @@ const useStyles = makeStyles((theme: Theme) =>
 				paddingTop: theme.spacing(1)
 			}
 		},
+		anchor: {
+			color: 'inherit',
+			textDecoration: 'none'
+		},
 		titleBox: {
 			display: 'flex',
 			alignItems: 'center',
@@ -138,7 +142,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		chip: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5
+			borderRadius: 5,
+			cursor: 'pointer'
 		}
 	})
 );
@@ -225,28 +230,30 @@ function HomeStorageGridList() {
 							{data.map((item) => (
 								<Grid key={`home-storage-${item.id}`} item xs={12} sm={6} md={6} lg={2}>
 									<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
-										<Card className={classes.card} elevation={0} square>
-											<CardActionArea>
-												<CardContent className={classes.cardContentHead} />
-												<CardContent>
-													<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
-														<InsertPhotoIcon />
-													</Avatar>
-													<Box mt={1}>
-														<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
-															<Typography component={'span'} className={classes.typography} noWrap>
-																{item.name}
-															</Typography>
-															{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') <= 7 && (
-																<Box className={classes.chipBox} component={'span'} ml={0.5}>
-																	<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
-																</Box>
-															)}
+										<a className={classes.anchor}>
+											<Card className={classes.card} elevation={0} square>
+												<CardActionArea>
+													<CardContent className={classes.cardContentHead} />
+													<CardContent>
+														<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
+															<InsertPhotoIcon />
+														</Avatar>
+														<Box mt={1}>
+															<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
+																<Typography component={'span'} className={classes.typography} noWrap>
+																	{item.name}
+																</Typography>
+																{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') <= 7 && (
+																	<Box className={classes.chipBox} component={'span'} ml={0.5}>
+																		<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+																	</Box>
+																)}
+															</Box>
 														</Box>
-													</Box>
-												</CardContent>
-											</CardActionArea>
-										</Card>
+													</CardContent>
+												</CardActionArea>
+											</Card>
+										</a>
 									</Link>
 								</Grid>
 							))}
@@ -257,30 +264,32 @@ function HomeStorageGridList() {
 					<List className={classes.list} disablePadding>
 						{data.map((item) => (
 							<Link key={`home-storage-${item.id}`} href={'/storages/[path]'} as={`/storages/${item.path}`}>
-								<ListItem className={classes.listItem} button>
-									<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
-										<Avatar src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
-											<InsertPhotoIcon />
-										</Avatar>
-										<Box minWidth={0} width={'100%'} ml={1}>
-											<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'} height={24}>
-												<Box className={classes.typographyInnerBox} component={'span'}>
-													{item.name}
-												</Box>
-												{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') <= 7 && (
-													<Box className={classes.chipBox} component={'span'} ml={0.5}>
-														<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+								<a className={classes.anchor}>
+									<ListItem className={classes.listItem} button>
+										<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
+											<Avatar src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
+												<InsertPhotoIcon />
+											</Avatar>
+											<Box minWidth={0} width={'100%'} ml={1}>
+												<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'} height={24}>
+													<Box className={classes.typographyInnerBox} component={'span'}>
+														{item.name}
 													</Box>
-												)}
-											</Box>
-											<Box className={classes.typographyInnerBox}>
-												<Typography variant={'caption'} color={'textSecondary'} noWrap>
-													{item.description}
-												</Typography>
+													{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') <= 7 && (
+														<Box className={classes.chipBox} component={'span'} ml={0.5}>
+															<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+														</Box>
+													)}
+												</Box>
+												<Box className={classes.typographyInnerBox}>
+													<Typography variant={'caption'} color={'textSecondary'} noWrap>
+														{item.description}
+													</Typography>
+												</Box>
 											</Box>
 										</Box>
-									</Box>
-								</ListItem>
+									</ListItem>
+								</a>
 							</Link>
 						))}
 					</List>
