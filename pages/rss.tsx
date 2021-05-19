@@ -9,7 +9,7 @@ function RSS() {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ res }) => {
-	const xml = await axios('http://localhost:3001/rss', {
+	const xml = await axios('http://api.cocstorage.com/rss', {
 		headers: {
 			'X-Api-Key': process.env.X_API_KEY
 		}

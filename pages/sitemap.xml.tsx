@@ -9,7 +9,7 @@ function Sitemap() {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ res }) => {
-	const xml = await axios.get('http://localhost:3001/sitemap.xml', {
+	const xml = await axios.get('https://api.cocstorage.com/sitemap.xml', {
 		headers: {
 			'X-Api-Key': process.env.X_API_KEY
 		}
