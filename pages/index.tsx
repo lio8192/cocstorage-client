@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
@@ -97,7 +98,11 @@ function Index() {
 			</Head>
 			<Container className={classes.container}>
 				<Box className={classes.bannerBox}>
-					<img src={'https://static.cocstorage.com/images/simple_guide_text.png'} alt={'Simple Guide Img'} />
+					<Link href={'/notices/100'} as={'/notices/100'}>
+						<a>
+							<img src={'https://static.cocstorage.com/images/simple_guide_text.png'} alt={'Simple Guide Img'} />
+						</a>
+					</Link>
 				</Box>
 				<Box className={classes.containerBox}>
 					<Grid container spacing={1}>
