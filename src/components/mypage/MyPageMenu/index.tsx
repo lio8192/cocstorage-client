@@ -26,11 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		list: {
 			width: '100%',
-			backgroundColor: theme.palette.background.paper,
-			paddingBottom: theme.spacing(2)
-		},
-		listSubheader: {
-			padding: theme.spacing(0)
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4,
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			overflow: 'hidden'
 		}
 	})
 );
@@ -76,11 +75,7 @@ function MyPageMenu() {
 			<Hidden mdDown>
 				<List
 					component={'nav'}
-					subheader={(
-						<ListSubheader className={classes.listSubheader} component={'div'}>
-							{'내 정보 관리'}
-						</ListSubheader>
-					)}
+					subheader={<ListSubheader component={'div'}>{'내 정보 관리'}</ListSubheader>}
 					className={classes.list}
 				>
 					<ListItem button selected={activatedTab === 0} onClick={onChangeMyPageTab} data-tab-value={0}>

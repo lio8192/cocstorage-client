@@ -129,7 +129,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		chip: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5,
+			borderRadius: 4,
 			cursor: 'pointer'
 		},
 		infoBox: {
@@ -178,6 +178,11 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		avatar: {
 			marginRight: theme.spacing(1)
+		},
+		progressBox: {
+			padding: theme.spacing(20, 0),
+			textAlign: 'center',
+			backgroundColor: theme.palette.type === 'light' ? 'inherit' : theme.palette.background.default
 		}
 	})
 );
@@ -209,7 +214,7 @@ function NoticeGridList() {
 		<>
 			{pending && transferNotices.length === 0 && (
 				<Grow in>
-					<Box pt={20} pb={20} textAlign={'center'}>
+					<Box className={classes.progressBox} pt={20} pb={20} textAlign={'center'}>
 						<CircularProgress size={50} />
 					</Box>
 				</Grow>

@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			backgroundColor: theme.palette.background.default,
 			zIndex: 10
 		},
+		textField: {
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper
+		},
 		icon: {
 			verticalAlign: 'middle'
 		},
@@ -89,6 +92,7 @@ function AuthBox({
 							</Box>
 							<Box mt={2}>
 								<TextField
+									className={classes.textField}
 									fullWidth
 									type={showPassword ? 'text' : 'password'}
 									variant={'outlined'}

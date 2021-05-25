@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import Link from 'next/link';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import moment from 'moment';
+import clsx from 'clsx';
 
 // Material UI
 import Box from '@material-ui/core/Box';
@@ -11,14 +12,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
-import Hidden from '@material-ui/core/Hidden';
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
 
 // Material UI Icons
-import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import StarIcon from '@material-ui/icons/Star';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -33,11 +30,17 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			height: '100%',
-			border: `1px solid ${theme.palette.grey['50']}`,
-			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
-				padding: 0,
-				border: 'none'
+				marginTop: theme.spacing(1)
+			}
+		},
+		box: {
+			margin: theme.spacing(0, 0, 1.5),
+			[theme.breakpoints.down('md')]: {
+				margin: theme.spacing(0, 3, 1.5)
+			},
+			[theme.breakpoints.down('xs')]: {
+				margin: theme.spacing(0, 2, 1.5)
 			}
 		},
 		typography: {
@@ -47,24 +50,12 @@ const useStyles = makeStyles((theme: Theme) =>
 		chip: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5,
+			borderRadius: 4,
 			cursor: 'pointer'
 		},
 		commentBox: {
 			marginLeft: theme.spacing(1),
 			color: theme.palette.grey.A200
-		},
-		box: {
-			display: 'flex',
-			alignItems: 'center',
-			justifyContent: 'space-between',
-			padding: theme.spacing(1, 2),
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(1, 3)
-			},
-			[theme.breakpoints.down('xs')]: {
-				padding: theme.spacing(1, 2)
-			}
 		},
 		anchor: {
 			color: 'inherit',
@@ -75,6 +66,16 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		list: {
 			minHeight: 400,
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4,
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			[theme.breakpoints.down('md')]: {
+				borderLeft: 'none',
+				borderRight: 'none',
+				borderRadius: 'inherit'
+			}
+		},
+		listEmpty: {
 			height: '100%'
 		},
 		listItem: {
@@ -119,7 +120,7 @@ const useStyles = makeStyles((theme: Theme) =>
 				height: 3,
 				margin: theme.spacing(0, 0.5),
 				border: `1px solid ${theme.palette.grey.A200}`,
-				borderRadius: 5,
+				borderRadius: 4,
 				backgroundColor: theme.palette.grey.A200,
 				verticalAlign: 'middle'
 			},
@@ -134,7 +135,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			display: 'inline-block'
 		},
 		divider: {
-			backgroundColor: theme.palette.grey['50']
+			width: 40,
+			height: 7,
+			backgroundColor: theme.palette.primary.main
 		}
 	})
 );
@@ -148,25 +151,24 @@ function HomePopularStorageBoardList() {
 	return (
 		<Box className={classes.root}>
 			<Box className={classes.box}>
-				<Box flex={1}>
-					<Typography className={classes.typography} variant={'h6'}>
-						{'실시간 인기 개념글'}
-					</Typography>
-				</Box>
-			</Box>
-			<Hidden implementation={'css'} mdDown>
 				<Divider className={classes.divider} />
-			</Hidden>
-			<List className={classes.list} disablePadding>
+				<Box mt={0.5} />
+				<Typography className={classes.typography} variant={'h6'}>
+					{'실시간 인기 개념글'}
+				</Typography>
+			</Box>
+			<List
+				className={clsx(classes.list, {
+					[classes.listEmpty]: !pending && data.length === 0
+				})}
+				disablePadding
+			>
 				{pending
 					&& [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
 						<ListItem key={`home-dummy-popular-storage-board-${item}`} className={classes.listItem}>
 							<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
 								<Box className={classes.listItemBox}>
-									<AvatarGroup className={classes.avatarGroup} max={2} spacing={'small'}>
-										<Skeleton variant={'circle'} width={30} height={30} />
-										<Skeleton variant={'circle'} width={30} height={30} />
-									</AvatarGroup>
+									<Skeleton variant={'circle'} width={30} height={30} />
 								</Box>
 								<Skeleton width={`${Math.round(Math.random() * 100) + 50}%`} height={24} />
 								<Box className={classes.commentBox} component={'span'}>
@@ -197,14 +199,9 @@ function HomePopularStorageBoardList() {
 								<ListItem className={classes.listItem} button>
 									<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
 										<Box className={classes.listItemBox}>
-											<AvatarGroup className={classes.avatarGroup} max={2} spacing={'small'}>
-												<Avatar className={classes.avatarStar}>
-													<StarIcon className={classes.icon} />
-												</Avatar>
-												<Avatar className={classes.avatar} src={item.storage.avatarUrl || ''}>
-													<InsertPhotoIcon className={classes.icon} />
-												</Avatar>
-											</AvatarGroup>
+											<Avatar className={classes.avatarStar}>
+												<StarIcon className={classes.icon} />
+											</Avatar>
 										</Box>
 										<Typography variant={'body2'} noWrap>
 											{item.subject}
@@ -229,14 +226,6 @@ function HomePopularStorageBoardList() {
 											</Box>
 											<Box component={'span'} ml={0.5}>
 												<Typography variant={'caption'}>{item.thumbUp}</Typography>
-											</Box>
-										</Box>
-										<Box component={'span'}>
-											<Box component={'span'}>
-												<VisibilityIcon className={classes.infoBoxIcon} color={'action'} fontSize={'small'} />
-											</Box>
-											<Box component={'span'} ml={0.5}>
-												<Typography variant={'caption'}>{item.viewCount}</Typography>
 											</Box>
 										</Box>
 									</Box>

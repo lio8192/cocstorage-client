@@ -7,6 +7,7 @@ import {
 // Material UI
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -19,6 +20,9 @@ import { TransitionProps } from '@material-ui/core/transitions';
 
 // Material UI Icons
 import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
+
+// Material UI Labs
+import Skeleton from '@material-ui/lab/Skeleton';
 
 // Modules
 import { fetchStorageDetailAndStorageBoardDetail } from 'modules/storages/board/detail';
@@ -69,6 +73,15 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				bottom: theme.spacing(8)
 			}
+		},
+		adBox: {
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4,
+			overflow: 'hidden',
+			[theme.breakpoints.down('md')]: {
+				border: 'none',
+				borderRadius: 'inherit'
+			}
 		}
 	})
 );
@@ -100,7 +113,7 @@ function StorageBoardDetail() {
 			error: { open: errorOpen, message: errorMessage },
 			pending: recommendPending
 		},
-		comments: { pagination },
+		comments: { pending, pagination },
 		manage: {
 			pending: deleteAuthPending,
 			deleteAuth: { open: deleteAuthDialogOpen, subTitle }
@@ -187,18 +200,39 @@ function StorageBoardDetail() {
 				<Grid container>
 					<Grid item xs={12} sm={12} md={12} lg={12}>
 						<DetailContent />
-						<GoogleAdSense
-							html={
-								'<ins class="adsbygoogle"'
-								+ 'style="display:block"'
-								+ 'data-ad-client="ca-pub-5809905264951057"'
-								+ 'data-ad-slot="8033291397"'
-								+ 'data-ad-format="auto"'
-								+ 'data-full-width-responsive="true"></ins>'
-							}
-						/>
+						<Box className={classes.adBox}>
+							<GoogleAdSense
+								html={
+									'<ins class="adsbygoogle"'
+									+ 'style="display:block"'
+									+ 'data-ad-client="ca-pub-5809905264951057"'
+									+ 'data-ad-slot="8033291397"'
+									+ 'data-ad-format="auto"'
+									+ 'data-full-width-responsive="true"></ins>'
+								}
+							/>
+						</Box>
 						<DetailCommentList />
-						{pagination.totalPages > 0 && (
+						{pending && (
+							<Box display={'flex'} justifyContent={'center'} p={2} pt={1.5}>
+								<Box ml={1}>
+									<Skeleton width={30} height={40} animation={'wave'} />
+								</Box>
+								<Box ml={1}>
+									<Skeleton width={30} height={40} animation={'wave'} />
+								</Box>
+								<Box ml={1}>
+									<Skeleton width={30} height={40} animation={'wave'} />
+								</Box>
+								<Box ml={1}>
+									<Skeleton width={30} height={40} animation={'wave'} />
+								</Box>
+								<Box ml={1}>
+									<Skeleton width={30} height={40} animation={'wave'} />
+								</Box>
+							</Box>
+						)}
+						{!pending && pagination.totalPages > 0 && (
 							<Pagination
 								className={classes.pagination}
 								page={pagination.currentPage}
@@ -207,7 +241,7 @@ function StorageBoardDetail() {
 								shape={'rounded'}
 								onChange={onHandleStorageBoardDetailCommentsPagination}
 								size={isMobile ? 'small' : 'medium'}
-								siblingCount={isMobile ? 0 : 2}
+								siblingCount={isMobile ? 1 : 2}
 							/>
 						)}
 						<DetailCommentWriteForm />

@@ -37,13 +37,20 @@ moment.locale('ko');
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: theme.palette.background.default,
+			margin: theme.spacing(2, 0),
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4,
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
-				padding: 0
+				margin: 0,
+				padding: 0,
+				border: 'none',
+				borderRadius: 'inherit',
+				backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.default
 			}
 		},
 		subjectBox: {
-			padding: theme.spacing(2, 0, 1, 0),
+			padding: theme.spacing(2, 2, 1, 2),
 			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : '',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(2, 3, 0, 3)
@@ -62,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			alignItems: 'center',
 			justifyContent: 'space-between',
 			marginBottom: theme.spacing(2),
-			padding: theme.spacing(1, 0),
+			padding: theme.spacing(1, 2),
 			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 3, 0, 3)
@@ -86,14 +93,11 @@ const useStyles = makeStyles((theme: Theme) =>
 		otherInfoBox: {
 			display: 'flex',
 			alignItems: 'center',
-			padding: theme.spacing(2, 0),
+			padding: theme.spacing(2),
 			border: '1px solid',
 			borderColor: theme.palette.grey['50'],
 			borderLeft: 'none',
 			borderRight: 'none',
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(2, 2)
-			},
 			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(2, 1)
 			}
@@ -101,7 +105,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		otherInfoSkeletonBox: {
 			display: 'flex',
 			alignItems: 'center',
-			padding: theme.spacing(2, 0),
+			padding: theme.spacing(2),
 			border: '1px solid',
 			borderColor: theme.palette.grey['50'],
 			borderLeft: 'none',
@@ -118,7 +122,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		contentBox: {
-			padding: theme.spacing(2, 0),
+			padding: theme.spacing(2),
 			'& p': {
 				margin: 0
 			},
@@ -262,18 +266,6 @@ function DetailContent() {
 											<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
 										</Box>
 										<Box ml={1} mr={1}>
-											<Skeleton animation={'wave'} width={35} />
-										</Box>
-										<Box>
-											<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
-										</Box>
-										<Box ml={1} mr={1}>
-											<Skeleton animation={'wave'} width={35} />
-										</Box>
-										<Box>
-											<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
-										</Box>
-										<Box ml={1}>
 											<Skeleton animation={'wave'} width={35} />
 										</Box>
 									</Box>

@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		container: {
 			paddingTop: theme.spacing(2),
 			paddingBottom: theme.spacing(2),
-			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0)
 			}

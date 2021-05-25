@@ -3,15 +3,11 @@ import React, {
 } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import {
-	makeStyles, createStyles, Theme, useTheme
-} from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Toolbar from '@material-ui/core/Toolbar';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
@@ -30,7 +26,6 @@ import Slide from '@material-ui/core/Slide';
 import NoSsr from '@material-ui/core/NoSsr';
 
 // Material UI Icons
-import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
@@ -42,18 +37,30 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import useHeader from 'hooks/common/useHeader';
 
 // Snippets
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		appBar: {
-			boxShadow: 'none',
-			borderBottom: `1px solid ${theme.palette.grey['50']}`
+			boxShadow: '0 1px 4px 0 rgba(0,0,0,.05)'
 		},
 		chip: {
 			marginLeft: theme.spacing(1),
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB'
+		},
+		categoryChip: {
+			color: 'rgba(0, 0, 0, .5)',
+			backgroundColor: theme.palette.grey['50']
+		},
+		activeCategoryChip: {
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB',
+			backgroundColor: theme.palette.primary.main
+		},
+		anchor: {
+			color: 'inherit',
+			textDecoration: 'none'
 		},
 		paper: {
 			border: 'none',
@@ -126,18 +133,14 @@ function Header() {
 		storage,
 		activatedTab,
 		openNavigationChip,
-		openTab,
 		isNewStorage,
 		isNotices,
-		onHandleTabChange,
 		onHandleStorageChip,
 		onHandleNoticeChip,
 		onHandleSignInDialog,
 		onDeleteSignOut,
 		onHandlePaletteType
 	} = useHeader();
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	const [open, setOpen] = useState(false);
 	const anchorRef = useRef<HTMLButtonElement>(null);
@@ -206,6 +209,34 @@ function Header() {
 															: 'https://static.cocstorage.com/images/logo_text_white.png'
 													}
 													alt={'Logo Img'}
+												/>
+											</a>
+										</Link>
+									</Box>
+									<Box component={'span'} ml={2}>
+										<Link href={'/storages'} as={'/storages'}>
+											<a className={classes.anchor}>
+												<Chip
+													className={clsx(classes.categoryChip, {
+														[classes.activeCategoryChip]: activatedTab.indexOf('/storages') !== -1
+													})}
+													label={'커뮤니티 저장소'}
+													clickable
+													color={activatedTab.indexOf('/storages') !== -1 ? 'primary' : 'default'}
+												/>
+											</a>
+										</Link>
+									</Box>
+									<Box component={'span'} ml={1}>
+										<Link href={'/notices'} as={'/notices'}>
+											<a className={classes.anchor}>
+												<Chip
+													className={clsx(classes.categoryChip, {
+														[classes.activeCategoryChip]: activatedTab.indexOf('/notices') !== -1
+													})}
+													label={'새로운 소식'}
+													clickable
+													color={activatedTab.indexOf('/notices') !== -1 ? 'primary' : 'default'}
 												/>
 											</a>
 										</Link>
@@ -444,29 +475,6 @@ function Header() {
 					</HideOnScroll>
 					<Toolbar />
 				</>
-			)}
-			{!isMobile && openTab && (
-				<Paper className={classes.paper} variant={'outlined'} square>
-					<Container>
-						<Tabs
-							indicatorColor={'primary'}
-							textColor={'primary'}
-							value={
-								activatedTab === '/'
-								|| activatedTab.indexOf('/storages') !== -1
-								|| activatedTab.indexOf('/notices') !== -1
-									? activatedTab
-									: '/storages'
-							}
-							onChange={onHandleTabChange}
-							className={classes.indicator}
-						>
-							<Tab icon={<HomeIcon />} value={'/'} />
-							<Tab label={'커뮤니티 저장소'} value={'/storages'} />
-							<Tab label={'새로운 소식'} value={'/notices'} />
-						</Tabs>
-					</Container>
-				</Paper>
 			)}
 		</>
 	);

@@ -10,7 +10,6 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Avatar from '@material-ui/core/Avatar';
-import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -52,7 +51,15 @@ interface TransferComment extends StorageBoardDetailComment {
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: theme.palette.background.default
+			marginTop: theme.spacing(2),
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4,
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			[theme.breakpoints.down('md')]: {
+				marginTop: 0,
+				border: 'none',
+				borderRadius: 'inherit'
+			}
 		},
 		commentOrderList: {
 			display: 'flex',
@@ -67,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		commentOrderListItem: {
 			width: 'auto',
-			padding: 0,
+			padding: theme.spacing(0, 2),
 			cursor: 'pointer',
 			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
 			transition: 'color .5s',
@@ -89,7 +96,7 @@ const useStyles = makeStyles((theme: Theme) =>
 				color: theme.palette.type === 'light' ? 'white' : 'none'
 			},
 			'&.Mui-selected': {
-				backgroundColor: theme.palette.type === 'light' ? 'white' : theme.palette.background.default,
+				backgroundColor: theme.palette.type === 'light' ? 'white' : theme.palette.background.paper,
 				color: theme.palette.primary.main
 			},
 			'&.Mui-selected:hover': {
@@ -97,6 +104,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			},
 			'& p': {
 				fontFamily: 'NanumSquareRoundEB'
+			},
+			[theme.breakpoints.down('md')]: {
+				padding: 0
 			}
 		},
 		commentListMoreButton: {
@@ -112,7 +122,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: 0
 		},
 		commentListBox: {
-			padding: theme.spacing(2, 0),
+			padding: theme.spacing(2),
 			wordBreak: 'break-all',
 			wordWrap: 'break-word',
 			overflow: 'hidden',
@@ -134,6 +144,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			display: 'flex',
 			alignItems: 'center',
 			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
+			marginBottom: theme.spacing(1),
 			'& > div::after': {
 				content: '""',
 				display: 'inline-block',
@@ -147,6 +158,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			},
 			'& > div:last-child::after': {
 				display: 'none'
+			},
+			[theme.breakpoints.down('md')]: {
+				padding: theme.spacing(0)
 			}
 		},
 		commentListItemWriterAvatar: {
@@ -161,7 +175,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		},
 		commentListItemContent: {
-			paddingTop: theme.spacing(1),
 			fontSize: 14,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 2, 0, 2)
@@ -173,14 +186,20 @@ const useStyles = makeStyles((theme: Theme) =>
 				padding: theme.spacing(2, 2, 1, 2)
 			}
 		},
+		commentListItemButtonSkeleton: {
+			[theme.breakpoints.down('md')]: {
+				padding: theme.spacing(0, 2)
+			}
+		},
 		commentListItemDateSkeleton: {
+			padding: theme.spacing(2, 2, 1),
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0, 2, 0, 2)
 			}
 		},
 		replyBox: {
-			padding: theme.spacing(2),
-			backgroundColor: theme.palette.type === 'light' ? '#fafafa' : theme.palette.background.paper,
+			padding: theme.spacing(2, 4),
+			backgroundColor: theme.palette.type === 'light' ? '#fafafa' : theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(2, 3),
 				borderBottom: `1px solid ${theme.palette.grey['50']}`
@@ -373,11 +392,9 @@ function DetailCommentList() {
 														<Skeleton animation={'wave'} width={35} />
 													</Box>
 												</Box>
-												<Hidden mdDown>
-													<Box>
-														<Skeleton animation={'wave'} width={100} />
-													</Box>
-												</Hidden>
+												<Box>
+													<Skeleton animation={'wave'} width={50} />
+												</Box>
 											</Box>
 										</Grid>
 										<Grid item xs={2}>
@@ -391,11 +408,9 @@ function DetailCommentList() {
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden lgUp>
-										<Box className={classes.commentListItemDateSkeleton}>
-											<Skeleton animation={'wave'} width={100} />
-										</Box>
-									</Hidden>
+									<Box className={classes.commentListItemButtonSkeleton}>
+										<Skeleton animation={'wave'} width={70} height={50} />
+									</Box>
 								</Box>
 								<Box className={classes.replyBox}>
 									<Grid container alignItems={'center'}>
@@ -410,11 +425,9 @@ function DetailCommentList() {
 														<Skeleton animation={'wave'} width={35} />
 													</Box>
 												</Box>
-												<Hidden mdDown>
-													<Box>
-														<Skeleton animation={'wave'} width={100} />
-													</Box>
-												</Hidden>
+												<Box>
+													<Skeleton animation={'wave'} width={50} />
+												</Box>
 											</Box>
 										</Grid>
 										<Grid item xs={2}>
@@ -428,11 +441,6 @@ function DetailCommentList() {
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden lgUp>
-										<Box className={classes.replyBoxItemWriterDateSkeleton}>
-											<Skeleton animation={'wave'} width={100} />
-										</Box>
-									</Hidden>
 								</Box>
 								<Box className={classes.commentListBox}>
 									<Grid className={classes.commentListItemWriterBoxGrid} container>
@@ -447,11 +455,9 @@ function DetailCommentList() {
 														<Skeleton animation={'wave'} width={35} />
 													</Box>
 												</Box>
-												<Hidden mdDown>
-													<Box>
-														<Skeleton animation={'wave'} width={100} />
-													</Box>
-												</Hidden>
+												<Box>
+													<Skeleton animation={'wave'} width={50} />
+												</Box>
 											</Box>
 										</Grid>
 										<Grid item xs={2}>
@@ -465,11 +471,9 @@ function DetailCommentList() {
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden lgUp>
-										<Box className={classes.commentListItemDateSkeleton}>
-											<Skeleton animation={'wave'} width={100} />
-										</Box>
-									</Hidden>
+									<Box className={classes.commentListItemButtonSkeleton}>
+										<Skeleton animation={'wave'} width={70} height={50} />
+									</Box>
 								</Box>
 								<Box className={classes.replyBox}>
 									<Grid container alignItems={'center'}>
@@ -484,11 +488,9 @@ function DetailCommentList() {
 														<Skeleton animation={'wave'} width={35} />
 													</Box>
 												</Box>
-												<Hidden mdDown>
-													<Box>
-														<Skeleton animation={'wave'} width={100} />
-													</Box>
-												</Hidden>
+												<Box>
+													<Skeleton animation={'wave'} width={50} />
+												</Box>
 											</Box>
 										</Grid>
 										<Grid item xs={2}>
@@ -502,11 +504,6 @@ function DetailCommentList() {
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden lgUp>
-										<Box className={classes.replyBoxItemWriterDateSkeleton}>
-											<Skeleton animation={'wave'} width={100} />
-										</Box>
-									</Hidden>
 								</Box>
 								<Box className={classes.commentListBox}>
 									<Grid className={classes.commentListItemWriterBoxGrid} container>
@@ -521,11 +518,9 @@ function DetailCommentList() {
 														<Skeleton animation={'wave'} width={35} />
 													</Box>
 												</Box>
-												<Hidden mdDown>
-													<Box>
-														<Skeleton animation={'wave'} width={100} />
-													</Box>
-												</Hidden>
+												<Box>
+													<Skeleton animation={'wave'} width={50} />
+												</Box>
 											</Box>
 										</Grid>
 										<Grid item xs={2}>
@@ -539,27 +534,8 @@ function DetailCommentList() {
 										<Skeleton animation={'wave'} />
 										<Skeleton animation={'wave'} />
 									</Box>
-									<Hidden lgUp>
-										<Box className={classes.commentListItemDateSkeleton}>
-											<Skeleton animation={'wave'} width={100} />
-										</Box>
-									</Hidden>
-								</Box>
-								<Box display={'flex'} justifyContent={'center'} p={2} pt={0}>
-									<Box ml={1}>
-										<Skeleton width={30} height={40} animation={'wave'} />
-									</Box>
-									<Box ml={1}>
-										<Skeleton width={30} height={40} animation={'wave'} />
-									</Box>
-									<Box ml={1}>
-										<Skeleton width={30} height={40} animation={'wave'} />
-									</Box>
-									<Box ml={1}>
-										<Skeleton width={30} height={40} animation={'wave'} />
-									</Box>
-									<Box ml={1}>
-										<Skeleton width={30} height={40} animation={'wave'} />
+									<Box className={classes.commentListItemButtonSkeleton}>
+										<Skeleton animation={'wave'} width={70} height={50} />
 									</Box>
 								</Box>
 							</Box>

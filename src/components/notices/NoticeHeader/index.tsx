@@ -12,11 +12,17 @@ import NearMeIcon from '@material-ui/icons/NearMe';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			height: 'auto',
+			margin: theme.spacing(2, 2, 0),
+			borderRadius: 4,
 			background:
 				theme.palette.type === 'light'
 					? `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`
-					: theme.palette.background.paper
+					: theme.palette.background.paper,
+			[theme.breakpoints.down('md')]: {
+				height: 'auto',
+				margin: 0,
+				borderRadius: 'inherit'
+			}
 		},
 		container: {
 			display: 'flex',
@@ -25,6 +31,15 @@ const useStyles = makeStyles((theme: Theme) =>
 			justifyContent: 'flex-end'
 		},
 		typography: {
+			color: 'white',
+			[theme.breakpoints.down('md')]: {
+				fontSize: 22
+			},
+			[theme.breakpoints.down('xs')]: {
+				fontSize: 20
+			}
+		},
+		descriptionTypography: {
 			color: 'white'
 		},
 		box: {
@@ -48,13 +63,13 @@ function NoticeHeader() {
 							<NearMeIcon className={classes.icon} fontSize={'large'} />
 						</Box>
 						<Box ml={0.5}>
-							<Typography className={classes.typography} variant={'h5'}>
+							<Typography className={classes.typography} variant={'h5'} noWrap>
 								{'새로운 소식'}
 							</Typography>
 						</Box>
 					</Box>
 					<Box>
-						<Typography className={classes.typography} variant={'caption'}>
+						<Typography className={classes.descriptionTypography} variant={'caption'}>
 							{'개념글 저장소의 새로운 소식을 확인해보세요!'}
 						</Typography>
 					</Box>

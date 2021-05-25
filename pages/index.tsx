@@ -31,15 +31,31 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		containerBox: {
-			marginTop: theme.spacing(2),
-			[theme.breakpoints.down('md')]: {
-				margin: 0
-			}
+			marginTop: theme.spacing(2)
 		},
 		box: {
 			marginBottom: theme.spacing(2),
 			[theme.breakpoints.down('md')]: {
 				marginBottom: 0
+			}
+		},
+		bannerBox: {
+			marginTop: theme.spacing(2),
+			padding: theme.spacing(3, 2),
+			textAlign: 'center',
+			borderRadius: 4,
+			backgroundColor: theme.palette.type === 'light' ? '#5D6DBE' : theme.palette.background.paper,
+			overflow: 'hidden',
+			'& img': {
+				maxWidth: '100%'
+			},
+			[theme.breakpoints.down('md')]: {
+				marginTop: 0,
+				borderRadius: 'inherit',
+				'& img': {
+					maxWidth: 250
+				},
+				backgroundColor: theme.palette.type === 'light' ? '#5D6DBE' : theme.palette.background.default
 			}
 		}
 	})
@@ -80,6 +96,9 @@ function Index() {
 				<link rel={'manifest'} href={'/manifest.json'} />
 			</Head>
 			<Container className={classes.container}>
+				<Box className={classes.bannerBox}>
+					<img src={'https://static.cocstorage.com/images/simple_guide_text.png'} alt={'Simple Guide Img'} />
+				</Box>
 				<Box className={classes.containerBox}>
 					<Grid container spacing={1}>
 						<Grid item xs={12} lg={6}>

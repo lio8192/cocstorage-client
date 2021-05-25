@@ -55,13 +55,13 @@ const initialState: StorageBoardState = {
 		currentPage: 1,
 		prevPage: null,
 		nextPage: null,
-		perPage: 10,
+		perPage: 20,
 		isLastPage: true
 	},
 	fetchParams: {
 		storageId: 0,
 		orderBy: 'latest',
-		per: 10
+		per: 20
 	},
 	fetchSearchParams: {
 		type: 'all',

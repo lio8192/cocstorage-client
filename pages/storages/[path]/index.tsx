@@ -15,10 +15,13 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
+import Fab from '@material-ui/core/Fab';
+import Hidden from '@material-ui/core/Hidden';
 import TextField from '@material-ui/core/TextField';
 import Pagination from '@material-ui/lab/Pagination';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Popper from '@material-ui/core/Popper';
+import Zoom from '@material-ui/core/Zoom';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -55,12 +58,16 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		tabs: {
+			borderBottom: `1px solid ${theme.palette.grey['50']}`,
 			backgroundColor: theme.palette.background.default,
 			'& *': {
 				fontFamily: 'NanumSquareRoundEB'
 			},
 			'& .MuiTabs-indicator': {
 				height: 5
+			},
+			[theme.breakpoints.down('md')]: {
+				backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.default
 			}
 		},
 		container: {
@@ -96,9 +103,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		searchBox: {
-			padding: theme.spacing(0, 0, 2),
+			margin: theme.spacing(0, 0, 2),
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0, 2, 2)
+				margin: theme.spacing(0, 2, 2)
 			}
 		},
 		searchBoxInputBase: {
@@ -109,12 +117,22 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		adBox: {
 			marginBottom: theme.spacing(2),
+			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
 			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
 				marginBottom: 0,
+				border: 'none',
 				borderRadius: 'inherit'
 			}
+		},
+		fab: {
+			position: 'fixed',
+			bottom: 75,
+			right: 15
+		},
+		icon: {
+			color: 'white'
 		}
 	})
 );
@@ -122,7 +140,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function StorageBoard() {
 	const classes = useStyles();
 	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const {
 		pending,
 		storage,
@@ -249,20 +267,22 @@ function StorageBoard() {
 					</Container>
 					<Container className={classes.container}>
 						<BoardList />
-						<Box className={classes.buttonBox}>
-							<Link href={'/storages/[path]/write'} as={`/storages/${storage.path}/write`}>
-								<Button
-									className={classes.button}
-									variant={'contained'}
-									color={'primary'}
-									size={'large'}
-									startIcon={<CreateIcon />}
-									disabled={pending}
-								>
-									{'새 개념글 등록'}
-								</Button>
-							</Link>
-						</Box>
+						<Hidden mdDown>
+							<Box className={classes.buttonBox}>
+								<Link href={'/storages/[path]/write'} as={`/storages/${storage.path}/write`}>
+									<Button
+										className={classes.button}
+										variant={'contained'}
+										color={'primary'}
+										size={'large'}
+										startIcon={<CreateIcon />}
+										disabled={pending}
+									>
+										{'새 개념글 등록'}
+									</Button>
+								</Link>
+							</Box>
+						</Hidden>
 						{pagination.totalPages > 0 ? (
 							<Pagination
 								className={classes.pagination}
@@ -357,6 +377,13 @@ function StorageBoard() {
 					</Container>
 				</Grid>
 			</Grid>
+			<Link href={'/storages/[path]/write'} as={`/storages/${storage.path}/write`}>
+				<Zoom in={isMobile}>
+					<Fab className={classes.fab} color={'primary'} disabled={pending}>
+						<CreateIcon className={classes.icon} />
+					</Fab>
+				</Zoom>
+			</Link>
 		</>
 	);
 }

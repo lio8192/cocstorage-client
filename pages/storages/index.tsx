@@ -10,13 +10,15 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Hidden from '@material-ui/core/Hidden';
+import Fab from '@material-ui/core/Fab';
+import Zoom from '@material-ui/core/Zoom';
 import TextField from '@material-ui/core/TextField';
-import Pagination from '@material-ui/lab/Pagination';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import SearchIcon from '@material-ui/icons/Search';
+import AddIcon from '@material-ui/icons/Add';
 
 // Components
 import StorageHeader from 'components/storages/StorageHeader';
@@ -29,15 +31,13 @@ import useStorages from 'hooks/storages/useStorages';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
-		container: {
-			backgroundColor: theme.palette.background.default
-		},
-		storageContainer: {
-			backgroundColor: theme.palette.background.default,
-			paddingTop: theme.spacing(2)
-		},
 		box: {
-			padding: theme.spacing(2, 0, 0)
+			marginTop: theme.spacing(2),
+			[theme.breakpoints.down('md')]: {
+				marginTop: 0,
+				paddingTop: theme.spacing(2),
+				backgroundColor: theme.palette.background.default
+			}
 		},
 		card: {
 			border: `1px solid ${theme.palette.grey['50']}`
@@ -58,43 +58,38 @@ const useStyles = makeStyles((theme: Theme) =>
 			fontFamily: 'NanumSquareRoundEB'
 		},
 		icon: {
-			vertialAlign: 'middle',
+			verticalAlign: 'middle',
 			color: 'white'
 		},
 		button: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB'
 		},
-		pagination: {
-			padding: theme.spacing(2),
-			'& > ul': {
-				justifyContent: 'center',
-				'& *': {
-					color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.5)' : ''
-				},
-				'& .Mui-selected': {
-					color: 'white'
-				}
-			}
-		},
-		dummyPagination: {
-			paddingTop: theme.spacing(2)
-		},
-		tabs: {
-			backgroundColor: 'white',
-			'& *': {
-				fontFamily: 'NanumSquareRoundEB'
-			},
-			'& .MuiTabs-indicator': {
-				height: 5
-			}
-		},
 		adBox: {
+			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
 			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
+				border: 'none',
 				borderRadius: 'inherit'
 			}
+		},
+		searchBox: {
+			margin: theme.spacing(2, 0),
+			borderRadius: 4,
+			overflow: 'hidden',
+			[theme.breakpoints.down('md')]: {
+				margin: 0,
+				padding: theme.spacing(2, 0)
+			}
+		},
+		textField: {
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper
+		},
+		fab: {
+			position: 'fixed',
+			bottom: 75,
+			right: 15
 		}
 	})
 );
@@ -103,15 +98,12 @@ function Storages() {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-	const isXsMobile = useMediaQuery(theme.breakpoints.down('xs'));
 	const {
 		pending,
-		pagination: { totalPages, currentPage },
 		fetchParams: { name },
 		isAuthenticated,
 		onFetchStorages,
 		onKeyUpStorageSearchTextField,
-		onHandlePagination,
 		onHandleStorageManageDialogOpen,
 		onHandleSignInDialog
 	} = useStorages();
@@ -158,74 +150,64 @@ function Storages() {
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
 			<StorageHeader />
-			<Container className={classes.storageContainer}>
-				<StorageGridList />
-			</Container>
-			<Container className={classes.container}>
-				<Box pt={2} textAlign={'right'}>
-					<Button
-						fullWidth={isMobile}
-						className={classes.button}
-						variant={'contained'}
-						color={'primary'}
-						startIcon={<AddBoxIcon />}
-						size={'large'}
-						onClick={isAuthenticated ? onHandleStorageManageDialogOpen : onHandleSignInDialog}
-						disabled={pending}
-					>
-						{'새 저장소 등록'}
-					</Button>
-				</Box>
-				{totalPages > 0 ? (
-					<Pagination
-						className={classes.pagination}
-						page={currentPage}
-						count={totalPages}
-						color={'primary'}
-						shape={'rounded'}
-						onChange={onHandlePagination}
-						size={isXsMobile ? 'small' : 'medium'}
-						siblingCount={isXsMobile ? 1 : 2}
-						disabled={pending}
-					/>
-				) : (
-					<Box className={classes.pagination} />
-				)}
-				<Box pb={2}>
-					<TextField
-						fullWidth
-						type={'search'}
-						variant={'outlined'}
-						InputProps={{
-							startAdornment: (
-								<InputAdornment position={'start'}>
-									<SearchIcon color={'action'} />
-								</InputAdornment>
-							)
-						}}
-						placeholder={'저장소명 입력 후 엔터를 눌러주세요.'}
-						onKeyUp={onKeyUpStorageSearchTextField}
-						defaultValue={name || ''}
-						disabled={pending}
-					/>
-				</Box>
-				<Hidden mdDown>
-					<Box mb={2}>
-						<Box className={classes.adBox}>
-							<GoogleAdSense
-								html={
-									'<ins class="adsbygoogle"\n'
-									+ 'style="display:block"\n'
-									+ 'data-ad-client="ca-pub-5809905264951057"\n'
-									+ 'data-ad-slot="2500107460"\n'
-									+ 'data-ad-format="auto"\n'
-									+ 'data-full-width-responsive="true"></ins>\n'
-								}
-							/>
+			<Box className={classes.box}>
+				<Container>
+					<StorageGridList />
+				</Container>
+				<Container>
+					<Hidden mdDown>
+						<Box mt={2} textAlign={'right'}>
+							<Button
+								fullWidth={isMobile}
+								className={classes.button}
+								variant={'contained'}
+								color={'primary'}
+								startIcon={<AddBoxIcon />}
+								size={'large'}
+								onClick={isAuthenticated ? onHandleStorageManageDialogOpen : onHandleSignInDialog}
+								disabled={pending}
+							>
+								{'새 저장소 등록'}
+							</Button>
 						</Box>
+					</Hidden>
+					<Box className={classes.searchBox}>
+						<TextField
+							className={classes.textField}
+							fullWidth
+							type={'search'}
+							variant={'outlined'}
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position={'start'}>
+										<SearchIcon color={'action'} />
+									</InputAdornment>
+								)
+							}}
+							placeholder={'저장소명 입력 후 엔터를 눌러주세요.'}
+							onKeyUp={onKeyUpStorageSearchTextField}
+							defaultValue={name || ''}
+							disabled={pending}
+						/>
 					</Box>
-				</Hidden>
-			</Container>
+					<Hidden mdDown>
+						<Box mb={2}>
+							<Box className={classes.adBox}>
+								<GoogleAdSense
+									html={
+										'<ins class="adsbygoogle"\n'
+										+ 'style="display:block"\n'
+										+ 'data-ad-client="ca-pub-5809905264951057"\n'
+										+ 'data-ad-slot="2500107460"\n'
+										+ 'data-ad-format="auto"\n'
+										+ 'data-full-width-responsive="true"></ins>\n'
+									}
+								/>
+							</Box>
+						</Box>
+					</Hidden>
+				</Container>
+			</Box>
 			<Hidden lgUp>
 				<Box className={classes.adBox}>
 					<GoogleAdSense
@@ -241,6 +223,16 @@ function Storages() {
 				</Box>
 			</Hidden>
 			<StorageManageDialog />
+			<Zoom in={isMobile}>
+				<Fab
+					className={classes.fab}
+					color={'primary'}
+					onClick={isAuthenticated ? onHandleStorageManageDialogOpen : onHandleSignInDialog}
+					disabled={pending}
+				>
+					<AddIcon className={classes.icon} />
+				</Fab>
+			</Zoom>
 		</>
 	);
 }

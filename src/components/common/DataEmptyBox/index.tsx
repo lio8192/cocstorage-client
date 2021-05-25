@@ -12,7 +12,11 @@ import Avatar from '@material-ui/core/Avatar';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: theme.palette.background.default
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper
+		},
+		rootBorderRadius: {
+			borderRadius: 4,
+			overflow: 'hidden'
 		},
 		avatar: {
 			width: theme.spacing(7),
@@ -30,21 +34,34 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type DataEmptyBoxProps = {
 	message: string;
+	marginTop?: number;
+	marginBottom?: number;
 	paddingTop?: number;
 	paddingBottom?: number;
 	minHeight?: number;
 	maxHeight?: number;
+	borderRadius?: number;
 };
 
 function DataEmptyBox({
-	message, paddingTop, paddingBottom, minHeight, maxHeight
+	message,
+	marginTop,
+	marginBottom,
+	paddingTop,
+	paddingBottom,
+	minHeight,
+	maxHeight,
+	borderRadius
 }: DataEmptyBoxProps) {
 	const classes = useStyles();
 	return (
 		<Box
 			className={classes.root}
+			mt={marginTop || 0}
+			mb={marginBottom || 0}
 			pt={paddingTop || 20}
 			pb={paddingBottom || 20}
+			borderRadius={borderRadius || 'inherit'}
 			maxHeight={maxHeight || 'auto'}
 			minHeight={minHeight || 'auto'}
 		>

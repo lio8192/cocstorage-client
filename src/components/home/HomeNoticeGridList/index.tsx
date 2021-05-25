@@ -19,6 +19,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Avatar from '@material-ui/core/Avatar';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -39,48 +40,33 @@ moment.locale('ko');
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
+			marginTop: theme.spacing(2),
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0)
+				padding: 0
+			}
+		},
+		anchor: {
+			color: 'inherit',
+			textDecoration: 'none'
+		},
+		box: {
+			[theme.breakpoints.down('md')]: {
+				margin: theme.spacing(0, 3, 1.5)
+			},
+			[theme.breakpoints.down('xs')]: {
+				margin: theme.spacing(0, 2, 1.5)
 			}
 		},
 		titleBox: {
 			display: 'flex',
 			alignItems: 'center',
 			justifyContent: 'space-between',
-			backgroundColor: theme.palette.background.default
+			margin: theme.spacing(0.5, 0, 1.5)
 		},
 		title: {
 			width: '100%',
-			paddingBottom: theme.spacing(1),
 			fontWeight: 700,
-			cursor: 'default',
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(1, 3)
-			},
-			[theme.breakpoints.down('xs')]: {
-				padding: theme.spacing(1, 2)
-			}
-		},
-		navigate: {
-			paddingBottom: theme.spacing(1),
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(1, 3)
-			},
-			[theme.breakpoints.down('xs')]: {
-				padding: theme.spacing(1, 2)
-			}
-		},
-		box: {
-			marginTop: theme.spacing(2),
-			[theme.breakpoints.down('md')]: {
-				marginTop: 0,
-				paddingTop: theme.spacing(1)
-			}
-		},
-		anchor: {
-			width: '100%',
-			color: 'inherit',
-			textDecoration: 'none'
+			cursor: 'default'
 		},
 		avatar: {
 			marginRight: theme.spacing(1),
@@ -90,8 +76,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		avatarBig: {
-			width: theme.spacing(5.25),
-			height: theme.spacing(5.25),
+			width: theme.spacing(5.18),
+			height: theme.spacing(5.18),
 			marginRight: theme.spacing(1),
 			[theme.breakpoints.down('md')]: {
 				width: theme.spacing(4),
@@ -105,7 +91,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: '100%'
 		},
 		card: {
-			border: `1px solid ${theme.palette.grey['50']}`
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4
 		},
 		media: {
 			height: 200
@@ -113,7 +100,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		chip: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5,
+			borderRadius: 4,
 			cursor: 'pointer'
 		},
 		infoBox: {
@@ -141,8 +128,20 @@ const useStyles = makeStyles((theme: Theme) =>
 		icon: {
 			verticalAlign: 'middle'
 		},
+		button: {
+			padding: theme.spacing(0.5, 1)
+		},
+		listAnchor: {
+			width: '100%',
+			color: 'inherit',
+			textDecoration: 'none'
+		},
 		list: {
 			height: '100%',
+			[theme.breakpoints.down('md')]: {
+				borderTop: `1px solid ${theme.palette.grey['50']}`,
+				borderBottom: `1px solid ${theme.palette.grey['50']}`
+			},
 			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(0)
 			}
@@ -151,6 +150,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			maxWidth: '100%',
 			height: '100%',
 			border: `1px solid ${theme.palette.grey['50']}`,
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			borderRadius: 4,
 			[theme.breakpoints.down('md')]: {
 				border: 'none'
 			}
@@ -211,6 +212,11 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		nicknameTypography: {
 			fontWeight: 700
+		},
+		divider: {
+			width: 40,
+			height: 7,
+			backgroundColor: theme.palette.primary.main
 		}
 	})
 );
@@ -228,129 +234,181 @@ function HomeNoticeGridList() {
 	return (
 		<Container className={classes.root}>
 			<Box className={classes.box}>
+				<Divider className={classes.divider} />
 				<Box className={classes.titleBox}>
 					<Box flex={1}>
-						<Typography className={classes.title} variant={'h6'} component={'h6'}>
+						<Typography className={classes.title} variant={'h6'}>
 							{'새로운 소식'}
 						</Typography>
 					</Box>
-					<Box className={classes.navigate}>
-						<Link href={'/notices'} as={'/notices'}>
-							<a className={classes.anchor}>
-								<Button endIcon={<NavigateNextIcon color={'action'} />}>{'더 보기'}</Button>
-							</a>
-						</Link>
-					</Box>
+					<Link href={'/notices'} as={'/notices'}>
+						<a className={classes.anchor}>
+							<Button className={classes.button} endIcon={<NavigateNextIcon color={'action'} />}>
+								{'더 보기'}
+							</Button>
+						</a>
+					</Link>
 				</Box>
-				{pending && (
-					<Grid className={classes.grid} container spacing={isMobile ? 0 : 1}>
-						<Hidden mdDown>
-							<Grid item lg={6}>
-								<Card className={classes.card} square elevation={0}>
-									<Box className={classes.media} />
-									<CardContent>
-										<Box display={'flex'} alignItems={'center'}>
-											<Box maxWidth={'90%'}>
-												<Typography noWrap variant={'h5'}>
-													<Skeleton width={200} />
-												</Typography>
-											</Box>
-										</Box>
-										<Box mt={1}>
-											<Typography variant={'body2'} color={'textSecondary'}>
-												<Skeleton width={'100%'} />
+			</Box>
+			{pending && (
+				<Grid className={classes.grid} container spacing={isMobile ? 0 : 1}>
+					<Hidden mdDown>
+						<Grid item lg={6}>
+							<Card className={classes.card} square elevation={0}>
+								<Box className={classes.media} />
+								<CardContent>
+									<Box display={'flex'} alignItems={'center'}>
+										<Box maxWidth={'90%'}>
+											<Typography noWrap variant={'h5'}>
+												<Skeleton width={200} />
 											</Typography>
 										</Box>
-										<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-											<Box className={classes.infoBox}>
-												<Box mr={1}>
-													<Skeleton variant={'circle'} width={40} height={40} />
+									</Box>
+									<Box mt={1}>
+										<Typography variant={'body2'} color={'textSecondary'}>
+											<Skeleton width={'100%'} />
+										</Typography>
+									</Box>
+									<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
+										<Box className={classes.infoBox}>
+											<Box mr={1}>
+												<Skeleton variant={'circle'} width={40} height={40} />
+											</Box>
+											<Typography variant={'caption'} color={'textSecondary'}>
+												<Skeleton width={40} />
+											</Typography>
+										</Box>
+									</Box>
+								</CardContent>
+							</Card>
+						</Grid>
+					</Hidden>
+					<Grid className={classes.gridItem} item md={12} lg={6}>
+						<Box className={classes.listBox}>
+							<List className={classes.list} disablePadding>
+								{skeletonArray.map((item) => (
+									<ListItem key={`dummy-notice-${item}`} className={classes.listItem}>
+										<Box width={'100%'}>
+											<Box className={classes.listItemBox}>
+												<Box className={classes.subjectBox}>
+													<Typography variant={'body2'} noWrap>
+														<Skeleton width={250} />
+													</Typography>
 												</Box>
-												<Typography variant={'caption'} color={'textSecondary'}>
-													<Skeleton width={40} />
-												</Typography>
+											</Box>
+											<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+												<Box className={classes.infoBox}>
+													<Box mr={1}>
+														<Skeleton variant={'circle'} width={43} height={43} />
+													</Box>
+													<Typography variant={'caption'} color={'textSecondary'}>
+														<Skeleton width={40} />
+													</Typography>
+												</Box>
 											</Box>
 										</Box>
-									</CardContent>
-								</Card>
-							</Grid>
-						</Hidden>
-						<Grid className={classes.gridItem} item md={12} lg={6}>
-							<Box className={classes.listBox}>
-								<List className={classes.list} disablePadding>
-									{skeletonArray.map((item) => (
-										<ListItem key={`dummy-notice-${item}`} className={classes.listItem}>
-											<Box width={'100%'}>
-												<Box className={classes.listItemBox}>
-													<Box className={classes.subjectBox}>
-														<Typography variant={'body2'} noWrap>
-															<Skeleton width={250} />
-														</Typography>
-													</Box>
-												</Box>
-												<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
-													<Box className={classes.infoBox}>
-														<Box mr={1}>
-															<Skeleton variant={'circle'} width={43} height={43} />
-														</Box>
-														<Typography variant={'caption'} color={'textSecondary'}>
-															<Skeleton width={40} />
-														</Typography>
-													</Box>
-												</Box>
-											</Box>
-										</ListItem>
-									))}
-								</List>
-							</Box>
-						</Grid>
+									</ListItem>
+								))}
+							</List>
+						</Box>
 					</Grid>
-				)}
-				{!pending && (
-					<Grid className={classes.grid} container spacing={isMobile ? 0 : 1}>
-						{data.map((item, index) => {
-							if (index === 0) {
-								return (
-									<Hidden key={`home-notice-main-${item.id}`} mdDown>
-										<Grid item lg={6}>
-											<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
-												<a className={classes.anchor}>
-													<Card className={classes.card} square elevation={0}>
-														<CardActionArea>
-															<CardMedia
-																className={classes.media}
-																image={item.thumbnailUrl || ''}
-																title={'Contemplative Reptile'}
-															/>
-															<CardContent>
-																<Box display={'flex'} alignItems={'center'}>
-																	<Box maxWidth={'90%'}>
-																		<Typography noWrap variant={'h5'}>
-																			{item.subject}
-																		</Typography>
-																	</Box>
-																	{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
-																		<Box ml={1}>
-																			<Chip
-																				className={classes.chip}
-																				label={'N'}
-																				color={'primary'}
-																				size={isMobile ? 'small' : 'medium'}
-																			/>
-																		</Box>
-																	)}
-																</Box>
-																<Box mt={1}>
-																	<Typography
-																		className={classes.descriptionTypography}
-																		variant={'body2'}
-																		color={'textSecondary'}
-																	>
-																		{item.description}
+				</Grid>
+			)}
+			{!pending && (
+				<Grid className={classes.grid} container spacing={isMobile ? 0 : 1}>
+					{data.map((item, index) => {
+						if (index === 0) {
+							return (
+								<Hidden key={`home-notice-main-${item.id}`} mdDown>
+									<Grid item lg={6}>
+										<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
+											<a className={classes.listAnchor}>
+												<Card className={classes.card} square elevation={0}>
+													<CardActionArea>
+														<CardMedia
+															className={classes.media}
+															image={item.thumbnailUrl || ''}
+															title={'Contemplative Reptile'}
+														/>
+														<CardContent>
+															<Box display={'flex'} alignItems={'center'}>
+																<Box maxWidth={'90%'}>
+																	<Typography noWrap variant={'h5'}>
+																		{item.subject}
 																	</Typography>
 																</Box>
+																{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
+																	<Box ml={1}>
+																		<Chip
+																			className={classes.chip}
+																			label={'N'}
+																			color={'primary'}
+																			size={isMobile ? 'small' : 'medium'}
+																		/>
+																	</Box>
+																)}
+															</Box>
+															<Box mt={1}>
+																<Typography
+																	className={classes.descriptionTypography}
+																	variant={'body2'}
+																	color={'textSecondary'}
+																>
+																	{item.description}
+																</Typography>
+															</Box>
+															<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
+																<Box className={classes.infoBox}>
+																	<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
+																	<Typography className={classes.nicknameTypography} variant={'caption'}>
+																		{item.user.nickname}
+																	</Typography>
+																	<Typography variant={'caption'} color={'textSecondary'}>
+																		{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+																	</Typography>
+																</Box>
+															</Box>
+														</CardContent>
+													</CardActionArea>
+												</Card>
+											</a>
+										</Link>
+									</Grid>
+								</Hidden>
+							);
+						}
+						return null;
+					})}
+					<Grid className={classes.gridItem} item md={12} lg={6}>
+						<Box className={classes.listBox}>
+							<List className={classes.list} disablePadding>
+								{data.map((item, index) => {
+									if (index === 0) {
+										return (
+											<Hidden key={`home-notice-m-${item.id}`} lgUp>
+												<ListItem className={classes.listItem} button>
+													<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
+														<a className={classes.listAnchor}>
+															<Box width={'100%'}>
+																<Box className={classes.listItemBox}>
+																	<Box className={classes.subjectBox}>
+																		<Typography className={classes.typography} variant={'body2'} noWrap>
+																			{item.subject}
+																		</Typography>
+																		{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
+																			<Box ml={1}>
+																				<Chip
+																					className={classes.chip}
+																					label={'N'}
+																					color={'primary'}
+																					size={isMobile ? 'small' : 'medium'}
+																				/>
+																			</Box>
+																		)}
+																	</Box>
+																</Box>
 																<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-																	<Box className={classes.infoBox}>
+																	<Box className={classes.listInfoBox}>
 																		<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
 																		<Typography className={classes.nicknameTypography} variant={'caption'}>
 																			{item.user.nickname}
@@ -360,109 +418,58 @@ function HomeNoticeGridList() {
 																		</Typography>
 																	</Box>
 																</Box>
-															</CardContent>
-														</CardActionArea>
-													</Card>
-												</a>
-											</Link>
-										</Grid>
-									</Hidden>
-								);
-							}
-							return null;
-						})}
-						<Grid className={classes.gridItem} item md={12} lg={6}>
-							<Box className={classes.listBox}>
-								<List className={classes.list} disablePadding>
-									{data.map((item, index) => {
-										if (index === 0) {
-											return (
-												<Hidden key={`home-notice-m-${item.id}`} lgUp>
-													<ListItem className={classes.listItem} button>
-														<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
-															<a className={classes.anchor}>
-																<Box width={'100%'}>
-																	<Box className={classes.listItemBox}>
-																		<Box className={classes.subjectBox}>
-																			<Typography className={classes.typography} variant={'body2'} noWrap>
-																				{item.subject}
-																			</Typography>
-																			{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
-																				<Box ml={1}>
-																					<Chip
-																						className={classes.chip}
-																						label={'N'}
-																						color={'primary'}
-																						size={isMobile ? 'small' : 'medium'}
-																					/>
-																				</Box>
-																			)}
-																		</Box>
-																	</Box>
-																	<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-																		<Box className={classes.listInfoBox}>
-																			<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
-																			<Typography className={classes.nicknameTypography} variant={'caption'}>
-																				{item.user.nickname}
-																			</Typography>
-																			<Typography variant={'caption'} color={'textSecondary'}>
-																				{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
-																			</Typography>
-																		</Box>
-																	</Box>
-																</Box>
-															</a>
-														</Link>
-													</ListItem>
-												</Hidden>
-											);
-										}
-										return (
-											<ListItem key={`home-notice-${item.id}`} className={classes.listItem} button>
-												<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
-													<a className={classes.anchor}>
-														<Box width={'100%'}>
-															<Box className={classes.listItemBox}>
-																<Box className={classes.subjectBox}>
-																	<Typography className={classes.typography} variant={'body2'} noWrap>
-																		{item.subject}
-																	</Typography>
-																	{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
-																		<Box ml={1}>
-																			<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
-																		</Box>
-																	)}
-																</Box>
 															</Box>
-															<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
-																<Box className={classes.listInfoBox}>
-																	<Avatar className={classes.avatarBig} src={item.user.avatarUrl || ''} />
-																	<Typography className={classes.nicknameTypography} variant={'caption'}>
-																		{item.user.nickname}
-																	</Typography>
-																	<Typography variant={'caption'} color={'textSecondary'}>
-																		{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
-																	</Typography>
-																</Box>
+														</a>
+													</Link>
+												</ListItem>
+											</Hidden>
+										);
+									}
+									return (
+										<ListItem key={`home-notice-${item.id}`} className={classes.listItem} button>
+											<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
+												<a className={classes.listAnchor}>
+													<Box width={'100%'}>
+														<Box className={classes.listItemBox}>
+															<Box className={classes.subjectBox}>
+																<Typography className={classes.typography} variant={'body2'} noWrap>
+																	{item.subject}
+																</Typography>
+																{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
+																	<Box ml={1}>
+																		<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+																	</Box>
+																)}
 															</Box>
 														</Box>
-													</a>
-												</Link>
-											</ListItem>
-										);
-									})}
-									{data.length === 1 && (
-										<DataEmptyBox message={'아직 새로운 소식이 존재하지 않아요.'} paddingTop={10} paddingBottom={10} />
-									)}
-								</List>
-							</Box>
-						</Grid>
+														<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
+															<Box className={classes.listInfoBox}>
+																<Avatar className={classes.avatarBig} src={item.user.avatarUrl || ''} />
+																<Typography className={classes.nicknameTypography} variant={'caption'}>
+																	{item.user.nickname}
+																</Typography>
+																<Typography variant={'caption'} color={'textSecondary'}>
+																	{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+																</Typography>
+															</Box>
+														</Box>
+													</Box>
+												</a>
+											</Link>
+										</ListItem>
+									);
+								})}
+								{data.length === 1 && (
+									<DataEmptyBox message={'아직 새로운 소식이 존재하지 않아요.'} paddingTop={10} paddingBottom={10} />
+								)}
+							</List>
+						</Box>
 					</Grid>
-				)}
-				{!pending && data.length === 0 && (
-					<DataEmptyBox message={'아직 새로운 소식이 존재하지 않아요.'} paddingTop={10} paddingBottom={10} />
-				)}
-			</Box>
+				</Grid>
+			)}
+			{!pending && data.length === 0 && (
+				<DataEmptyBox message={'아직 새로운 소식이 존재하지 않아요.'} paddingTop={10} paddingBottom={10} />
+			)}
 		</Container>
 	);
 }

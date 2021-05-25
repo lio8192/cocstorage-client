@@ -5,10 +5,14 @@ import {
 } from '@material-ui/core/styles';
 
 // Material UI
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Pagination from '@material-ui/lab/Pagination';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+// Material UI Labs
+import Skeleton from '@material-ui/lab/Skeleton';
 
 // Modules
 import { fetchNoticeDetail } from 'modules/notices/detail';
@@ -65,7 +69,7 @@ function NoticeDetail() {
 		detail: {
 			id: noticeId, user, subject, description, thumbnailUrl
 		},
-		comments: { pagination },
+		comments: { pending, pagination },
 		manage: {
 			pending: deleteAuthPending,
 			deleteAuth: { open: deleteAuthDialogOpen, subTitle }
@@ -123,7 +127,26 @@ function NoticeDetail() {
 					<Grid item xs={12}>
 						<DetailContent />
 						<DetailCommentList />
-						{pagination.totalPages > 0 && (
+						{pending && (
+							<Box display={'flex'} justifyContent={'center'} p={2} pt={1.5}>
+								<Box ml={1}>
+									<Skeleton width={30} height={40} animation={'wave'} />
+								</Box>
+								<Box ml={1}>
+									<Skeleton width={30} height={40} animation={'wave'} />
+								</Box>
+								<Box ml={1}>
+									<Skeleton width={30} height={40} animation={'wave'} />
+								</Box>
+								<Box ml={1}>
+									<Skeleton width={30} height={40} animation={'wave'} />
+								</Box>
+								<Box ml={1}>
+									<Skeleton width={30} height={40} animation={'wave'} />
+								</Box>
+							</Box>
+						)}
+						{!pending && pagination.totalPages > 0 && (
 							<Pagination
 								className={classes.pagination}
 								page={pagination.currentPage}
@@ -132,7 +155,7 @@ function NoticeDetail() {
 								shape={'rounded'}
 								onChange={onHandleNoticeDetailCommentsPagination}
 								size={isMobile ? 'small' : 'medium'}
-								siblingCount={isMobile ? 0 : 2}
+								siblingCount={isMobile ? 1 : 2}
 							/>
 						)}
 						<DetailCommentWriteForm />

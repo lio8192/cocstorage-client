@@ -18,11 +18,16 @@ import PasswordAuthDialog from 'components/common/PasswordAuthDialog';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
+		box: {
+			padding: theme.spacing(2),
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4,
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper
+		},
 		typography: {
 			color: theme.palette.action.active
 		},
-		box: {
-			maxWidth: 700,
+		formBox: {
 			[theme.breakpoints.down('md')]: {
 				maxWidth: '100%'
 			}
@@ -58,9 +63,9 @@ function MyWithdrawalForm() {
 		onDeleteUser
 	} = useMyWithdrawalForm();
 	return (
-		<>
+		<Box mb={2}>
 			<Grow in>
-				<Box>
+				<Box className={classes.box}>
 					<Typography className={classes.typography} variant={'h5'}>
 						{'회원 탈퇴'}
 					</Typography>
@@ -69,7 +74,7 @@ function MyWithdrawalForm() {
 							{'회원 탈퇴 전 아래의 내용들을 반드시 확인해주세요.'}
 						</Typography>
 					</Box>
-					<Box className={classes.box}>
+					<Box className={classes.formBox}>
 						<Box display={'flex'} alignItems={'center'} mt={1}>
 							<Box>
 								<CheckCircleIcon className={classes.icon} color={'primary'} />
@@ -109,7 +114,7 @@ function MyWithdrawalForm() {
 							</Box>
 						</Box>
 						<Box mt={1}>{error && <FormHelperText error>{helperText}</FormHelperText>}</Box>
-						<Box mt={2} mb={2} textAlign={'right'}>
+						<Box mt={2} textAlign={'right'}>
 							<Button
 								className={classes.button}
 								variant={'contained'}
@@ -135,7 +140,7 @@ function MyWithdrawalForm() {
 				onHandlePasswordAuthDialog={onHandleDeleteUserAuthDialog}
 				onRequestPasswordAuth={onDeleteUser}
 			/>
-		</>
+		</Box>
 	);
 }
 

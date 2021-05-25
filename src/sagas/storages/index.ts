@@ -46,7 +46,7 @@ function* watchPostStorages(action: ActionType<typeof postStorage>) {
 		);
 		yield put(
 			fetchStorages({
-				per: 20,
+				per: 180,
 				page: 1,
 				name: null,
 				orderBy: 'latest'

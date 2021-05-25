@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import Link from 'next/link';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import moment from 'moment';
+import clsx from 'clsx';
 
 // Material UI
 import Box from '@material-ui/core/Box';
@@ -11,7 +12,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
-import Hidden from '@material-ui/core/Hidden';
 
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
@@ -28,12 +28,15 @@ import useHomeLatestStorageBoardList from 'hooks/home/useHomeLatestStorageBoardL
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			height: '100%',
-			border: `1px solid ${theme.palette.grey['50']}`,
-			backgroundColor: theme.palette.background.default,
+			height: '100%'
+		},
+		box: {
+			margin: theme.spacing(0, 0, 1.5),
 			[theme.breakpoints.down('md')]: {
-				padding: 0,
-				border: 'none'
+				margin: theme.spacing(0, 3, 1.5)
+			},
+			[theme.breakpoints.down('xs')]: {
+				margin: theme.spacing(0, 2, 1.5)
 			}
 		},
 		typography: {
@@ -43,27 +46,25 @@ const useStyles = makeStyles((theme: Theme) =>
 		chip: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5,
+			borderRadius: 4,
 			cursor: 'pointer'
 		},
 		commentBox: {
 			marginLeft: theme.spacing(1),
 			color: theme.palette.grey.A200
 		},
-		box: {
-			display: 'flex',
-			alignItems: 'center',
-			justifyContent: 'space-between',
-			padding: theme.spacing(1, 2),
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(1, 3)
-			},
-			[theme.breakpoints.down('xs')]: {
-				padding: theme.spacing(1, 2)
-			}
-		},
 		list: {
 			minHeight: 400,
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4,
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			[theme.breakpoints.down('md')]: {
+				borderLeft: 'none',
+				borderRight: 'none',
+				borderRadius: 'inherit'
+			}
+		},
+		listEmpty: {
 			height: '100%'
 		},
 		listItem: {
@@ -109,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
 				height: 3,
 				margin: theme.spacing(0, 0.5),
 				border: `1px solid ${theme.palette.grey.A200}`,
-				borderRadius: 5,
+				borderRadius: 4,
 				backgroundColor: theme.palette.grey.A200,
 				verticalAlign: 'middle'
 			},
@@ -124,7 +125,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			display: 'inline-block'
 		},
 		divider: {
-			backgroundColor: theme.palette.grey['50']
+			width: 40,
+			height: 7,
+			backgroundColor: theme.palette.primary.main
 		}
 	})
 );
@@ -138,16 +141,18 @@ function HomeLatestStorageBoardList() {
 	return (
 		<Box className={classes.root}>
 			<Box className={classes.box}>
-				<Box flex={1}>
-					<Typography className={classes.typography} variant={'h6'}>
-						{'최신 개념글'}
-					</Typography>
-				</Box>
-			</Box>
-			<Hidden implementation={'css'} mdDown>
 				<Divider className={classes.divider} />
-			</Hidden>
-			<List className={classes.list} disablePadding>
+				<Box mt={0.5} />
+				<Typography className={classes.typography} variant={'h6'}>
+					{'최신 개념글'}
+				</Typography>
+			</Box>
+			<List
+				className={clsx(classes.list, {
+					[classes.listEmpty]: !pending && data.length === 0
+				})}
+				disablePadding
+			>
 				{pending
 					&& [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
 						<ListItem key={`home-dummy-latest-storage-board-${item}`} className={classes.listItem}>

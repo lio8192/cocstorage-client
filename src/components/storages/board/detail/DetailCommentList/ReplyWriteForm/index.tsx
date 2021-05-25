@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		root: {
 			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
-			backgroundColor: theme.palette.background.default,
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				marginTop: -1
 			}

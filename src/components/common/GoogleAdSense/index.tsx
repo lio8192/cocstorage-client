@@ -1,5 +1,6 @@
 import React, { useEffect, memo } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 // Material UI
 import Box from '@material-ui/core/Box';
@@ -18,15 +19,19 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& ins': {
 				marginLeft: '0 !important'
 			}
+		},
+		rootDefaultColor: {
+			backgroundColor: theme.palette.type === 'light' ? '#E5EDF8' : theme.palette.background.default
 		}
 	})
 );
 
 type GoogleAdSenseProps = {
 	html: string;
+	color?: string;
 };
 
-function GoogleAdSense({ html }: GoogleAdSenseProps) {
+function GoogleAdSense({ html, color }: GoogleAdSenseProps) {
 	const classes = useStyles();
 
 	useEffect(() => {
@@ -35,7 +40,14 @@ function GoogleAdSense({ html }: GoogleAdSenseProps) {
 		}
 	}, [html]);
 
-	return <Box className={classes.root} dangerouslySetInnerHTML={{ __html: html }} />;
+	return (
+		<Box
+			className={clsx(classes.root, {
+				[classes.rootDefaultColor]: color && color === 'default'
+			})}
+			dangerouslySetInnerHTML={{ __html: html }}
+		/>
+	);
 }
 
 export default memo(GoogleAdSense);

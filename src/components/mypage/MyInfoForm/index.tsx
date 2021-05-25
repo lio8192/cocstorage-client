@@ -24,14 +24,16 @@ import useMyInfoForm from 'hooks/mypage/useMyInfoForm';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
-		root: {
-			marginTop: theme.spacing(3)
+		box: {
+			padding: theme.spacing(2),
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4,
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper
 		},
 		typography: {
 			color: theme.palette.action.active
 		},
-		box: {
-			maxWidth: 700,
+		gridBox: {
 			[theme.breakpoints.down('md')]: {
 				maxWidth: '100%'
 			}
@@ -74,13 +76,13 @@ function MyInfoForm() {
 		onPutPassword
 	} = useMyInfoForm();
 	return (
-		<>
+		<Box mb={2}>
 			<Grow in>
-				<Box>
+				<Box className={classes.box}>
 					<Typography className={classes.typography} variant={'h5'}>
 						{'개인 정보'}
 					</Typography>
-					<Box className={classes.box}>
+					<Box className={classes.gridBox}>
 						<Grid className={classes.grid} container alignItems={'center'} spacing={1}>
 							<Grid item xs={12} lg={3}>
 								{'이름'}
@@ -194,7 +196,7 @@ function MyInfoForm() {
 								/>
 							</Grid>
 						</Grid>
-						<Box mt={2} mb={2} textAlign={'right'}>
+						<Box mt={2} textAlign={'right'}>
 							<Button
 								className={classes.button}
 								variant={'contained'}
@@ -220,7 +222,7 @@ function MyInfoForm() {
 				onHandlePasswordAuthDialog={onHandlePrivacyAuthDialog}
 				onRequestPasswordAuth={onFetchPrivacy}
 			/>
-		</>
+		</Box>
 	);
 }
 

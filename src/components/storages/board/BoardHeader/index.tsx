@@ -19,13 +19,17 @@ import useBoardHeader from 'hooks/storages/board/useBoardHeader';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			height: 200,
+			height: 150,
+			margin: theme.spacing(2),
+			borderRadius: 4,
 			background:
 				theme.palette.type === 'light'
 					? `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`
 					: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
-				height: 'auto'
+				height: 'auto',
+				margin: 0,
+				borderRadius: 'inherit'
 			}
 		},
 		container: {
@@ -44,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
 				fontSize: 20
 			}
 		},
-		captionTypography: {
+		descriptionTypography: {
 			color: 'white'
 		},
 		box: {
@@ -66,6 +70,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				width: theme.spacing(8),
 				height: theme.spacing(8)
+			},
+			[theme.breakpoints.down('xs')]: {
+				width: theme.spacing(6),
+				height: theme.spacing(6)
 			}
 		},
 		nameBox: {
@@ -95,10 +103,10 @@ function BoardHeader() {
 						</Avatar>
 					</Box>
 					<Box className={classes.nameBox}>
-						<Typography className={classes.typography} variant={'h5'}>
+						<Typography className={classes.typography} variant={'h5'} noWrap>
 							{pending ? <Skeleton width={`${Math.round(Math.random() * 20) + 10}%`} /> : `${name} 저장소`}
 						</Typography>
-						<Typography className={classes.captionTypography} variant={'caption'}>
+						<Typography className={classes.descriptionTypography} variant={'caption'}>
 							{pending ? <Skeleton width={`${Math.round(Math.random() * 30) + 15}%`} /> : description}
 						</Typography>
 					</Box>

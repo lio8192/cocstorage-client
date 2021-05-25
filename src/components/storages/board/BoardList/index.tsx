@@ -42,7 +42,18 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			maxWidth: '100%',
-			padding: theme.spacing(0)
+			marginTop: theme.spacing(2),
+			padding: theme.spacing(0),
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4,
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			overflow: 'hidden',
+			[theme.breakpoints.down('md')]: {
+				marginTop: 0,
+				border: 'none',
+				borderRadius: 'inherit',
+				backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.default
+			}
 		},
 		box: {
 			'& a': {
@@ -106,7 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
 				height: 3,
 				margin: theme.spacing(0, 0.5),
 				border: `1px solid ${theme.palette.grey.A200}`,
-				borderRadius: 5,
+				borderRadius: 4,
 				backgroundColor: theme.palette.grey.A200,
 				verticalAlign: 'middle'
 			},
@@ -117,11 +128,14 @@ const useStyles = makeStyles((theme: Theme) =>
 		chip: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5,
+			borderRadius: 4,
 			cursor: 'pointer'
 		},
 		typography: {
 			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
+		},
+		divider: {
+			backgroundColor: theme.palette.grey['50']
 		}
 	})
 );
@@ -140,10 +154,9 @@ function BoardList() {
 	return (
 		<List className={classes.root} component={'div'}>
 			{pending
-				&& Array.from({ length: 10 }, (number, index) => index).map((item, index) => (
+				&& Array.from({ length: 20 }, (number, index) => index).map((item, index) => (
 					<Grow key={`storage-board-dummy-${item}`} in>
 						<Box>
-							{isMobile && index === 0 && <Divider />}
 							<ListItem>
 								<Box width={'100%'}>
 									<Box display={'flex'} alignItems={'center'} flex={1}>
@@ -179,7 +192,7 @@ function BoardList() {
 									</Box>
 								</Box>
 							</ListItem>
-							{isMobile && index < 9 && <Divider />}
+							{isMobile && index === 19 && <Divider className={classes.divider} />}
 						</Box>
 					</Grow>
 				))}
@@ -187,7 +200,6 @@ function BoardList() {
 				&& boards.map((item, index) => (
 					<Grow key={`storage-board-${item.id}`} in>
 						<Box className={classes.box}>
-							{isMobile && index === 0 && <Divider />}
 							<Link href={'/storages/[path]/[id]'} as={`/storages/${path}/${item.id}`}>
 								<a>
 									<ListItem key={`storage-boards-${item.id}`} className={classes.listItem} button>
@@ -264,7 +276,7 @@ function BoardList() {
 									</ListItem>
 								</a>
 							</Link>
-							{isMobile && index < 19 && <Divider />}
+							{isMobile && index + 1 === boards.length && <Divider className={classes.divider} />}
 							{isMobile && index + 1 === 5 && (
 								<>
 									<ListItem className={classes.listItemAd}>
@@ -277,7 +289,6 @@ function BoardList() {
 											}
 										/>
 									</ListItem>
-									<Divider />
 								</>
 							)}
 						</Box>

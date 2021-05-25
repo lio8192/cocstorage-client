@@ -12,12 +12,17 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import Chip from '@material-ui/core/Chip';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grow from '@material-ui/core/Grow';
 import Card from '@material-ui/core/Card';
 
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import ArchiveIcon from '@material-ui/icons/Archive';
+import InfoIcon from '@material-ui/icons/Info';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 // Components
 import DataEmptyBox from 'components/common/DataEmptyBox';
@@ -29,10 +34,32 @@ moment.locale('ko');
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
+		box: {
+			marginBottom: theme.spacing(1),
+			padding: theme.spacing(2),
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4,
+			background:
+				theme.palette.type === 'light'
+					? 'linear-gradient(rgb(244, 245, 247) 100%, rgb(255, 255, 255) 35%, rgb(255, 255, 255) 100%)'
+					: theme.palette.background.default
+		},
+		emptyBox: {
+			border: `1px solid ${theme.palette.grey['50']}`,
+			borderRadius: 4
+		},
+		grid: {
+			[theme.breakpoints.down('md')]: {
+				marginBottom: 0
+			}
+		},
+		typography: {
+			color: theme.palette.action.active,
+			fontFamily: 'NanumSquareRoundEB'
+		},
 		card: {
 			border: `1px solid ${theme.palette.grey['50']}`,
 			[theme.breakpoints.down('md')]: {
-				border: 'none',
 				textAlign: 'center'
 			}
 		},
@@ -62,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
 				height: theme.spacing(5)
 			}
 		},
-		typography: {
+		cardContentTypography: {
 			fontFamily: 'NanumSquareRoundEB',
 			[theme.breakpoints.down('md')]: {
 				fontSize: 16
@@ -101,7 +128,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		chip: {
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB',
-			borderRadius: 5,
+			borderRadius: 4,
 			cursor: 'pointer'
 		},
 		badge: {
@@ -113,6 +140,10 @@ const useStyles = makeStyles((theme: Theme) =>
 					top: 0
 				}
 			}
+		},
+		infoIcon: {
+			color: theme.palette.warning.main,
+			verticalAlign: 'middle'
 		}
 	})
 );
@@ -125,60 +156,149 @@ function StorageGridList() {
 		fetchParams: { name }
 	} = useStorageGridList();
 	return (
-		<Box>
-			<Box>
-				{pending && (
-					<Grow in>
-						<Box pt={20} pb={20} textAlign={'center'}>
-							<CircularProgress size={50} />
+		<>
+			{pending && (
+				<Grow in>
+					<Box pt={20} pb={20} textAlign={'center'}>
+						<CircularProgress size={50} />
+					</Box>
+				</Grow>
+			)}
+			{!pending && (
+				<>
+					<Box className={classes.box}>
+						<Box component={'span'} mr={1}>
+							<ArchiveIcon className={classes.icon} color={'action'} />
 						</Box>
-					</Grow>
-				)}
-				{!pending && (
-					<Grid container spacing={1}>
-						{storages.map((item) => (
-							<Grow key={`storage-${item.id}`} in>
-								<Grid item xs={4} sm={2}>
-									<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
-										<a className={classes.anchor}>
-											<Card className={classes.card} elevation={0}>
-												<CardActionArea>
-													<CardContent className={classes.cardContentHead} />
-													<CardContent>
-														<Badge
-															className={classes.badge}
-															badgeContent={
-																<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
-															}
-															invisible={moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') > 7}
-														>
-															<Avatar className={classes.avatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
-																<InsertPhotoIcon />
-															</Avatar>
-														</Badge>
-														<Box mt={1}>
-															<Typography className={classes.typography} noWrap>
-																{item.name}
-															</Typography>
-														</Box>
-													</CardContent>
-												</CardActionArea>
-											</Card>
-										</a>
-									</Link>
-								</Grid>
-							</Grow>
-						))}
+						<Typography className={classes.typography} variant={'body1'} component={'span'}>
+							{'수집'}
+						</Typography>
+						<Box component={'span'} ml={0.5}>
+							<Tooltip
+								title={
+									'수집 카테고리에 포함된 아래의 저장소 내에 포함한 모든 게시글 및 댓글/답글들은 개념글 저장소의 유저가 작성하는 것이 아닌, 다수의 커뮤니티 사이트 내의 인기 게시글들이며 출처를 포함하고 있습니다. 누군가에게 문제가 될 수 있는 게시글은 발견 또는 신고 시 곧 바로 삭제 처리됩니다.'
+								}
+							>
+								<IconButton size={'small'}>
+									<InfoIcon className={classes.infoIcon} />
+								</IconButton>
+							</Tooltip>
+						</Box>
+					</Box>
+					{!name && storages.filter((item) => item.storageCategoryId === 1).length === 0 && (
+						<Box className={classes.emptyBox}>
+							<DataEmptyBox message={'등록된 저장소가 존재하지 않아요.'} borderRadius={4} />
+						</Box>
+					)}
+					{name && storages.filter((item) => item.storageCategoryId === 1).length === 0 && (
+						<Box className={classes.emptyBox}>
+							<DataEmptyBox message={`"${name}" 에 대한 검색 결과가 존재하지 않아요.`} borderRadius={4} />
+						</Box>
+					)}
+					<Grid className={classes.grid} container spacing={1}>
+						{storages
+							.filter((item) => item.storageCategoryId === 1)
+							.map((item) => (
+								<Grow key={`storage-${item.id}`} in>
+									<Grid item xs={4} sm={2}>
+										<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
+											<a className={classes.anchor}>
+												<Card className={classes.card} elevation={0}>
+													<CardActionArea>
+														<CardContent className={classes.cardContentHead} />
+														<CardContent>
+															<Badge
+																className={classes.badge}
+																badgeContent={
+																	<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+																}
+																invisible={moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') > 7}
+															>
+																<Avatar
+																	className={classes.avatar}
+																	src={item.avatarUrl || ''}
+																	alt={'Storage Avatar Img'}
+																>
+																	<InsertPhotoIcon />
+																</Avatar>
+															</Badge>
+															<Box mt={1}>
+																<Typography className={classes.cardContentTypography} noWrap>
+																	{item.name}
+																</Typography>
+															</Box>
+														</CardContent>
+													</CardActionArea>
+												</Card>
+											</a>
+										</Link>
+									</Grid>
+								</Grow>
+							))}
 					</Grid>
-				)}
-				{!pending && !name && storages.length === 0 && (
-					<DataEmptyBox message={'첫 저장소 등록의 주인공이 되어 보세요!'} />
-				)}
-				{!pending && name && storages.length === 0 && (
-					<DataEmptyBox message={`"${name}" 에 대한 검색 결과가 존재하지 않아요.`} />
-				)}
-			</Box>
-		</Box>
+					<Box mt={1} />
+					<Box className={classes.box}>
+						<Box component={'span'} mr={1}>
+							<LibraryBooksIcon className={classes.icon} color={'action'} />
+						</Box>
+						<Typography className={classes.typography} variant={'body1'} component={'span'}>
+							{'일반'}
+						</Typography>
+					</Box>
+					{!name && storages.filter((item) => item.storageCategoryId === 2).length === 0 && (
+						<Box className={classes.emptyBox}>
+							<DataEmptyBox message={'첫 저장소 등록의 주인공이 되어 보세요!'} borderRadius={4} />
+						</Box>
+					)}
+					{name && storages.filter((item) => item.storageCategoryId === 2).length === 0 && (
+						<Box className={classes.emptyBox}>
+							<DataEmptyBox message={`"${name}" 에 대한 검색 결과가 존재하지 않아요.`} borderRadius={4} />
+						</Box>
+					)}
+					<Grid className={classes.grid} container spacing={0}>
+						{storages
+							.filter((item) => item.storageCategoryId === 2)
+							.map((item) => (
+								<Grow key={`storage-${item.id}`} in>
+									<Grid item xs={4} sm={2}>
+										<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
+											<a className={classes.anchor}>
+												<Card className={classes.card} elevation={0}>
+													<CardActionArea>
+														<CardContent className={classes.cardContentHead} />
+														<CardContent>
+															<Badge
+																className={classes.badge}
+																badgeContent={
+																	<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+																}
+																invisible={moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') > 7}
+															>
+																<Avatar
+																	className={classes.avatar}
+																	src={item.avatarUrl || ''}
+																	alt={'Storage Avatar Img'}
+																>
+																	<InsertPhotoIcon />
+																</Avatar>
+															</Badge>
+															<Box mt={1}>
+																<Typography className={classes.cardContentTypography} noWrap>
+																	{item.name}
+																</Typography>
+															</Box>
+														</CardContent>
+													</CardActionArea>
+												</Card>
+											</a>
+										</Link>
+									</Grid>
+								</Grow>
+							))}
+					</Grid>
+				</>
+			)}
+		</>
 	);
 }
 

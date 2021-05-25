@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			textDecoration: 'none'
 		},
 		chip: {
-			cursor: 'pointer'
+			cursor: 'pointer',
+			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper
 		}
 	})
 );

@@ -12,11 +12,17 @@ import ForumIcon from '@material-ui/icons/Forum';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			height: 'auto',
+			margin: theme.spacing(2, 2, 0),
+			borderRadius: 4,
 			background:
 				theme.palette.type === 'light'
 					? `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`
-					: theme.palette.background.paper
+					: theme.palette.background.paper,
+			[theme.breakpoints.down('md')]: {
+				height: 'auto',
+				margin: 0,
+				borderRadius: 'inherit'
+			}
 		},
 		container: {
 			display: 'flex',

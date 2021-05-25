@@ -26,23 +26,16 @@ export default function useHeader() {
 		}
 		return pathname;
 	}, [pathname]);
-	const isHome = useMemo(() => route === '/', [route]);
-	const isNewStorages = useMemo(() => route === '/storages', [route]);
 	const isStorageBoard = useMemo(() => route === '/storages/[path]', [route]);
 	const isStorageBoardWrite = useMemo(() => route === '/storages/[path]/write', [route]);
 	const isStorageBoardEdit = useMemo(() => route === '/storages/[path]/edit/[id]', [route]);
 	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
-	const isNewNotices = useMemo(() => route === '/notices', [route]);
 	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
 	const isNoticeEdit = useMemo(() => route === '/notices/edit/[id]', [route]);
 	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
 	const isNotices = useMemo(
 		() => isNoticeWrite || isNoticeDetail || isNoticeEdit,
 		[isNoticeWrite, isNoticeDetail, isNoticeEdit]
-	);
-	const openTab = useMemo(
-		() => isHome || isNewStorages || isStorageBoard || isNewNotices,
-		[isHome, isNewStorages, isStorageBoard, isNewNotices]
 	);
 	const openNavigationChip = useMemo(
 		() =>
@@ -58,33 +51,6 @@ export default function useHeader() {
 	const isNewStorage = useMemo(
 		() => isStorageBoardWrite || isStorageBoard || isStorageBoardDetail || isStorageBoardEdit,
 		[isStorageBoardWrite, isStorageBoard, isStorageBoardDetail, isStorageBoardEdit]
-	);
-
-	const onHandleTabChange = useCallback(
-		(event: React.ChangeEvent<{}>, newValue: string) => {
-			const isIndexRoute: boolean = newValue === '/' && true;
-
-			if (isIndexRoute) {
-				router
-					.push(
-						{
-							pathname: '/'
-						},
-						'/'
-					)
-					.then();
-			} else {
-				router
-					.push(
-						{
-							pathname: newValue
-						},
-						newValue
-					)
-					.then();
-			}
-		},
-		[router]
 	);
 
 	const onHandleStorageChip = useCallback(() => {
@@ -131,10 +97,8 @@ export default function useHeader() {
 		storage,
 		activatedTab,
 		openNavigationChip,
-		openTab,
 		isNewStorage,
 		isNotices,
-		onHandleTabChange,
 		onHandleStorageChip,
 		onHandleNoticeChip,
 		onHandleSignInDialog,
