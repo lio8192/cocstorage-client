@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
 			backgroundColor: theme.palette.background.paper,
+			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
 				marginTop: 0,
 				borderLeft: 'none',
