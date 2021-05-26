@@ -89,7 +89,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		avatar: {
 			width: theme.spacing(7),
 			height: theme.spacing(7),
-			marginTop: theme.spacing(-5)
+			marginTop: theme.spacing(-5),
+			backgroundColor: theme.palette.background.default
 		},
 		avatarSkeleton: {
 			width: theme.spacing(7),

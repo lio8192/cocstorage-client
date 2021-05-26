@@ -93,7 +93,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		avatar: {
 			width: theme.spacing(3.5),
-			height: theme.spacing(3.5)
+			height: theme.spacing(3.5),
+			backgroundColor: theme.palette.background.default
 		},
 		infoBox: {
 			overflow: 'hidden',

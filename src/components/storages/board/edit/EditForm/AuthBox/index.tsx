@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			justifyContent: 'center',
 			width: '100%',
 			height: '100%',
-			zIndex: 10
+			zIndex: 10,
+			backgroundColor: theme.palette.background.default
 		},
 		icon: {
 			verticalAlign: 'middle'

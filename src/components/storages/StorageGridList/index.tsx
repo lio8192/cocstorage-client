@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: theme.spacing(7),
 			height: theme.spacing(7),
 			marginTop: theme.spacing(-5),
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				margin: 'auto'
 			},
@@ -274,7 +275,7 @@ function StorageGridList() {
 							<DataEmptyBox message={`"${name}" 에 대한 검색 결과가 존재하지 않아요.`} borderRadius={4} />
 						</Box>
 					)}
-					<Grid className={classes.grid} container spacing={0}>
+					<Grid className={classes.grid} container spacing={1}>
 						{storages
 							.filter((item) => item.storageCategoryId === 2)
 							.map((item) => (

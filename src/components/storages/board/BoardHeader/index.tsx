@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		avatar: {
 			width: theme.spacing(10),
 			height: theme.spacing(10),
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				width: theme.spacing(6),
 				height: theme.spacing(6)
