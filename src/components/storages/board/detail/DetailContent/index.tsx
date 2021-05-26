@@ -95,10 +95,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		},
 		writerAvatar: {
-			[theme.breakpoints.down('md')]: {
-				width: theme.spacing(4),
-				height: theme.spacing(4)
-			}
+			width: theme.spacing(4),
+			height: theme.spacing(4),
+			fontSize: 14
 		},
 		otherInfoBox: {
 			display: 'flex',
@@ -155,10 +154,15 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginTop: theme.spacing(1),
 			'& > button': {
 				padding: theme.spacing(2),
-				borderRadius: '0',
 				borderColor: theme.palette.grey['50'],
-				color: theme.palette.grey.A200
+				fontWeight: 700
 			}
+		},
+		thumbsUpButton: {
+			color: theme.palette.type === 'light' ? theme.palette.primary.dark : theme.palette.primary.light
+		},
+		thumbsDownButton: {
+			color: theme.palette.type === 'light' ? theme.palette.secondary.dark : theme.palette.secondary.light
 		},
 		backdrop: {
 			zIndex: theme.zIndex.drawer + 1,
@@ -572,7 +576,8 @@ function DetailContent() {
 								<Box>
 									<ButtonGroup className={classes.recommendButtonGroup}>
 										<Button
-											endIcon={<ThumbUpAltSharpIcon />}
+											className={classes.thumbsUpButton}
+											endIcon={<ThumbUpAltSharpIcon color={'primary'} />}
 											data-thumbs-type={0}
 											onClick={
 												isAuthenticated ? onPutStorageBoardDetailRecommend : onPutNonMemberStorageBoardDetailRecommend
@@ -582,7 +587,8 @@ function DetailContent() {
 											{thumbUp}
 										</Button>
 										<Button
-											startIcon={<ThumbDownAltSharpIcon />}
+											className={classes.thumbsDownButton}
+											startIcon={<ThumbDownAltSharpIcon color={'secondary'} />}
 											data-thumbs-type={1}
 											onClick={
 												isAuthenticated ? onPutStorageBoardDetailRecommend : onPutNonMemberStorageBoardDetailRecommend

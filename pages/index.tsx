@@ -99,13 +99,13 @@ function Index() {
 				<link rel={'manifest'} href={'/manifest.json'} />
 			</Head>
 			<Container className={classes.container}>
-				<Box className={classes.bannerBox}>
-					<Link href={'/notices/100'} as={'/notices/100'}>
-						<a>
-							<img src={'https://static.cocstorage.com/images/simple_guide_text.png'} alt={'Simple Guide Img'} />
-						</a>
-					</Link>
-				</Box>
+				<Link href={'/notices/100'} as={'/notices/100'}>
+					<a>
+						<Box className={classes.bannerBox}>
+							<img src={'https://static.cocstorage.com/images/simple_guide_text.png'} alt={'Simple Guide Text Img'} />
+						</Box>
+					</a>
+				</Link>
 				<Box className={classes.containerBox}>
 					<Grid container spacing={1}>
 						<Grid item xs={12} lg={6}>

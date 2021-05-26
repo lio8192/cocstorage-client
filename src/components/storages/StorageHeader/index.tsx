@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
 					? `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`
 					: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
-				height: 'auto',
+				height: 100,
 				margin: 0,
 				borderRadius: 'inherit'
 			}

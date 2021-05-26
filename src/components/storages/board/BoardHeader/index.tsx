@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 					? `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`
 					: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
-				height: 'auto',
+				height: 100,
 				margin: 0,
 				borderRadius: 'inherit'
 			}
@@ -42,9 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: 'white',
 			fontWeight: 700,
 			[theme.breakpoints.down('md')]: {
-				fontSize: 22
-			},
-			[theme.breakpoints.down('xs')]: {
 				fontSize: 20
 			}
 		},
@@ -68,8 +65,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: theme.spacing(10),
 			height: theme.spacing(10),
 			[theme.breakpoints.down('md')]: {
-				width: theme.spacing(8),
-				height: theme.spacing(8)
+				width: theme.spacing(6),
+				height: theme.spacing(6)
 			},
 			[theme.breakpoints.down('xs')]: {
 				width: theme.spacing(6),

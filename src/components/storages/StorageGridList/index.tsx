@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import Link from 'next/link';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import moment from 'moment';
@@ -13,6 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import Chip from '@material-ui/core/Chip';
 import IconButton from '@material-ui/core/IconButton';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grow from '@material-ui/core/Grow';
@@ -155,6 +156,11 @@ function StorageGridList() {
 		storages,
 		fetchParams: { name }
 	} = useStorageGridList();
+
+	const [open, setOpen] = useState<boolean>(false);
+
+	const handleTooltip = useCallback(() => setOpen(!open), [open]);
+
 	return (
 		<>
 			{pending && (
@@ -174,15 +180,28 @@ function StorageGridList() {
 							{'수집'}
 						</Typography>
 						<Box component={'span'} ml={0.5}>
-							<Tooltip
-								title={
-									'수집 카테고리에 포함된 아래의 저장소 내에 포함한 모든 게시글 및 댓글/답글들은 개념글 저장소의 유저가 작성하는 것이 아닌, 다수의 커뮤니티 사이트 내의 인기 게시글들이며 출처를 포함하고 있습니다. 누군가에게 문제가 될 수 있는 게시글은 발견 또는 신고 시 곧 바로 삭제 처리됩니다.'
-								}
-							>
-								<IconButton size={'small'}>
-									<InfoIcon className={classes.infoIcon} />
-								</IconButton>
-							</Tooltip>
+							<ClickAwayListener onClickAway={handleTooltip}>
+								<>
+									<Tooltip
+										title={
+											'수집 카테고리에 포함된 아래의 저장소 내에 포함한 모든 게시글 및 댓글/답글들은 개념글 저장소의 유저가 작성하는 것이 아닌, 다수의 커뮤니티 사이트 내의 인기 게시글들이며 출처를 포함하고 있습니다. 누군가에게 문제가 될 수 있는 게시글은 발견 또는 신고 시 곧 바로 삭제 처리됩니다.'
+										}
+										PopperProps={{
+											disablePortal: true
+										}}
+										onClose={handleTooltip}
+										open={open}
+										disableFocusListener
+										disableHoverListener
+										disableTouchListener
+										arrow
+									>
+										<IconButton size={'small'} onClick={handleTooltip}>
+											<InfoIcon className={classes.infoIcon} />
+										</IconButton>
+									</Tooltip>
+								</>
+							</ClickAwayListener>
 						</Box>
 					</Box>
 					{!name && storages.filter((item) => item.storageCategoryId === 1).length === 0 && (

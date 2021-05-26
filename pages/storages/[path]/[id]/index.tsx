@@ -148,9 +148,9 @@ function StorageBoardDetail() {
 				<meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
 				<meta name={'author'} content={isMember ? user?.nickname : nickname || '개념글 저장소'} />
 				<meta name={'title'} content={subject ? `${subject} : ${name} 저장소` : '개념글 저장소'} />
-				<meta name={'description'} content={description} />
+				<meta name={'description'} content={description ? description.substr(9, 159) : ''} />
 				<meta property={'og:title'} content={subject ? `${subject} : ${name} 저장소` : '개념글 저장소'} />
-				<meta property={'og:description'} content={description} />
+				<meta property={'og:description'} content={description ? description.substr(9, 159) : ''} />
 				<meta property={'og:type'} content={'website'} />
 				<meta
 					property={'og:image'}
@@ -167,7 +167,7 @@ function StorageBoardDetail() {
 				<meta property={'og:site_name'} content={name ? `${name} 저장소 : 개념글 저장소` : '개념글 저장소'} />
 				<meta property={'og:locale'} content={'ko_KR'} />
 				<meta property={'twitter:title'} content={subject ? `${subject} : ${name} 저장소` : '개념글 저장소'} />
-				<meta property={'twitter:description'} content={description} />
+				<meta property={'twitter:description'} content={description ? description.substr(9, 159) : ''} />
 				<meta
 					property={'twitter:image'}
 					content={thumbnailUrl || avatarUrl || 'https://static.cocstorage.com/images/icon.png'}

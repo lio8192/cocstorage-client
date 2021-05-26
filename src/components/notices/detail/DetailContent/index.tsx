@@ -78,10 +78,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		writerAvatar: {
-			[theme.breakpoints.down('md')]: {
-				width: theme.spacing(4),
-				height: theme.spacing(4)
-			}
+			width: theme.spacing(4),
+			height: theme.spacing(4),
+			fontSize: 14
 		},
 		nicknameBox: {
 			marginLeft: theme.spacing(1),
