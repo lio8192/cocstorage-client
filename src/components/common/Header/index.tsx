@@ -4,6 +4,7 @@ import React, {
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -35,9 +36,6 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 // Custom Hooks
 import useHeader from 'hooks/common/useHeader';
-
-// Snippets
-import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

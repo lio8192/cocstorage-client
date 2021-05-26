@@ -29,9 +29,10 @@ import useNotices from 'hooks/notices/useNotices';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
-			padding: theme.spacing(2, 0),
+			marginTop: theme.spacing(2),
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0)
+				marginTop: theme.spacing(0),
+				padding: 0
 			}
 		},
 		button: {
@@ -43,9 +44,13 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		moreButton: {
 			height: 46,
+			marginBottom: theme.spacing(2),
 			borderRadius: 0,
 			color: theme.palette.action.active,
-			fontWeight: 700
+			fontWeight: 700,
+			[theme.breakpoints.down('md')]: {
+				marginBottom: 0
+			}
 		},
 		adminContainer: {
 			padding: theme.spacing(0, 0, 1),
@@ -139,6 +144,9 @@ function Notices() {
 							{pending ? <CircularProgress size={30} /> : '더 보기'}
 						</Button>
 					</Grow>
+				)}
+				{!isMobile && isLastPage && (
+					<Box mt={2} />
 				)}
 			</Container>
 			{!isMobile && isAuthenticated && role === 'admin' && (
