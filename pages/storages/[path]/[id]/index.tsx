@@ -8,6 +8,7 @@ import {
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import Hidden from '@material-ui/core/Hidden';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -245,6 +246,7 @@ function StorageBoardDetail() {
 								siblingCount={isMobile ? 1 : 2}
 							/>
 						)}
+						<Hidden mdDown>{!pending && pagination.totalPages === 0 && <Box mt={2} mb={2} />}</Hidden>
 						<DetailCommentWriteForm />
 					</Grid>
 				</Grid>

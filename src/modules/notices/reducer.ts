@@ -72,6 +72,7 @@ const notices = createReducer<NoticesState, NoticesActions>(initialState, {
 		};
 
 		if (state.notices) nextState.notices = state.notices;
+		if (state.pagination) nextState.pagination = state.pagination;
 		if (state.fetchParams) nextState.fetchParams = state.fetchParams;
 		if (state.pending) nextState.pending = state.pending;
 		if (state.manage.pending) nextState.manage.pending = state.manage.pending;

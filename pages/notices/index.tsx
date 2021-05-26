@@ -9,8 +9,11 @@ import {
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import Zoom from '@material-ui/core/Zoom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grow from '@material-ui/core/Grow';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
 import CreateIcon from '@material-ui/icons/Create';
@@ -38,23 +41,22 @@ const useStyles = makeStyles((theme: Theme) =>
 		icon: {
 			color: 'white'
 		},
-		buttonBox: {
-			marginTop: theme.spacing(1),
-			[theme.breakpoints.down('md')]: {
-				marginTop: theme.spacing(0)
-			}
-		},
 		moreButton: {
 			borderRadius: 0,
 			color: theme.palette.action.active,
 			fontWeight: 700
 		},
 		adminContainer: {
-			paddingBottom: theme.spacing(1),
+			padding: theme.spacing(0, 0, 1),
 			[theme.breakpoints.down('md')]: {
 				paddingTop: theme.spacing(2),
 				paddingBottom: theme.spacing(0)
 			}
+		},
+		fab: {
+			position: 'fixed',
+			bottom: 75,
+			right: 15
 		}
 	})
 );
@@ -62,6 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function Notices() {
 	const classes = useStyles();
 	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const {
 		pending,
 		pagination: { totalPages, isLastPage },
@@ -125,21 +128,19 @@ function Notices() {
 				<NoticeGridList />
 				{totalPages !== 0 && !isLastPage && (
 					<Grow in>
-						<Box className={classes.buttonBox}>
-							<Button
-								className={classes.moreButton}
-								fullWidth
-								startIcon={pending ? '' : <ExpandMoreIcon />}
-								size={'large'}
-								onClick={onClickFetchNoticesMoreButton}
-							>
-								{pending ? <CircularProgress size={30} /> : '더 보기'}
-							</Button>
-						</Box>
+						<Button
+							className={classes.moreButton}
+							fullWidth
+							startIcon={pending ? '' : <ExpandMoreIcon />}
+							size={'large'}
+							onClick={onClickFetchNoticesMoreButton}
+						>
+							{pending ? <CircularProgress size={30} /> : '더 보기'}
+						</Button>
 					</Grow>
 				)}
 			</Container>
-			{isAuthenticated && role === 'admin' && (
+			{!isMobile && isAuthenticated && role === 'admin' && (
 				<Container className={classes.adminContainer}>
 					<Box pb={2} textAlign={'right'}>
 						<Link href={'/notices/write'} as={'/notices/write'}>
@@ -155,6 +156,15 @@ function Notices() {
 						</Link>
 					</Box>
 				</Container>
+			)}
+			{isMobile && isAuthenticated && role === 'admin' && (
+				<Link href={'/notices/write'} as={'/notices/write'}>
+					<Zoom in>
+						<Fab className={classes.fab} color={'primary'} disabled={pending}>
+							<CreateIcon className={classes.icon} />
+						</Fab>
+					</Zoom>
+				</Link>
 			)}
 		</>
 	);

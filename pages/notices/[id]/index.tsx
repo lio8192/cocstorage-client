@@ -8,6 +8,7 @@ import {
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Hidden from '@material-ui/core/Hidden';
 import Pagination from '@material-ui/lab/Pagination';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -157,6 +158,7 @@ function NoticeDetail() {
 								siblingCount={isMobile ? 1 : 2}
 							/>
 						)}
+						<Hidden mdDown>{!pending && pagination.totalPages === 0 && <Box mt={2} mb={2} />}</Hidden>
 						<DetailCommentWriteForm />
 					</Grid>
 				</Grid>
