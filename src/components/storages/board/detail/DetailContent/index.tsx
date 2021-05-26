@@ -526,19 +526,21 @@ function DetailContent() {
 								</Box>
 							</Box>
 						</Box>
-						<Box className={classes.adBox}>
-							<GoogleAdSense
-								html={
-									'<ins class="adsbygoogle"'
-									+ 'style="display:block"'
-									+ 'data-ad-client="ca-pub-5809905264951057"'
-									+ 'data-ad-slot="8033291397"'
-									+ 'data-ad-format="auto"'
-									+ 'data-full-width-responsive="true"></ins>'
-								}
-								color={'default'}
-							/>
-						</Box>
+						{sourceCode && (
+							<Box className={classes.adBox}>
+								<GoogleAdSense
+									html={
+										'<ins class="adsbygoogle"'
+										+ 'style="display:block"'
+										+ 'data-ad-client="ca-pub-5809905264951057"'
+										+ 'data-ad-slot="8033291397"'
+										+ 'data-ad-format="auto"'
+										+ 'data-full-width-responsive="true"></ins>'
+									}
+									color={'default'}
+								/>
+							</Box>
+						)}
 						<Box className={classes.contentBox}>
 							{sourceCode && (
 								<Box mb={2} textAlign={'right'}>
