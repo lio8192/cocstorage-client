@@ -145,9 +145,7 @@ function Notices() {
 						</Button>
 					</Grow>
 				)}
-				{!isMobile && isLastPage && (
-					<Box mt={2} />
-				)}
+				{!isMobile && isLastPage && <Box mt={2} />}
 			</Container>
 			{!isMobile && isAuthenticated && role === 'admin' && (
 				<Container className={classes.adminContainer}>
