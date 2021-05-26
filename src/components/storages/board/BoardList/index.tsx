@@ -46,13 +46,12 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: theme.spacing(0),
 			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			backgroundColor: theme.palette.background.paper,
 			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
 				marginTop: 0,
 				border: 'none',
-				borderRadius: 'inherit',
-				backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.default
+				borderRadius: 'inherit'
 			}
 		},
 		box: {
@@ -74,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: '100%',
 			paddingTop: theme.spacing(1.6),
 			textAlign: 'center',
-			backgroundColor: theme.palette.type === 'light' ? '#E5EDF8' : theme.palette.background.paper
+			backgroundColor: theme.palette.type === 'light' ? '#E5EDF8' : theme.palette.background.default
 		},
 		icon: {
 			verticalAlign: 'middle'
@@ -287,6 +286,7 @@ function BoardList() {
 												+ 'data-ad-client="ca-pub-5809905264951057"'
 												+ 'data-ad-slot="2449792225"></ins>'
 											}
+											color={'default'}
 										/>
 									</ListItem>
 								</>

@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			minHeight: 400,
 			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			backgroundColor: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				borderLeft: 'none',
 				borderRight: 'none',

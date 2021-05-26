@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginTop: theme.spacing(2),
 			padding: theme.spacing(3, 2),
 			textAlign: 'center',
+			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
 			backgroundColor: theme.palette.type === 'light' ? '#5D6DBE' : theme.palette.background.paper,
 			overflow: 'hidden',
@@ -52,11 +53,12 @@ const useStyles = makeStyles((theme: Theme) =>
 			},
 			[theme.breakpoints.down('md')]: {
 				marginTop: 0,
+				border: 'none',
+				borderBottom: `1px solid ${theme.palette.grey['50']}`,
 				borderRadius: 'inherit',
 				'& img': {
 					maxWidth: 250
-				},
-				backgroundColor: theme.palette.type === 'light' ? '#5D6DBE' : theme.palette.background.default
+				}
 			}
 		}
 	})

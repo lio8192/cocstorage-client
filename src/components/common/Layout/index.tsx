@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'notistack';
 
 // Material UI
@@ -26,13 +26,8 @@ type LayoutProps = {
 	children: JSX.Element | JSX.Element[];
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
 	createStyles({
-		root: {
-			[theme.breakpoints.down('md')]: {
-				backgroundColor: theme.palette.type === 'light' ? '#eff1f5' : theme.palette.background.paper
-			}
-		},
 		linearProgress: {
 			position: 'fixed',
 			width: '100%',
@@ -76,9 +71,7 @@ function Layout({ children }: LayoutProps) {
 			<Hidden implementation={'css'} lgUp>
 				<MobileHeader />
 			</Hidden>
-			<Box maxWidth={'lg'} className={classes.root}>
-				{children}
-			</Box>
+			<Box maxWidth={'lg'}>{children}</Box>
 			<Hidden implementation={'css'} mdDown>
 				<Footer />
 			</Hidden>

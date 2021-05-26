@@ -31,7 +31,6 @@ import useNoticeDetail from 'hooks/notices/detail/useNoticeDetail';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: 0
 			}

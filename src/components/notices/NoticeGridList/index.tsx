@@ -57,11 +57,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		controls: {
 			display: 'flex',
 			alignItems: 'center',
-			paddingLeft: theme.spacing(1),
-			paddingBottom: theme.spacing(1)
+			padding: theme.spacing(0, 2)
 		},
 		grid: {
-			backgroundColor: theme.palette.background.default,
 			'& > .MuiGrid-item:first-child': {
 				borderTop: `1px solid ${theme.palette.grey['50']}`,
 				[theme.breakpoints.down('md')]: {
@@ -76,12 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		gridItemContainer: {
-			height: '100%',
-			[theme.breakpoints.down('md')]: {
-				'& .MuiPaper-root': {
-					backgroundColor: theme.palette.background.default
-				}
-			}
+			height: '100%'
 		},
 		gridCard: {
 			height: '100%',

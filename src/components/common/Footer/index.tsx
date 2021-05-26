@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		chip: {
 			cursor: 'pointer',
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper
+			backgroundColor: theme.palette.background.paper
 		}
 	})
 );

@@ -76,16 +76,13 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		avatarBig: {
-			width: theme.spacing(5.18),
-			height: theme.spacing(5.18),
+			width: theme.spacing(5.19),
+			height: theme.spacing(5.19),
 			marginRight: theme.spacing(1),
 			[theme.breakpoints.down('md')]: {
 				width: theme.spacing(4),
 				height: theme.spacing(4)
 			}
-		},
-		grid: {
-			backgroundColor: theme.palette.background.default
 		},
 		gridItem: {
 			width: '100%'
@@ -138,9 +135,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		list: {
 			height: '100%',
+			backgroundColor: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
-				borderTop: `1px solid ${theme.palette.grey['50']}`,
-				borderBottom: `1px solid ${theme.palette.grey['50']}`
+				borderTop: `1px solid ${theme.palette.grey['50']}`
 			},
 			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(0)
@@ -150,10 +147,12 @@ const useStyles = makeStyles((theme: Theme) =>
 			maxWidth: '100%',
 			height: '100%',
 			border: `1px solid ${theme.palette.grey['50']}`,
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			backgroundColor: theme.palette.background.paper,
 			borderRadius: 4,
+			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
-				border: 'none'
+				border: 'none',
+				borderRadius: 'inherit'
 			}
 		},
 		listItem: {
@@ -168,7 +167,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			display: 'flex',
 			alignItems: 'center',
 			maxWidth: '100%',
-			height: 24
+			height: 24.5
 		},
 		subjectBox: {
 			display: 'flex',
@@ -251,7 +250,7 @@ function HomeNoticeGridList() {
 				</Box>
 			</Box>
 			{pending && (
-				<Grid className={classes.grid} container spacing={isMobile ? 0 : 1}>
+				<Grid container spacing={isMobile ? 0 : 1}>
 					<Hidden mdDown>
 						<Grid item lg={6}>
 							<Card className={classes.card} square elevation={0}>
@@ -315,7 +314,7 @@ function HomeNoticeGridList() {
 				</Grid>
 			)}
 			{!pending && (
-				<Grid className={classes.grid} container spacing={isMobile ? 0 : 1}>
+				<Grid container spacing={isMobile ? 0 : 1}>
 					{data.map((item, index) => {
 						if (index === 0) {
 							return (

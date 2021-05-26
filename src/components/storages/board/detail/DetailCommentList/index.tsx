@@ -1,6 +1,7 @@
 import React, { useEffect, useState, memo } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import moment from 'moment';
+import clsx from 'clsx';
 
 // Material UI
 import Grid from '@material-ui/core/Grid';
@@ -54,11 +55,17 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginTop: theme.spacing(2),
 			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			backgroundColor: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				marginTop: 0,
-				border: 'none',
+				borderLeft: 'none',
+				borderRight: 'none',
 				borderRadius: 'inherit'
+			}
+		},
+		rootBorderBottomNone: {
+			[theme.breakpoints.down('md')]: {
+				borderBottom: 'none'
 			}
 		},
 		commentOrderList: {
@@ -109,14 +116,6 @@ const useStyles = makeStyles((theme: Theme) =>
 				padding: 0
 			}
 		},
-		commentListMoreButton: {
-			padding: theme.spacing(2),
-			borderRadius: 'inherit',
-			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
-			[theme.breakpoints.down('md')]: {
-				borderBottom: `1px solid ${theme.palette.grey['50']}`
-			}
-		},
 		commentListItem: {
 			display: 'block',
 			padding: 0
@@ -127,8 +126,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			wordWrap: 'break-word',
 			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(2, 1),
-				borderBottom: `1px solid ${theme.palette.grey['50']}`
+				padding: theme.spacing(2, 1)
 			},
 			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(2, 0)
@@ -191,18 +189,11 @@ const useStyles = makeStyles((theme: Theme) =>
 				padding: theme.spacing(0, 2)
 			}
 		},
-		commentListItemDateSkeleton: {
-			padding: theme.spacing(2, 2, 1),
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0, 2, 0, 2)
-			}
-		},
 		replyBox: {
 			padding: theme.spacing(2, 4),
-			backgroundColor: theme.palette.type === 'light' ? '#fafafa' : theme.palette.background.default,
+			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(2, 3),
-				borderBottom: `1px solid ${theme.palette.grey['50']}`
+				padding: theme.spacing(2, 3)
 			},
 			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(2)
@@ -260,12 +251,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 0, 0, 3)
-			}
-		},
-		replyBoxItemWriterDateSkeleton: {
-			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(0, 0, 0, 3)
 			}
 		},
 		button: {
@@ -360,7 +345,11 @@ function DetailCommentList() {
 	}, [data]);
 
 	return (
-		<Box className={classes.root}>
+		<Box
+			className={clsx(classes.root, {
+				[classes.rootBorderBottomNone]: !pending && transferComments.length === 0
+			})}
+		>
 			<List className={classes.commentOrderList} disablePadding>
 				<ListItem className={classes.commentOrderListItem} selected>
 					<Box>

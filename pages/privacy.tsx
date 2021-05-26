@@ -31,9 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			flexDirection: 'column',
 			justifyContent: 'flex-end'
 		},
-		contentContainer: {
-			backgroundColor: theme.palette.background.default
-		},
 		typography: {
 			color: 'white',
 			textAlign: 'center',
@@ -102,7 +99,7 @@ function Privacy() {
 					</Grid>
 				</Container>
 			</Box>
-			<Container className={classes.contentContainer}>
+			<Container>
 				<Box mb={2} pt={1}>
 					{
 						'개념글 저장소는 이용자의 개인 정보보호를 매우 중요시하며 "정보통신망 이용촉진 및 정보보호 등에 관한 법률", "개인정보 보호법" 등 개인정보 보호 법령을 준수하고 있습니다. 관련 법률 및 정부 지침의 변경과 개념글 저장소의 약관 및 내부 방침에 따라 개인정보처리방침을 변경할 수 있으며 이를 개정하는 경우 홈페이지 공지를 통해 이용자에게 고지합니다.'

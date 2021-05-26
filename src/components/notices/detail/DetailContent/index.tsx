@@ -40,13 +40,12 @@ const useStyles = makeStyles((theme: Theme) =>
 			margin: theme.spacing(2, 0),
 			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			backgroundColor: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				margin: 0,
 				padding: 0,
 				border: 'none',
-				borderRadius: 'inherit',
-				backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.default
+				borderRadius: 'inherit'
 			}
 		},
 		subjectBox: {

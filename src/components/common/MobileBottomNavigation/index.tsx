@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		toolbar: {
-			minHeight: 56
+			minHeight: 55
 		}
 	})
 );

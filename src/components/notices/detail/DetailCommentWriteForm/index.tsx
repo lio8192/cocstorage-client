@@ -21,7 +21,7 @@ import useDetailCommentWriteForm from 'hooks/notices/detail/useDetailCommentWrit
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			backgroundColor: theme.palette.background.paper,
 			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
 			marginBottom: theme.spacing(2),

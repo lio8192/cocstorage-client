@@ -68,7 +68,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			cursor: 'default'
 		},
 		grid: {
-			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0, 3, 1)
 			},
@@ -85,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			background:
 				theme.palette.type === 'light'
 					? 'linear-gradient(rgb(244, 245, 247) 100%, rgb(255, 255, 255) 35%, rgb(255, 255, 255) 100%)'
-					: theme.palette.background.default
+					: theme.palette.grey['50']
 		},
 		avatar: {
 			width: theme.spacing(7),
@@ -113,7 +112,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: theme.spacing(0.5, 1)
 		},
 		list: {
-			backgroundColor: theme.palette.background.default,
+			backgroundColor: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				borderTop: `1px solid ${theme.palette.grey['50']}`,
 				borderBottom: `1px solid ${theme.palette.grey['50']}`

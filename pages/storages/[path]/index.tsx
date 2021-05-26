@@ -52,14 +52,12 @@ import { getSearchTypeLabelByType } from 'snippets/storageBoard';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				marginBottom: 1
 			}
 		},
 		tabs: {
 			borderBottom: `1px solid ${theme.palette.grey['50']}`,
-			backgroundColor: theme.palette.background.default,
 			'& *': {
 				fontFamily: 'NanumSquareRoundEB'
 			},
@@ -67,11 +65,10 @@ const useStyles = makeStyles((theme: Theme) =>
 				height: 5
 			},
 			[theme.breakpoints.down('md')]: {
-				backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.default
+				backgroundColor: theme.palette.background.paper
 			}
 		},
 		container: {
-			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0)
 			}
@@ -104,7 +101,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		searchBox: {
 			margin: theme.spacing(0, 0, 2),
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				margin: theme.spacing(0, 2, 2)
 			}
@@ -123,6 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				marginBottom: 0,
 				border: 'none',
+				borderTop: `1px solid ${theme.palette.grey['50']}`,
 				borderRadius: 'inherit'
 			}
 		},

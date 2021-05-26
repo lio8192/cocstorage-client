@@ -50,13 +50,12 @@ const useStyles = makeStyles((theme: Theme) =>
 			margin: theme.spacing(2, 0),
 			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4,
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			backgroundColor: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				margin: 0,
 				padding: 0,
 				border: 'none',
-				borderRadius: 'inherit',
-				backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.default
+				borderRadius: 'inherit'
 			}
 		},
 		subjectBox: {
@@ -184,6 +183,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderRadius: 4,
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB'
+		},
+		adBox: {
+			borderBottom: `1px solid ${theme.palette.grey['50']}`
 		}
 	})
 );
@@ -524,17 +526,19 @@ function DetailContent() {
 								</Box>
 							</Box>
 						</Box>
-						<GoogleAdSense
-							html={
-								'<ins class="adsbygoogle"'
-								+ 'style="display:block"'
-								+ 'data-ad-client="ca-pub-5809905264951057"'
-								+ 'data-ad-slot="8033291397"'
-								+ 'data-ad-format="auto"'
-								+ 'data-full-width-responsive="true"></ins>'
-							}
-							color={'default'}
-						/>
+						<Box className={classes.adBox}>
+							<GoogleAdSense
+								html={
+									'<ins class="adsbygoogle"'
+									+ 'style="display:block"'
+									+ 'data-ad-client="ca-pub-5809905264951057"'
+									+ 'data-ad-slot="8033291397"'
+									+ 'data-ad-format="auto"'
+									+ 'data-full-width-responsive="true"></ins>'
+								}
+								color={'default'}
+							/>
+						</Box>
 						<Box className={classes.contentBox}>
 							{sourceCode && (
 								<Box mb={2} textAlign={'right'}>

@@ -12,7 +12,7 @@ import Avatar from '@material-ui/core/Avatar';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper
+			backgroundColor: theme.palette.background.paper
 		},
 		rootBorderRadius: {
 			borderRadius: 4,

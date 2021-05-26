@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
 			marginTop: theme.spacing(3),
-			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				marginTop: theme.spacing(0),
 				padding: theme.spacing(0)
@@ -53,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: theme.spacing(0, '14px'),
 			border: `1px solid ${theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)'}`,
 			borderRadius: 4,
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
+			backgroundColor: theme.palette.background.paper,
 			'& img': {
 				maxWidth: '100%'
 			},
@@ -65,7 +64,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		nicknameTextFieldInput: {
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				borderRadius: 0,
 				'& fieldset': {
@@ -74,7 +72,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		passwordTextFieldInput: {
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				borderRadius: 0,
 				'& fieldset': {
@@ -83,7 +80,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		subjectTextFieldInput: {
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				borderRadius: 0,
 				'& fieldset': {

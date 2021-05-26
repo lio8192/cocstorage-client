@@ -42,7 +42,6 @@ import useStorageBoardDetail from 'hooks/storages/board/detail/useStorageBoardDe
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				padding: 0
 			}
@@ -80,6 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
 				border: 'none',
+				borderTop: `1px solid ${theme.palette.grey['50']}`,
 				borderRadius: 'inherit'
 			}
 		}
@@ -210,6 +210,7 @@ function StorageBoardDetail() {
 									+ 'data-ad-format="auto"'
 									+ 'data-full-width-responsive="true"></ins>'
 								}
+								color={'default'}
 							/>
 						</Box>
 						<DetailCommentList />

@@ -26,8 +26,7 @@ import useNotices from 'hooks/notices/useNotices';
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		container: {
-			paddingTop: theme.spacing(2),
-			paddingBottom: theme.spacing(2),
+			padding: theme.spacing(2, 0),
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(0)
 			}
@@ -52,7 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		adminContainer: {
 			paddingBottom: theme.spacing(1),
-			backgroundColor: theme.palette.background.default,
 			[theme.breakpoints.down('md')]: {
 				paddingTop: theme.spacing(2),
 				paddingBottom: theme.spacing(0)

@@ -19,7 +19,12 @@ const nanumSquareRoundEB = {
 	src: `url(${NanumSquareRoundEB}) format('woff2')`
 };
 
-export const defaultTheme = createMuiTheme();
+export const defaultLightTheme = createMuiTheme();
+export const defaultDarkTheme = createMuiTheme({
+	palette: {
+		type: 'dark'
+	}
+});
 
 // Create a theme instance.
 export const lightTheme = createMuiTheme({
@@ -49,10 +54,14 @@ export const lightTheme = createMuiTheme({
 			'@global': {
 				'@font-face': [nanumSquareRoundR, nanumSquareRoundEB],
 				html: {
-					backgroundColor: defaultTheme.palette.background.default,
 					WebkitFontSmoothing: 'antialiased',
 					MozOsxFontSmoothing: 'antialiased'
 				}
+			}
+		},
+		MuiTextField: {
+			root: {
+				backgroundColor: defaultLightTheme.palette.background.paper
 			}
 		},
 		MuiInput: {
@@ -97,9 +106,14 @@ export const darkTheme = createMuiTheme({
 				}
 			}
 		},
+		MuiTextField: {
+			root: {
+				backgroundColor: defaultDarkTheme.palette.background.paper
+			}
+		},
 		MuiInput: {
 			underline: {
-				backgroundColor: defaultTheme.palette.background.default,
+				backgroundColor: defaultDarkTheme.palette.background.default,
 				'&:hover:not($disabled):before': {
 					borderBottomColor: '#8EC5FC'
 				}

@@ -37,12 +37,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		appBar: {
 			position: 'relative',
-			paddingRight: '0 !important',
-			backgroundColor: theme.palette.background.default
+			paddingRight: '0 !important'
+		},
+		icon: {
+			color: 'white'
 		},
 		title: {
 			flex: 1,
-			marginLeft: theme.spacing(2)
+			marginLeft: theme.spacing(2),
+			color: 'white'
 		},
 		button: {
 			color: 'white',
@@ -56,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		box: {
 			display: 'flex',
+			alignItems: 'center',
 			padding: theme.spacing(3, 0)
 		},
 		typography: {
@@ -109,18 +113,12 @@ function StorageManageDialog() {
 			<AppBar className={classes.appBar}>
 				<Toolbar>
 					<IconButton edge={'start'} color={'inherit'} onClick={onHandleStorageManageDialogOpen}>
-						<CloseIcon />
+						<CloseIcon className={classes.icon} />
 					</IconButton>
 					<Typography variant={'h6'} className={classes.title}>
 						{'새 저장소 등록'}
 					</Typography>
-					<Button
-						className={classes.button}
-						variant={'contained'}
-						color={'primary'}
-						onClick={onPostStorage}
-						disabled={pending}
-					>
+					<Button className={classes.button} onClick={onPostStorage} disabled={pending}>
 						{'등록'}
 					</Button>
 				</Toolbar>
@@ -141,6 +139,7 @@ function StorageManageDialog() {
 						</Box>
 						<Box flex={1} ml={1}>
 							<TextField
+								variant={'outlined'}
 								fullWidth
 								label={'저장소명'}
 								onChange={onHandleStorageManageDialogTextField}

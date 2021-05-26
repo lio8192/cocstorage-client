@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			fontFamily: 'NanumSquareRoundEB'
 		},
 		categoryChip: {
-			color: 'rgba(0, 0, 0, .5)',
+			color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, .5)' : '',
 			backgroundColor: theme.palette.grey['50']
 		},
 		activeCategoryChip: {

@@ -35,8 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginTop: theme.spacing(2),
 			[theme.breakpoints.down('md')]: {
 				marginTop: 0,
-				paddingTop: theme.spacing(2),
-				backgroundColor: theme.palette.background.default
+				paddingTop: theme.spacing(2)
 			}
 		},
 		card: {
@@ -71,6 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
 				border: 'none',
+				borderTop: `1px solid ${theme.palette.grey['50']}`,
 				borderRadius: 'inherit'
 			}
 		},
@@ -82,9 +82,6 @@ const useStyles = makeStyles((theme: Theme) =>
 				margin: 0,
 				padding: theme.spacing(2, 0)
 			}
-		},
-		textField: {
-			backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper
 		},
 		fab: {
 			position: 'fixed',
@@ -173,7 +170,6 @@ function Storages() {
 					</Hidden>
 					<Box className={classes.searchBox}>
 						<TextField
-							className={classes.textField}
 							fullWidth
 							type={'search'}
 							variant={'outlined'}

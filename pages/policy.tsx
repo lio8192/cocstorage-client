@@ -32,8 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			justifyContent: 'flex-end'
 		},
 		contentContainer: {
-			paddingTop: theme.spacing(1),
-			backgroundColor: theme.palette.background.default
+			paddingTop: theme.spacing(1)
 		},
 		typography: {
 			color: 'white',

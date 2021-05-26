@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			background:
 				theme.palette.type === 'light'
 					? 'linear-gradient(rgb(244, 245, 247) 100%, rgb(255, 255, 255) 35%, rgb(255, 255, 255) 100%)'
-					: theme.palette.background.default,
+					: theme.palette.grey['50'],
 			[theme.breakpoints.down('md')]: {
 				padding: 0
 			}
