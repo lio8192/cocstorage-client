@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderRadius: 4,
 			backgroundColor: theme.palette.background.paper,
 			overflow: 'hidden'
+		},
+		textField: {
+			backgroundColor:
+				theme.palette.type === 'light' ? theme.palette.background.default : theme.palette.background.paper
 		}
 	})
 );
@@ -51,6 +55,7 @@ function MyPageMenu() {
 		<>
 			<Box mt={2} mb={2}>
 				<TextField
+					className={classes.textField}
 					fullWidth
 					InputProps={{
 						endAdornment: (

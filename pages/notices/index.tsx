@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: 'white'
 		},
 		moreButton: {
+			height: 46,
 			borderRadius: 0,
 			color: theme.palette.action.active,
 			fontWeight: 700

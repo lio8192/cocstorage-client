@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				width: theme.spacing(9),
 				height: theme.spacing(9),
-				margin: theme.spacing(0, 'auto', -3.5)
+				margin: theme.spacing(0, 'auto', -5)
 			}
 		}
 	})

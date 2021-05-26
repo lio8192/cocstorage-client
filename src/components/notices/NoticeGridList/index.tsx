@@ -212,7 +212,7 @@ function NoticeGridList() {
 					</Box>
 				</Grow>
 			)}
-			{!pending && transferNotices.length !== 0 && (
+			{transferNotices.length !== 0 && (
 				<Grid className={classes.grid} container>
 					{transferNotices.map((item, index) => {
 						if ((index + 1) % 2 === 0) {

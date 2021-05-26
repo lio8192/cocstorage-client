@@ -101,10 +101,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			},
 			'&:hover': {
 				backgroundColor: 'none !important',
-				color: theme.palette.type === 'light' ? 'white' : 'none'
+				color: theme.palette.type === 'light' ? theme.palette.common.white : 'none'
 			},
 			'&.Mui-selected': {
-				backgroundColor: theme.palette.type === 'light' ? 'white' : theme.palette.background.paper,
+				backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
 				color: theme.palette.primary.main
 			},
 			'&.Mui-selected:hover': {
@@ -171,7 +171,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginLeft: theme.spacing(1),
 			fontSize: 16,
 			fontWeight: 700,
-			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : '',
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			textOverflow: 'ellipsis'
 		},
 		commentListItemContent: {
 			fontSize: 14,
@@ -237,7 +240,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginLeft: theme.spacing(1),
 			fontSize: 16,
 			fontWeight: 700,
-			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : '',
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			textOverflow: 'ellipsis'
 		},
 		replyBoxItemContent: {
 			padding: theme.spacing(1, 0, 0, 3),
@@ -263,6 +269,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('sm')]: {
 				left: '-40px !important'
 			}
+		},
+		noWrapBox: {
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			textOverflow: 'ellipsis'
 		}
 	})
 );
@@ -561,14 +572,16 @@ function DetailCommentList() {
 																	{item.nickname}
 																</Box>
 																{item.createdIp && (
-																	<Box component={'span'} ml={0.5}>
+																	<Box className={classes.noWrapBox} component={'span'} ml={0.5}>
 																		{`(${item.createdIp})`}
 																	</Box>
 																)}
 															</>
 														)}
 													</Box>
-													<Box>{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}</Box>
+													<Box className={classes.noWrapBox}>
+														{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+													</Box>
 												</Box>
 											</Grid>
 											<Grid item xs={2}>
@@ -705,14 +718,16 @@ function DetailCommentList() {
 																		{reply.nickname}
 																	</Box>
 																	{reply.createdIp && (
-																		<Box component={'span'} ml={0.5}>
+																		<Box className={classes.noWrapBox} component={'span'} ml={0.5}>
 																			{`(${reply.createdIp})`}
 																		</Box>
 																	)}
 																</>
 															)}
 														</Box>
-														<Box>{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}</Box>
+														<Box className={classes.noWrapBox}>
+															{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+														</Box>
 													</Box>
 												</Grid>
 												<Grid item xs={2}>

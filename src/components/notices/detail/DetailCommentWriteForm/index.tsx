@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginBottom: theme.spacing(2),
 			[theme.breakpoints.down('md')]: {
 				marginBottom: 0,
-				borderRadius: 0,
-				borderLeft: 'none',
-				borderRight: 'none'
+				border: 'none',
+				borderTop: `1px solid ${theme.palette.grey['50']}`,
+				borderRadius: 'inherit'
 			}
 		},
 		grid: {

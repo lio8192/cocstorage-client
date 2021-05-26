@@ -37,12 +37,12 @@ const useStyles = makeStyles((theme: Theme) =>
 			},
 			'& .Mui-selected': {
 				'& .MuiBottomNavigationAction-label': {
-					display: 'none'
+					fontFamily: 'NanumSquareRoundEB'
 				}
 			}
 		},
 		toolbar: {
-			minHeight: 55
+			minHeight: 56
 		}
 	})
 );

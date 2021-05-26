@@ -172,7 +172,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginLeft: theme.spacing(1),
 			fontSize: 16,
 			fontWeight: 700,
-			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : '',
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			textOverflow: 'ellipsis'
 		},
 		commentListItemContent: {
 			fontSize: 14,
@@ -238,7 +241,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginLeft: theme.spacing(1),
 			fontSize: 16,
 			fontWeight: 700,
-			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : '',
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			textOverflow: 'ellipsis'
 		},
 		replyBoxItemContent: {
 			padding: theme.spacing(1, 0, 0, 3),
@@ -264,6 +270,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('sm')]: {
 				left: '-40px !important'
 			}
+		},
+		noWrapBox: {
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			textOverflow: 'ellipsis'
 		}
 	})
 );
@@ -561,13 +572,15 @@ function DetailCommentList() {
 																<Box className={classes.commentListItemWriterNickname} component={'span'}>
 																	{item.nickname}
 																</Box>
-																<Box component={'span'} ml={0.5}>
+																<Box className={classes.noWrapBox} component={'span'} ml={0.5}>
 																	{`(${item.createdIp})`}
 																</Box>
 															</>
 														)}
 													</Box>
-													<Box>{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}</Box>
+													<Box className={classes.noWrapBox}>
+														{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+													</Box>
 												</Box>
 											</Grid>
 											<Grid item xs={2}>
@@ -703,13 +716,15 @@ function DetailCommentList() {
 																	<Box className={classes.commentListItemWriterNickname} component={'span'}>
 																		{reply.nickname}
 																	</Box>
-																	<Box component={'span'} ml={0.5}>
+																	<Box className={classes.noWrapBox} component={'span'} ml={0.5}>
 																		{`(${reply.createdIp})`}
 																	</Box>
 																</>
 															)}
 														</Box>
-														<Box>{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}</Box>
+														<Box className={classes.noWrapBox}>
+															{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+														</Box>
 													</Box>
 												</Grid>
 												<Grid item xs={2}>
