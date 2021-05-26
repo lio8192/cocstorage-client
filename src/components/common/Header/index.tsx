@@ -102,6 +102,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		avatar: {
 			width: theme.spacing(4),
 			height: theme.spacing(4)
+		},
+		chipAvatar: {
+			backgroundColor: `${theme.palette.background.default} !important`
 		}
 	})
 );
@@ -360,7 +363,7 @@ function Header() {
 													className={classes.chip}
 													label={storage.name}
 													avatar={(
-														<Avatar src={storage.avatarUrl || ''}>
+														<Avatar className={classes.chipAvatar} src={storage.avatarUrl || ''}>
 															<InsertPhotoIcon className={classes.icon} />
 														</Avatar>
 													)}

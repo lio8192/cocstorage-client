@@ -85,6 +85,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		popper: {
 			left: '-20px !important',
 			zIndex: 10
+		},
+		chipAvatar: {
+			backgroundColor: `${theme.palette.background.default} !important`
 		}
 	})
 );
@@ -186,7 +189,7 @@ function MobileHeader() {
 											className={classes.chip}
 											label={storage.name}
 											avatar={(
-												<Avatar src={storage.avatarUrl || ''}>
+												<Avatar className={classes.chipAvatar} src={storage.avatarUrl || ''}>
 													<InsertPhotoIcon className={classes.icon} />
 												</Avatar>
 											)}
