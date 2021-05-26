@@ -100,6 +100,16 @@ const useStyles = makeStyles((theme: Theme) =>
 			borderRadius: 4,
 			cursor: 'pointer'
 		},
+		largeChip: {
+			color: 'white',
+			fontSize: 18,
+			fontFamily: 'NanumSquareRoundEB',
+			borderRadius: 4,
+			cursor: 'pointer',
+			'& span': {
+				paddingTop: theme.spacing(0.5)
+			}
+		},
 		infoBox: {
 			display: 'flex',
 			alignItems: 'center',
@@ -338,12 +348,7 @@ function HomeNoticeGridList() {
 																</Box>
 																{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
 																	<Box ml={1}>
-																		<Chip
-																			className={classes.chip}
-																			label={'N'}
-																			color={'primary'}
-																			size={isMobile ? 'small' : 'medium'}
-																		/>
+																		<Chip className={classes.largeChip} label={'N'} color={'primary'} size={'medium'} />
 																	</Box>
 																)}
 															</Box>
