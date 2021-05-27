@@ -726,7 +726,7 @@ function DetailCommentList() {
 															)}
 														</Box>
 														<Box className={classes.noWrapBox}>
-															{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+															{moment(reply.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 														</Box>
 													</Box>
 												</Grid>
