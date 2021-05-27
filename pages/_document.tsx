@@ -22,6 +22,24 @@ export default class CustomDocument extends Document {
 								+ '  gtag(\'config\', \'G-20GMQTM36F\');'
 						}}
 					/>
+					<script async src={'https://www.googletagmanager.com/gtag/js?id=AW-468039660'} />
+					<script
+						/* eslint-disable-next-line react/no-danger */
+						dangerouslySetInnerHTML={{
+							__html:
+								'  window.dataLayer = window.dataLayer || [];\n'
+								+ '  function gtag(){dataLayer.push(arguments);}\n'
+								+ '  gtag(\'js\', new Date());\n'
+								+ '\n'
+								+ '  gtag(\'config\', \'AW-468039660\');'
+						}}
+					/>
+					<script
+						/* eslint-disable-next-line react/no-danger */
+						dangerouslySetInnerHTML={{
+							__html: 'gtag(\'event\', \'conversion\', {\'send_to\': \'AW-468039660/XCKkCKfk3acCEOzvlt8B\'});'
+						}}
+					/>
 				</Head>
 				<body>
 					<Main />
