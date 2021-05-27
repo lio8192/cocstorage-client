@@ -97,6 +97,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			height: theme.spacing(7),
 			marginTop: theme.spacing(-5)
 		},
+		listAvatar: {
+			backgroundColor: theme.palette.background.default
+		},
 		typography: {
 			fontWeight: 700
 		},
@@ -267,7 +270,7 @@ function HomeStorageGridList() {
 							<a className={classes.anchor}>
 								<ListItem className={classes.listItem} button>
 									<Box display={'flex'} alignItems={'center'} minWidth={0} width={'100%'}>
-										<Avatar src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
+										<Avatar className={classes.listAvatar} src={item.avatarUrl || ''} alt={'Storage Avatar Img'}>
 											<InsertPhotoIcon />
 										</Avatar>
 										<Box minWidth={0} width={'100%'} ml={1}>
