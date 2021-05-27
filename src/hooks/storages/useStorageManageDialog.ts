@@ -155,7 +155,7 @@ export default function useStorageManageDialog() {
 		const nameRegExp = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9\-]{2,10}$/;
 		const onlyNumberRegExp = /^[0-9]*$/;
 		const pathRegExp = /[a-zA-Z0-9]{3,20}/;
-		const specialCharRegExp = '[!/@\\#$%^&*(),.?\\":{}|<>]';
+		const specialCharRegExp = '[!/@\\#$%^&*(),.?\\":{}|<> ]';
 
 		if (
 			!new RegExp(nameRegExp).test(name.value)
