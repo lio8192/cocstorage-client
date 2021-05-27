@@ -80,7 +80,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		avatar: {
 			width: theme.spacing(3),
-			height: theme.spacing(3)
+			height: theme.spacing(3),
+			[theme.breakpoints.down('md')]: {
+				fontSize: 14
+			}
 		},
 		popper: {
 			left: '-20px !important',
