@@ -14,6 +14,8 @@ import {
 	deleteNonMemberStorageBoardDetailReply
 } from 'modules/storages/board/detail';
 import { RootState } from 'modules';
+import { fetchStorageBoards } from 'modules/storages/board';
+import { ParsedUrlQuery } from 'querystring';
 
 export type DeleteAuthDialogBody = {
 	password: string;
@@ -23,6 +25,7 @@ export type DeleteAuthDialogBody = {
 
 export default function useStorageBoardDetail() {
 	const dispatch = useDispatch();
+	const storageBoardState = useSelector((state: RootState) => state.storageBoard);
 	const storageBoardDetailState = useSelector((state: RootState) => state.storageBoardDetail);
 
 	const [deleteAuthDialogBody, setDeleteAuthDialogBody] = useState<DeleteAuthDialogBody>({
@@ -73,6 +76,24 @@ export default function useStorageBoardDetail() {
 		storageBoardDetailState.detail.commentLatestPage,
 		storageBoardDetailState.comments.fetchParams.per
 	]);
+
+	const onFetchStorageBoards = useCallback(
+		(query: ParsedUrlQuery) => {
+			dispatch(
+				fetchStorageBoards({
+					...storageBoardState.fetchParams,
+					orderBy: String(query.orderBy || 'latest'),
+					page: Number(query.page || 1),
+					search: {
+						type: String(query.type || 'all'),
+						value: String(query.value || '')
+					},
+					path: String(query.path)
+				})
+			);
+		},
+		[dispatch, storageBoardState.fetchParams]
+	);
 
 	const onHandleStorageBoardDetailCommentsPagination = useCallback(
 		(event: React.ChangeEvent<unknown>, value: number) => {
@@ -224,6 +245,7 @@ export default function useStorageBoardDetail() {
 		onCloseStorageBoardDetailRecommendSnackbar,
 		onCloseStorageBoardDetailRecommendErrorSnackbar,
 		onFetchStorageBoardDetailComments,
+		onFetchStorageBoards,
 		onHandleStorageBoardDetailCommentsPagination,
 		onHandleDeleteAuthDialog,
 		onShowDeleteAuthDialogPassword,

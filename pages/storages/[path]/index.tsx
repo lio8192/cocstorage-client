@@ -47,6 +47,7 @@ import useStorageBoard from 'hooks/storages/board/useStorageBoard';
 import GoogleAdSense from 'components/common/GoogleAdSense';
 
 // Snippets
+import { getParams } from 'snippets/common';
 import { getSearchTypeLabelByType } from 'snippets/storageBoard';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -139,6 +140,7 @@ function StorageBoard() {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const {
+		query,
 		pending,
 		storage,
 		pagination,
@@ -263,7 +265,7 @@ function StorageBoard() {
 						</Tabs>
 					</Container>
 					<Container className={classes.container}>
-						<BoardList />
+						<BoardList params={getParams(query)} />
 						<Hidden mdDown>
 							<Box className={classes.buttonBox}>
 								<Link href={'/storages/[path]/write'} as={`/storages/${storage.path}/write`}>

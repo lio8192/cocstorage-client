@@ -101,9 +101,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			whiteSpace: 'nowrap',
 			textOverflow: 'ellipsis',
 			marginTop: theme.spacing(0.5),
-			'& > span:first-child': {
-				fontWeight: 700
-			},
 			'& > span::after': {
 				content: '""',
 				display: 'inline-block',

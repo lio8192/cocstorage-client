@@ -139,7 +139,12 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-function BoardList() {
+type BoardListPros = {
+	params?: { [key: string]: string } | string;
+	adOpen?: boolean;
+};
+
+function BoardList({ params, adOpen = true }: BoardListPros) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -199,7 +204,7 @@ function BoardList() {
 				&& boards.map((item, index) => (
 					<Grow key={`storage-board-${item.id}`} in>
 						<Box className={classes.box}>
-							<Link href={'/storages/[path]/[id]'} as={`/storages/${path}/${item.id}`}>
+							<Link href={`/storages/[path]/[id]${params}`} as={`/storages/${path}/${item.id}${params}`}>
 								<a>
 									<ListItem key={`storage-boards-${item.id}`} className={classes.listItem} button>
 										<Box className={classes.listItemBox}>
@@ -258,7 +263,7 @@ function BoardList() {
 															<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />
 														</Box>
 														<Box component={'span'} ml={0.5}>
-															<Typography variant={'caption'}>{item.thumbUp}</Typography>
+															<Typography variant={'caption'}>{item.thumbUp.toLocaleString()}</Typography>
 														</Box>
 													</Box>
 													<Box component={'span'}>
@@ -266,7 +271,7 @@ function BoardList() {
 															<VisibilityIcon className={classes.icon} color={'action'} fontSize={'small'} />
 														</Box>
 														<Box component={'span'} ml={0.5}>
-															<Typography variant={'caption'}>{item.viewCount}</Typography>
+															<Typography variant={'caption'}>{item.viewCount.toLocaleString()}</Typography>
 														</Box>
 													</Box>
 												</Box>
@@ -276,7 +281,7 @@ function BoardList() {
 								</a>
 							</Link>
 							{isMobile && index + 1 === boards.length && <Divider className={classes.divider} />}
-							{isMobile && index + 1 === 5 && (
+							{adOpen && isMobile && index + 1 === 5 && (
 								<>
 									<ListItem className={classes.listItemAd}>
 										<GoogleAdSense

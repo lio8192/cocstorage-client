@@ -1,5 +1,6 @@
 import Jwt from 'jsonwebtoken';
 import { User } from 'modules/common';
+import { ParsedUrlQuery } from 'querystring';
 
 export function getErrorMessageByCode(code: string): string {
 	let errorMessage = `CODE: ${code || 'NONE'}\n알 수 없는 오류입니다.`;
@@ -126,3 +127,26 @@ export const setPaletteType = (): string => {
 
 	return paletteType;
 };
+
+export function getParams(query: ParsedUrlQuery) {
+	const allowKeys = ['page', 'type', 'orderBy', 'value'];
+
+	let boardDetailParams: ParsedUrlQuery = {};
+
+	Object.keys(query).forEach((key) => {
+		if (allowKeys.includes(key)) {
+			boardDetailParams = {
+				...boardDetailParams,
+				[key]: query[key]
+			};
+		}
+	});
+
+	if (boardDetailParams) {
+		return Object.keys(boardDetailParams)
+			.map((key, index) => (index === 0 ? `?${key}=${boardDetailParams[key]}` : `${key}=${boardDetailParams[key]}`))
+			.join('&');
+	}
+
+	return '';
+}

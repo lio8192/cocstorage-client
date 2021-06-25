@@ -1,14 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Head from 'next/head';
 import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
+import { NextPageContext } from 'next';
 
 // Material UI
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import Popper from '@material-ui/core/Popper';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import MenuList from '@material-ui/core/MenuList';
+import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -21,6 +34,7 @@ import { TransitionProps } from '@material-ui/core/transitions';
 
 // Material UI Icons
 import ThumbsUpDownIcon from '@material-ui/icons/ThumbsUpDown';
+import SearchIcon from '@material-ui/icons/Search';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -36,9 +50,15 @@ import DetailCommentList from 'components/storages/board/detail/DetailCommentLis
 import DetailCommentWriteForm from 'components/storages/board/detail/DetailCommentWriteForm';
 import PasswordAuthDialog from 'components/common/PasswordAuthDialog';
 import GoogleAdSense from 'components/common/GoogleAdSense';
+import BoardList from 'components/storages/board/BoardList';
 
 // Custom Hooks
 import useStorageBoardDetail from 'hooks/storages/board/detail/useStorageBoardDetail';
+import useStorageBoard from 'hooks/storages/board/useStorageBoard';
+
+// Snippets
+import { getParams } from 'snippets/common';
+import { getSearchTypeLabelByType } from 'snippets/storageBoard';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -83,6 +103,36 @@ const useStyles = makeStyles((theme: Theme) =>
 				borderTop: `1px solid ${theme.palette.grey['50']}`,
 				borderRadius: 'inherit'
 			}
+		},
+		boardListBox: {
+			margin: theme.spacing(2, 0),
+			[theme.breakpoints.down('md')]: {
+				margin: 0
+			}
+		},
+		tabs: {
+			borderBottom: `1px solid ${theme.palette.grey['50']}`,
+			'& *': {
+				fontFamily: 'NanumSquareRoundEB'
+			},
+			'& .MuiTabs-indicator': {
+				height: 5
+			},
+			[theme.breakpoints.down('md')]: {
+				backgroundColor: theme.palette.background.paper
+			}
+		},
+		searchBox: {
+			margin: theme.spacing(0, 0, 2),
+			[theme.breakpoints.down('md')]: {
+				margin: theme.spacing(0, 2, 2)
+			}
+		},
+		searchBoxInputBase: {
+			padding: 0
+		},
+		popper: {
+			zIndex: 10
 		}
 	})
 );
@@ -91,7 +141,7 @@ function SlideTransition(props: TransitionProps) {
 	return <Slide {...props} direction={'up'} />;
 }
 
-function StorageBoardDetail() {
+function StorageBoardDetail({ query }: NextPageContext) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -126,18 +176,72 @@ function StorageBoardDetail() {
 		onCloseStorageBoardDetailRecommendSnackbar,
 		onCloseStorageBoardDetailRecommendErrorSnackbar,
 		onFetchStorageBoardDetailComments,
+		onFetchStorageBoards,
 		onHandleStorageBoardDetailCommentsPagination,
 		onHandleDeleteAuthDialog,
 		onHandleDeleteAuthDialogTextField,
 		onDeleteNonMemberStorageBoardDetail
 	} = useStorageBoardDetail();
+	const {
+		orderType,
+		pagination: storageBoardPagination,
+		searchType,
+		searchValue,
+		open: storageBoardOpen,
+		setOpen,
+		onChangeOrderBy,
+		onHandlePagination,
+		onClickSearchType,
+		onClickStorageBoardsSearchButton,
+		onChangeStorageBoardSearchTextField
+	} = useStorageBoard();
+
+	const anchorRef = React.useRef<HTMLButtonElement>(null);
+
+	const handleToggle = () => {
+		setOpen((prevOpen) => !prevOpen);
+	};
+
+	const handleClose = (event: React.MouseEvent<EventTarget>) => {
+		if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+			return;
+		}
+
+		setOpen(false);
+	};
+
+	function handleListKeyDown(event: React.KeyboardEvent) {
+		if (event.key === 'Tab') {
+			event.preventDefault();
+			setOpen(false);
+		}
+	}
+
+	// return focus to the button when we transitioned from !open -> open
+	const prevOpen = useRef(open);
+	useEffect(() => {
+		if (prevOpen.current && !open) {
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			anchorRef.current!.focus();
+		}
+
+		prevOpen.current = open;
+	}, [open]);
 
 	useEffect(() => {
 		if (storageId !== 0 && storageBoardId !== 0) {
 			onPutStorageBoardDetailViewCount();
 			onFetchStorageBoardDetailComments();
+			onFetchStorageBoards(query);
 		}
-	}, [storageId, storageBoardId, onPutStorageBoardDetailViewCount, onFetchStorageBoardDetailComments]);
+	}, [
+		storageId,
+		storageBoardId,
+		onPutStorageBoardDetailViewCount,
+		onFetchStorageBoardDetailComments,
+		onFetchStorageBoards,
+		query
+	]);
 
 	return (
 		<>
@@ -248,6 +352,110 @@ function StorageBoardDetail() {
 						)}
 						<Hidden mdDown>{!pending && pagination.totalPages === 0 && <Box mt={2} mb={2} />}</Hidden>
 						<DetailCommentWriteForm />
+						<Box className={classes.adBox}>
+							<GoogleAdSense
+								html={
+									'<ins class="adsbygoogle"'
+									+ 'style="display:block"'
+									+ 'data-ad-client="ca-pub-5809905264951057"'
+									+ 'data-ad-slot="8033291397"'
+									+ 'data-ad-format="auto"'
+									+ 'data-full-width-responsive="true"></ins>'
+								}
+								color={'default'}
+							/>
+						</Box>
+						<Box className={classes.boardListBox}>
+							<Tabs
+								className={classes.tabs}
+								value={orderType}
+								indicatorColor={'primary'}
+								textColor={'primary'}
+								onChange={onChangeOrderBy}
+							>
+								<Tab label={'최신 개념글'} value={'latest'} disabled={pending} />
+								<Tab label={'인기 개념글'} value={'popular'} disabled={pending} />
+							</Tabs>
+							<BoardList params={getParams(query)} adOpen={false} />
+							{storageBoardPagination.totalPages > 0 ? (
+								<Pagination
+									className={classes.pagination}
+									page={storageBoardPagination.currentPage}
+									count={storageBoardPagination.totalPages || 0}
+									color={'primary'}
+									shape={'rounded'}
+									onChange={onHandlePagination}
+									size={isMobile ? 'small' : 'medium'}
+									siblingCount={isMobile ? 1 : 2}
+									disabled={pending}
+								/>
+							) : (
+								<Box className={classes.pagination} />
+							)}
+							<Box className={classes.searchBox}>
+								<TextField
+									fullWidth
+									variant={'outlined'}
+									placeholder={'검색할 단어를 입력해주세요.'}
+									InputProps={{
+										className: classes.searchBoxInputBase,
+										startAdornment: (
+											<InputAdornment position={'end'}>
+												<Box component={'span'} mr={1}>
+													<Button ref={anchorRef} variant={'outlined'} onClick={handleToggle}>
+														{getSearchTypeLabelByType(searchType)}
+													</Button>
+												</Box>
+												<Popper
+													className={classes.popper}
+													open={storageBoardOpen}
+													anchorEl={anchorRef.current}
+													role={undefined}
+													transition
+													disablePortal
+												>
+													{({ TransitionProps: PopperTransitionProps, placement }) => (
+														<Grow
+															{...PopperTransitionProps}
+															style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+														>
+															<Paper>
+																<ClickAwayListener onClickAway={handleClose}>
+																	<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
+																		<MenuItem data-search-type={'all'} onClick={onClickSearchType}>
+																			{'전체'}
+																		</MenuItem>
+																		<MenuItem data-search-type={'nickname'} onClick={onClickSearchType}>
+																			{'닉네임'}
+																		</MenuItem>
+																		<MenuItem data-search-type={'subject'} onClick={onClickSearchType}>
+																			{'제목'}
+																		</MenuItem>
+																		<MenuItem data-search-type={'content'} onClick={onClickSearchType}>
+																			{'내용'}
+																		</MenuItem>
+																	</MenuList>
+																</ClickAwayListener>
+															</Paper>
+														</Grow>
+													)}
+												</Popper>
+											</InputAdornment>
+										),
+										endAdornment: (
+											<InputAdornment position={'start'}>
+												<IconButton onClick={onClickStorageBoardsSearchButton}>
+													<SearchIcon color={'action'} />
+												</IconButton>
+											</InputAdornment>
+										)
+									}}
+									onChange={onChangeStorageBoardSearchTextField}
+									value={searchValue}
+									disabled={pending}
+								/>
+							</Box>
+						</Box>
 					</Grid>
 				</Grid>
 			</Container>
@@ -296,7 +504,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, que
 	await (store as any).sagaTask.toPromise();
 
 	return {
-		props: {}
+		props: {
+			query
+		}
 	};
 });
 

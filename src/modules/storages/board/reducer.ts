@@ -139,7 +139,7 @@ const storageBoard = createReducer<StorageBoardState, StorageBoardActions>(initi
 		fetchParams: {
 			storageId: 0,
 			orderBy: 'latest',
-			per: 10,
+			per: 20,
 			page: 1
 		},
 		fetchSearchParams: {

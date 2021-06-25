@@ -71,7 +71,7 @@ export const lightTheme = createMuiTheme({
 				}
 			}
 		},
-		MuiButtonBase: {
+		MuiButton: {
 			root: {
 				boxShadow: 'none !important'
 			}
@@ -124,7 +124,7 @@ export const darkTheme = createMuiTheme({
 				}
 			}
 		},
-		MuiButtonBase: {
+		MuiButton: {
 			root: {
 				boxShadow: 'none !important'
 			}

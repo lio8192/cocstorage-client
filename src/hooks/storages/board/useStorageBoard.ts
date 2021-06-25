@@ -144,6 +144,7 @@ export default function useStorageBoard() {
 
 	return {
 		...storageBoardState,
+		query: router.query,
 		open,
 		orderType,
 		searchType,
