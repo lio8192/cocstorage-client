@@ -177,7 +177,7 @@ const noticeDetail = createReducer<NoticeDetailState, NoticeDetailActions>(initi
 	}),
 	[FETCH_NOTICE_DETAIL_FAILED]: (state) => ({
 		...state,
-		pending: false
+		pending: true
 	}),
 	[PUT_NOTICE_DETAIL_VIEW_COUNT]: (state) => state,
 	[PUT_NOTICE_DETAIL_VIEW_COUNT_SUCCEEDED]: (state, { payload: data }) => ({
