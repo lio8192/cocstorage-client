@@ -70,6 +70,11 @@ export const lightTheme = createMuiTheme({
 					borderBottomColor: '#8EC5FC'
 				}
 			}
+		},
+		MuiButtonBase: {
+			root: {
+				boxShadow: 'none !important'
+			}
 		}
 	}
 });
@@ -117,6 +122,11 @@ export const darkTheme = createMuiTheme({
 				'&:hover:not($disabled):before': {
 					borderBottomColor: '#8EC5FC'
 				}
+			}
+		},
+		MuiButtonBase: {
+			root: {
+				boxShadow: 'none !important'
 			}
 		}
 	}
