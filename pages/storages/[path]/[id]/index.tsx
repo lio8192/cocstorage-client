@@ -197,7 +197,7 @@ function StorageBoardDetail() {
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
-			<Container className={classes.root} maxWidth={isMobile ? 'md' : 'lg'}>
+			<Container className={classes.root}>
 				<Grid container>
 					<Grid item xs={12} sm={12} md={12} lg={12}>
 						<DetailContent />

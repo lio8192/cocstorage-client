@@ -122,7 +122,7 @@ function NoticeDetail() {
 				<link rel={'apple-touch-icon'} href={'https://static.cocstorage.com/images/icon.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 			</Head>
-			<Container className={classes.root} maxWidth={isMobile ? 'md' : 'lg'}>
+			<Container className={classes.root}>
 				<Grid container>
 					<Grid item xs={12}>
 						<DetailContent />
