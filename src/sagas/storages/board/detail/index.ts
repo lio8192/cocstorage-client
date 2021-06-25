@@ -76,7 +76,7 @@ function* watchFetchStorageDetailAndStorageBoardDetail(
 		yield put(fetchStorageDetailAndStorageBoardDetailSucceeded(detailResponse.data));
 	} catch (error) {
 		yield put(fetchStorageDetailAndStorageBoardDetailFailed());
-		if (error.response.status === 404) {
+		if (error.response.data.code === 'COC006') {
 			yield put(
 				handleNotificationModal({
 					open: true,
@@ -109,7 +109,7 @@ function* watchFetchStorageBoardDetail(action: ActionType<typeof fetchStorageBoa
 		yield put(fetchStorageBoardDetailSucceeded(response.data));
 	} catch (error) {
 		yield put(fetchStorageBoardDetailFailed());
-		if (error.response.status === 404) {
+		if (error.response.data.code === 'COC006') {
 			yield put(
 				handleNotificationModal({
 					open: true,

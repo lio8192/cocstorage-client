@@ -56,7 +56,7 @@ function* watchFetchNoticeDetail(action: ActionType<typeof fetchNoticeDetail>) {
 		yield put(fetchNoticeDetailSucceeded(response.data));
 	} catch (error) {
 		yield put(fetchNoticeDetailFailed());
-		if (error.response.status === 404) {
+		if (error.response.data.code === 'COC006') {
 			yield put(
 				handleNotificationModal({
 					open: true,
