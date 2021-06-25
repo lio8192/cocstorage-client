@@ -214,7 +214,7 @@ function Header() {
 											</a>
 										</Link>
 									</Box>
-									<Box component={'span'} ml={2}>
+									<Box component={'span'} ml={1}>
 										<Link href={'/storages'} as={'/storages'}>
 											<a className={classes.anchor}>
 												<Chip
