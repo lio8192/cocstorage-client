@@ -29,11 +29,11 @@ const initialState: NoticesState = {
 		currentPage: 1,
 		prevPage: null,
 		nextPage: null,
-		perPage: 20,
+		perPage: 12,
 		isLastPage: true
 	},
 	fetchParams: {
-		per: 8,
+		per: 12,
 		page: 1,
 		orderBy: 'latest'
 	},

@@ -23,7 +23,7 @@ export default function useNotices() {
 		() =>
 			dispatch(
 				fetchFirstNotices({
-					per: 8,
+					per: 12,
 					page: 1,
 					orderBy: 'latest'
 				})
