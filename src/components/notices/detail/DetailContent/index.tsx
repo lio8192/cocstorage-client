@@ -90,14 +90,11 @@ const useStyles = makeStyles((theme: Theme) =>
 		otherInfoBox: {
 			display: 'flex',
 			alignItems: 'center',
-			padding: theme.spacing(2),
+			padding: theme.spacing(2, 1),
 			border: '1px solid',
 			borderColor: theme.palette.grey['50'],
 			borderLeft: 'none',
-			borderRight: 'none',
-			[theme.breakpoints.down('xs')]: {
-				padding: theme.spacing(2, 1)
-			}
+			borderRight: 'none'
 		},
 		otherInfoSkeletonBox: {
 			display: 'flex',

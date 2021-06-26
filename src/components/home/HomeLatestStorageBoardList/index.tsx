@@ -69,6 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		listItem: {
 			flexWrap: 'wrap',
+			maxHeight: 68,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 3)
 			},
