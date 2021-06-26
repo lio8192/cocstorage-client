@@ -11,6 +11,9 @@ export type PostStorageFormData = {
 		error: boolean;
 		helperText: string;
 	};
+	category: {
+		value: number;
+	};
 	description: {
 		value: string;
 		error: boolean;
@@ -42,6 +45,9 @@ export default function useStorageManageDialog() {
 			value: '',
 			error: false,
 			helperText: ''
+		},
+		category: {
+			value: 3
 		},
 		description: {
 			value: '',
@@ -83,6 +89,17 @@ export default function useStorageManageDialog() {
 		[postStorageFormData]
 	);
 
+	const onHandleStorageManageDialogSelect = useCallback(
+		(event: React.ChangeEvent<{ value: unknown }>) =>
+			setPostStorageFormData({
+				...postStorageFormData,
+				category: {
+					value: event.target.value as number
+				}
+			}),
+		[postStorageFormData]
+	);
+
 	const onHandleStorageManageDialogCheckBox = useCallback(
 		() =>
 			setPostStorageFormData({
@@ -121,7 +138,7 @@ export default function useStorageManageDialog() {
 
 	const onPostStorage = useCallback(() => {
 		const {
-			name, description, path, avatar, policy
+			name, category, description, path, avatar, policy
 		} = postStorageFormData;
 
 		// Initialize PostStorageBody
@@ -130,6 +147,9 @@ export default function useStorageManageDialog() {
 				...postStorageFormData.name,
 				error: false,
 				helperText: ''
+			},
+			category: {
+				value: postStorageFormData.category.value
 			},
 			description: {
 				...postStorageFormData.description,
@@ -216,6 +236,7 @@ export default function useStorageManageDialog() {
 		dispatch(
 			postStorage({
 				name: name.value,
+				categoryId: category.value,
 				description: description.value,
 				path: path.value,
 				avatar: avatar.value
@@ -231,6 +252,9 @@ export default function useStorageManageDialog() {
 					value: '',
 					error: false,
 					helperText: ''
+				},
+				category: {
+					value: 3
 				},
 				description: {
 					value: '',
@@ -260,6 +284,7 @@ export default function useStorageManageDialog() {
 		postStorageFormData,
 		onHandleStorageManageDialogOpen,
 		onHandleStorageManageDialogTextField,
+		onHandleStorageManageDialogSelect,
 		onHandleStorageManageDialogCheckBox,
 		onChangeAvatarFile,
 		onPostStorage

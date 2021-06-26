@@ -21,8 +21,16 @@ import Card from '@material-ui/core/Card';
 
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
-import ArchiveIcon from '@material-ui/icons/Archive';
 import InfoIcon from '@material-ui/icons/Info';
+import ArchiveIcon from '@material-ui/icons/Archive';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import FaceIcon from '@material-ui/icons/Face';
+import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
+import SportsIcon from '@material-ui/icons/Sports';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import SchoolIcon from '@material-ui/icons/School';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 // Components
@@ -146,9 +154,68 @@ const useStyles = makeStyles((theme: Theme) =>
 		infoIcon: {
 			color: theme.palette.warning.main,
 			verticalAlign: 'middle'
+		},
+		iconBox: {
+			marginRight: theme.spacing(1),
+			'& svg': {
+				verticalAlign: 'middle'
+			}
 		}
 	})
 );
+
+const categories = [
+	{
+		id: 1,
+		name: '수집',
+		icon: <ArchiveIcon color={'action'} />
+	},
+	{
+		id: 3,
+		name: '게임',
+		icon: <SportsEsportsIcon color={'action'} />
+	},
+	{
+		id: 4,
+		name: '연예',
+		icon: <FaceIcon color={'action'} />
+	},
+	{
+		id: 5,
+		name: '문화',
+		icon: <EmojiEmotionsIcon color={'action'} />
+	},
+	{
+		id: 6,
+		name: '스포츠',
+		icon: <SportsIcon color={'action'} />
+	},
+	{
+		id: 7,
+		name: '생활',
+		icon: <EmojiPeopleIcon color={'action'} />
+	},
+	{
+		id: 8,
+		name: '금융/재테크',
+		icon: <AccountBalanceIcon color={'action'} />
+	},
+	{
+		id: 9,
+		name: '대학',
+		icon: <SchoolIcon color={'action'} />
+	},
+	{
+		id: 10,
+		name: '애니',
+		icon: <ImportContactsIcon color={'action'} />
+	},
+	{
+		id: 2,
+		name: '일반',
+		icon: <LibraryBooksIcon color={'action'} />
+	}
+];
 
 function StorageGridList() {
 	const classes = useStyles();
@@ -173,149 +240,100 @@ function StorageGridList() {
 			)}
 			{!pending && (
 				<>
-					<Box className={classes.box}>
-						<Box component={'span'} mr={1}>
-							<ArchiveIcon className={classes.icon} color={'action'} />
-						</Box>
-						<Typography className={classes.typography} variant={'body1'} component={'span'}>
-							{'수집'}
-						</Typography>
-						<Box component={'span'} ml={0.5}>
-							<ClickAwayListener onClickAway={handleTooltip}>
-								<>
-									<Tooltip
-										title={
-											'수집 카테고리에 소속되어 있는 아래의 저장소 내에 포함된 모든 게시글 및 댓글/답글들은 개념글 저장소의 유저가 작성하는 것이 아닌, 다수의 커뮤니티 사이트 내의 인기 게시글들이며 출처를 포함하고 있습니다. 누군가에게 문제가 될 수 있는 게시글은 모니터링 중인 관리자가 발견하거나 신고를 받게되면 곧 바로 삭제 처리됩니다.'
-										}
-										PopperProps={{
-											disablePortal: true
-										}}
-										onClose={handleTooltip}
-										open={open}
-										disableFocusListener
-										disableHoverListener
-										disableTouchListener
-										arrow
-									>
-										<IconButton size={'small'} onClick={handleTooltip}>
-											<InfoIcon className={classes.infoIcon} />
-										</IconButton>
-									</Tooltip>
-								</>
-							</ClickAwayListener>
-						</Box>
-					</Box>
-					{!name && storages.filter((item) => item.storageCategoryId === 1).length === 0 && (
-						<Box className={classes.emptyBox}>
-							<DataEmptyBox message={'등록된 저장소가 존재하지 않아요.'} borderRadius={4} />
-						</Box>
-					)}
-					{name && storages.filter((item) => item.storageCategoryId === 1).length === 0 && (
-						<Box className={classes.emptyBox}>
-							<DataEmptyBox message={`"${name}" 에 대한 검색 결과가 존재하지 않아요.`} borderRadius={4} />
-						</Box>
-					)}
-					<Grid className={classes.grid} container spacing={1}>
-						{storages
-							.filter((item) => item.storageCategoryId === 1)
-							.map((item) => (
-								<Grow key={`storage-${item.id}`} in>
-									<Grid item xs={4} sm={2}>
-										<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
-											<a className={classes.anchor}>
-												<Card className={classes.card} elevation={0}>
-													<CardActionArea>
-														<CardContent className={classes.cardContentHead} />
-														<CardContent>
-															<Badge
-																className={classes.badge}
-																badgeContent={
-																	<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
-																}
-																invisible={moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') > 7}
-															>
-																<Avatar
-																	className={classes.avatar}
-																	src={item.avatarUrl || ''}
-																	alt={'Storage Avatar Img'}
-																>
-																	<InsertPhotoIcon />
-																</Avatar>
-															</Badge>
-															<Box mt={1}>
-																<Typography className={classes.cardContentTypography} noWrap>
-																	{item.name}
-																</Typography>
-															</Box>
-														</CardContent>
-													</CardActionArea>
-												</Card>
-											</a>
-										</Link>
-									</Grid>
-								</Grow>
-							))}
-					</Grid>
-					<Box mt={1} />
-					<Box className={classes.box}>
-						<Box component={'span'} mr={1}>
-							<LibraryBooksIcon className={classes.icon} color={'action'} />
-						</Box>
-						<Typography className={classes.typography} variant={'body1'} component={'span'}>
-							{'일반'}
-						</Typography>
-					</Box>
-					{!name && storages.filter((item) => item.storageCategoryId === 2).length === 0 && (
-						<Box className={classes.emptyBox}>
-							<DataEmptyBox message={'첫 저장소 등록의 주인공이 되어 보세요!'} borderRadius={4} />
-						</Box>
-					)}
-					{name && storages.filter((item) => item.storageCategoryId === 2).length === 0 && (
-						<Box className={classes.emptyBox}>
-							<DataEmptyBox message={`"${name}" 에 대한 검색 결과가 존재하지 않아요.`} borderRadius={4} />
-						</Box>
-					)}
-					<Grid className={classes.grid} container spacing={1}>
-						{storages
-							.filter((item) => item.storageCategoryId === 2)
-							.map((item) => (
-								<Grow key={`storage-${item.id}`} in>
-									<Grid item xs={4} sm={2}>
-										<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
-											<a className={classes.anchor}>
-												<Card className={classes.card} elevation={0}>
-													<CardActionArea>
-														<CardContent className={classes.cardContentHead} />
-														<CardContent>
-															<Badge
-																className={classes.badge}
-																badgeContent={
-																	<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
-																}
-																invisible={moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') > 7}
-															>
-																<Avatar
-																	className={classes.avatar}
-																	src={item.avatarUrl || ''}
-																	alt={'Storage Avatar Img'}
-																>
-																	<InsertPhotoIcon />
-																</Avatar>
-															</Badge>
-															<Box mt={1}>
-																<Typography className={classes.cardContentTypography} noWrap>
-																	{item.name}
-																</Typography>
-															</Box>
-														</CardContent>
-													</CardActionArea>
-												</Card>
-											</a>
-										</Link>
-									</Grid>
-								</Grow>
-							))}
-					</Grid>
+					{categories.map((category, index) => (
+						<div key={`storage-category-${category.id}`}>
+							{index > 0 && <Box mt={1} />}
+							<Box className={classes.box}>
+								<Box className={classes.iconBox} component={'span'}>
+									{category.icon}
+								</Box>
+								<Typography className={classes.typography} variant={'body1'} component={'span'}>
+									{category.name}
+								</Typography>
+								{category.id === 1 && (
+									<Box component={'span'} ml={0.5}>
+										<ClickAwayListener onClickAway={handleTooltip}>
+											<>
+												<Tooltip
+													title={
+														'수집 카테고리에 소속되어 있는 아래의 저장소 내에 포함된 모든 게시글 및 댓글/답글들은 개념글 저장소의 유저가 작성하는 것이 아닌, 다수의 커뮤니티 사이트 내의 인기 게시글들이며 출처를 포함하고 있습니다. 누군가에게 문제가 될 수 있는 게시글은 모니터링 중인 관리자가 발견하거나 신고를 받게되면 곧 바로 삭제 처리됩니다.'
+													}
+													PopperProps={{
+														disablePortal: true
+													}}
+													onClose={handleTooltip}
+													open={open}
+													disableFocusListener
+													disableHoverListener
+													disableTouchListener
+													arrow
+												>
+													<IconButton size={'small'} onClick={handleTooltip}>
+														<InfoIcon className={classes.infoIcon} />
+													</IconButton>
+												</Tooltip>
+											</>
+										</ClickAwayListener>
+									</Box>
+								)}
+							</Box>
+							{!name && storages.filter((item) => item.storageCategoryId === category.id).length === 0 && (
+								<Box className={classes.emptyBox}>
+									<DataEmptyBox message={'첫 저장소 등록의 주인공이 되어 보세요!'} borderRadius={4} />
+								</Box>
+							)}
+							{name && storages.filter((item) => item.storageCategoryId === category.id).length === 0 && (
+								<Box className={classes.emptyBox}>
+									<DataEmptyBox message={`"${name}" 에 대한 검색 결과가 존재하지 않아요.`} borderRadius={4} />
+								</Box>
+							)}
+							{storages.filter((item) => item.storageCategoryId === category.id).length !== 0 && (
+								<Grid className={classes.grid} container spacing={1}>
+									{storages
+										.filter((item) => item.storageCategoryId === category.id)
+										.map((item) => (
+											<Grow key={`storage-${item.id}`} in>
+												<Grid item xs={4} sm={2}>
+													<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
+														<a className={classes.anchor}>
+															<Card className={classes.card} elevation={0}>
+																<CardActionArea>
+																	<CardContent className={classes.cardContentHead} />
+																	<CardContent>
+																		<Badge
+																			className={classes.badge}
+																			badgeContent={
+																				<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+																			}
+																			invisible={
+																				moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') > 7
+																			}
+																		>
+																			<Avatar
+																				className={classes.avatar}
+																				src={item.avatarUrl || ''}
+																				alt={'Storage Avatar Img'}
+																			>
+																				<InsertPhotoIcon />
+																			</Avatar>
+																		</Badge>
+																		<Box mt={1}>
+																			<Typography className={classes.cardContentTypography} noWrap>
+																				{item.name}
+																			</Typography>
+																		</Box>
+																	</CardContent>
+																</CardActionArea>
+															</Card>
+														</a>
+													</Link>
+												</Grid>
+											</Grow>
+										))}
+								</Grid>
+							)}
+						</div>
+					))}
 				</>
 			)}
 		</>

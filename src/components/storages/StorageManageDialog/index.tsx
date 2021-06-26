@@ -11,6 +11,9 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
@@ -23,6 +26,15 @@ import { TransitionProps } from '@material-ui/core/transitions';
 // Material UI Icons
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import CloseIcon from '@material-ui/icons/Close';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import FaceIcon from '@material-ui/icons/Face';
+import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
+import SportsIcon from '@material-ui/icons/Sports';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import SchoolIcon from '@material-ui/icons/School';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 // Custom Hooks
 import useStorageManageDialog from 'hooks/storages/useStorageManageDialog';
@@ -74,6 +86,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			position: 'absolute',
 			width: '100%',
 			zIndex: 10000
+		},
+		selectIcon: {
+			verticalAlign: 'middle'
 		}
 	})
 );
@@ -89,10 +104,11 @@ function StorageManageDialog() {
 	const {
 		manage: { open, pending },
 		postStorageFormData: {
-			name, path, description, avatar, policy
+			name, path, category, description, avatar, policy
 		},
 		onHandleStorageManageDialogOpen,
 		onHandleStorageManageDialogTextField,
+		onHandleStorageManageDialogSelect,
 		onHandleStorageManageDialogCheckBox,
 		onChangeAvatarFile,
 		onPostStorage
@@ -151,6 +167,55 @@ function StorageManageDialog() {
 						</Box>
 					</Box>
 					<Box>
+						<Box>
+							<Typography className={classes.typography} variant={'body1'}>
+								{'카테고리'}
+							</Typography>
+						</Box>
+						<Box mt={1}>
+							<FormControl variant={'outlined'} fullWidth>
+								<Select value={category.value} onChange={onHandleStorageManageDialogSelect}>
+									<MenuItem value={3}>
+										<SportsEsportsIcon className={classes.selectIcon} color={'action'} />
+										&nbsp;{'게임'}
+									</MenuItem>
+									<MenuItem value={4}>
+										<FaceIcon className={classes.selectIcon} color={'action'} />
+										&nbsp;{'연예'}
+									</MenuItem>
+									<MenuItem value={5}>
+										<EmojiEmotionsIcon className={classes.selectIcon} color={'action'} />
+										&nbsp;{'문화'}
+									</MenuItem>
+									<MenuItem value={6}>
+										<SportsIcon className={classes.selectIcon} color={'action'} />
+										&nbsp;{'스포츠'}
+									</MenuItem>
+									<MenuItem value={7}>
+										<EmojiPeopleIcon className={classes.selectIcon} color={'action'} />
+										&nbsp;{'생활'}
+									</MenuItem>
+									<MenuItem value={8}>
+										<AccountBalanceIcon className={classes.selectIcon} color={'action'} />
+										&nbsp;{'금융/재테크'}
+									</MenuItem>
+									<MenuItem value={9}>
+										<SchoolIcon className={classes.selectIcon} color={'action'} />
+										&nbsp;{'대학'}
+									</MenuItem>
+									<MenuItem value={10}>
+										<ImportContactsIcon className={classes.selectIcon} color={'action'} />
+										&nbsp;{'애니'}
+									</MenuItem>
+									<MenuItem value={2}>
+										<LibraryBooksIcon className={classes.selectIcon} color={'action'} />
+										&nbsp;{'일반'}
+									</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
+					</Box>
+					<Box mt={2}>
 						<Box>
 							<Typography className={classes.typography} variant={'body1'}>
 								{'설명'}

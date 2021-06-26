@@ -64,6 +64,7 @@ export type FetchStoragesPayload = {
 
 export type PostStoragePayload = {
 	name: string;
+	categoryId: number;
 	description: string;
 	path: string;
 	avatar: FileList | null;

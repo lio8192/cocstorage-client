@@ -18,10 +18,14 @@ export function postStorage(data: PostStoragePayload) {
 	const { avatar } = data;
 
 	Object.keys(data).forEach((key) => {
-		if (key !== 'avatar') {
+		if (key !== 'avatar' && key !== 'categoryId') {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 			// @ts-ignore
 			formData.append(key, String(data[key]).toString());
+		} else if (key === 'categoryId') {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+			// @ts-ignore
+			formData.append('storage_category_id', String(data[key]).toString());
 		} else if (key === 'avatar') {
 			if (avatar) {
 				formData.append('avatar', avatar[0]);
