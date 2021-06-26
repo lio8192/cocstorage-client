@@ -20,7 +20,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 type NotificationModalProps = {
 	open: boolean;
 	title: string;
-	contentText: string;
+	content: string | JSX.Element | JSX.Element[];
 	severity: string;
 	route: string;
 	onCloseNotificationModal: () => void;
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function NotificationModal({
 	open,
 	title,
-	contentText,
+	content,
 	severity,
 	route,
 	onCloseNotificationModal
@@ -82,7 +82,7 @@ function NotificationModal({
 				</Box>
 			</DialogTitle>
 			<DialogContent>
-				<DialogContentText>{contentText}</DialogContentText>
+				<DialogContentText component={'div'}>{content}</DialogContentText>
 			</DialogContent>
 			<DialogActions>
 				<Button className={classes.button} onClick={handleNotificationModal} color={'primary'} autoFocus>
