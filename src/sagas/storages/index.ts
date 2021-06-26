@@ -39,7 +39,7 @@ function* watchPostStorages(action: ActionType<typeof postStorage>) {
 			handleNotificationModal({
 				open: true,
 				title: '등록 완료',
-				contentText: '정상적으로 등록되었습니다.',
+				content: '정상적으로 등록되었습니다.',
 				severity: 'success',
 				route: ''
 			})
@@ -58,7 +58,7 @@ function* watchPostStorages(action: ActionType<typeof postStorage>) {
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'warning',
 				route: ''
 			})

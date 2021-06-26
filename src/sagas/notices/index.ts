@@ -41,7 +41,7 @@ function* watchFetchFirstNotices(action: ActionType<typeof fetchFirstNotices>) {
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -61,7 +61,7 @@ function* watchFetchNotices(action: ActionType<typeof fetchNotices>) {
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -79,7 +79,7 @@ function* watchPostNoticeDraft() {
 			handleNotificationModal({
 				open: true,
 				title: '오류',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: '/notices'
 			})
@@ -100,7 +100,7 @@ function* watchPutNotice(action: ActionType<typeof putNotice>) {
 			handleNotificationModal({
 				open: true,
 				title: '오류',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: '/notices'
 			})
@@ -119,7 +119,7 @@ function* watchFetchNoticeEditDetail(action: ActionType<typeof fetchNoticeEditDe
 			handleNotificationModal({
 				open: true,
 				title: '오류',
-				contentText: '올바르지 않은 접근입니다.',
+				content: '올바르지 않은 접근입니다.',
 				severity: 'error',
 				route: '/notices'
 			})

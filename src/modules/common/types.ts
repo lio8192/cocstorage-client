@@ -58,7 +58,7 @@ export type CommonActions = ActionType<typeof actions>;
 export type Notification = {
 	open: boolean;
 	title: string;
-	contentText: string;
+	content: string | JSX.Element | JSX.Element[];
 	severity: string;
 	route: string;
 };

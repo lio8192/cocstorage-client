@@ -46,7 +46,7 @@ function* watchFetchPrivacy(action: ActionType<typeof fetchPrivacy>) {
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'warning',
 				route: ''
 			})
@@ -63,7 +63,7 @@ function* watchPutPassword(action: ActionType<typeof putPassword>) {
 			handleNotificationModal({
 				open: true,
 				title: '변경 완료',
-				contentText: '비밀번호가 정상적으로 변경되었습니다.',
+				content: '비밀번호가 정상적으로 변경되었습니다.',
 				severity: 'success',
 				route: ''
 			})
@@ -74,7 +74,7 @@ function* watchPutPassword(action: ActionType<typeof putPassword>) {
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'warning',
 				route: ''
 			})
@@ -95,7 +95,7 @@ function* watchDeleteUser(action: ActionType<typeof deleteUser>) {
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'warning',
 				route: ''
 			})
@@ -116,7 +116,7 @@ function* watchPutNickname(action: ActionType<typeof putNickname>) {
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'warning',
 				route: ''
 			})
@@ -137,7 +137,7 @@ function* watchPutAvatar(action: ActionType<typeof putAvatar>) {
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'warning',
 				route: ''
 			})

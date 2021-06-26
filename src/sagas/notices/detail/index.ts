@@ -61,7 +61,7 @@ function* watchFetchNoticeDetail(action: ActionType<typeof fetchNoticeDetail>) {
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					contentText: '이미 삭제되었거나 존재하지 않는 소식입니다.',
+					content: '이미 삭제되었거나 존재하지 않는 소식입니다.',
 					severity: 'info',
 					route: '/notices'
 				})
@@ -71,7 +71,7 @@ function* watchFetchNoticeDetail(action: ActionType<typeof fetchNoticeDetail>) {
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					contentText: getErrorMessageByCode(error.response.data.code),
+					content: getErrorMessageByCode(error.response.data.code),
 					severity: 'error',
 					route: '/notices'
 				})
@@ -106,7 +106,7 @@ function* watchFetchNoticeDetailComments(action: ActionType<typeof fetchNoticeDe
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -133,7 +133,7 @@ function* watchPostNoticeDetailComment(action: ActionType<typeof postNoticeDetai
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -160,7 +160,7 @@ function* watchPostNonMemberNoticeDetailComment(action: ActionType<typeof postNo
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -187,7 +187,7 @@ function* watchPostNoticeDetailReply(action: ActionType<typeof postNoticeDetailR
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -214,7 +214,7 @@ function* watchPostNonMemberNoticeDetailReply(action: ActionType<typeof postNonM
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -234,7 +234,7 @@ function* watchDeleteNoticeDetail(action: ActionType<typeof deleteNoticeDetail>)
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -261,7 +261,7 @@ function* watchDeleteNoticeDetailComment(action: ActionType<typeof deleteNoticeD
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -288,7 +288,7 @@ function* watchDeleteNonMemberNoticeDetailComment(action: ActionType<typeof dele
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -315,7 +315,7 @@ function* watchDeleteNoticeDetailReply(action: ActionType<typeof deleteNoticeDet
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -342,7 +342,7 @@ function* watchDeleteNonMemberNoticeDetailReply(action: ActionType<typeof delete
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})

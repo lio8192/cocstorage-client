@@ -81,7 +81,7 @@ function* watchFetchStorageDetailAndStorageBoardDetail(
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					contentText: '이미 삭제되었거나 존재하지 않는 개념글입니다.',
+					content: '이미 삭제되었거나 존재하지 않는 개념글입니다.',
 					severity: 'info',
 					route: `/storages/${storageId}`
 				})
@@ -91,7 +91,7 @@ function* watchFetchStorageDetailAndStorageBoardDetail(
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					contentText: getErrorMessageByCode(error.response.data.code),
+					content: getErrorMessageByCode(error.response.data.code),
 					severity: 'error',
 					route: `/storages/${storageId}`
 				})
@@ -114,7 +114,7 @@ function* watchFetchStorageBoardDetail(action: ActionType<typeof fetchStorageBoa
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					contentText: '이미 삭제되었거나 존재하지 않는 개념글입니다.',
+					content: '이미 삭제되었거나 존재하지 않는 개념글입니다.',
 					severity: 'error',
 					route: `/storages/${Router.query.path}`
 				})
@@ -124,7 +124,7 @@ function* watchFetchStorageBoardDetail(action: ActionType<typeof fetchStorageBoa
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					contentText: getErrorMessageByCode(error.response.data.code),
+					content: getErrorMessageByCode(error.response.data.code),
 					severity: 'error',
 					route: `/storages/${Router.query.path}`
 				})
@@ -195,7 +195,7 @@ function* watchFetchStorageBoardDetailComments(action: ActionType<typeof fetchSt
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: `/storages/${Router.query.path}`
 			})
@@ -223,7 +223,7 @@ function* watchPostStorageBoardDetailComment(action: ActionType<typeof postStora
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: `/storages/${Router.query.path}`
 			})
@@ -253,7 +253,7 @@ function* watchPostNonMemberStorageBoardDetailComment(
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -281,7 +281,7 @@ function* watchPostStorageBoardDetailReply(action: ActionType<typeof postStorage
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -309,7 +309,7 @@ function* watchPostNonMemberStorageBoardDetailReply(action: ActionType<typeof po
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -329,7 +329,7 @@ function* watchDeleteStorageBoardDetail(action: ActionType<typeof deleteStorageB
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -349,7 +349,7 @@ function* watchDeleteNonMemberStorageBoardDetail(action: ActionType<typeof delet
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -377,7 +377,7 @@ function* watchDeleteStorageBoardDetailComment(action: ActionType<typeof deleteS
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -407,7 +407,7 @@ function* watchDeleteNonMemberStorageBoardDetailComment(
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -435,7 +435,7 @@ function* watchDeleteStorageBoardDetailReply(action: ActionType<typeof deleteSto
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -465,7 +465,7 @@ function* watchDeleteNonMemberStorageBoardDetailReply(
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})

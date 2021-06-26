@@ -46,7 +46,7 @@ const initialState: CommonState = {
 	notification: {
 		open: false,
 		title: '',
-		contentText: '',
+		content: '',
 		severity: '',
 		route: ''
 	},

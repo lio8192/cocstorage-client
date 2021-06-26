@@ -49,7 +49,7 @@ function* watchFetchStorageDetail(action: ActionType<typeof fetchStorageDetail>)
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					contentText: '저장소가 존재하지 않습니다.',
+					content: '저장소가 존재하지 않습니다.',
 					severity: 'info',
 					route: '/storages'
 				})
@@ -59,7 +59,7 @@ function* watchFetchStorageDetail(action: ActionType<typeof fetchStorageDetail>)
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					contentText: getErrorMessageByCode(error.response.data.code),
+					content: getErrorMessageByCode(error.response.data.code),
 					severity: 'error',
 					route: '/storages'
 				})
@@ -80,7 +80,7 @@ function* watchFetchStorageBoards(action: ActionType<typeof fetchStorageBoards>)
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					contentText: '저장소가 존재하지 않습니다.',
+					content: '저장소가 존재하지 않습니다.',
 					severity: 'info',
 					route: '/storages'
 				})
@@ -90,7 +90,7 @@ function* watchFetchStorageBoards(action: ActionType<typeof fetchStorageBoards>)
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					contentText: getErrorMessageByCode(error.response.data.code),
+					content: getErrorMessageByCode(error.response.data.code),
 					severity: 'error',
 					route: '/storages'
 				})
@@ -120,7 +120,7 @@ function* watchPostNonMemberStorageBoardDraft(action: ActionType<typeof postNonM
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -140,7 +140,7 @@ function* watchPutStorageBoard(action: ActionType<typeof putStorageBoard>) {
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -160,7 +160,7 @@ function* watchPutNonMemberStorageBoard(action: ActionType<typeof putNonMemberSt
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})
@@ -179,7 +179,7 @@ function* watchFetchStorageBoardEditDetail(action: ActionType<typeof fetchStorag
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: '올바르지 않은 접근입니다.',
+				content: '올바르지 않은 접근입니다.',
 				severity: 'error',
 				route: `/storages/${Router.query.path}`
 			})
@@ -198,7 +198,7 @@ function* watchFetchNonMemberStorageBoardEditDetail(action: ActionType<typeof fe
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				contentText: getErrorMessageByCode(error.response.data.code),
+				content: getErrorMessageByCode(error.response.data.code),
 				severity: 'error',
 				route: ''
 			})

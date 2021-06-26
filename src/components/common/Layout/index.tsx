@@ -43,7 +43,7 @@ function Layout({ children }: LayoutProps) {
 	const classes = useStyles();
 	const {
 		notification: {
-			open, title, contentText, severity, route
+			open, title, content, severity, route
 		},
 		onCloseNotificationModal
 	} = useLayout();
@@ -84,7 +84,7 @@ function Layout({ children }: LayoutProps) {
 			<NotificationModal
 				open={open}
 				title={title}
-				contentText={contentText}
+				content={content}
 				severity={severity}
 				route={route}
 				onCloseNotificationModal={onCloseNotificationModal}
