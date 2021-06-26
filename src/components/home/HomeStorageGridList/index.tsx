@@ -90,7 +90,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: theme.spacing(7),
 			height: theme.spacing(7),
 			marginTop: theme.spacing(-5),
-			backgroundColor: theme.palette.background.default
+			backgroundColor: theme.palette.background.default,
+			'& svg': {
+				color: theme.palette.grey.A100
+			}
 		},
 		avatarSkeleton: {
 			width: theme.spacing(7),
@@ -98,7 +101,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginTop: theme.spacing(-5)
 		},
 		listAvatar: {
-			backgroundColor: theme.palette.background.default
+			backgroundColor: theme.palette.background.default,
+			'& svg': {
+				color: theme.palette.grey.A100
+			}
 		},
 		typography: {
 			fontWeight: 700

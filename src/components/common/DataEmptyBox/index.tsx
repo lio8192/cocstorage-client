@@ -1,13 +1,16 @@
 import React, { memo } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+	createStyles, makeStyles, Theme, useTheme
+} from '@material-ui/core/styles';
 
-// Material UI Box
+// Material UI
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
-import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -54,13 +57,18 @@ function DataEmptyBox({
 	borderRadius
 }: DataEmptyBoxProps) {
 	const classes = useStyles();
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
 	return (
 		<Box
 			className={classes.root}
 			mt={marginTop || 0}
 			mb={marginBottom || 0}
 			pt={paddingTop || 20}
+			pl={2}
 			pb={paddingBottom || 20}
+			pr={2}
 			borderRadius={borderRadius || 'inherit'}
 			maxHeight={maxHeight || 'auto'}
 			minHeight={minHeight || 'auto'}
@@ -71,8 +79,14 @@ function DataEmptyBox({
 				</Avatar>
 			</Box>
 			<Box mt={2} textAlign={'center'}>
-				<Typography className={classes.typography} variant={'h6'}>
-					{message}
+				<Typography className={classes.typography} variant={isMobile ? 'body1' : 'h6'}>
+					{message.split('\n').map((item, index) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<span key={`message-${index}`}>
+							{item}
+							<br />
+						</span>
+					))}
 				</Typography>
 			</Box>
 		</Box>

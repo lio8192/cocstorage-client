@@ -97,6 +97,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('sm')]: {
 				width: theme.spacing(5),
 				height: theme.spacing(5)
+			},
+			'& svg': {
+				color: theme.palette.grey.A100
 			}
 		},
 		cardContentTypography: {
@@ -279,7 +282,10 @@ function StorageGridList() {
 							</Box>
 							{!name && storages.filter((item) => item.storageCategoryId === category.id).length === 0 && (
 								<Box className={classes.emptyBox}>
-									<DataEmptyBox message={'첫 저장소 등록의 주인공이 되어 보세요!'} borderRadius={4} />
+									<DataEmptyBox
+										message={`${category.name} 카테고리의 첫번째 저장소를 등록하여 관리자가 되어 보세요.\n우측 하단의 새 저장소 등록 버튼을 누르면 새 저장소를 등록할 수 있어요.`}
+										borderRadius={4}
+									/>
 								</Box>
 							)}
 							{name && storages.filter((item) => item.storageCategoryId === category.id).length === 0 && (

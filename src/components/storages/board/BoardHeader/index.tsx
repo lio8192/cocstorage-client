@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 					? `linear-gradient(to right, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`
 					: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
-				height: 100,
+				height: 'auto',
 				margin: 0,
 				borderRadius: 'inherit'
 			}
@@ -72,6 +72,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('xs')]: {
 				width: theme.spacing(6),
 				height: theme.spacing(6)
+			},
+			'& svg': {
+				color: theme.palette.grey.A100
 			}
 		},
 		nameBox: {
