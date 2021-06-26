@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 import Router from 'next/router';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import MUIRichTextEditor from 'mui-rte';
 import moment from 'moment';
 
 // Material UI
@@ -567,11 +566,7 @@ function DetailContent() {
 									</Box>
 								</Box>
 							)}
-							{sourceCode ? (
-								<Box dangerouslySetInnerHTML={{ __html: content }} />
-							) : (
-								<MUIRichTextEditor toolbar={false} value={content} readOnly />
-							)}
+							<Box dangerouslySetInnerHTML={{ __html: content }} />
 							<Box textAlign={'center'}>
 								<Box>
 									<ButtonGroup className={classes.recommendButtonGroup}>

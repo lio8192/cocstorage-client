@@ -1,12 +1,10 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { convertToRaw, EditorState } from 'draft-js';
 import { useSnackbar } from 'notistack';
 
 // Modules
 import { putStorageBoard, putNonMemberStorageBoard } from 'modules/storages/board';
 import { RootState } from 'modules';
-import { TAsyncAtomicBlockResponse, TMUIRichTextEditorRef } from 'mui-rte';
 
 // Services
 import * as Service from 'services/storages/board';
@@ -29,9 +27,6 @@ export default function useWriteForm() {
 		user: { isAuthenticated }
 	} = useSelector((state: RootState) => state.common);
 	const storageBoardState = useSelector((state: RootState) => state.storageBoard);
-
-	const ref = useRef<TMUIRichTextEditorRef>(null);
-	const [anchor, setAnchor] = useState<HTMLElement | null>(null);
 
 	const [putStorageBoardBody, setPutStorageBoardBody] = useState<PutStorageBoardBody>({
 		nickname: null,
@@ -59,77 +54,44 @@ export default function useWriteForm() {
 	const onShowWriteFormPassword = useCallback(() => setShowPassword(!showPassword), [showPassword]);
 
 	const onHandleWriteFormRichEditor = useCallback(
-		(editorState: EditorState) => {
-			const currentContent = editorState.getCurrentContent();
+		(event) => {
 			setPutStorageBoardBody({
 				...putStorageBoardBody,
-				content: JSON.stringify(convertToRaw(currentContent)),
-				description: currentContent.getPlainText()
+				content: event.level.content,
+				description: event.level.content.replace(/(<([^>]+)>)/gi, '')
 			});
 		},
 		[putStorageBoardBody]
 	);
 
 	const onPostStorageBoardImage = useCallback(
-		(file: File) =>
-			new Promise((resolve) => {
-				Service.postStorageBoardImage(storageBoardState.storage.id, storageBoardState.manage.id, file)
-					.then((response) => {
-						resolve(response.data.imageUrl);
-					})
-					.catch((error) => {
-						enqueueSnackbar(getErrorMessageByCode(error.response.data.code), {
-							variant: 'error'
-						});
-					});
-			}),
-		[enqueueSnackbar, storageBoardState.storage.id, storageBoardState.manage.id]
+		(
+			blobInfo: BlobInfo,
+			success: (url: string) => void,
+			failure: (err: string, options?: UploadFailureOptions) => void
+		) => {
+			Service.postStorageBoardImage(storageBoardState.storage.id, storageBoardState.manage.id, blobInfo.blob())
+				.then((response) => {
+					success(response.data.imageUrl);
+				})
+				.catch((error) => failure(getErrorMessageByCode(error.response.data.code)));
+		},
+		[storageBoardState.storage.id, storageBoardState.manage.id]
 	);
 
 	const onPostNonMemberStorageBoardImage = useCallback(
-		(file: File) =>
-			new Promise((resolve) => {
-				Service.postNonMemberStorageBoardImage(storageBoardState.storage.id, storageBoardState.manage.id, file)
-					.then((response) => {
-						resolve(response.data.imageUrl);
-					})
-					.catch((error) => {
-						enqueueSnackbar(getErrorMessageByCode(error.response.data.code), {
-							variant: 'error'
-						});
-					});
-			}),
-		[enqueueSnackbar, storageBoardState.storage.id, storageBoardState.manage.id]
-	);
-
-	const onUploadImage = useCallback(
-		(file: File) =>
-			new Promise<TAsyncAtomicBlockResponse>(async (resolve, reject) => {
-				const url = isAuthenticated
-					? await onPostStorageBoardImage(file)
-					: await onPostNonMemberStorageBoardImage(file);
-				if (!url) {
-					reject();
-					return;
-				}
-				resolve({
-					data: {
-						url,
-						width: 'auto',
-						height: 'auto',
-						alignment: 'left',
-						type: 'image'
-					}
-				});
-			}),
-		[isAuthenticated, onPostStorageBoardImage, onPostNonMemberStorageBoardImage]
-	);
-
-	const onHandleFileUpload = useCallback(
-		(file: File) => {
-			ref.current?.insertAtomicBlockAsync('IMAGE', onUploadImage(file), '업로드 중...');
+		(
+			blobInfo: BlobInfo,
+			success: (url: string) => void,
+			failure: (err: string, options?: UploadFailureOptions) => void
+		) => {
+			Service.postStorageBoardImage(storageBoardState.storage.id, storageBoardState.manage.id, blobInfo.blob())
+				.then((response) => {
+					success(response.data.imageUrl);
+				})
+				.catch((error) => failure(getErrorMessageByCode(error.response.data.code)));
 		},
-		[ref, onUploadImage]
+		[storageBoardState.storage.id, storageBoardState.manage.id]
 	);
 
 	const onPutStorageBoard = useCallback(() => {
@@ -211,13 +173,11 @@ export default function useWriteForm() {
 		putStorageBoardBody,
 		showPassword,
 		isAuthenticated,
-		ref,
-		anchor,
-		setAnchor,
 		onHandleWriteFormTextField,
 		onShowWriteFormPassword,
 		onHandleWriteFormRichEditor,
-		onHandleFileUpload,
+		onPostNonMemberStorageBoardImage,
+		onPostStorageBoardImage,
 		onPutStorageBoard,
 		onPutNonMemberStorageBoard
 	};

@@ -81,7 +81,7 @@ export function postNonMemberStorageBoardDraft(id: number) {
 	return axios(true)(config);
 }
 
-export function postStorageBoardImage(storageId: number, storageBoardId: number, image: File) {
+export function postStorageBoardImage(storageId: number, storageBoardId: number, image: Blob) {
 	const formData = new FormData();
 	formData.append('image', image);
 	const config: AxiosRequestConfig = {

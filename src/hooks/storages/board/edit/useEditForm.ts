@@ -1,9 +1,6 @@
-import React, {
-	useEffect, useState, useCallback, useRef
-} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { convertToRaw, EditorState } from 'draft-js';
 import { useSnackbar } from 'notistack';
 
 // Modules
@@ -13,7 +10,6 @@ import {
 	fetchNonMemberStorageBoardEditDetail
 } from 'modules/storages/board';
 import { RootState } from 'modules';
-import { TAsyncAtomicBlockResponse, TMUIRichTextEditorRef } from 'mui-rte';
 
 // Services
 import * as Service from 'services/storages/board';
@@ -38,9 +34,6 @@ export default function useEditForm() {
 	} = useSelector((state: RootState) => state.common);
 	const storageBoardState = useSelector((state: RootState) => state.storageBoard);
 
-	const ref = useRef<TMUIRichTextEditorRef>(null);
-	const [anchor, setAnchor] = useState<HTMLElement | null>(null);
-
 	const [putStorageBoardBody, setPutStorageBoardBody] = useState<PutStorageBoardBody>({
 		nickname: null,
 		password: null,
@@ -48,7 +41,7 @@ export default function useEditForm() {
 		content: '',
 		description: ''
 	});
-	const [convertDefaultContent, setConvertDefaultContent] = useState<string>('');
+
 	const [passwordError, setPasswordError] = useState<boolean>(false);
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -68,77 +61,44 @@ export default function useEditForm() {
 	const onShowEditFormPassword = useCallback(() => setShowPassword(!showPassword), [showPassword]);
 
 	const onHandleEditFormRichEditor = useCallback(
-		(editorState: EditorState) => {
-			const currentContent = editorState.getCurrentContent();
+		(event) => {
 			setPutStorageBoardBody({
 				...putStorageBoardBody,
-				content: JSON.stringify(convertToRaw(currentContent)),
-				description: currentContent.getPlainText()
+				content: event.level.content,
+				description: event.level.content.replace(/(<([^>]+)>)/gi, '')
 			});
 		},
 		[putStorageBoardBody]
 	);
 
 	const onPostStorageBoardImage = useCallback(
-		(file: File) =>
-			new Promise((resolve) => {
-				Service.postStorageBoardImage(storageBoardState.storage.id, storageBoardState.manage.id, file)
-					.then((response) => {
-						resolve(response.data.imageUrl);
-					})
-					.catch((error) => {
-						enqueueSnackbar(getErrorMessageByCode(error.response.data.code), {
-							variant: 'error'
-						});
-					});
-			}),
-		[enqueueSnackbar, storageBoardState.storage.id, storageBoardState.manage.id]
+		(
+			blobInfo: BlobInfo,
+			success: (url: string) => void,
+			failure: (err: string, options?: UploadFailureOptions) => void
+		) => {
+			Service.postStorageBoardImage(storageBoardState.storage.id, storageBoardState.manage.id, blobInfo.blob())
+				.then((response) => {
+					success(response.data.imageUrl);
+				})
+				.catch((error) => failure(getErrorMessageByCode(error.response.data.code)));
+		},
+		[storageBoardState.storage.id, storageBoardState.manage.id]
 	);
 
 	const onPostNonMemberStorageBoardImage = useCallback(
-		(file: File) =>
-			new Promise((resolve) => {
-				Service.postNonMemberStorageBoardImage(storageBoardState.storage.id, storageBoardState.manage.id, file)
-					.then((response) => {
-						resolve(response.data.imageUrl);
-					})
-					.catch((error) => {
-						enqueueSnackbar(getErrorMessageByCode(error.response.data.code), {
-							variant: 'error'
-						});
-					});
-			}),
-		[enqueueSnackbar, storageBoardState.storage.id, storageBoardState.manage.id]
-	);
-
-	const onUploadImage = useCallback(
-		(file: File) =>
-			new Promise<TAsyncAtomicBlockResponse>(async (resolve, reject) => {
-				const url = isAuthenticated
-					? await onPostStorageBoardImage(file)
-					: await onPostNonMemberStorageBoardImage(file);
-				if (!url) {
-					reject();
-					return;
-				}
-				resolve({
-					data: {
-						url,
-						width: 'auto',
-						height: 'auto',
-						alignment: 'left',
-						type: 'image'
-					}
-				});
-			}),
-		[isAuthenticated, onPostStorageBoardImage, onPostNonMemberStorageBoardImage]
-	);
-
-	const onHandleFileUpload = useCallback(
-		(file: File) => {
-			ref.current?.insertAtomicBlockAsync('IMAGE', onUploadImage(file), '업로드 중...');
+		(
+			blobInfo: BlobInfo,
+			success: (url: string) => void,
+			failure: (err: string, options?: UploadFailureOptions) => void
+		) => {
+			Service.postStorageBoardImage(storageBoardState.storage.id, storageBoardState.manage.id, blobInfo.blob())
+				.then((response) => {
+					success(response.data.imageUrl);
+				})
+				.catch((error) => failure(getErrorMessageByCode(error.response.data.code)));
 		},
-		[ref, onUploadImage]
+		[storageBoardState.storage.id, storageBoardState.manage.id]
 	);
 
 	const onPutStorageBoard = useCallback(() => {
@@ -242,25 +202,20 @@ export default function useEditForm() {
 				content: storageBoardState.manage.detail.content,
 				description: storageBoardState.manage.detail.description
 			});
-
-			setConvertDefaultContent(storageBoardState.manage.detail.content);
 		}
 	}, [storageBoardState.manage.detail, putStorageBoardBody.password]);
 
 	return {
 		...storageBoardState,
 		putStorageBoardBody,
-		convertDefaultContent,
 		showPassword,
 		isAuthenticated,
-		ref,
-		anchor,
-		setAnchor,
 		passwordError,
 		onHandleEditFormTextField,
 		onShowEditFormPassword,
 		onHandleEditFormRichEditor,
-		onHandleFileUpload,
+		onPostNonMemberStorageBoardImage,
+		onPostStorageBoardImage,
 		onPutStorageBoard,
 		onPutNonMemberStorageBoard,
 		onFetchNonMemberStorageBoardEditDetail

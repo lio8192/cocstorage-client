@@ -1,8 +1,9 @@
-import React, { useCallback, useMemo, memo } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { useRouter } from 'next/router';
 import {
 	makeStyles, createStyles, Theme, useTheme
 } from '@material-ui/core/styles';
+import { Editor } from '@tinymce/tinymce-react';
 
 // Material UI
 import Container from '@material-ui/core/Container';
@@ -11,24 +12,22 @@ import Box from '@material-ui/core/Box';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import MUIRichTextEditor from 'mui-rte';
 import TextField from '@material-ui/core/TextField';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import NoSsr from '@material-ui/core/NoSsr';
 import Grow from '@material-ui/core/Grow';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Material UI Icons
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import CreateIcon from '@material-ui/icons/Create';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import BackupIcon from '@material-ui/icons/Backup';
 
 // Custom Hooks
 import useWriteForm from 'hooks/storages/board/write/useWriteForm';
 
-// Components
-import UploadImagePopover from './UploadPopover';
+// Fonts
+import NanumSquareRoundR from 'src/styles/fonts/NanumSquareRoundR.woff2';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -46,24 +45,52 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		textEditorBox: {
-			minHeight: 500,
 			margin: theme.spacing(1, 0, 1),
-			padding: theme.spacing(0, '14px'),
 			border: `1px solid ${theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)'}`,
 			borderRadius: 4,
 			'& img': {
 				maxWidth: '100%'
 			},
+			overflow: 'hidden',
 			backgroundColor: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
 				margin: theme.spacing(0),
 				border: 'none',
 				borderTop: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`,
 				borderRadius: 0
+			},
+			'& *:not(.MuiCircularProgress-colorPrimary)': {
+				fontFamily: 'NanumSquareRoundR !important',
+				borderColor: `${
+					theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']
+				} !important`,
+				color: `${theme.palette.type === 'light' ? 'inherit' : 'white'} !important`
+			},
+			'& .tox-toolbar__primary': {
+				background: 'none !important',
+				backgroundColor: `${theme.palette.background.paper} !important`,
+				borderBottom: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`
+			},
+			'& .tox-statusbar': {
+				backgroundColor: `${theme.palette.background.paper} !important`
+			},
+			'& .tox.tox-tinymce': {
+				backgroundColor: `${theme.palette.background.paper} !important`,
+				border: 'none !important'
+			},
+			'& svg': {
+				fill: `${theme.palette.type === 'light' ? 'inherit' : 'white'} !important`
+			}
+		},
+		writerInfoTextFieldGrid: {
+			[theme.breakpoints.down('md')]: {
+				borderTop: `${theme.palette.type === 'dark' ? `1px solid ${theme.palette.grey['50']}` : 'none'}`,
+				borderBottom: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`
 			}
 		},
 		nicknameTextFieldInput: {
 			[theme.breakpoints.down('md')]: {
+				borderRight: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`,
 				borderRadius: 0,
 				'& fieldset': {
 					border: 'none'
@@ -134,56 +161,22 @@ function WriteForm() {
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const router = useRouter();
 	const {
-		manage: { pending },
+		manage: { pending, id },
 		isAuthenticated,
 		putStorageBoardBody: { nickname, password, subject },
 		showPassword,
-		ref,
-		anchor,
-		setAnchor,
 		onHandleWriteFormTextField,
 		onShowWriteFormPassword,
 		onHandleWriteFormRichEditor,
-		onHandleFileUpload,
+		onPostNonMemberStorageBoardImage,
+		onPostStorageBoardImage,
 		onPutStorageBoard,
 		onPutNonMemberStorageBoard
 	} = useWriteForm();
 
-	const controls = useMemo<Array<string>>(() => {
-		if (isMobile) {
-			return [
-				'title',
-				'bold',
-				'italic',
-				'strikethrough',
-				'underline',
-				'highlight',
-				'upload-image',
-				'media',
-				'link',
-				'numberList',
-				'bulletList',
-				'quote'
-			];
-		}
-		return [
-			'title',
-			'bold',
-			'italic',
-			'strikethrough',
-			'underline',
-			'highlight',
-			'undo',
-			'redo',
-			'upload-image',
-			'media',
-			'link',
-			'numberList',
-			'bulletList',
-			'quote'
-		];
-	}, [isMobile]);
+	const [open, setOpen] = useState<boolean>(false);
 
+	const handleInit = useCallback(() => setOpen(true), []);
 	const handlePrevButton = useCallback(() => router.back(), [router]);
 
 	return (
@@ -191,48 +184,46 @@ function WriteForm() {
 			<Box position={'relative'}>
 				<Container className={classes.container}>
 					{!isAuthenticated && (
-						<NoSsr>
-							<Grid container spacing={isMobile ? 0 : 1}>
-								<Grid item xs={6}>
-									<TextField
-										fullWidth
-										variant={'outlined'}
-										label={isMobile ? null : '닉네임'}
-										placeholder={isMobile ? '닉네임' : undefined}
-										InputProps={{
-											className: classes.nicknameTextFieldInput
-										}}
-										onChange={onHandleWriteFormTextField}
-										name={'nickname'}
-										value={nickname || ''}
-										disabled={pending}
-									/>
-								</Grid>
-								<Grid item xs={6}>
-									<TextField
-										fullWidth
-										variant={'outlined'}
-										type={showPassword ? 'text' : 'password'}
-										label={isMobile ? null : '비밀번호'}
-										placeholder={isMobile ? '비밀번호' : undefined}
-										InputProps={{
-											className: classes.passwordTextFieldInput,
-											endAdornment: (
-												<InputAdornment position={'end'}>
-													<IconButton edge={'end'} onClick={onShowWriteFormPassword}>
-														{showPassword ? <VisibilityOff /> : <Visibility />}
-													</IconButton>
-												</InputAdornment>
-											)
-										}}
-										onChange={onHandleWriteFormTextField}
-										name={'password'}
-										value={password || ''}
-										disabled={pending}
-									/>
-								</Grid>
+						<Grid className={classes.writerInfoTextFieldGrid} container spacing={isMobile ? 0 : 1}>
+							<Grid item xs={6}>
+								<TextField
+									fullWidth
+									variant={'outlined'}
+									label={isMobile ? null : '닉네임'}
+									placeholder={isMobile ? '닉네임' : undefined}
+									InputProps={{
+										className: classes.nicknameTextFieldInput
+									}}
+									onChange={onHandleWriteFormTextField}
+									name={'nickname'}
+									value={nickname || ''}
+									disabled={pending}
+								/>
 							</Grid>
-						</NoSsr>
+							<Grid item xs={6}>
+								<TextField
+									fullWidth
+									variant={'outlined'}
+									type={showPassword ? 'text' : 'password'}
+									label={isMobile ? null : '비밀번호'}
+									placeholder={isMobile ? '비밀번호' : undefined}
+									InputProps={{
+										className: classes.passwordTextFieldInput,
+										endAdornment: (
+											<InputAdornment position={'end'}>
+												<IconButton edge={'end'} onClick={onShowWriteFormPassword}>
+													{showPassword ? <VisibilityOff /> : <Visibility />}
+												</IconButton>
+											</InputAdornment>
+										)
+									}}
+									onChange={onHandleWriteFormTextField}
+									name={'password'}
+									value={password || ''}
+									disabled={pending}
+								/>
+							</Grid>
+						</Grid>
 					)}
 					<Box className={classes.subjectBox}>
 						<TextField
@@ -250,35 +241,105 @@ function WriteForm() {
 						/>
 					</Box>
 					<Box className={classes.textEditorBox}>
-						<UploadImagePopover
-							anchor={anchor}
-							onSubmit={(data, insert) => {
-								if (insert && data.file) {
-									onHandleFileUpload(data.file);
-								}
-								setAnchor(null);
-							}}
-						/>
-						<MUIRichTextEditor
-							defaultValue={''}
-							ref={ref}
-							inlineToolbar
-							controls={controls}
-							customControls={[
-								{
-									name: 'upload-image',
-									icon: <BackupIcon />,
-									type: 'callback',
-									// eslint-disable-next-line no-shadow
-									onClick: (_editorState, _name, anchor) => {
-										setAnchor(anchor);
-									}
-								}
-							]}
-							label={'내용을 입력해주세요.'}
-							onChange={onHandleWriteFormRichEditor}
-							readOnly={pending}
-						/>
+						{(id === 0 || pending || !open) && (
+							<Box p={30} textAlign={'center'}>
+								<CircularProgress color={'primary'} />
+							</Box>
+						)}
+						{id !== 0 && !pending && theme.palette.type === 'light' && (
+							<Editor
+								apiKey={'kmfhv3po7kg1phohpf4oxj6lmnm8vgpviv2anq3loui0joj8'}
+								init={{
+									height: 500,
+									menubar: false,
+									plugins:
+										'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+									toolbar:
+										'fontsizeselect | image media link anchor |'
+										+ 'bold italic | forecolor backcolor | alignleft aligncenter '
+										+ 'alignright alignjustify | bullist numlist outdent indent | '
+										+ 'emoticons removeformat fullscreen  preview | help',
+									toolbar_sticky: true,
+									toolbar_mode: 'sliding',
+									images_upload_handler: (blobInfo, success, failure) => {
+										if (isAuthenticated) {
+											onPostStorageBoardImage(blobInfo, success, failure);
+										} else {
+											onPostNonMemberStorageBoardImage(blobInfo, success, failure);
+										}
+									},
+									image_advtab: true,
+									image_caption: true,
+									language: 'ko_KR',
+									placeholder: '내용을 입력해주세요.',
+									content_style: `
+										@font-face {
+											font-family: NanumSquareRoundR;
+											src: url(${NanumSquareRoundR}) format('woff2');
+										}
+										body {
+											margin: 18.5px 14px;
+											font-family: NanumSquareRoundR;
+											background-color: ${theme.palette.background.paper};
+										}
+										p {
+											margin: 0;
+										}`
+								}}
+								disabled={pending}
+								onChange={onHandleWriteFormRichEditor}
+								onInit={handleInit}
+							/>
+						)}
+						{id !== 0 && !pending && theme.palette.type === 'dark' && (
+							<Editor
+								apiKey={'kmfhv3po7kg1phohpf4oxj6lmnm8vgpviv2anq3loui0joj8'}
+								init={{
+									height: 500,
+									menubar: false,
+									plugins:
+										'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+									toolbar:
+										'fontsizeselect | image media link anchor |'
+										+ 'bold italic | forecolor backcolor | alignleft aligncenter '
+										+ 'alignright alignjustify | bullist numlist outdent indent | '
+										+ 'emoticons removeformat fullscreen  preview | help',
+									toolbar_sticky: true,
+									toolbar_mode: 'sliding',
+									images_upload_handler: (blobInfo, success, failure) => {
+										if (isAuthenticated) {
+											onPostStorageBoardImage(blobInfo, success, failure);
+										} else {
+											onPostNonMemberStorageBoardImage(blobInfo, success, failure);
+										}
+									},
+									image_advtab: true,
+									image_caption: true,
+									language: 'ko_KR',
+									placeholder: '내용을 입력해주세요.',
+									content_style: `
+										@font-face {
+											font-family: NanumSquareRoundR;
+											src: url(${NanumSquareRoundR}) format('woff2');
+										}
+										body {
+											margin: 18.5px 14px;
+											font-family: NanumSquareRoundR;
+											background-color: ${theme.palette.background.paper};
+											color: white;
+										}
+										.mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
+											color: darkgray;
+										}
+										p {
+											margin: 0;
+										}`
+								}}
+								disabled={pending}
+								onChange={onHandleWriteFormRichEditor}
+								onInit={handleInit}
+							/>
+						)}
 					</Box>
 					<Box className={classes.buttonBox}>
 						<Grid className={classes.grid} container spacing={1} justify={'flex-end'}>

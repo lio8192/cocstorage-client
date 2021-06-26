@@ -22,7 +22,7 @@ export function postNoticeDraft() {
 	return axios()(config);
 }
 
-export function postNoticeImage(id: number, image: File) {
+export function postNoticeImage(id: number, image: Blob) {
 	const formData = new FormData();
 	formData.append('image', image);
 	const config: AxiosRequestConfig = {
