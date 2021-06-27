@@ -1,13 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
 // Modules
-import { handleFetchParams, handleFetchSearchParams } from 'modules/storages/board';
 import { RootState } from 'modules';
 
 export default function useStorageBoard() {
-	const dispatch = useDispatch();
 	const storageBoardState = useSelector((state: RootState) => state.storageBoard);
 	const router = useRouter();
 
@@ -19,7 +17,7 @@ export default function useStorageBoard() {
 	const onHandlePagination = useCallback(
 		(event: React.ChangeEvent<unknown>, value: number) => {
 			const query = {
-				orderBy: storageBoardState.fetchParams.orderBy,
+				orderBy: orderType,
 				page: value,
 				type: searchType,
 				value: searchValue
@@ -35,41 +33,15 @@ export default function useStorageBoard() {
 					pathname: `/storages/${router.query.path}`,
 					query
 				})
-				.then(() => {
-					dispatch(
-						handleFetchParams({
-							...storageBoardState.fetchParams,
-							orderBy: query.orderBy
-						})
-					);
-
-					if (query.value) {
-						dispatch(
-							handleFetchSearchParams({
-								...storageBoardState.fetchSearchParams,
-								type: query.type,
-								value: query.value
-							})
-						);
-					}
-				});
+				.then();
 		},
-		[dispatch, router, storageBoardState.fetchParams, storageBoardState.fetchSearchParams, searchType, searchValue]
+		[router, orderType, searchType, searchValue]
 	);
 
-	const onClickSearchType = useCallback(
-		(event: React.MouseEvent<HTMLLIElement>) => {
-			dispatch(
-				handleFetchSearchParams({
-					...storageBoardState.fetchSearchParams,
-					type: event.currentTarget.getAttribute('data-search-type') || 'all'
-				})
-			);
-			setSearchType(event.currentTarget.getAttribute('data-search-type') || 'all');
-			setOpen(false);
-		},
-		[dispatch, storageBoardState.fetchSearchParams]
-	);
+	const onClickSearchType = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
+		setSearchType(event.currentTarget.getAttribute('data-search-type') || 'all');
+		setOpen(false);
+	}, []);
 
 	const onChangeStorageBoardSearchTextField = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		const value: string = event.currentTarget.value || '';
@@ -83,52 +55,29 @@ export default function useStorageBoard() {
 				pathname: `/storages/${router.query.path}`,
 				query: {
 					page: 1,
-					type: storageBoardState.fetchSearchParams.type,
+					orderBy: orderType,
+					type: searchType,
 					value: searchValue
 				}
 			})
-			.then(() =>
-				dispatch(
-					handleFetchSearchParams({
-						...storageBoardState.fetchSearchParams,
-						type: storageBoardState.fetchSearchParams.type,
-						value: searchValue
-					})
-				)
-			);
-	}, [dispatch, router, storageBoardState.fetchSearchParams, searchValue]);
+			.then();
+	}, [router, orderType, searchValue, searchType]);
 
 	const onChangeOrderBy = useCallback(
 		(event: React.ChangeEvent<{}>, newValue: string) => {
 			const query = {
 				orderBy: newValue,
-				page: 1,
-				type: searchType,
-				value: searchValue
+				page: 1
 			};
-
-			if (!searchValue) {
-				delete query.type;
-				delete query.value;
-			}
 
 			router
 				.push({
 					pathname: `/storages/${router.query.path}`,
 					query
 				})
-				.then(() => {
-					dispatch(
-						handleFetchParams({
-							...storageBoardState.fetchParams,
-							orderBy: query.orderBy
-						})
-					);
-
-					setOrderType(newValue);
-				});
+				.then();
 		},
-		[dispatch, router, storageBoardState.fetchParams, searchType, searchValue]
+		[router]
 	);
 
 	useEffect(() => {

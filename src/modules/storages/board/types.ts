@@ -149,17 +149,6 @@ export type StorageBoardDetail = {
 	commentTotalCount: number;
 };
 
-export type FetchParams = {
-	storageId: number;
-	orderBy: string;
-	per: number;
-};
-
-export type FetchSearchParams = {
-	type: string;
-	value: string | null;
-};
-
 export type FetchStorageBoardsPayload = {
 	storageId: number;
 	path?: string;
@@ -205,8 +194,6 @@ export type StorageBoardState = {
 	storage: Storage;
 	boards: StorageBoard[];
 	pagination: Pagination;
-	fetchParams: FetchParams;
-	fetchSearchParams: FetchSearchParams;
 	pending: boolean;
 	manage: {
 		id: number;

@@ -388,14 +388,19 @@ function StorageBoard() {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, query }) => {
-	const { storageBoard } = store.getState();
+	const {
+		storageBoard: {
+			storage: { id: storageId }
+		}
+	} = store.getState();
 	store.dispatch(fetchStorageDetail(String(query.path)));
 
 	store.dispatch(
 		fetchStorageBoards({
-			...storageBoard.fetchParams,
+			storageId,
 			orderBy: String(query.orderBy || 'latest'),
 			page: Number(query.page || 1),
+			per: 20,
 			search: {
 				type: String(query.type || 'all'),
 				value: String(query.value || '')
