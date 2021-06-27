@@ -48,9 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			margin: theme.spacing(1, 0, 1),
 			border: `1px solid ${theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)'}`,
 			borderRadius: 4,
-			'& img': {
-				maxWidth: '100%'
-			},
 			overflow: 'hidden',
 			backgroundColor: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
@@ -260,7 +257,7 @@ function WriteForm() {
 									plugins:
 										'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 									toolbar:
-										'bold italic | fontsizeselect | image media link anchor |'
+										'fontsizeselect | bold italic | image media link anchor |'
 										+ 'forecolor backcolor | alignleft aligncenter '
 										+ 'alignright alignjustify | bullist numlist outdent indent | '
 										+ 'emoticons removeformat fullscreen  preview | help',
@@ -289,6 +286,9 @@ function WriteForm() {
 										}
 										p {
 											margin: 0;
+										}
+										img {
+											max-width: 100%;
 										}`,
 									mobile: {
 										toolbar_sticky: true,
@@ -310,7 +310,7 @@ function WriteForm() {
 									plugins:
 										'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 									toolbar:
-										'bold italic | fontsizeselect | image media link anchor |'
+										'fontsizeselect | bold italic | image media link anchor |'
 										+ 'forecolor backcolor | alignleft aligncenter '
 										+ 'alignright alignjustify | bullist numlist outdent indent | '
 										+ 'emoticons removeformat fullscreen  preview | help',
@@ -343,6 +343,9 @@ function WriteForm() {
 										}
 										p {
 											margin: 0;
+										}
+										img {
+											max-width: 100%;
 										}`,
 									mobile: {
 										toolbar_sticky: true,
