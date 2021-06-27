@@ -70,6 +70,11 @@ const useStyles = makeStyles((theme: Theme) =>
 				} !important`,
 				color: `${theme.palette.type === 'light' ? 'inherit' : 'white'} !important`
 			},
+			'& .tox-toolbar': {
+				background: 'none !important',
+				backgroundColor: `${theme.palette.background.paper} !important`,
+				borderBottom: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`
+			},
 			'& .tox-toolbar__primary': {
 				background: 'none !important',
 				backgroundColor: `${theme.palette.background.paper} !important`,
@@ -270,8 +275,8 @@ function EditForm() {
 									plugins:
 										'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 									toolbar:
-										'fontsizeselect | image media link anchor |'
-										+ 'bold italic | forecolor backcolor | alignleft aligncenter '
+										'bold italic | fontsizeselect | image media link anchor |'
+										+ 'forecolor backcolor | alignleft aligncenter '
 										+ 'alignright alignjustify | bullist numlist outdent indent | '
 										+ 'emoticons removeformat fullscreen  preview | help',
 									toolbar_sticky: true,
@@ -299,7 +304,12 @@ function EditForm() {
 										}
 										p {
 											margin: 0;
-										}`
+										}`,
+									mobile: {
+										toolbar_sticky: true,
+										toolbar_mode: 'sliding',
+										toolbar: 'bold italic | image media link anchor | forecolor backcolor | alignleft aligncenter'
+									}
 								}}
 								disabled={pending}
 								onChange={onHandleEditFormRichEditor}
@@ -316,8 +326,8 @@ function EditForm() {
 									plugins:
 										'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 									toolbar:
-										'fontsizeselect | image media link anchor |'
-										+ 'bold italic | forecolor backcolor | alignleft aligncenter '
+										'bold italic | fontsizeselect | image media link anchor |'
+										+ 'forecolor backcolor | alignleft aligncenter '
 										+ 'alignright alignjustify | bullist numlist outdent indent | '
 										+ 'emoticons removeformat fullscreen  preview | help',
 									toolbar_sticky: true,
@@ -349,7 +359,12 @@ function EditForm() {
 										}
 										p {
 											margin: 0;
-										}`
+										}`,
+									mobile: {
+										toolbar_sticky: true,
+										toolbar_mode: 'sliding',
+										toolbar: 'bold italic | image media link anchor | forecolor backcolor | alignleft aligncenter'
+									}
 								}}
 								disabled={pending}
 								onChange={onHandleEditFormRichEditor}
