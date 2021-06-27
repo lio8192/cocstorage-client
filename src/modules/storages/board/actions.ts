@@ -8,8 +8,6 @@ import {
 	StorageBoard,
 	StorageBoardDetail,
 	Pagination,
-	FetchParams,
-	FetchSearchParams,
 	FetchNonMemberStorageBoardEditDetailPayload,
 	FetchStorageBoardEditDetailPayload
 } from './types';
@@ -23,9 +21,6 @@ export const FETCH_STORAGE_DETAIL_FAILED = 'storages/board/FETCH_STORAGE_DETAIL_
 export const FETCH_STORAGE_BOARDS = 'storages/board/FETCH_STORAGE_BOARDS';
 export const FETCH_STORAGE_BOARDS_SUCCEEDED = 'storages/board/FETCH_STORAGE_BOARDS_SUCCEEDED';
 export const FETCH_STORAGE_BOARDS_FAILED = 'storages/board/FETCH_STORAGE_BOARDS_FAILED';
-
-export const HANDLE_FETCH_PARAMS = 'storages/board/HANDLE_FETCH_PARAMS';
-export const HANDLE_FETCH_SEARCH_PARAMS = 'storages/board/HANDLE_FETCH_SEARCH_PARAMS';
 
 export const POST_STORAGE_BOARD_DRAFT = 'storages/board/POST_STORAGE_BOARD_DRAFT';
 export const POST_STORAGE_BOARD_DRAFT_SUCCEEDED = 'storages/board/POST_STORAGE_BOARD_DRAFT_SUCCEEDED';
@@ -63,9 +58,6 @@ export const fetchStorageBoardsSucceeded = createAction(FETCH_STORAGE_BOARDS_SUC
 	pagination: Pagination;
 }>();
 export const fetchStorageBoardsFailed = createAction(FETCH_STORAGE_BOARDS_FAILED)();
-
-export const handleFetchParams = createAction(HANDLE_FETCH_PARAMS)<FetchParams>();
-export const handleFetchSearchParams = createAction(HANDLE_FETCH_SEARCH_PARAMS)<FetchSearchParams>();
 
 export const postStorageBoardDraft = createAction(POST_STORAGE_BOARD_DRAFT)<number>();
 export const postStorageBoardDraftSucceeded = createAction(POST_STORAGE_BOARD_DRAFT_SUCCEEDED)<number>();

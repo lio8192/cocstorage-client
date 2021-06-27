@@ -81,9 +81,10 @@ export default function useStorageBoardDetail() {
 		(query: ParsedUrlQuery) => {
 			dispatch(
 				fetchStorageBoards({
-					...storageBoardState.fetchParams,
+					storageId: storageBoardState.storage.id,
 					orderBy: String(query.orderBy || 'latest'),
 					page: Number(query.page || 1),
+					per: 20,
 					search: {
 						type: String(query.type || 'all'),
 						value: String(query.value || '')
@@ -92,7 +93,7 @@ export default function useStorageBoardDetail() {
 				})
 			);
 		},
-		[dispatch, storageBoardState.fetchParams]
+		[dispatch, storageBoardState.storage.id]
 	);
 
 	const onHandleStorageBoardDetailCommentsPagination = useCallback(

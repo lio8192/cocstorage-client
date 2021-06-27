@@ -7,8 +7,6 @@ import {
 	FETCH_STORAGE_BOARDS,
 	FETCH_STORAGE_BOARDS_SUCCEEDED,
 	FETCH_STORAGE_BOARDS_FAILED,
-	HANDLE_FETCH_PARAMS,
-	HANDLE_FETCH_SEARCH_PARAMS,
 	POST_STORAGE_BOARD_DRAFT,
 	POST_STORAGE_BOARD_DRAFT_SUCCEEDED,
 	POST_STORAGE_BOARD_DRAFT_FAILED,
@@ -158,14 +156,6 @@ const storageBoard = createReducer<StorageBoardState, StorageBoardActions>(initi
 	[FETCH_STORAGE_BOARDS_FAILED]: (state) => ({
 		...state,
 		pending: false
-	}),
-	[HANDLE_FETCH_PARAMS]: (state, { payload: data }) => ({
-		...state,
-		fetchParams: data
-	}),
-	[HANDLE_FETCH_SEARCH_PARAMS]: (state, { payload: data }) => ({
-		...state,
-		fetchSearchParams: data
 	}),
 	[POST_STORAGE_BOARD_DRAFT]: (state) => ({
 		...state,
