@@ -163,7 +163,8 @@ function EditForm() {
 	const router = useRouter();
 	const {
 		manage: { pending, id },
-		putNoticeBody: { subject, content },
+		initialContent,
+		putNoticeBody: { subject },
 		onHandleEditFormTextField,
 		onHandleEditFormRichEditor,
 		onPostNoticeImage,
@@ -203,7 +204,7 @@ function EditForm() {
 						{id !== 0 && !pending && theme.palette.type === 'light' && (
 							<Editor
 								apiKey={'kmfhv3po7kg1phohpf4oxj6lmnm8vgpviv2anq3loui0joj8'}
-								initialValue={content}
+								initialValue={initialContent}
 								init={{
 									height: 500,
 									menubar: false,
@@ -251,7 +252,7 @@ function EditForm() {
 						{id !== 0 && !pending && theme.palette.type === 'dark' && (
 							<Editor
 								apiKey={'kmfhv3po7kg1phohpf4oxj6lmnm8vgpviv2anq3loui0joj8'}
-								initialValue={content}
+								initialValue={initialContent}
 								init={{
 									height: 500,
 									menubar: false,

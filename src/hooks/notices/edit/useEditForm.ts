@@ -26,6 +26,8 @@ export default function useEditForm() {
 	} = useSelector((state: RootState) => state.common);
 	const noticesState = useSelector((state: RootState) => state.notices);
 
+	const [initialContent, setInitialContent] = useState<string>('');
+
 	const [putNoticeBody, setPutNoticeBody] = useState<PutNoticeBody>({
 		subject: '',
 		content: '',
@@ -98,6 +100,7 @@ export default function useEditForm() {
 
 	useEffect(() => {
 		if (noticesState.manage.detail.id !== 0) {
+			setInitialContent(noticesState.manage.detail.content);
 			setPutNoticeBody({
 				subject: noticesState.manage.detail.subject,
 				content: noticesState.manage.detail.content,
@@ -108,6 +111,7 @@ export default function useEditForm() {
 
 	return {
 		...noticesState,
+		initialContent,
 		putNoticeBody,
 		isAuthenticated,
 		onHandleEditFormTextField,

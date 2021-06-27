@@ -34,6 +34,8 @@ export default function useEditForm() {
 	} = useSelector((state: RootState) => state.common);
 	const storageBoardState = useSelector((state: RootState) => state.storageBoard);
 
+	const [initialContent, setInitialContent] = useState<string>('');
+
 	const [putStorageBoardBody, setPutStorageBoardBody] = useState<PutStorageBoardBody>({
 		nickname: null,
 		password: null,
@@ -195,6 +197,7 @@ export default function useEditForm() {
 
 	useEffect(() => {
 		if (storageBoardState.manage.detail.id !== 0) {
+			setInitialContent(storageBoardState.manage.detail.content);
 			setPutStorageBoardBody({
 				nickname: storageBoardState.manage.detail.nickname,
 				password: putStorageBoardBody.password,
@@ -207,6 +210,7 @@ export default function useEditForm() {
 
 	return {
 		...storageBoardState,
+		initialContent,
 		putStorageBoardBody,
 		showPassword,
 		isAuthenticated,
