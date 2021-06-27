@@ -155,7 +155,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			maxWidth: 'calc(100% - 34px)'
 		},
 		nicknameTypography: {
-			fontFamily: 'NanumSquareRoundEB'
+			fontFamily: 'NanumSquareRoundEB',
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		},
 		descriptionTypographyBox: {
 			minHeight: 40,

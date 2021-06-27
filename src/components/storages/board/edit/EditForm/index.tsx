@@ -260,7 +260,7 @@ function EditForm() {
 					</Box>
 					<Box className={classes.textEditorBox}>
 						{(id === 0 || pending || !open) && (
-							<Box p={30} textAlign={'center'}>
+							<Box mt={25} mb={25} textAlign={'center'}>
 								<CircularProgress color={'primary'} />
 							</Box>
 						)}

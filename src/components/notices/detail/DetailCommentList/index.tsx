@@ -853,8 +853,9 @@ function DetailCommentList() {
 												</Grid>
 											</Grid>
 											<Box className={classes.replyBoxItemContent}>
-												{reply.content.split('\n').map((item) => (
-													<span key={`notice-detail-reply-content-line-${item}`}>
+												{reply.content.split('\n').map((item, index) => (
+													// eslint-disable-next-line react/no-array-index-key
+													<span key={`notice-detail-reply-content-line-${index}`}>
 														{item}
 														<br />
 													</span>

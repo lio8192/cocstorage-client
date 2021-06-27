@@ -4,6 +4,7 @@ import {
 	createStyles, makeStyles, Theme, useTheme
 } from '@material-ui/core/styles';
 import moment from 'moment';
+import clsx from 'clsx';
 
 // Material UI
 import List from '@material-ui/core/List';
@@ -130,6 +131,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		typography: {
 			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		},
+		adminSpecificTypography: {
+			fontFamily: 'NanumSquareRoundEB'
+		},
 		divider: {
 			backgroundColor: theme.palette.grey['50']
 		}
@@ -249,7 +253,12 @@ function BoardList({ params, adOpen = true, searchValue }: BoardListPros) {
 													src={item.isMember && item.user ? item.user.avatarUrl || '' : ''}
 												/>
 												<Box className={classes.writerInfoBox} ml={1}>
-													<Typography className={classes.typography} variant={'caption'}>
+													<Typography
+														className={clsx(classes.typography, {
+															[classes.adminSpecificTypography]: item.isMember && item.user?.role === 'admin'
+														})}
+														variant={'caption'}
+													>
 														{item.isMember && item.user ? item.user.nickname : item.nickname}
 													</Typography>
 													{item.isMember && item.user?.role === 'admin' && (

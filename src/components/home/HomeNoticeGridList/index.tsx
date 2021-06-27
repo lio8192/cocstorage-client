@@ -221,7 +221,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			lineClamp: 2
 		},
 		nicknameTypography: {
-			fontFamily: 'NanumSquareRoundEB'
+			fontFamily: 'NanumSquareRoundEB',
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		},
 		divider: {
 			width: 40,

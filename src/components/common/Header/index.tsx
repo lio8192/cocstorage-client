@@ -89,7 +89,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		typography: {
-			fontFamily: 'NanumSquareRoundEB'
+			fontFamily: 'NanumSquareRoundEB',
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		},
 		icon: {
 			fontSize: 14,
