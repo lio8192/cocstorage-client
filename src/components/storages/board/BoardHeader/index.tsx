@@ -142,7 +142,7 @@ function BoardHeader() {
 					<Box className={classes.nameBox}>
 						<Box>
 							<Typography className={classes.typography} variant={'h5'}>
-								{pending ? (
+								{pending || !name ? (
 									<Skeleton width={`${Math.round(Math.random() * 20) + 10}%`} />
 								) : (
 									<>
@@ -159,24 +159,30 @@ function BoardHeader() {
 						<Grid container spacing={0} alignItems={'center'}>
 							<Grid item xs={12} md={6}>
 								<Typography className={classes.descriptionTypography} variant={'caption'}>
-									{pending ? <Skeleton width={`${Math.round(Math.random() * 30) + 15}%`} /> : description}
+									{pending || !description ? (
+										<Skeleton width={`${Math.round(Math.random() * 30) + 15}%`} />
+									) : (
+										description
+									)}
 								</Typography>
 							</Grid>
-							<Hidden smDown={!pending}>
-								<Grid item xs={12} md={6}>
-									<Box textAlign={'right'}>
-										<SettingsApplicationsIcon className={classes.icon} />
-										<Typography className={classes.descriptionTypography} variant={'caption'}>
-											{nickname}
-										</Typography>
-										<Box component={'span'} ml={1} />
-										<TodayIcon className={classes.icon} />
-										<Typography className={classes.descriptionTypography} variant={'caption'}>
-											{moment(createdAt).format('YYYY. MM. DD HH:mm:ss')}
-										</Typography>
-									</Box>
-								</Grid>
-							</Hidden>
+							{nickname && createdAt && (
+								<Hidden smDown={!pending}>
+									<Grid item xs={12} md={6}>
+										<Box textAlign={'right'}>
+											<SettingsApplicationsIcon className={classes.icon} />
+											<Typography className={classes.descriptionTypography} variant={'caption'}>
+												{nickname}
+											</Typography>
+											<Box component={'span'} ml={1} />
+											<TodayIcon className={classes.icon} />
+											<Typography className={classes.descriptionTypography} variant={'caption'}>
+												{moment(createdAt).format('YYYY. MM. DD HH:mm:ss')}
+											</Typography>
+										</Box>
+									</Grid>
+								</Hidden>
+							)}
 						</Grid>
 					</Box>
 				</Box>
@@ -205,6 +211,7 @@ function BoardHeader() {
 					</>
 				)}
 				route={''}
+				fullWidth
 				onCloseNotificationModal={onHandleNotificationModal}
 			/>
 		</Box>

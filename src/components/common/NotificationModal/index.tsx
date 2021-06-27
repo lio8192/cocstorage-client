@@ -23,6 +23,7 @@ type NotificationModalProps = {
 	content: string | JSX.Element | JSX.Element[];
 	severity: string;
 	route: string;
+	fullWidth?: boolean;
 	onCloseNotificationModal: () => void;
 };
 
@@ -55,6 +56,7 @@ function NotificationModal({
 	content,
 	severity,
 	route,
+	fullWidth,
 	onCloseNotificationModal
 }: NotificationModalProps) {
 	const classes = useStyles();
@@ -69,7 +71,7 @@ function NotificationModal({
 	}, [router, route, onCloseNotificationModal]);
 
 	return (
-		<Dialog open={open} onClose={handleNotificationModal}>
+		<Dialog open={open} onClose={handleNotificationModal} fullWidth={fullWidth}>
 			<DialogTitle>
 				<Box display={'flex'} alignItems={'center'}>
 					<Box>
