@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		title: {
 			width: '100%',
-			fontWeight: 700,
+			fontFamily: 'NanumSquareRoundEB',
 			cursor: 'default'
 		},
 		avatar: {
@@ -221,7 +221,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			lineClamp: 2
 		},
 		nicknameTypography: {
-			fontWeight: 700
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		divider: {
 			width: 40,

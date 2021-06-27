@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			backgroundColor: theme.palette.grey['50']
 		},
 		typography: {
-			fontWeight: 700
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		icon: {
 			verticalAlign: 'middle'

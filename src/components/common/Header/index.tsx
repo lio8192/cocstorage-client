@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		typography: {
-			fontWeight: 700
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		icon: {
 			fontSize: 14,

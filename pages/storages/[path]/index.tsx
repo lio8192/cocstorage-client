@@ -265,7 +265,7 @@ function StorageBoard() {
 						</Tabs>
 					</Container>
 					<Container className={classes.container}>
-						<BoardList params={getParams(query)} />
+						<BoardList params={getParams(query)} searchValue={searchValue} />
 						<Hidden mdDown>
 							<Box className={classes.buttonBox}>
 								<Link href={'/storages/[path]/write'} as={`/storages/${storage.path}/write`}>

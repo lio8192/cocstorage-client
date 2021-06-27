@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Skeleton from '@material-ui/lab/Skeleton';
 import MenuItem from '@material-ui/core/MenuItem';
+import Chip from '@material-ui/core/Chip';
 import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
@@ -84,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		nicknameBox: {
 			marginLeft: theme.spacing(1),
 			fontSize: 16,
-			fontWeight: 700,
+			fontFamily: 'NanumSquareRoundEB',
 			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
 		},
 		otherInfoBox: {
@@ -305,6 +306,9 @@ function DetailContent() {
 											{!user?.avatarUrl && user?.nickname.toString().charAt(0)}
 										</Avatar>
 										<Box className={classes.nicknameBox}>{`${user?.nickname}`}</Box>
+										<Box ml={1}>
+											<Chip variant={'outlined'} label={'운영자'} color={'primary'} size={'small'} />
+										</Box>
 									</Box>
 								</Grid>
 								<Grid item xs={12} sm={6}>

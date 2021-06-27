@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			backgroundColor: theme.palette.primary.main
 		},
 		typography: {
-			fontWeight: 700,
+			fontFamily: 'NanumSquareRoundEB',
 			color: theme.palette.action.active
 		}
 	})
@@ -58,7 +58,7 @@ function DataEmptyBox({
 }: DataEmptyBoxProps) {
 	const classes = useStyles();
 	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+	const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
 	return (
 		<Box

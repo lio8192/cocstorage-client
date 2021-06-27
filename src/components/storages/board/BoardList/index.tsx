@@ -106,9 +106,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: theme.palette.grey.A200
 		},
 		writerInfoBox: {
-			'& > span:first-child': {
-				fontWeight: 700
-			},
 			'& > span::after': {
 				content: '""',
 				display: 'inline-block',
@@ -142,17 +139,17 @@ const useStyles = makeStyles((theme: Theme) =>
 type BoardListPros = {
 	params?: { [key: string]: string } | string;
 	adOpen?: boolean;
+	searchValue: string;
 };
 
-function BoardList({ params, adOpen = true }: BoardListPros) {
+function BoardList({ params, adOpen = true, searchValue }: BoardListPros) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const {
 		pending,
 		storage: { path },
-		boards,
-		fetchSearchParams: { value }
+		boards
 	} = useBoardList();
 
 	return (
@@ -255,6 +252,11 @@ function BoardList({ params, adOpen = true }: BoardListPros) {
 													<Typography className={classes.typography} variant={'caption'}>
 														{item.isMember && item.user ? item.user.nickname : item.nickname}
 													</Typography>
+													{item.isMember && item.user?.role === 'admin' && (
+														<Box component={'span'}>
+															<Chip variant={'outlined'} label={'운영자'} color={'primary'} size={'small'} />
+														</Box>
+													)}
 													<Typography variant={'caption'}>
 														{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 													</Typography>
@@ -299,9 +301,9 @@ function BoardList({ params, adOpen = true }: BoardListPros) {
 						</Box>
 					</Grow>
 				))}
-			{!pending && !value && boards.length === 0 && <DataEmptyBox message={'아직 개념글이 존재하지 않아요.'} />}
-			{!pending && value && boards.length === 0 && (
-				<DataEmptyBox message={`"${value}" 에 대한 검색 결과가 존재하지 않아요.`} />
+			{!pending && !searchValue && boards.length === 0 && <DataEmptyBox message={'아직 개념글이 존재하지 않아요.'} />}
+			{!pending && searchValue && boards.length === 0 && (
+				<DataEmptyBox message={`"${searchValue}" 에 대한 검색 결과가 존재하지 않아요.`} />
 			)}
 		</List>
 	);

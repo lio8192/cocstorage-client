@@ -34,6 +34,7 @@ import { StorageBoardDetailComment, StorageBoardDetailReply } from 'modules/stor
 
 // Components
 import DataEmptyBox from 'components/common/DataEmptyBox';
+import CommentWriterInfoBadge from 'components/common/CommentWriterInfoBadge';
 import ReplyWriteForm from './ReplyWriteForm';
 
 interface TransferReply extends StorageBoardDetailReply {
@@ -170,11 +171,13 @@ const useStyles = makeStyles((theme: Theme) =>
 		commentListItemWriterNickname: {
 			marginLeft: theme.spacing(1),
 			fontSize: 16,
-			fontWeight: 700,
 			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : '',
 			overflow: 'hidden',
 			whiteSpace: 'nowrap',
 			textOverflow: 'ellipsis'
+		},
+		commentListItemAdminSpecificNickname: {
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		commentListItemContent: {
 			fontSize: 14,
@@ -222,9 +225,9 @@ const useStyles = makeStyles((theme: Theme) =>
 				margin: theme.spacing(1),
 				width: 3,
 				height: 3,
-				border: `1px solid ${theme.palette.grey.A100}`,
+				border: `1px solid ${theme.palette.grey.A200}`,
 				borderRadius: '50%',
-				backgroundColor: theme.palette.grey.A100,
+				backgroundColor: theme.palette.grey.A200,
 				verticalAlign: 'middle'
 			},
 			'& > div:last-child::after': {
@@ -239,20 +242,19 @@ const useStyles = makeStyles((theme: Theme) =>
 		replyBoxItemWriterNickname: {
 			marginLeft: theme.spacing(1),
 			fontSize: 16,
-			fontWeight: 700,
 			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : '',
 			overflow: 'hidden',
 			whiteSpace: 'nowrap',
 			textOverflow: 'ellipsis'
 		},
+		replyBoxItemAdminSpecificNickname: {
+			fontFamily: 'NanumSquareRoundEB'
+		},
 		replyBoxItemContent: {
-			padding: theme.spacing(1, 0, 0, 3),
+			padding: theme.spacing(1, 0, 2, 3),
 			wordBreak: 'break-all',
 			wordWrap: 'break-word',
-			fontSize: 14,
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(1, 0, 0, 3)
-			}
+			fontSize: 14
 		},
 		replyBoxItemWriterDate: {
 			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
@@ -281,6 +283,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function DetailCommentList() {
 	const classes = useStyles();
 	const {
+		detail: { user },
 		userId,
 		comments: { pending, data },
 		onHandleStorageBoardDetailDeleteAuthDialog,
@@ -559,9 +562,23 @@ function DetailCommentList() {
 																>
 																	{!item.user?.avatarUrl && item.user?.nickname.charAt(0)}
 																</Avatar>
-																<Box className={classes.commentListItemWriterNickname} component={'span'}>
+																<Box
+																	component={'span'}
+																	className={clsx(classes.commentListItemWriterNickname, {
+																		[classes.commentListItemAdminSpecificNickname]: item.user?.role === 'admin'
+																	})}
+																>
 																	{item.user?.nickname}
 																</Box>
+																{(item.user?.role === 'admin' || user?.id === item.user?.id) && (
+																	<Box component={'span'} ml={1}>
+																		<CommentWriterInfoBadge
+																			boardUserId={user?.id || 0}
+																			commentUserId={item.user?.id}
+																			userRole={item.user?.role}
+																		/>
+																	</Box>
+																)}
 															</>
 														) : (
 															<>
@@ -700,21 +717,35 @@ function DetailCommentList() {
 															{reply.isMember && reply.user ? (
 																<>
 																	<Avatar
-																		className={classes.commentListItemWriterAvatar}
+																		className={classes.replyBoxItemWriterAvatar}
 																		src={reply.user?.avatarUrl || ''}
 																	>
 																		{!reply.user?.avatarUrl && reply.user?.nickname.charAt(0)}
 																	</Avatar>
-																	<Box className={classes.commentListItemWriterNickname} component={'span'}>
+																	<Box
+																		component={'span'}
+																		className={clsx(classes.replyBoxItemWriterNickname, {
+																			[classes.replyBoxItemAdminSpecificNickname]: reply.user?.role === 'admin'
+																		})}
+																	>
 																		{reply.user?.nickname}
 																	</Box>
+																	{(reply.user?.role === 'admin' || user?.id === reply.user?.id) && (
+																		<Box component={'span'} ml={1}>
+																			<CommentWriterInfoBadge
+																				boardUserId={user?.id || 0}
+																				commentUserId={reply.user?.id}
+																				userRole={reply.user?.role}
+																			/>
+																		</Box>
+																	)}
 																</>
 															) : (
 																<>
-																	<Avatar className={classes.commentListItemWriterAvatar}>
+																	<Avatar className={classes.replyBoxItemWriterAvatar}>
 																		{reply.nickname && reply.nickname.charAt(0)}
 																	</Avatar>
-																	<Box className={classes.commentListItemWriterNickname} component={'span'}>
+																	<Box className={classes.replyBoxItemWriterNickname} component={'span'}>
 																		{reply.nickname}
 																	</Box>
 																	{reply.createdIp && (

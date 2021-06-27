@@ -149,13 +149,13 @@ const useStyles = makeStyles((theme: Theme) =>
 		typography: {
 			maxWidth: '100%',
 			minHeight: 24,
-			fontWeight: 700
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		typographyWithBadge: {
 			maxWidth: 'calc(100% - 34px)'
 		},
 		nicknameTypography: {
-			fontWeight: 700
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		descriptionTypographyBox: {
 			minHeight: 40,

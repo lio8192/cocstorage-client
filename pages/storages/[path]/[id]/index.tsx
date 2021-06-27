@@ -376,7 +376,7 @@ function StorageBoardDetail({ query }: NextPageContext) {
 								<Tab label={'최신 개념글'} value={'latest'} disabled={pending} />
 								<Tab label={'인기 개념글'} value={'popular'} disabled={pending} />
 							</Tabs>
-							<BoardList params={getParams(query)} adOpen={false} />
+							<BoardList params={getParams(query)} adOpen={false} searchValue={searchValue} />
 							{storageBoardPagination.totalPages > 0 ? (
 								<Pagination
 									className={classes.pagination}

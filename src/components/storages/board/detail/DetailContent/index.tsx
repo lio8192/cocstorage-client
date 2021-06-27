@@ -4,6 +4,7 @@ import React, {
 import Router from 'next/router';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import moment from 'moment';
+import clsx from 'clsx';
 
 // Material UI
 import Grid from '@material-ui/core/Grid';
@@ -90,8 +91,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		nicknameBox: {
 			fontSize: 16,
-			fontWeight: 700,
 			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
+		},
+		adminSpecificNickname: {
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		writerAvatar: {
 			width: theme.spacing(4),
@@ -225,7 +228,7 @@ function DetailContent() {
 	const anchorRef = useRef<HTMLButtonElement>(null);
 
 	const handleEditRouter = useCallback(
-		() => Router.push('/storages/[path]/edit/[id]', `/storages/${storage.path}/edit/${storageBoardId}/`).then(),
+		() => Router.push('/storages/[path]/edit/[id]', `/storages/${storage.path}/edit/${storageBoardId}`).then(),
 		[storage.path, storageBoardId]
 	);
 
@@ -388,10 +391,20 @@ function DetailContent() {
 													{!user?.avatarUrl && user?.nickname.toString().charAt(0)}
 												</Avatar>
 												<Box ml={1}>
-													<Box className={classes.nicknameBox} component={'span'}>
+													<Box
+														className={clsx(classes.nicknameBox, {
+															[classes.adminSpecificNickname]: user?.role === 'admin'
+														})}
+														component={'span'}
+													>
 														{user?.nickname}
 													</Box>
 												</Box>
+												{user.role === 'admin' && (
+													<Box ml={1}>
+														<Chip variant={'outlined'} label={'운영자'} color={'primary'} size={'small'} />
+													</Box>
+												)}
 											</>
 										) : (
 											<>
