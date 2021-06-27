@@ -1,7 +1,10 @@
 import React, {
 	useEffect, useState, useRef, memo
 } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import {
+	makeStyles, createStyles, Theme, useTheme
+} from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 // Material UI
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,6 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AppBar from '@material-ui/core/AppBar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Slide from '@material-ui/core/Slide';
 import Popper from '@material-ui/core/Popper';
 import Grow from '@material-ui/core/Grow';
@@ -55,6 +59,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		appBarLogo: {
 			maxWidth: 120,
 			verticalAlign: 'middle'
+		},
+		mAppBarLogo: {
+			maxWidth: 25
 		},
 		list: {
 			width: 250,
@@ -111,8 +118,28 @@ function HideOnScroll(props: ScrollProps) {
 	);
 }
 
+function getLogoUrl(paletteType: string, isMobile: boolean) {
+	let logoUrl = 'https://static.cocstorage.com/images/logo_text.png';
+
+	if (paletteType === 'dark' && !isMobile) {
+		logoUrl = 'https://static.cocstorage.com/images/logo_text_white.png';
+	}
+
+	if (paletteType === 'dark' && isMobile) {
+		logoUrl = 'https://static.cocstorage.com/images/logo_icon_white.png';
+	}
+
+	if (paletteType === 'light' && isMobile) {
+		logoUrl = 'https://static.cocstorage.com/images/logo_icon.png';
+	}
+
+	return logoUrl;
+}
+
 function MobileHeader() {
 	const classes = useStyles();
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 	const {
 		paletteType,
 		user: { nickname, avatarUrl, isAuthenticated },
@@ -175,12 +202,10 @@ function MobileHeader() {
 							<Box>
 								<Box component={'span'} onClick={onHandleLogo}>
 									<img
-										className={classes.appBarLogo}
-										src={
-											paletteType === 'light'
-												? 'https://static.cocstorage.com/images/logo_text.png'
-												: 'https://static.cocstorage.com/images/logo_text_white.png'
-										}
+										className={clsx(classes.appBarLogo, {
+											[classes.mAppBarLogo]: isMobile
+										})}
+										src={getLogoUrl(paletteType, isMobile)}
 										alt={'Logo Img'}
 									/>
 								</Box>

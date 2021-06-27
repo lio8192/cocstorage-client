@@ -92,6 +92,10 @@ const useStyles = makeStyles((theme: Theme) =>
 				color: theme.palette.grey.A100
 			}
 		},
+		smallAvatar: {
+			width: theme.spacing(3.5),
+			height: theme.spacing(3.5)
+		},
 		nameBox: {
 			width: '100%',
 			marginLeft: theme.spacing(1),
@@ -198,7 +202,7 @@ function BoardHeader() {
 						</Box>
 						<Box display={'flex'} alignItems={'center'}>
 							<Box mr={1}>
-								<Avatar src={useAvatarUrl || ''} alt={'User Avatar Img'}>
+								<Avatar className={classes.smallAvatar} src={useAvatarUrl || ''} alt={'User Avatar Img'}>
 									{nickname.substr(0)}
 								</Avatar>
 							</Box>
