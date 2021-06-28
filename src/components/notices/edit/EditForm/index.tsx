@@ -193,11 +193,21 @@ function EditForm() {
 						/>
 					</Box>
 					<Box className={classes.textEditorBox}>
-						{(id === 0 || pending || !open) && (
-							<Box mt={25} mb={25} textAlign={'center'}>
+						<Grow in={id === 0 || pending || !open}>
+							<Box
+								position={'absolute'}
+								top={0}
+								left={0}
+								display={'flex'}
+								alignItems={'center'}
+								justifyContent={'center'}
+								width={'100%'}
+								height={'100%'}
+								textAlign={'center'}
+							>
 								<CircularProgress color={'primary'} />
 							</Box>
-						)}
+						</Grow>
 						{id !== 0 && !pending && theme.palette.type === 'light' && (
 							<Editor
 								apiKey={'kmfhv3po7kg1phohpf4oxj6lmnm8vgpviv2anq3loui0joj8'}
