@@ -110,8 +110,11 @@ const useStyles = makeStyles((theme: Theme) =>
 		logoAvatar: {
 			width: theme.spacing(4),
 			height: theme.spacing(4),
-			backgroundColor: theme.palette.primary.main,
-			color: theme.palette.common.white
+			backgroundColor: theme.palette.background.default,
+			color: theme.palette.grey.A100,
+			'& svg': {
+				fontSize: 16
+			}
 		},
 		logoTypographyBox: {
 			marginLeft: theme.spacing(1),
@@ -243,7 +246,7 @@ function MobileHeader() {
 											<Box>
 												<Link href={'/storages/[path]'} as={`/storages/${storage.path}`}>
 													<a>
-														<Avatar className={classes.logoAvatar} src={storage.avatarUrl || ''}>
+														<Avatar className={classes.logoAvatar} src={''}>
 															<InsertPhotoIcon />
 														</Avatar>
 													</a>

@@ -105,6 +105,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			height: theme.spacing(3.5)
 		},
 		nameBox: {
+			flexGrow: 1,
 			marginLeft: theme.spacing(1),
 			[theme.breakpoints.down('md')]: {
 				marginBottom: theme.spacing(0)
@@ -157,29 +158,23 @@ function BoardHeader() {
 							</Link>
 						</Box>
 						<Box className={classes.nameBox}>
-							<Box>
-								<Link href={'/storages/[path]'} as={`/storages/${path}`}>
-									<a>
-										<Typography className={classes.typography} variant={'h5'}>
-											{pending || !name ? (
-												<Skeleton width={`${Math.round(Math.random() * 20) + 10}%`} />
-											) : (
-												<>
-													{`${name} 저장소`}
-													<Hidden mdUp={!pending}>
-														<IconButton
-															className={classes.iconButton}
-															size={'small'}
-															onClick={onHandleNotificationModal}
-														>
-															<InfoIcon />
-														</IconButton>
-													</Hidden>
-												</>
-											)}
-										</Typography>
-									</a>
-								</Link>
+							<Box minWidth={500}>
+								{pending || !name ? (
+									<Skeleton variant={'rect'} width={`${Math.round(Math.random() * 20) + 10}%`} height={25} />
+								) : (
+									<Link href={'/storages/[path]'} as={`/storages/${path}`}>
+										<a>
+											<Typography className={classes.typography} variant={'h5'}>
+												{`${name} 저장소`}
+												<Hidden mdUp={!pending}>
+													<IconButton className={classes.iconButton} size={'small'} onClick={onHandleNotificationModal}>
+														<InfoIcon />
+													</IconButton>
+												</Hidden>
+											</Typography>
+										</a>
+									</Link>
+								)}
 							</Box>
 							<Box>
 								<Typography className={classes.descriptionTypography} variant={'caption'}>

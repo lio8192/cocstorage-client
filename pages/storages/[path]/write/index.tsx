@@ -112,7 +112,7 @@ function StorageBoardWrite() {
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />
 			</Fade>
-			<Hidden mdDown>
+			<Hidden mdDown implementation={'css'}>
 				<BoardHeader />
 			</Hidden>
 			<WriteForm />
