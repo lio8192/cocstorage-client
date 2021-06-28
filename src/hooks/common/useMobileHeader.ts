@@ -25,12 +25,13 @@ export default function useMobileHeader() {
 		[isNoticeWrite, isNoticeDetail, isNoticeEdit]
 	);
 
+	const isStorageBoard = useMemo(() => route === '/storages/[path]', [route]);
 	const isStorageBoardWrite = useMemo(() => route === '/storages/[path]/write', [route]);
 	const isStorageBoardEdit = useMemo(() => route === '/storages/[path]/edit/[id]', [route]);
 	const isStorageBoardDetail = useMemo(() => route === '/storages/[path]/[id]', [route]);
 	const isNewStorage = useMemo(
-		() => isStorageBoardWrite || isStorageBoardDetail || isStorageBoardEdit,
-		[isStorageBoardWrite, isStorageBoardDetail, isStorageBoardEdit]
+		() => isStorageBoard || isStorageBoardWrite || isStorageBoardDetail || isStorageBoardEdit,
+		[isStorageBoard, isStorageBoardWrite, isStorageBoardDetail, isStorageBoardEdit]
 	);
 
 	const onHandleSignInDialog = useCallback(() => dispatch(handleSignInDialog()), [dispatch]);
@@ -43,28 +44,6 @@ export default function useMobileHeader() {
 					pathname: '/'
 				},
 				'/'
-			)
-			.then();
-	}, [router]);
-
-	const onHandleStorageChip = useCallback(() => {
-		router
-			.push(
-				{
-					pathname: '/storages/[path]'
-				},
-				`/storages/${storage.path}`
-			)
-			.then();
-	}, [router, storage.path]);
-
-	const onHandleNoticeChip = useCallback(() => {
-		router
-			.push(
-				{
-					pathname: '/notices'
-				},
-				'/notices'
 			)
 			.then();
 	}, [router]);
@@ -90,8 +69,6 @@ export default function useMobileHeader() {
 		isNotices,
 		onHandleSignInDialog,
 		onDeleteSignOut,
-		onHandleStorageChip,
-		onHandleNoticeChip,
 		onHandleLogo,
 		onHandlePaletteType
 	};

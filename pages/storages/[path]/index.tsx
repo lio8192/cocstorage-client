@@ -249,7 +249,9 @@ function StorageBoard() {
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
-			<BoardHeader />
+			<Hidden mdDown>
+				<BoardHeader />
+			</Hidden>
 			<Grid className={classes.root} container>
 				<Grid item xs={12}>
 					<Container className={classes.container}>

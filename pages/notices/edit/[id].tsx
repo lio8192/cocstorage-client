@@ -7,6 +7,7 @@ import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
 // Material UI
 import Fade from '@material-ui/core/Fade';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Hidden from '@material-ui/core/Hidden';
 
 // Components
 import NoticeHeader from 'components/notices/NoticeHeader';
@@ -79,7 +80,9 @@ function NoticeEdit() {
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />
 			</Fade>
-			<NoticeHeader />
+			<Hidden mdDown>
+				<NoticeHeader />
+			</Hidden>
 			<EditForm />
 		</>
 	);

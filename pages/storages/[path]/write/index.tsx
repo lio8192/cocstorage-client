@@ -5,6 +5,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 // Material UI
 import Fade from '@material-ui/core/Fade';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Hidden from '@material-ui/core/Hidden';
 
 // Components
 import BoardHeader from 'components/storages/board/BoardHeader';
@@ -111,7 +112,9 @@ function StorageBoardWrite() {
 			<Fade in={pending}>
 				<LinearProgress className={classes.linearProgress} color={'primary'} />
 			</Fade>
-			<BoardHeader />
+			<Hidden mdDown>
+				<BoardHeader />
+			</Hidden>
 			<WriteForm />
 		</>
 	);

@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import Link from 'next/link';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI
@@ -22,6 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
 				height: 'auto',
 				margin: 0,
 				borderRadius: 'inherit'
+			},
+			'& a': {
+				textDecoration: 'none',
+				color: 'inherit'
 			}
 		},
 		container: {
@@ -33,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		typography: {
 			width: '100%',
 			color: 'white',
+			cursor: 'pointer',
 			[theme.breakpoints.down('md')]: {
 				fontSize: 22
 			},
@@ -48,7 +54,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		icon: {
 			verticalAlign: 'middle',
-			color: 'white'
+			color: 'white',
+			cursor: 'pointer'
 		}
 	})
 );
@@ -61,12 +68,20 @@ function StorageHeader() {
 				<Box className={classes.box}>
 					<Box display={'flex'} alignItems={'center'}>
 						<Box>
-							<ForumIcon className={classes.icon} fontSize={'large'} />
+							<Link href={'/storages'} as={'/storages'}>
+								<a>
+									<ForumIcon className={classes.icon} fontSize={'large'} />
+								</a>
+							</Link>
 						</Box>
 						<Box flex={1} ml={0.5}>
-							<Typography className={classes.typography} variant={'h5'}>
-								{'커뮤니티 저장소'}
-							</Typography>
+							<Link href={'/storages'} as={'/storages'}>
+								<a>
+									<Typography className={classes.typography} variant={'h5'}>
+										{'커뮤니티 저장소'}
+									</Typography>
+								</a>
+							</Link>
 						</Box>
 					</Box>
 					<Typography className={classes.descriptionTypography} variant={'caption'}>

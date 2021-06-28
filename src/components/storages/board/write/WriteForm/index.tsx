@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.down('md')]: {
 				margin: theme.spacing(0),
 				border: 'none',
-				borderTop: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`,
+				borderTop: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey['50'] : theme.palette.grey['50']}`,
 				borderRadius: 0
 			},
 			'& *:not(.MuiCircularProgress-colorPrimary)': {
@@ -61,17 +61,22 @@ const useStyles = makeStyles((theme: Theme) =>
 				borderColor: `${
 					theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']
 				} !important`,
-				color: `${theme.palette.type === 'light' ? 'inherit' : 'white'} !important`
+				color: `${theme.palette.type === 'light' ? 'inherit' : 'white'} !important`,
+				[theme.breakpoints.down('md')]: {
+					'& *:not(.MuiCircularProgress-colorPrimary)': {
+						borderColor: `${theme.palette.grey['50']} !important`
+					}
+				}
 			},
 			'& .tox-toolbar': {
 				background: 'none !important',
 				backgroundColor: `${theme.palette.background.paper} !important`,
-				borderBottom: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`
+				borderBottom: `1px solid ${theme.palette.grey['50']}`
 			},
 			'& .tox-toolbar__primary': {
 				background: 'none !important',
 				backgroundColor: `${theme.palette.background.paper} !important`,
-				borderBottom: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`
+				borderBottom: `1px solid ${theme.palette.grey['50']}`
 			},
 			'& .tox-statusbar': {
 				backgroundColor: `${theme.palette.background.paper} !important`
@@ -86,13 +91,12 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		writerInfoTextFieldGrid: {
 			[theme.breakpoints.down('md')]: {
-				borderTop: `${theme.palette.type === 'dark' ? `1px solid ${theme.palette.grey['50']}` : 'none'}`,
-				borderBottom: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`
+				borderBottom: `1px solid ${theme.palette.grey['50']}`
 			}
 		},
 		nicknameTextFieldInput: {
 			[theme.breakpoints.down('md')]: {
-				borderRight: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`,
+				borderRight: `1px solid ${theme.palette.grey['50']}`,
 				borderRadius: 0,
 				'& fieldset': {
 					border: 'none'
@@ -118,7 +122,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		buttonBox: {
 			overflow: 'hidden',
 			[theme.breakpoints.down('md')]: {
-				borderTop: `1px solid ${theme.palette.type === 'light' ? theme.palette.grey.A100 : theme.palette.grey['50']}`
+				borderTop: `1px solid ${theme.palette.grey['50']}`
 			}
 		},
 		button: {
@@ -149,10 +153,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		icon: {
 			verticalAlign: 'middle'
-		},
-		typography: {
-			color: theme.palette.action.active,
-			fontWeight: 700
 		}
 	})
 );

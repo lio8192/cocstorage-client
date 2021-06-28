@@ -33,19 +33,10 @@ export default function useHeader() {
 	const isNoticeWrite = useMemo(() => route === '/notices/write', [route]);
 	const isNoticeEdit = useMemo(() => route === '/notices/edit/[id]', [route]);
 	const isNoticeDetail = useMemo(() => route === '/notices/[id]', [route]);
-	const isNotices = useMemo(
-		() => isNoticeWrite || isNoticeDetail || isNoticeEdit,
-		[isNoticeWrite, isNoticeDetail, isNoticeEdit]
-	);
+	const isNotices = useMemo(() => isNoticeDetail, [isNoticeDetail]);
 	const openNavigationChip = useMemo(
-		() =>
-			isStorageBoardWrite
-			|| isStorageBoardDetail
-			|| isStorageBoardEdit
-			|| isNoticeWrite
-			|| isNoticeEdit
-			|| isNoticeDetail,
-		[isStorageBoardWrite, isStorageBoardDetail, isStorageBoardEdit, isNoticeWrite, isNoticeDetail, isNoticeEdit]
+		() => isStorageBoardDetail || isNoticeWrite || isNoticeEdit || isNoticeDetail,
+		[isStorageBoardDetail, isNoticeWrite, isNoticeDetail, isNoticeEdit]
 	);
 
 	const isNewStorage = useMemo(

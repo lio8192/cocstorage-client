@@ -80,7 +80,9 @@ function NotificationModal({
 						{severity === 'warning' && <WarningIcon className={classes.warningIcon} fontSize={'large'} />}
 						{severity === 'error' && <ErrorIcon className={classes.errorIcon} fontSize={'large'} />}
 					</Box>
-					<Box ml={1}>{title}</Box>
+					<Box flex={1} ml={1}>
+						{title}
+					</Box>
 				</Box>
 			</DialogTitle>
 			<DialogContent>

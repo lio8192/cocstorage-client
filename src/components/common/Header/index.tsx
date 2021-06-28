@@ -101,11 +101,14 @@ const useStyles = makeStyles((theme: Theme) =>
 			zIndex: 10
 		},
 		avatar: {
-			width: theme.spacing(4),
-			height: theme.spacing(4)
+			width: theme.spacing(2.5),
+			height: theme.spacing(2.5)
 		},
 		chipAvatar: {
 			backgroundColor: `${theme.palette.background.default} !important`
+		},
+		button: {
+			height: '100%'
 		}
 	})
 );
@@ -261,19 +264,18 @@ function Header() {
 												>
 													{paletteType === 'light' ? '다크 모드' : '라이트 모드'}
 												</Button>
-												<Button ref={anchorRef} onClick={handleToggle}>
-													<Box display={'flex'} alignItems={'center'}>
-														<Box display={'flex'} alignItems={'center'} mr={1}>
-															<Typography className={classes.typography} variant={'body1'}>
-																{nickname}
-															</Typography>
-														</Box>
-														<Box>
-															<Avatar className={classes.avatar} src={avatarUrl}>
-																{nickname.charAt(0)}
-															</Avatar>
-														</Box>
-													</Box>
+												<Button
+													ref={anchorRef}
+													onClick={handleToggle}
+													startIcon={(
+														<Avatar className={classes.avatar} src={avatarUrl}>
+															{nickname.charAt(0)}
+														</Avatar>
+													)}
+												>
+													<Typography className={classes.typography} variant={'body1'}>
+														{nickname}
+													</Typography>
 												</Button>
 												<Popper
 													className={classes.popper}
@@ -399,19 +401,18 @@ function Header() {
 														>
 															{paletteType === 'light' ? '다크 모드' : '라이트 모드'}
 														</Button>
-														<Button ref={anchorRef} onClick={handleToggle}>
-															<Box display={'flex'} alignItems={'center'}>
-																<Box display={'flex'} alignItems={'center'} mr={1}>
-																	<Typography className={classes.typography} variant={'body1'}>
-																		{nickname}
-																	</Typography>
-																</Box>
-																<Box>
-																	<Avatar className={classes.avatar} src={avatarUrl}>
-																		{nickname.charAt(0)}
-																	</Avatar>
-																</Box>
-															</Box>
+														<Button
+															ref={anchorRef}
+															onClick={handleToggle}
+															startIcon={(
+																<Avatar className={classes.avatar} src={avatarUrl}>
+																	{nickname.charAt(0)}
+																</Avatar>
+															)}
+														>
+															<Typography className={classes.typography} variant={'body1'}>
+																{nickname}
+															</Typography>
 														</Button>
 														<Popper
 															className={classes.popper}

@@ -1,23 +1,20 @@
 import React, {
-	useEffect, useState, useRef, memo
+	useEffect, useState, useCallback, useRef, memo
 } from 'react';
-import {
-	makeStyles, createStyles, Theme, useTheme
-} from '@material-ui/core/styles';
-import clsx from 'clsx';
+import Link from 'next/link';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import moment from 'moment';
 
 // Material UI
 import Toolbar from '@material-ui/core/Toolbar';
 import Box from '@material-ui/core/Box';
-import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Slide from '@material-ui/core/Slide';
 import Popper from '@material-ui/core/Popper';
 import Grow from '@material-ui/core/Grow';
@@ -31,6 +28,15 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
+import SettingsIcon from '@material-ui/icons/Settings';
+import TodayIcon from '@material-ui/icons/Today';
+import InfoIcon from '@material-ui/icons/Info';
+
+// Material UI Labs
+import Skeleton from '@material-ui/lab/Skeleton';
+
+// Component
+import NotificationModal from 'components/common/NotificationModal';
 
 // Custom Hooks
 import useMobileHeader from 'hooks/common/useMobileHeader';
@@ -40,28 +46,28 @@ const useStyles = makeStyles((theme: Theme) =>
 		root: {
 			border: 'none',
 			borderBottom: `1px solid ${theme.palette.grey['50']}`,
-			backgroundColor: theme.palette.background.paper
+			backgroundColor: theme.palette.background.paper,
+			'& a': {
+				textDecoration: 'none',
+				color: 'inherit'
+			}
 		},
 		toolbar: {
+			justifyContent: 'space-between',
 			padding: theme.spacing(0.5, 3),
 			[theme.breakpoints.down('xs')]: {
 				padding: theme.spacing(0.5, 2)
 			}
 		},
-		chip: {
-			marginLeft: theme.spacing(1),
-			color: 'white',
-			fontFamily: 'NanumSquareRoundEB'
-		},
 		appBarLogoBox: {
-			flexGrow: 1
+			marginRight: theme.spacing(1.5),
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			textOverflow: 'ellipsis'
 		},
 		appBarLogo: {
 			maxWidth: 120,
 			verticalAlign: 'middle'
-		},
-		mAppBarLogo: {
-			maxWidth: 25
 		},
 		list: {
 			width: 250,
@@ -81,10 +87,6 @@ const useStyles = makeStyles((theme: Theme) =>
 		icon: {
 			verticalAlign: 'middle'
 		},
-		circularProgress: {
-			marginLeft: theme.spacing(1),
-			verticalAlign: 'middle'
-		},
 		avatar: {
 			width: theme.spacing(3),
 			height: theme.spacing(3),
@@ -98,6 +100,34 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		chipAvatar: {
 			backgroundColor: `${theme.palette.background.default} !important`
+		},
+		logoBox: {
+			display: 'flex',
+			alignItems: 'center',
+			cursor: 'pointer'
+		},
+		logoAvatar: {
+			width: theme.spacing(4),
+			height: theme.spacing(4),
+			backgroundColor: theme.palette.primary.main,
+			color: theme.palette.common.white
+		},
+		logoTypographyBox: {
+			marginLeft: theme.spacing(1),
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			textOverflow: 'ellipsis'
+		},
+		logoTypography: {
+			fontFamily: 'NanumSquareRoundEB',
+			lineHeight: '23px',
+			color: theme.palette.type === 'light' ? theme.palette.grey.A700 : ''
+		},
+		iconButtonBox: {
+			whiteSpace: 'nowrap',
+			'& > button:first-child': {
+				marginRight: theme.spacing(1)
+			}
 		}
 	})
 );
@@ -118,19 +148,11 @@ function HideOnScroll(props: ScrollProps) {
 	);
 }
 
-function getLogoUrl(paletteType: string, isMobile: boolean) {
+function getLogoUrl(paletteType: string) {
 	let logoUrl = 'https://static.cocstorage.com/images/logo_text.png';
 
-	if (paletteType === 'dark' && !isMobile) {
+	if (paletteType === 'dark') {
 		logoUrl = 'https://static.cocstorage.com/images/logo_text_white.png';
-	}
-
-	if (paletteType === 'dark' && isMobile) {
-		logoUrl = 'https://static.cocstorage.com/images/logo_icon_white.png';
-	}
-
-	if (paletteType === 'light' && isMobile) {
-		logoUrl = 'https://static.cocstorage.com/images/logo_icon.png';
 	}
 
 	return logoUrl;
@@ -138,8 +160,6 @@ function getLogoUrl(paletteType: string, isMobile: boolean) {
 
 function MobileHeader() {
 	const classes = useStyles();
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 	const {
 		paletteType,
 		user: { nickname, avatarUrl, isAuthenticated },
@@ -150,13 +170,15 @@ function MobileHeader() {
 		onHandleSignInDialog,
 		onDeleteSignOut,
 		onHandleLogo,
-		onHandleStorageChip,
-		onHandleNoticeChip,
 		onHandlePaletteType
 	} = useMobileHeader();
 
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState<boolean>(false);
+	const [modalOpen, setModalOpen] = useState<boolean>(false);
+
 	const anchorRef = useRef<HTMLButtonElement>(null);
+
+	const onHandleNotificationModal = useCallback(() => setModalOpen(!modalOpen), [modalOpen]);
 
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen);
@@ -200,47 +222,70 @@ function MobileHeader() {
 					<Toolbar className={classes.toolbar}>
 						<Box className={classes.appBarLogoBox}>
 							<Box>
-								<Box component={'span'} onClick={onHandleLogo}>
-									<img
-										className={clsx(classes.appBarLogo, {
-											[classes.mAppBarLogo]: isMobile
-										})}
-										src={getLogoUrl(paletteType, isMobile)}
-										alt={'Logo Img'}
-									/>
-								</Box>
+								{!isNewStorage && !isNotices && (
+									<Box component={'span'} onClick={onHandleLogo}>
+										<img className={classes.appBarLogo} src={getLogoUrl(paletteType)} alt={'Logo Img'} />
+									</Box>
+								)}
 								{isNewStorage
 									&& (pending ? (
-										<CircularProgress className={classes.circularProgress} color={'primary'} size={20} />
+										<Box display={'flex'} alignItems={'center'} mr={1.5}>
+											<Box>
+												<Skeleton variant={'circle'} width={32} height={32} />
+											</Box>
+											<Box ml={1}>
+												<Skeleton variant={'rect'} width={80} height={23} />
+											</Box>
+										</Box>
 									) : (
-										<Chip
-											className={classes.chip}
-											label={storage.name}
-											avatar={(
-												<Avatar className={classes.chipAvatar} src={storage.avatarUrl || ''}>
-													<InsertPhotoIcon className={classes.icon} />
-												</Avatar>
-											)}
-											onClick={onHandleStorageChip}
-											color={'primary'}
-											size={'small'}
-										/>
+										<Box className={classes.logoBox}>
+											<Box>
+												<Link href={'/storages/[path]'} as={`/storages/${storage.path}`}>
+													<a>
+														<Avatar className={classes.logoAvatar} src={storage.avatarUrl || ''}>
+															<InsertPhotoIcon />
+														</Avatar>
+													</a>
+												</Link>
+											</Box>
+											<Box className={classes.logoTypographyBox}>
+												<Link href={'/storages/[path]'} as={`/storages/${storage.path}`}>
+													<a>
+														<Typography className={classes.logoTypography} variant={'h6'} noWrap>
+															{storage.name}
+														</Typography>
+													</a>
+												</Link>
+											</Box>
+											<IconButton size={'small'} onClick={onHandleNotificationModal}>
+												<InfoIcon />
+											</IconButton>
+										</Box>
 									))}
 								{isNotices && (
-									<Chip
-										className={classes.chip}
-										label={'새로운 소식'}
-										icon={<NearMeIcon />}
-										onClick={onHandleNoticeChip}
-										color={'primary'}
-										size={'small'}
-									/>
+									<Link href={'/notices'} as={'/notices'}>
+										<a>
+											<Box className={classes.logoBox}>
+												<Box>
+													<Avatar className={classes.logoAvatar}>
+														<NearMeIcon />
+													</Avatar>
+												</Box>
+												<Box className={classes.logoTypographyBox}>
+													<Typography className={classes.logoTypography} variant={'h6'} noWrap>
+														{'새로운 소식'}
+													</Typography>
+												</Box>
+											</Box>
+										</a>
+									</Link>
 								)}
 							</Box>
 						</Box>
 						{!isAuthenticated ? (
-							<>
+							<Box className={classes.iconButtonBox}>
 								<IconButton
+									size={'small'}
 									data-palette-type={paletteType === 'light' ? 'dark' : 'light'}
 									onClick={onHandlePaletteType}
 								>
@@ -250,13 +295,14 @@ function MobileHeader() {
 										<Brightness7Icon color={'action'} />
 									)}
 								</IconButton>
-								<IconButton onClick={onHandleSignInDialog}>
+								<IconButton size={'small'} onClick={onHandleSignInDialog}>
 									<ExitToAppIcon color={'action'} />
 								</IconButton>
-							</>
+							</Box>
 						) : (
-							<>
+							<Box className={classes.iconButtonBox}>
 								<IconButton
+									size={'small'}
 									data-palette-type={paletteType === 'light' ? 'dark' : 'light'}
 									onClick={onHandlePaletteType}
 								>
@@ -266,7 +312,7 @@ function MobileHeader() {
 										<Brightness7Icon color={'action'} />
 									)}
 								</IconButton>
-								<IconButton ref={anchorRef} onClick={handleToggle}>
+								<IconButton size={'small'} ref={anchorRef} onClick={handleToggle}>
 									<Avatar className={classes.avatar} src={avatarUrl}>
 										{nickname.charAt(0)}
 									</Avatar>
@@ -299,12 +345,39 @@ function MobileHeader() {
 										</Grow>
 									)}
 								</Popper>
-							</>
+							</Box>
 						)}
 					</Toolbar>
 				</AppBar>
 			</HideOnScroll>
 			<Toolbar className={classes.toolbar} />
+			<NotificationModal
+				open={modalOpen}
+				severity={'info'}
+				title={'저장소 정보'}
+				content={(
+					<>
+						<Box fontFamily={'NanumSquareRoundEB'} mb={1}>
+							<SettingsIcon className={classes.icon} /> {'관리자'}
+						</Box>
+						<Box display={'flex'} alignItems={'center'}>
+							<Box mr={1}>
+								<Avatar className={classes.avatar} src={storage.user?.avatarUrl || ''} alt={'User Avatar Img'}>
+									{storage.user?.nickname.substr(0)}
+								</Avatar>
+							</Box>
+							<Box>{storage.user?.nickname}</Box>
+						</Box>
+						<Box fontFamily={'NanumSquareRoundEB'} mt={2} mb={1}>
+							<TodayIcon className={classes.icon} /> {'등록일시'}
+						</Box>
+						<Box>{moment(storage.createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
+					</>
+				)}
+				route={''}
+				fullWidth
+				onCloseNotificationModal={onHandleNotificationModal}
+			/>
 		</>
 	);
 }

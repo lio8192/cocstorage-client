@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import Link from 'next/link';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 // Material UI
@@ -22,6 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
 				height: 100,
 				margin: 0,
 				borderRadius: 'inherit'
+			},
+			'& a': {
+				textDecoration: 'none',
+				color: 'inherit'
 			}
 		},
 		container: {
@@ -32,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		typography: {
 			color: 'white',
+			cursor: 'pointer',
 			[theme.breakpoints.down('md')]: {
 				fontSize: 22
 			},
@@ -47,7 +53,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		icon: {
 			verticalAlign: 'middle',
-			color: 'white'
+			color: 'white',
+			cursor: 'pointer'
 		}
 	})
 );
@@ -60,12 +67,20 @@ function NoticeHeader() {
 				<Box className={classes.box}>
 					<Box display={'flex'} alignItems={'center'}>
 						<Box>
-							<NearMeIcon className={classes.icon} fontSize={'large'} />
+							<Link href={'/notices'} as={'/notices'}>
+								<a>
+									<NearMeIcon className={classes.icon} fontSize={'large'} />
+								</a>
+							</Link>
 						</Box>
 						<Box ml={0.5}>
-							<Typography className={classes.typography} variant={'h5'} noWrap>
-								{'새로운 소식'}
-							</Typography>
+							<Link href={'/notices'} as={'/notices'}>
+								<a>
+									<Typography className={classes.typography} variant={'h5'} noWrap>
+										{'새로운 소식'}
+									</Typography>
+								</a>
+							</Link>
 						</Box>
 					</Box>
 					<Box>
