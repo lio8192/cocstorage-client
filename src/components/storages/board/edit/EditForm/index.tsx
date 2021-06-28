@@ -49,6 +49,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		textEditorBox: {
+			position: 'relative',
+			minHeight: 450,
 			margin: theme.spacing(1, 0, 1),
 			border: `1px solid ${theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)'}`,
 			borderRadius: 4,
