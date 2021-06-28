@@ -246,7 +246,7 @@ function MobileHeader() {
 											<Box>
 												<Link href={'/storages/[path]'} as={`/storages/${storage.path}`}>
 													<a>
-														<Avatar className={classes.logoAvatar} src={''}>
+														<Avatar className={classes.logoAvatar} src={storage.avatarUrl || ''}>
 															<InsertPhotoIcon />
 														</Avatar>
 													</a>
