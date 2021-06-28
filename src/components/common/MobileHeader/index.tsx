@@ -31,6 +31,7 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import SettingsIcon from '@material-ui/icons/Settings';
 import TodayIcon from '@material-ui/icons/Today';
 import InfoIcon from '@material-ui/icons/Info';
+import DescriptionIcon from '@material-ui/icons/Description';
 
 // Material UI Labs
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -358,6 +359,10 @@ function MobileHeader() {
 				content={(
 					<>
 						<Box fontFamily={'NanumSquareRoundEB'} mb={1}>
+							<DescriptionIcon className={classes.icon} /> {'설명'}
+						</Box>
+						<Typography variant={'body1'}>{storage.description}</Typography>
+						<Box fontFamily={'NanumSquareRoundEB'} mt={3} mb={1}>
 							<SettingsIcon className={classes.icon} /> {'관리자'}
 						</Box>
 						<Box display={'flex'} alignItems={'center'}>
@@ -368,10 +373,10 @@ function MobileHeader() {
 							</Box>
 							<Box>{storage.user?.nickname}</Box>
 						</Box>
-						<Box fontFamily={'NanumSquareRoundEB'} mt={2} mb={1}>
+						<Box fontFamily={'NanumSquareRoundEB'} mt={3} mb={1}>
 							<TodayIcon className={classes.icon} /> {'등록일시'}
 						</Box>
-						<Box>{moment(storage.createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
+						<Typography variant={'body1'}>{moment(storage.createdAt).format('YYYY. MM. DD HH:mm:ss')}</Typography>
 					</>
 				)}
 				route={''}
