@@ -116,6 +116,15 @@ const useStyles = makeStyles((theme: Theme) =>
 				fontSize: 16
 			}
 		},
+		logoAvatarPrimary: {
+			width: theme.spacing(4),
+			height: theme.spacing(4),
+			backgroundColor: theme.palette.primary.main,
+			color: theme.palette.common.white,
+			'& svg': {
+				fontSize: 16
+			}
+		},
 		logoTypographyBox: {
 			marginLeft: theme.spacing(1),
 			overflow: 'hidden',
@@ -271,7 +280,7 @@ function MobileHeader() {
 										<a>
 											<Box className={classes.logoBox}>
 												<Box>
-													<Avatar className={classes.logoAvatar}>
+													<Avatar className={classes.logoAvatarPrimary}>
 														<NearMeIcon />
 													</Avatar>
 												</Box>
