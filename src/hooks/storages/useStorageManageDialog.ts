@@ -172,14 +172,15 @@ export default function useStorageManageDialog() {
 		});
 
 		// eslint-disable-next-line no-useless-escape
-		const nameRegExp = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9\-]{2,10}$/;
+		const nameRegExp = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9\- ]{2,10}$/;
 		const onlyNumberRegExp = /^[0-9]*$/;
 		const pathRegExp = /[a-zA-Z0-9]{3,20}/;
+		const nameSpecialCharRegExp = '[!/@\\#$%^&*(),.?\\":{}|<>]';
 		const specialCharRegExp = '[!/@\\#$%^&*(),.?\\":{}|<> ]';
 
 		if (
 			!new RegExp(nameRegExp).test(name.value)
-			|| new RegExp(specialCharRegExp).test(name.value)
+			|| new RegExp(nameSpecialCharRegExp).test(name.value)
 			|| new RegExp(onlyNumberRegExp).test(name.value)
 		) {
 			setPostStorageFormData({

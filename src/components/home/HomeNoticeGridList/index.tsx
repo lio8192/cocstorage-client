@@ -92,6 +92,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			border: `1px solid ${theme.palette.grey['50']}`,
 			borderRadius: 4
 		},
+		cardActionArea: {
+			height: '100%'
+		},
 		media: {
 			height: 200
 		},
@@ -336,7 +339,7 @@ function HomeNoticeGridList() {
 										<Link href={'/notices/[id]'} as={`/notices/${item.id}`}>
 											<a className={classes.listAnchor}>
 												<Card className={classes.card} square elevation={0}>
-													<CardActionArea>
+													<CardActionArea className={classes.cardActionArea}>
 														<CardMedia
 															className={classes.media}
 															image={item.thumbnailUrl || ''}
