@@ -218,7 +218,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			overflow: 'hidden',
 			display: '-webkit-box',
 			boxOrient: 'vertical',
-			lineClamp: 2
+			lineClamp: 2,
+			whiteSpace: 'normal'
 		},
 		nicknameTypography: {
 			fontFamily: 'NanumSquareRoundEB',

@@ -102,7 +102,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		avatar: {
 			width: theme.spacing(2.5),
-			height: theme.spacing(2.5)
+			height: theme.spacing(2.5),
+			fontSize: '14px !important'
 		},
 		chipAvatar: {
 			backgroundColor: `${theme.palette.background.default} !important`
