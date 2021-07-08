@@ -16,7 +16,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Grow from '@material-ui/core/Grow';
 import Card from '@material-ui/core/Card';
 
 // Material UI Icons
@@ -235,11 +234,9 @@ function StorageGridList() {
 	return (
 		<>
 			{pending && (
-				<Grow in>
-					<Box pt={20} pb={20} textAlign={'center'}>
-						<CircularProgress size={50} />
-					</Box>
-				</Grow>
+				<Box pt={20} pb={20} textAlign={'center'}>
+					<CircularProgress size={50} />
+				</Box>
 			)}
 			{!pending && (
 				<>
@@ -298,43 +295,39 @@ function StorageGridList() {
 									{storages
 										.filter((item) => item.storageCategoryId === category.id)
 										.map((item) => (
-											<Grow key={`storage-${item.id}`} in>
-												<Grid item xs={4} sm={2}>
-													<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
-														<a className={classes.anchor}>
-															<Card className={classes.card} elevation={0}>
-																<CardActionArea>
-																	<CardContent className={classes.cardContentHead} />
-																	<CardContent>
-																		<Badge
-																			className={classes.badge}
-																			badgeContent={
-																				<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
-																			}
-																			invisible={
-																				moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') > 7
-																			}
+											<Grid key={`storage-${item.id}`} item xs={4} sm={2}>
+												<Link href={'/storages/[path]'} as={`/storages/${item.path}`}>
+													<a className={classes.anchor}>
+														<Card className={classes.card} elevation={0}>
+															<CardActionArea>
+																<CardContent className={classes.cardContentHead} />
+																<CardContent>
+																	<Badge
+																		className={classes.badge}
+																		badgeContent={
+																			<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+																		}
+																		invisible={moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') > 7}
+																	>
+																		<Avatar
+																			className={classes.avatar}
+																			src={item.avatarUrl || ''}
+																			alt={'Storage Avatar Img'}
 																		>
-																			<Avatar
-																				className={classes.avatar}
-																				src={item.avatarUrl || ''}
-																				alt={'Storage Avatar Img'}
-																			>
-																				<InsertPhotoIcon />
-																			</Avatar>
-																		</Badge>
-																		<Box mt={1}>
-																			<Typography className={classes.cardContentTypography} noWrap>
-																				{item.name}
-																			</Typography>
-																		</Box>
-																	</CardContent>
-																</CardActionArea>
-															</Card>
-														</a>
-													</Link>
-												</Grid>
-											</Grow>
+																			<InsertPhotoIcon />
+																		</Avatar>
+																	</Badge>
+																	<Box mt={1}>
+																		<Typography className={classes.cardContentTypography} noWrap>
+																			{item.name}
+																		</Typography>
+																	</Box>
+																</CardContent>
+															</CardActionArea>
+														</Card>
+													</a>
+												</Link>
+											</Grid>
 										))}
 								</Grid>
 							)}

@@ -17,7 +17,6 @@ import Chip from '@material-ui/core/Chip';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Grow from '@material-ui/core/Grow';
 
 // Material UI Icons
 import ImageIcon from '@material-ui/icons/Image';
@@ -160,155 +159,151 @@ function BoardList({ params, adOpen = true, searchValue }: BoardListPros) {
 		<List className={classes.root} component={'div'}>
 			{pending
 				&& Array.from({ length: 20 }, (number, index) => index).map((item, index) => (
-					<Grow key={`storage-board-dummy-${item}`} in>
-						<Box>
-							<ListItem>
-								<Box width={'100%'}>
-									<Box display={'flex'} alignItems={'center'} flex={1}>
-										<ListItemIcon>
-											<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
-												<Skeleton variant={'rect'} width={30} height={30} />
-												<Skeleton variant={'rect'} width={30} height={30} />
-											</AvatarGroup>
-										</ListItemIcon>
-										<Box width={`${Math.round(Math.random() * 100) + 50}%`}>
-											<Skeleton width={'100%'} />
+					<Box key={`storage-board-dummy-${item}`}>
+						<ListItem>
+							<Box width={'100%'}>
+								<Box display={'flex'} alignItems={'center'} flex={1}>
+									<ListItemIcon>
+										<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
+											<Skeleton variant={'rect'} width={30} height={30} />
+											<Skeleton variant={'rect'} width={30} height={30} />
+										</AvatarGroup>
+									</ListItemIcon>
+									<Box width={`${Math.round(Math.random() * 100) + 50}%`}>
+										<Skeleton width={'100%'} />
+									</Box>
+									<Box ml={1}>
+										<Skeleton width={30} />
+									</Box>
+								</Box>
+								<Box display={'flex'} alignItems={'center'} mt={1}>
+									<Skeleton variant={'circle'} width={35} height={35} />
+									<Box display={'flex'} ml={1}>
+										<Box>
+											<Skeleton width={50} />
+										</Box>
+										<Box ml={1}>
+											<Skeleton width={30} />
+										</Box>
+										<Box ml={1}>
+											<Skeleton width={30} />
 										</Box>
 										<Box ml={1}>
 											<Skeleton width={30} />
 										</Box>
 									</Box>
-									<Box display={'flex'} alignItems={'center'} mt={1}>
-										<Skeleton variant={'circle'} width={35} height={35} />
-										<Box display={'flex'} ml={1}>
-											<Box>
-												<Skeleton width={50} />
-											</Box>
-											<Box ml={1}>
-												<Skeleton width={30} />
-											</Box>
-											<Box ml={1}>
-												<Skeleton width={30} />
-											</Box>
-											<Box ml={1}>
-												<Skeleton width={30} />
-											</Box>
-										</Box>
-									</Box>
 								</Box>
-							</ListItem>
-							{isMobile && index === 19 && <Divider className={classes.divider} />}
-						</Box>
-					</Grow>
+							</Box>
+						</ListItem>
+						{isMobile && index === 19 && <Divider className={classes.divider} />}
+					</Box>
 				))}
 			{!pending
 				&& boards.map((item, index) => (
-					<Grow key={`storage-board-${item.id}`} in>
-						<Box className={classes.box}>
-							<Link href={`/storages/[path]/[id]${params}`} as={`/storages/${path}/${item.id}${params}`}>
-								<a>
-									<ListItem key={`storage-boards-${item.id}`} className={classes.listItem} button>
-										<Box className={classes.listItemBox}>
-											<Box display={'flex'} alignItems={'center'}>
-												<ListItemIcon>
-													<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
-														{item.isPopular && (
-															<Avatar className={classes.avatarStar} variant={'rounded'}>
-																<StarIcon />
-															</Avatar>
-														)}
-														{item.hasImage ? (
-															<Avatar className={classes.avatar} variant={'rounded'}>
-																<ImageIcon />
-															</Avatar>
-														) : (
-															<Avatar className={classes.avatarNote} variant={'rounded'}>
-																<NotesIcon />
-															</Avatar>
-														)}
-														{item.hasVideo ? (
-															<Avatar className={classes.avatar} variant={'rounded'}>
-																<VideocamIcon />
-															</Avatar>
-														) : (
-															<Avatar className={classes.avatarNote} variant={'rounded'}>
-																<NotesIcon />
-															</Avatar>
-														)}
-													</AvatarGroup>
-												</ListItemIcon>
-												<Typography className={'storage-board-subject'} noWrap variant={'subtitle2'}>
-													{item.subject}
+					<Box key={`storage-board-${item.id}`} className={classes.box}>
+						<Link href={`/storages/[path]/[id]${params}`} as={`/storages/${path}/${item.id}${params}`}>
+							<a>
+								<ListItem key={`storage-boards-${item.id}`} className={classes.listItem} button>
+									<Box className={classes.listItemBox}>
+										<Box display={'flex'} alignItems={'center'}>
+											<ListItemIcon>
+												<AvatarGroup className={classes.avatarGroup} max={3} spacing={'small'}>
+													{item.isPopular && (
+														<Avatar className={classes.avatarStar} variant={'rounded'}>
+															<StarIcon />
+														</Avatar>
+													)}
+													{item.hasImage ? (
+														<Avatar className={classes.avatar} variant={'rounded'}>
+															<ImageIcon />
+														</Avatar>
+													) : (
+														<Avatar className={classes.avatarNote} variant={'rounded'}>
+															<NotesIcon />
+														</Avatar>
+													)}
+													{item.hasVideo ? (
+														<Avatar className={classes.avatar} variant={'rounded'}>
+															<VideocamIcon />
+														</Avatar>
+													) : (
+														<Avatar className={classes.avatarNote} variant={'rounded'}>
+															<NotesIcon />
+														</Avatar>
+													)}
+												</AvatarGroup>
+											</ListItemIcon>
+											<Typography className={'storage-board-subject'} noWrap variant={'subtitle2'}>
+												{item.subject}
+											</Typography>
+											<Box className={classes.commentCountBox}>{`[${item.commentTotalCount}]`}</Box>
+											{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
+												<Box ml={1}>
+													<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+												</Box>
+											)}
+										</Box>
+										<Box display={'flex'} alignItems={'center'} mt={1}>
+											<Avatar
+												className={classes.avatarUser}
+												src={item.isMember && item.user ? item.user.avatarUrl || '' : ''}
+											/>
+											<Box className={classes.writerInfoBox} ml={1}>
+												<Typography
+													className={clsx(classes.typography, {
+														[classes.adminSpecificTypography]: item.isMember && item.user?.role === 'admin'
+													})}
+													variant={'caption'}
+												>
+													{item.isMember && item.user ? item.user.nickname : item.nickname}
 												</Typography>
-												<Box className={classes.commentCountBox}>{`[${item.commentTotalCount}]`}</Box>
-												{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(item.createdAt, 'days') === 0 && (
-													<Box ml={1}>
-														<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+												{item.isMember && item.user?.role === 'admin' && (
+													<Box component={'span'}>
+														<Chip variant={'outlined'} label={'운영자'} color={'primary'} size={'small'} />
 													</Box>
 												)}
-											</Box>
-											<Box display={'flex'} alignItems={'center'} mt={1}>
-												<Avatar
-													className={classes.avatarUser}
-													src={item.isMember && item.user ? item.user.avatarUrl || '' : ''}
-												/>
-												<Box className={classes.writerInfoBox} ml={1}>
-													<Typography
-														className={clsx(classes.typography, {
-															[classes.adminSpecificTypography]: item.isMember && item.user?.role === 'admin'
-														})}
-														variant={'caption'}
-													>
-														{item.isMember && item.user ? item.user.nickname : item.nickname}
-													</Typography>
-													{item.isMember && item.user?.role === 'admin' && (
-														<Box component={'span'}>
-															<Chip variant={'outlined'} label={'운영자'} color={'primary'} size={'small'} />
-														</Box>
-													)}
-													<Typography variant={'caption'}>
-														{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
-													</Typography>
+												<Typography variant={'caption'}>
+													{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+												</Typography>
+												<Box component={'span'}>
 													<Box component={'span'}>
-														<Box component={'span'}>
-															<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />
-														</Box>
-														<Box component={'span'} ml={0.5}>
-															<Typography variant={'caption'}>{item.thumbUp.toLocaleString()}</Typography>
-														</Box>
+														<ThumbUpAltIcon className={classes.icon} color={'action'} fontSize={'small'} />
 													</Box>
+													<Box component={'span'} ml={0.5}>
+														<Typography variant={'caption'}>{item.thumbUp.toLocaleString()}</Typography>
+													</Box>
+												</Box>
+												<Box component={'span'}>
 													<Box component={'span'}>
-														<Box component={'span'}>
-															<VisibilityIcon className={classes.icon} color={'action'} fontSize={'small'} />
-														</Box>
-														<Box component={'span'} ml={0.5}>
-															<Typography variant={'caption'}>{item.viewCount.toLocaleString()}</Typography>
-														</Box>
+														<VisibilityIcon className={classes.icon} color={'action'} fontSize={'small'} />
+													</Box>
+													<Box component={'span'} ml={0.5}>
+														<Typography variant={'caption'}>{item.viewCount.toLocaleString()}</Typography>
 													</Box>
 												</Box>
 											</Box>
 										</Box>
-									</ListItem>
-								</a>
-							</Link>
-							{isMobile && index + 1 === boards.length && <Divider className={classes.divider} />}
-							{adOpen && isMobile && index + 1 === 5 && (
-								<>
-									<ListItem className={classes.listItemAd}>
-										<GoogleAdSense
-											html={
-												'<ins class="adsbygoogle"'
-												+ 'style="display:inline-block;width:320px;height:100px"'
-												+ 'data-ad-client="ca-pub-5809905264951057"'
-												+ 'data-ad-slot="2449792225"></ins>'
-											}
-											color={'default'}
-										/>
-									</ListItem>
-								</>
-							)}
-						</Box>
-					</Grow>
+									</Box>
+								</ListItem>
+							</a>
+						</Link>
+						{isMobile && index + 1 === boards.length && <Divider className={classes.divider} />}
+						{adOpen && isMobile && index + 1 === 5 && (
+							<>
+								<ListItem className={classes.listItemAd}>
+									<GoogleAdSense
+										html={
+											'<ins class="adsbygoogle"'
+											+ 'style="display:inline-block;width:320px;height:100px"'
+											+ 'data-ad-client="ca-pub-5809905264951057"'
+											+ 'data-ad-slot="2449792225"></ins>'
+										}
+										color={'default'}
+									/>
+								</ListItem>
+							</>
+						)}
+					</Box>
 				))}
 			{!pending && !searchValue && boards.length === 0 && <DataEmptyBox message={'아직 개념글이 존재하지 않아요.'} />}
 			{!pending && searchValue && boards.length === 0 && (

@@ -70,53 +70,15 @@ const useStyles = makeStyles((theme: Theme) =>
 				borderBottom: 'none'
 			}
 		},
-		commentOrderList: {
-			display: 'flex',
-			padding: theme.spacing(2, 0),
-			borderBottom: `1px solid ${theme.palette.grey['50']}`,
-			[theme.breakpoints.down('md')]: {
-				padding: theme.spacing(2, 3)
-			},
-			[theme.breakpoints.down('xs')]: {
-				padding: theme.spacing(2, 2)
-			}
+		commentOrderBox: {
+			padding: theme.spacing(2),
+			borderBottom: `1px solid ${theme.palette.grey['50']}`
 		},
-		commentOrderListItem: {
-			width: 'auto',
-			padding: theme.spacing(0, 2),
+		commentOrderTypography: {
+			color: theme.palette.primary.main,
 			cursor: 'pointer',
-			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : '',
 			transition: 'color .5s',
-			'&::after': {
-				content: '""',
-				display: 'block',
-				marginLeft: theme.spacing(1),
-				width: 3,
-				height: 3,
-				border: `1px solid ${theme.palette.grey.A200}`,
-				borderRadius: '50%',
-				backgroundColor: theme.palette.grey.A200
-			},
-			'&:last-child::after': {
-				display: 'none'
-			},
-			'&:hover': {
-				backgroundColor: 'none !important',
-				color: theme.palette.type === 'light' ? theme.palette.common.white : 'none'
-			},
-			'&.Mui-selected': {
-				backgroundColor: theme.palette.type === 'light' ? theme.palette.common.white : theme.palette.background.paper,
-				color: theme.palette.primary.main
-			},
-			'&.Mui-selected:hover': {
-				backgroundColor: 'none !important'
-			},
-			'& p': {
-				fontFamily: 'NanumSquareRoundEB'
-			},
-			[theme.breakpoints.down('md')]: {
-				padding: 0
-			}
+			fontFamily: 'NanumSquareRoundEB'
 		},
 		commentListItem: {
 			display: 'block',
@@ -365,256 +327,403 @@ function DetailCommentList() {
 				[classes.rootBorderBottomNone]: !pending && transferComments.length === 0
 			})}
 		>
-			<List className={classes.commentOrderList} disablePadding>
-				<ListItem className={classes.commentOrderListItem} selected>
-					<>
-						{pending ? (
-							<Box>
-								<Skeleton width={50} height={50} />
-							</Box>
-						) : (
-							<Typography variant={'body1'}>{'최신순'}</Typography>
-						)}
-					</>
-				</ListItem>
-			</List>
+			<Box className={classes.commentOrderBox}>
+				{pending ? (
+					<Box>
+						<Skeleton width={50} height={50} />
+					</Box>
+				) : (
+					<Typography component={'span'} className={classes.commentOrderTypography} variant={'body1'}>
+						{'최신순'}
+					</Typography>
+				)}
+			</Box>
 			<List disablePadding>
 				<ListItem className={classes.commentListItem}>
 					{pending && (
-						<Grow in>
-							<Box>
-								<Box className={classes.commentListBox}>
-									<Grid className={classes.commentListItemWriterBoxGrid} container>
-										<Grid item xs={10}>
-											<Box className={classes.commentListItemWriterBox}>
-												<Box display={'flex'} alignItems={'center'}>
-													<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
-													<Box className={classes.commentListItemWriterNickname} component={'span'}>
-														<Skeleton animation={'wave'} width={35} />
-													</Box>
-													<Box component={'span'} ml={1}>
-														<Skeleton animation={'wave'} width={35} />
-													</Box>
+						<Box>
+							<Box className={classes.commentListBox}>
+								<Grid className={classes.commentListItemWriterBoxGrid} container>
+									<Grid item xs={10}>
+										<Box className={classes.commentListItemWriterBox}>
+											<Box display={'flex'} alignItems={'center'}>
+												<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
+												<Box className={classes.commentListItemWriterNickname} component={'span'}>
+													<Skeleton animation={'wave'} width={35} />
 												</Box>
-												<Box>
-													<Skeleton animation={'wave'} width={50} />
+												<Box component={'span'} ml={1}>
+													<Skeleton animation={'wave'} width={35} />
 												</Box>
 											</Box>
-										</Grid>
-										<Grid item xs={2}>
-											<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
-												<Skeleton animation={'wave'} width={30} />
+											<Box>
+												<Skeleton animation={'wave'} width={50} />
 											</Box>
-										</Grid>
+										</Box>
 									</Grid>
-									<Box className={classes.commentListItemContent}>
-										<Skeleton animation={'wave'} />
-										<Skeleton animation={'wave'} />
-										<Skeleton animation={'wave'} />
-									</Box>
-									<Box className={classes.commentListItemButtonSkeleton}>
-										<Skeleton animation={'wave'} width={70} height={50} />
-									</Box>
+									<Grid item xs={2}>
+										<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
+											<Skeleton animation={'wave'} width={30} />
+										</Box>
+									</Grid>
+								</Grid>
+								<Box className={classes.commentListItemContent}>
+									<Skeleton animation={'wave'} />
+									<Skeleton animation={'wave'} />
+									<Skeleton animation={'wave'} />
 								</Box>
-								<Box className={classes.replyBox}>
-									<Grid container alignItems={'center'}>
-										<Grid item xs={10}>
-											<Box className={classes.replyBoxItemWriterBox}>
-												<Box display={'flex'} alignItems={'center'}>
-													<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
-													<Box className={classes.replyBoxItemWriterNickname} component={'span'}>
-														<Skeleton animation={'wave'} width={35} />
-													</Box>
-													<Box component={'span'} ml={1}>
-														<Skeleton animation={'wave'} width={35} />
-													</Box>
-												</Box>
-												<Box>
-													<Skeleton animation={'wave'} width={50} />
-												</Box>
-											</Box>
-										</Grid>
-										<Grid item xs={2}>
-											<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
-												<Skeleton animation={'wave'} width={30} />
-											</Box>
-										</Grid>
-									</Grid>
-									<Box pt={1} pl={3}>
-										<Skeleton animation={'wave'} />
-										<Skeleton animation={'wave'} />
-										<Skeleton animation={'wave'} />
-									</Box>
-								</Box>
-								<Box className={classes.commentListBox}>
-									<Grid className={classes.commentListItemWriterBoxGrid} container>
-										<Grid item xs={10}>
-											<Box className={classes.commentListItemWriterBox}>
-												<Box display={'flex'} alignItems={'center'}>
-													<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
-													<Box className={classes.commentListItemWriterNickname} component={'span'}>
-														<Skeleton animation={'wave'} width={35} />
-													</Box>
-													<Box component={'span'} ml={1}>
-														<Skeleton animation={'wave'} width={35} />
-													</Box>
-												</Box>
-												<Box>
-													<Skeleton animation={'wave'} width={50} />
-												</Box>
-											</Box>
-										</Grid>
-										<Grid item xs={2}>
-											<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
-												<Skeleton animation={'wave'} width={30} />
-											</Box>
-										</Grid>
-									</Grid>
-									<Box className={classes.commentListItemContent}>
-										<Skeleton animation={'wave'} />
-										<Skeleton animation={'wave'} />
-										<Skeleton animation={'wave'} />
-									</Box>
-									<Box className={classes.commentListItemButtonSkeleton}>
-										<Skeleton animation={'wave'} width={70} height={50} />
-									</Box>
-								</Box>
-								<Box className={classes.replyBox}>
-									<Grid container alignItems={'center'}>
-										<Grid item xs={10}>
-											<Box className={classes.replyBoxItemWriterBox}>
-												<Box display={'flex'} alignItems={'center'}>
-													<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
-													<Box className={classes.replyBoxItemWriterNickname} component={'span'}>
-														<Skeleton animation={'wave'} width={35} />
-													</Box>
-													<Box component={'span'} ml={1}>
-														<Skeleton animation={'wave'} width={35} />
-													</Box>
-												</Box>
-												<Box>
-													<Skeleton animation={'wave'} width={50} />
-												</Box>
-											</Box>
-										</Grid>
-										<Grid item xs={2}>
-											<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
-												<Skeleton animation={'wave'} width={30} />
-											</Box>
-										</Grid>
-									</Grid>
-									<Box pt={1} pl={3}>
-										<Skeleton animation={'wave'} />
-										<Skeleton animation={'wave'} />
-										<Skeleton animation={'wave'} />
-									</Box>
-								</Box>
-								<Box className={classes.commentListBox}>
-									<Grid className={classes.commentListItemWriterBoxGrid} container>
-										<Grid item xs={10}>
-											<Box className={classes.commentListItemWriterBox}>
-												<Box display={'flex'} alignItems={'center'}>
-													<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
-													<Box className={classes.commentListItemWriterNickname} component={'span'}>
-														<Skeleton animation={'wave'} width={35} />
-													</Box>
-													<Box component={'span'} ml={1}>
-														<Skeleton animation={'wave'} width={35} />
-													</Box>
-												</Box>
-												<Box>
-													<Skeleton animation={'wave'} width={50} />
-												</Box>
-											</Box>
-										</Grid>
-										<Grid item xs={2}>
-											<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
-												<Skeleton animation={'wave'} width={30} />
-											</Box>
-										</Grid>
-									</Grid>
-									<Box className={classes.commentListItemContent}>
-										<Skeleton animation={'wave'} />
-										<Skeleton animation={'wave'} />
-										<Skeleton animation={'wave'} />
-									</Box>
-									<Box className={classes.commentListItemButtonSkeleton}>
-										<Skeleton animation={'wave'} width={70} height={50} />
-									</Box>
+								<Box className={classes.commentListItemButtonSkeleton}>
+									<Skeleton animation={'wave'} width={70} height={50} />
 								</Box>
 							</Box>
-						</Grow>
+							<Box className={classes.replyBox}>
+								<Grid container alignItems={'center'}>
+									<Grid item xs={10}>
+										<Box className={classes.replyBoxItemWriterBox}>
+											<Box display={'flex'} alignItems={'center'}>
+												<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
+												<Box className={classes.replyBoxItemWriterNickname} component={'span'}>
+													<Skeleton animation={'wave'} width={35} />
+												</Box>
+												<Box component={'span'} ml={1}>
+													<Skeleton animation={'wave'} width={35} />
+												</Box>
+											</Box>
+											<Box>
+												<Skeleton animation={'wave'} width={50} />
+											</Box>
+										</Box>
+									</Grid>
+									<Grid item xs={2}>
+										<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
+											<Skeleton animation={'wave'} width={30} />
+										</Box>
+									</Grid>
+								</Grid>
+								<Box pt={1} pl={3}>
+									<Skeleton animation={'wave'} />
+									<Skeleton animation={'wave'} />
+									<Skeleton animation={'wave'} />
+								</Box>
+							</Box>
+							<Box className={classes.commentListBox}>
+								<Grid className={classes.commentListItemWriterBoxGrid} container>
+									<Grid item xs={10}>
+										<Box className={classes.commentListItemWriterBox}>
+											<Box display={'flex'} alignItems={'center'}>
+												<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
+												<Box className={classes.commentListItemWriterNickname} component={'span'}>
+													<Skeleton animation={'wave'} width={35} />
+												</Box>
+												<Box component={'span'} ml={1}>
+													<Skeleton animation={'wave'} width={35} />
+												</Box>
+											</Box>
+											<Box>
+												<Skeleton animation={'wave'} width={50} />
+											</Box>
+										</Box>
+									</Grid>
+									<Grid item xs={2}>
+										<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
+											<Skeleton animation={'wave'} width={30} />
+										</Box>
+									</Grid>
+								</Grid>
+								<Box className={classes.commentListItemContent}>
+									<Skeleton animation={'wave'} />
+									<Skeleton animation={'wave'} />
+									<Skeleton animation={'wave'} />
+								</Box>
+								<Box className={classes.commentListItemButtonSkeleton}>
+									<Skeleton animation={'wave'} width={70} height={50} />
+								</Box>
+							</Box>
+							<Box className={classes.replyBox}>
+								<Grid container alignItems={'center'}>
+									<Grid item xs={10}>
+										<Box className={classes.replyBoxItemWriterBox}>
+											<Box display={'flex'} alignItems={'center'}>
+												<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
+												<Box className={classes.replyBoxItemWriterNickname} component={'span'}>
+													<Skeleton animation={'wave'} width={35} />
+												</Box>
+												<Box component={'span'} ml={1}>
+													<Skeleton animation={'wave'} width={35} />
+												</Box>
+											</Box>
+											<Box>
+												<Skeleton animation={'wave'} width={50} />
+											</Box>
+										</Box>
+									</Grid>
+									<Grid item xs={2}>
+										<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
+											<Skeleton animation={'wave'} width={30} />
+										</Box>
+									</Grid>
+								</Grid>
+								<Box pt={1} pl={3}>
+									<Skeleton animation={'wave'} />
+									<Skeleton animation={'wave'} />
+									<Skeleton animation={'wave'} />
+								</Box>
+							</Box>
+							<Box className={classes.commentListBox}>
+								<Grid className={classes.commentListItemWriterBoxGrid} container>
+									<Grid item xs={10}>
+										<Box className={classes.commentListItemWriterBox}>
+											<Box display={'flex'} alignItems={'center'}>
+												<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
+												<Box className={classes.commentListItemWriterNickname} component={'span'}>
+													<Skeleton animation={'wave'} width={35} />
+												</Box>
+												<Box component={'span'} ml={1}>
+													<Skeleton animation={'wave'} width={35} />
+												</Box>
+											</Box>
+											<Box>
+												<Skeleton animation={'wave'} width={50} />
+											</Box>
+										</Box>
+									</Grid>
+									<Grid item xs={2}>
+										<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
+											<Skeleton animation={'wave'} width={30} />
+										</Box>
+									</Grid>
+								</Grid>
+								<Box className={classes.commentListItemContent}>
+									<Skeleton animation={'wave'} />
+									<Skeleton animation={'wave'} />
+									<Skeleton animation={'wave'} />
+								</Box>
+								<Box className={classes.commentListItemButtonSkeleton}>
+									<Skeleton animation={'wave'} width={70} height={50} />
+								</Box>
+							</Box>
+						</Box>
 					)}
 					{!pending
 						&& transferComments.map((item) => (
-							<Grow key={`storage-board-detail-comment-${item.id}`} in>
-								<Box>
-									<Box className={classes.commentListBox}>
-										<Grid className={classes.commentListItemWriterBoxGrid} container justify={'space-between'}>
+							<Box key={`storage-board-detail-comment-${item.id}`}>
+								<Box className={classes.commentListBox}>
+									<Grid className={classes.commentListItemWriterBoxGrid} container justify={'space-between'}>
+										<Grid item xs={10}>
+											<Box className={classes.commentListItemWriterBox}>
+												<Box display={'flex'} alignItems={'center'}>
+													{item.isMember && item.user ? (
+														<>
+															<Avatar className={classes.commentListItemWriterAvatar} src={item.user?.avatarUrl || ''}>
+																{!item.user?.avatarUrl && item.user?.nickname.charAt(0)}
+															</Avatar>
+															<Box
+																component={'span'}
+																className={clsx(classes.commentListItemWriterNickname, {
+																	[classes.commentListItemAdminSpecificNickname]: item.user?.role === 'admin'
+																})}
+															>
+																{item.user?.nickname}
+															</Box>
+															{(item.user?.role === 'admin' || user?.id === item.user?.id) && (
+																<Box component={'span'} ml={1}>
+																	<CommentWriterInfoBadge
+																		boardUserId={user?.id || 0}
+																		commentUserId={item.user?.id}
+																		userRole={item.user?.role}
+																	/>
+																</Box>
+															)}
+														</>
+													) : (
+														<>
+															<Avatar className={classes.commentListItemWriterAvatar}>
+																{item.nickname && item.nickname.charAt(0)}
+															</Avatar>
+															<Box className={classes.commentListItemWriterNickname} component={'span'}>
+																{item.nickname}
+															</Box>
+															{item.createdIp && (
+																<Box className={classes.noWrapBox} component={'span'} ml={0.5}>
+																	{`(${item.createdIp})`}
+																</Box>
+															)}
+														</>
+													)}
+												</Box>
+												<Box className={classes.noWrapBox}>{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}</Box>
+											</Box>
+										</Grid>
+										<Grid item xs={2}>
+											{!item.isMember && (
+												<Box textAlign={'right'}>
+													<IconButton
+														ref={item.anchorRef}
+														data-comment-id={item.id}
+														onClick={handleCommentPopperToggle}
+													>
+														<MoreVertIcon />
+													</IconButton>
+													<Popper
+														className={classes.popper}
+														open={item.open}
+														anchorEl={item.anchorRef}
+														role={undefined}
+														transition
+														disablePortal
+													>
+														{({ TransitionProps, placement }) => (
+															<Grow
+																{...TransitionProps}
+																style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+															>
+																<Paper>
+																	<ClickAwayListener onClickAway={handleCommentPopperClose}>
+																		<MenuList autoFocusItem={item.open}>
+																			<MenuItem
+																				onClick={onHandleStorageBoardDetailDeleteAuthDialog}
+																				data-id={item.id}
+																				data-sub-title={'댓글 삭제'}
+																				data-type={'comment'}
+																			>
+																				<ListItemIcon>
+																					<DeleteIcon />
+																				</ListItemIcon>
+																				{'삭제'}
+																			</MenuItem>
+																		</MenuList>
+																	</ClickAwayListener>
+																</Paper>
+															</Grow>
+														)}
+													</Popper>
+												</Box>
+											)}
+											{item.isMember && item.user?.id === userId && (
+												<Box textAlign={'right'}>
+													<IconButton
+														ref={item.anchorRef}
+														data-comment-id={item.id}
+														onClick={handleCommentPopperToggle}
+													>
+														<MoreVertIcon />
+													</IconButton>
+													<Popper
+														className={classes.popper}
+														open={item.open}
+														anchorEl={item.anchorRef}
+														role={undefined}
+														transition
+														disablePortal
+													>
+														{({ TransitionProps, placement }) => (
+															<Grow
+																{...TransitionProps}
+																style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+															>
+																<Paper>
+																	<ClickAwayListener onClickAway={handleCommentPopperClose}>
+																		<MenuList autoFocusItem={item.open}>
+																			<MenuItem onClick={onDeleteStorageBoardDetailComment} data-comment-id={item.id}>
+																				<ListItemIcon>
+																					<DeleteIcon />
+																				</ListItemIcon>
+																				{'삭제'}
+																			</MenuItem>
+																		</MenuList>
+																	</ClickAwayListener>
+																</Paper>
+															</Grow>
+														)}
+													</Popper>
+												</Box>
+											)}
+										</Grid>
+									</Grid>
+									<Box className={classes.commentListItemContent}>
+										{item.content.split('\n').map((item) => (
+											<span key={`storage-board-detail-comment-content-line-${item}`}>
+												{item}
+												<br />
+											</span>
+										))}
+									</Box>
+									<Box className={classes.commentListItemButton}>
+										<Button
+											className={classes.button}
+											color={'primary'}
+											variant={'contained'}
+											startIcon={<ReplyIcon />}
+											data-comment-id={item.id}
+											onClick={onHandleStorageBoardDetailReplyWriteForm}
+										>
+											{`답글 ${item.replies.length}`}
+										</Button>
+									</Box>
+								</Box>
+								{item.replies.map((reply) => (
+									<Box key={`storage-board-detail-comment-reply-${reply.id}`} className={classes.replyBox}>
+										<Grid container alignItems={'center'} justify={'space-between'}>
 											<Grid item xs={10}>
-												<Box className={classes.commentListItemWriterBox}>
+												<Box className={classes.replyBoxItemWriterBox} display={'flex'} alignItems={'center'}>
 													<Box display={'flex'} alignItems={'center'}>
-														{item.isMember && item.user ? (
+														{reply.isMember && reply.user ? (
 															<>
-																<Avatar
-																	className={classes.commentListItemWriterAvatar}
-																	src={item.user?.avatarUrl || ''}
-																>
-																	{!item.user?.avatarUrl && item.user?.nickname.charAt(0)}
+																<Avatar className={classes.replyBoxItemWriterAvatar} src={reply.user?.avatarUrl || ''}>
+																	{!reply.user?.avatarUrl && reply.user?.nickname.charAt(0)}
 																</Avatar>
 																<Box
 																	component={'span'}
-																	className={clsx(classes.commentListItemWriterNickname, {
-																		[classes.commentListItemAdminSpecificNickname]: item.user?.role === 'admin'
+																	className={clsx(classes.replyBoxItemWriterNickname, {
+																		[classes.replyBoxItemAdminSpecificNickname]: reply.user?.role === 'admin'
 																	})}
 																>
-																	{item.user?.nickname}
+																	{reply.user?.nickname}
 																</Box>
-																{(item.user?.role === 'admin' || user?.id === item.user?.id) && (
+																{(reply.user?.role === 'admin' || user?.id === reply.user?.id) && (
 																	<Box component={'span'} ml={1}>
 																		<CommentWriterInfoBadge
 																			boardUserId={user?.id || 0}
-																			commentUserId={item.user?.id}
-																			userRole={item.user?.role}
+																			commentUserId={reply.user?.id}
+																			userRole={reply.user?.role}
 																		/>
 																	</Box>
 																)}
 															</>
 														) : (
 															<>
-																<Avatar className={classes.commentListItemWriterAvatar}>
-																	{item.nickname && item.nickname.charAt(0)}
+																<Avatar className={classes.replyBoxItemWriterAvatar}>
+																	{reply.nickname && reply.nickname.charAt(0)}
 																</Avatar>
-																<Box className={classes.commentListItemWriterNickname} component={'span'}>
-																	{item.nickname}
+																<Box className={classes.replyBoxItemWriterNickname} component={'span'}>
+																	{reply.nickname}
 																</Box>
-																{item.createdIp && (
+																{reply.createdIp && (
 																	<Box className={classes.noWrapBox} component={'span'} ml={0.5}>
-																		{`(${item.createdIp})`}
+																		{`(${reply.createdIp})`}
 																	</Box>
 																)}
 															</>
 														)}
 													</Box>
 													<Box className={classes.noWrapBox}>
-														{moment(item.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+														{moment(reply.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 													</Box>
 												</Box>
 											</Grid>
 											<Grid item xs={2}>
-												{!item.isMember && (
+												{!reply.isMember && (
 													<Box textAlign={'right'}>
 														<IconButton
-															ref={item.anchorRef}
-															data-comment-id={item.id}
-															onClick={handleCommentPopperToggle}
+															ref={reply.anchorRef}
+															data-reply-id={reply.id}
+															onClick={handleReplyPopperToggle}
 														>
 															<MoreVertIcon />
 														</IconButton>
 														<Popper
 															className={classes.popper}
-															open={item.open}
-															anchorEl={item.anchorRef}
+															open={reply.open}
+															anchorEl={reply.anchorRef}
 															role={undefined}
 															transition
 															disablePortal
@@ -625,13 +734,13 @@ function DetailCommentList() {
 																	style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
 																>
 																	<Paper>
-																		<ClickAwayListener onClickAway={handleCommentPopperClose}>
-																			<MenuList autoFocusItem={item.open}>
+																		<ClickAwayListener onClickAway={handleReplyPopperClose}>
+																			<MenuList autoFocusItem={reply.open}>
 																				<MenuItem
 																					onClick={onHandleStorageBoardDetailDeleteAuthDialog}
-																					data-id={item.id}
-																					data-sub-title={'댓글 삭제'}
-																					data-type={'comment'}
+																					data-id={reply.id}
+																					data-sub-title={'답글 삭제'}
+																					data-type={'reply'}
 																				>
 																					<ListItemIcon>
 																						<DeleteIcon />
@@ -646,19 +755,19 @@ function DetailCommentList() {
 														</Popper>
 													</Box>
 												)}
-												{item.isMember && item.user?.id === userId && (
+												{reply.isMember && reply.user?.id === userId && (
 													<Box textAlign={'right'}>
 														<IconButton
-															ref={item.anchorRef}
-															data-comment-id={item.id}
-															onClick={handleCommentPopperToggle}
+															ref={reply.anchorRef}
+															data-reply-id={reply.id}
+															onClick={handleReplyPopperToggle}
 														>
 															<MoreVertIcon />
 														</IconButton>
 														<Popper
 															className={classes.popper}
-															open={item.open}
-															anchorEl={item.anchorRef}
+															open={reply.open}
+															anchorEl={reply.anchorRef}
 															role={undefined}
 															transition
 															disablePortal
@@ -669,9 +778,13 @@ function DetailCommentList() {
 																	style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
 																>
 																	<Paper>
-																		<ClickAwayListener onClickAway={handleCommentPopperClose}>
-																			<MenuList autoFocusItem={item.open}>
-																				<MenuItem onClick={onDeleteStorageBoardDetailComment} data-comment-id={item.id}>
+																		<ClickAwayListener onClickAway={handleReplyPopperClose}>
+																			<MenuList autoFocusItem={reply.open}>
+																				<MenuItem
+																					onClick={onDeleteStorageBoardDetailReply}
+																					data-comment-id={item.id}
+																					data-reply-id={reply.id}
+																				>
 																					<ListItemIcon>
 																						<DeleteIcon />
 																					</ListItemIcon>
@@ -687,194 +800,25 @@ function DetailCommentList() {
 												)}
 											</Grid>
 										</Grid>
-										<Box className={classes.commentListItemContent}>
-											{item.content.split('\n').map((item) => (
-												<span key={`storage-board-detail-comment-content-line-${item}`}>
+										<Box className={classes.replyBoxItemContent}>
+											{reply.content.split('\n').map((item) => (
+												<span key={`storage-board-detail-reply-content-line-${item}`}>
 													{item}
 													<br />
 												</span>
 											))}
 										</Box>
-										<Box className={classes.commentListItemButton}>
-											<Button
-												className={classes.button}
-												color={'primary'}
-												variant={'contained'}
-												startIcon={<ReplyIcon />}
-												data-comment-id={item.id}
-												onClick={onHandleStorageBoardDetailReplyWriteForm}
-											>
-												{`답글 ${item.replies.length}`}
-											</Button>
-										</Box>
 									</Box>
-									{item.replies.map((reply) => (
-										<Box key={`storage-board-detail-comment-reply-${reply.id}`} className={classes.replyBox}>
-											<Grid container alignItems={'center'} justify={'space-between'}>
-												<Grid item xs={10}>
-													<Box className={classes.replyBoxItemWriterBox} display={'flex'} alignItems={'center'}>
-														<Box display={'flex'} alignItems={'center'}>
-															{reply.isMember && reply.user ? (
-																<>
-																	<Avatar
-																		className={classes.replyBoxItemWriterAvatar}
-																		src={reply.user?.avatarUrl || ''}
-																	>
-																		{!reply.user?.avatarUrl && reply.user?.nickname.charAt(0)}
-																	</Avatar>
-																	<Box
-																		component={'span'}
-																		className={clsx(classes.replyBoxItemWriterNickname, {
-																			[classes.replyBoxItemAdminSpecificNickname]: reply.user?.role === 'admin'
-																		})}
-																	>
-																		{reply.user?.nickname}
-																	</Box>
-																	{(reply.user?.role === 'admin' || user?.id === reply.user?.id) && (
-																		<Box component={'span'} ml={1}>
-																			<CommentWriterInfoBadge
-																				boardUserId={user?.id || 0}
-																				commentUserId={reply.user?.id}
-																				userRole={reply.user?.role}
-																			/>
-																		</Box>
-																	)}
-																</>
-															) : (
-																<>
-																	<Avatar className={classes.replyBoxItemWriterAvatar}>
-																		{reply.nickname && reply.nickname.charAt(0)}
-																	</Avatar>
-																	<Box className={classes.replyBoxItemWriterNickname} component={'span'}>
-																		{reply.nickname}
-																	</Box>
-																	{reply.createdIp && (
-																		<Box className={classes.noWrapBox} component={'span'} ml={0.5}>
-																			{`(${reply.createdIp})`}
-																		</Box>
-																	)}
-																</>
-															)}
-														</Box>
-														<Box className={classes.noWrapBox}>
-															{moment(reply.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
-														</Box>
-													</Box>
-												</Grid>
-												<Grid item xs={2}>
-													{!reply.isMember && (
-														<Box textAlign={'right'}>
-															<IconButton
-																ref={reply.anchorRef}
-																data-reply-id={reply.id}
-																onClick={handleReplyPopperToggle}
-															>
-																<MoreVertIcon />
-															</IconButton>
-															<Popper
-																className={classes.popper}
-																open={reply.open}
-																anchorEl={reply.anchorRef}
-																role={undefined}
-																transition
-																disablePortal
-															>
-																{({ TransitionProps, placement }) => (
-																	<Grow
-																		{...TransitionProps}
-																		style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-																	>
-																		<Paper>
-																			<ClickAwayListener onClickAway={handleReplyPopperClose}>
-																				<MenuList autoFocusItem={reply.open}>
-																					<MenuItem
-																						onClick={onHandleStorageBoardDetailDeleteAuthDialog}
-																						data-id={reply.id}
-																						data-sub-title={'답글 삭제'}
-																						data-type={'reply'}
-																					>
-																						<ListItemIcon>
-																							<DeleteIcon />
-																						</ListItemIcon>
-																						{'삭제'}
-																					</MenuItem>
-																				</MenuList>
-																			</ClickAwayListener>
-																		</Paper>
-																	</Grow>
-																)}
-															</Popper>
-														</Box>
-													)}
-													{reply.isMember && reply.user?.id === userId && (
-														<Box textAlign={'right'}>
-															<IconButton
-																ref={reply.anchorRef}
-																data-reply-id={reply.id}
-																onClick={handleReplyPopperToggle}
-															>
-																<MoreVertIcon />
-															</IconButton>
-															<Popper
-																className={classes.popper}
-																open={reply.open}
-																anchorEl={reply.anchorRef}
-																role={undefined}
-																transition
-																disablePortal
-															>
-																{({ TransitionProps, placement }) => (
-																	<Grow
-																		{...TransitionProps}
-																		style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-																	>
-																		<Paper>
-																			<ClickAwayListener onClickAway={handleReplyPopperClose}>
-																				<MenuList autoFocusItem={reply.open}>
-																					<MenuItem
-																						onClick={onDeleteStorageBoardDetailReply}
-																						data-comment-id={item.id}
-																						data-reply-id={reply.id}
-																					>
-																						<ListItemIcon>
-																							<DeleteIcon />
-																						</ListItemIcon>
-																						{'삭제'}
-																					</MenuItem>
-																				</MenuList>
-																			</ClickAwayListener>
-																		</Paper>
-																	</Grow>
-																)}
-															</Popper>
-														</Box>
-													)}
-												</Grid>
-											</Grid>
-											<Box className={classes.replyBoxItemContent}>
-												{reply.content.split('\n').map((item) => (
-													<span key={`storage-board-detail-reply-content-line-${item}`}>
-														{item}
-														<br />
-													</span>
-												))}
-											</Box>
-										</Box>
-									))}
-									{item.selected && (
-										<Grow in>
-											<Box className={classes.replyBox}>
-												<ReplyWriteForm />
-											</Box>
-										</Grow>
-									)}
-								</Box>
-							</Grow>
+								))}
+								{item.selected && (
+									<Box className={classes.replyBox}>
+										<ReplyWriteForm />
+									</Box>
+								)}
+							</Box>
 						))}
 					{!pending && data.length === 0 && (
-						<Grow in>
-							<DataEmptyBox message={'첫 댓글의 주인공이 되어보세요!'} paddingTop={10} paddingBottom={10} />
-						</Grow>
+						<DataEmptyBox message={'첫 댓글의 주인공이 되어보세요!'} paddingTop={10} paddingBottom={10} />
 					)}
 				</ListItem>
 			</List>

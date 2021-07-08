@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
-import Grow from '@material-ui/core/Grow';
 
 // Material UI Icons
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -64,71 +63,69 @@ function MyWithdrawalForm() {
 	} = useMyWithdrawalForm();
 	return (
 		<Box mb={2}>
-			<Grow in>
-				<Box className={classes.box}>
-					<Typography className={classes.typography} variant={'h5'}>
-						{'회원 탈퇴'}
+			<Box className={classes.box}>
+				<Typography className={classes.typography} variant={'h5'}>
+					{'회원 탈퇴'}
+				</Typography>
+				<Box mt={1} mb={2}>
+					<Typography className={classes.typography} variant={'caption'}>
+						{'회원 탈퇴 전 아래의 내용들을 반드시 확인해주세요.'}
 					</Typography>
-					<Box mt={1} mb={2}>
-						<Typography className={classes.typography} variant={'caption'}>
-							{'회원 탈퇴 전 아래의 내용들을 반드시 확인해주세요.'}
-						</Typography>
+				</Box>
+				<Box className={classes.formBox}>
+					<Box display={'flex'} alignItems={'center'} mt={1}>
+						<Box>
+							<CheckCircleIcon className={classes.icon} color={'primary'} />
+						</Box>
+						<Box ml={1}>{'아이디와 개인 정보는 즉시 삭제되며 복구가 불가능합니다.'}</Box>
 					</Box>
-					<Box className={classes.formBox}>
-						<Box display={'flex'} alignItems={'center'} mt={1}>
-							<Box>
-								<CheckCircleIcon className={classes.icon} color={'primary'} />
-							</Box>
-							<Box ml={1}>{'아이디와 개인 정보는 즉시 삭제되며 복구가 불가능합니다.'}</Box>
+					<Box display={'flex'} alignItems={'center'} mt={1}>
+						<Box>
+							<CheckCircleIcon className={classes.icon} color={'primary'} />
 						</Box>
-						<Box display={'flex'} alignItems={'center'} mt={1}>
-							<Box>
-								<CheckCircleIcon className={classes.icon} color={'primary'} />
-							</Box>
-							<Box ml={1}>{'회원 탈퇴 후 7일 이내에는 동일한 이메일의 회원가입이 제한됩니다.'}</Box>
+						<Box ml={1}>{'회원 탈퇴 후 7일 이내에는 동일한 이메일의 회원가입이 제한됩니다.'}</Box>
+					</Box>
+					<Box display={'flex'} alignItems={'center'} mt={1}>
+						<Box>
+							<CheckCircleIcon className={classes.icon} color={'primary'} />
 						</Box>
-						<Box display={'flex'} alignItems={'center'} mt={1}>
-							<Box>
-								<CheckCircleIcon className={classes.icon} color={'primary'} />
-							</Box>
-							<Box ml={1}>
-								{
-									'회원 아이디로 등록된 저장소, 개념글, 댓글, 답글은 탈퇴일을 기준으로 7일 후 자동으로 영구 삭제 처리됩니다.'
-								}
-							</Box>
+						<Box ml={1}>
+							{
+								'회원 아이디로 등록된 저장소, 개념글, 댓글, 답글은 탈퇴일을 기준으로 7일 후 자동으로 영구 삭제 처리됩니다.'
+							}
 						</Box>
-						<Box display={'flex'} alignItems={'center'} mt={2}>
-							<Box>
-								<Checkbox
-									className={classes.checkbox}
-									checked={checked}
-									color={'primary'}
-									onChange={onHandlePolicyCheckBox}
-									disabled={pending || !isAuthenticated}
-								/>
-							</Box>
-							<Box flex={1} ml={1}>
-								<Typography className={classes.typography} variant={'caption'}>
-									{'위의 내용을 모두 확인하였으며, 이에 동의합니다.'}
-								</Typography>
-							</Box>
-						</Box>
-						<Box mt={1}>{error && <FormHelperText error>{helperText}</FormHelperText>}</Box>
-						<Box mt={2} textAlign={'right'}>
-							<Button
-								className={classes.button}
-								variant={'contained'}
+					</Box>
+					<Box display={'flex'} alignItems={'center'} mt={2}>
+						<Box>
+							<Checkbox
+								className={classes.checkbox}
+								checked={checked}
 								color={'primary'}
-								size={'large'}
-								onClick={onHandleDeleteUserAuthDialog}
-								disabled={pending || deleteAuthPending}
-							>
-								{'탈퇴하기'}
-							</Button>
+								onChange={onHandlePolicyCheckBox}
+								disabled={pending || !isAuthenticated}
+							/>
 						</Box>
+						<Box flex={1} ml={1}>
+							<Typography className={classes.typography} variant={'caption'}>
+								{'위의 내용을 모두 확인하였으며, 이에 동의합니다.'}
+							</Typography>
+						</Box>
+					</Box>
+					<Box mt={1}>{error && <FormHelperText error>{helperText}</FormHelperText>}</Box>
+					<Box mt={2} textAlign={'right'}>
+						<Button
+							className={classes.button}
+							variant={'contained'}
+							color={'primary'}
+							size={'large'}
+							onClick={onHandleDeleteUserAuthDialog}
+							disabled={pending || deleteAuthPending}
+						>
+							{'탈퇴하기'}
+						</Button>
 					</Box>
 				</Box>
-			</Grow>
+			</Box>
 			<PasswordAuthDialog
 				open={open}
 				pending={deleteAuthPending}

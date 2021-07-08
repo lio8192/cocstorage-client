@@ -16,7 +16,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
-import Grow from '@material-ui/core/Grow';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Material UI Icons
@@ -207,11 +206,9 @@ function NoticeGridList() {
 	return (
 		<>
 			{pending && transferNotices.length === 0 && (
-				<Grow in>
-					<Box className={classes.progressBox} pt={20} pb={20} textAlign={'center'}>
-						<CircularProgress size={50} />
-					</Box>
-				</Grow>
+				<Box className={classes.progressBox} pt={20} pb={20} textAlign={'center'}>
+					<CircularProgress size={50} />
+				</Box>
 			)}
 			{transferNotices.length !== 0 && (
 				<Grid className={classes.grid} container>
@@ -219,106 +216,104 @@ function NoticeGridList() {
 						if ((index + 1) % 2 === 0) {
 							return (
 								// eslint-disable-next-line react/no-array-index-key
-								<Grow key={`notice-section-2-${item.length}-${index}`} in>
-									<Grid item xs={12} lg={6}>
-										<Grid className={classes.gridItemContainer} container>
-											{item.map((notice) => (
-												<Grid
-													key={`notice-section-2-common-${notice.id}`}
-													className={clsx({
-														[classes.gridItemFirst]: index === 1
-													})}
-													item
-													xs={12}
-													lg={6}
-												>
-													<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
-														<a className={classes.anchor}>
-															<Card className={classes.gridCard} square elevation={0}>
-																<CardActionArea component={'div'} className={classes.cardActionArea}>
-																	{notice.thumbnailUrl ? (
-																		<CardMedia
-																			className={classes.media}
-																			image={notice.thumbnailUrl}
-																			title={'Contemplative Reptile'}
-																		/>
-																	) : (
-																		<Box className={classes.media} />
+								<Grid key={`notice-section-2-${item.length}-${index}`} item xs={12} lg={6}>
+									<Grid className={classes.gridItemContainer} container>
+										{item.map((notice) => (
+											<Grid
+												key={`notice-section-2-common-${notice.id}`}
+												className={clsx({
+													[classes.gridItemFirst]: index === 1
+												})}
+												item
+												xs={12}
+												lg={6}
+											>
+												<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
+													<a className={classes.anchor}>
+														<Card className={classes.gridCard} square elevation={0}>
+															<CardActionArea component={'div'} className={classes.cardActionArea}>
+																{notice.thumbnailUrl ? (
+																	<CardMedia
+																		className={classes.media}
+																		image={notice.thumbnailUrl}
+																		title={'Contemplative Reptile'}
+																	/>
+																) : (
+																	<Box className={classes.media} />
+																)}
+																<CardContent className={classes.cardContent}>
+																	<Typography
+																		className={clsx(classes.typography, {
+																			[classes.typographyWithBadge]:
+																				moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0
+																		})}
+																		variant={'body1'}
+																		noWrap
+																	>
+																		{notice.subject}
+																	</Typography>
+																	{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
+																		<Box ml={1}>
+																			<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+																		</Box>
 																	)}
-																	<CardContent className={classes.cardContent}>
+																	<Box className={classes.descriptionTypographyBox}>
 																		<Typography
-																			className={clsx(classes.typography, {
-																				[classes.typographyWithBadge]:
-																					moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0
-																			})}
-																			variant={'body1'}
-																			noWrap
+																			className={classes.descriptionTypography}
+																			variant={'body2'}
+																			color={'textSecondary'}
 																		>
-																			{notice.subject}
+																			{notice.description}
 																		</Typography>
-																		{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
-																			<Box ml={1}>
-																				<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
-																			</Box>
-																		)}
-																		<Box className={classes.descriptionTypographyBox}>
-																			<Typography
-																				className={classes.descriptionTypography}
-																				variant={'body2'}
-																				color={'textSecondary'}
-																			>
-																				{notice.description}
+																	</Box>
+																	<Box
+																		display={'flex'}
+																		alignItems={'center'}
+																		justifyContent={'space-between'}
+																		flex={1}
+																		mt={0.5}
+																	>
+																		<Box className={classes.infoBox}>
+																			<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
+																			<Typography className={classes.nicknameTypography} variant={'caption'}>
+																				{notice.user.nickname}
+																			</Typography>
+																			<Typography variant={'caption'} color={'textSecondary'}>
+																				{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
 																			</Typography>
 																		</Box>
-																		<Box
-																			display={'flex'}
-																			alignItems={'center'}
-																			justifyContent={'space-between'}
-																			flex={1}
-																			mt={0.5}
-																		>
-																			<Box className={classes.infoBox}>
-																				<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
-																				<Typography className={classes.nicknameTypography} variant={'caption'}>
-																					{notice.user.nickname}
-																				</Typography>
-																				<Typography variant={'caption'} color={'textSecondary'}>
-																					{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
-																				</Typography>
-																			</Box>
+																		<Box display={'flex'} alignItems={'center'}>
 																			<Box display={'flex'} alignItems={'center'}>
-																				<Box display={'flex'} alignItems={'center'}>
-																					<Box>
-																						<MessageIcon className={classes.icon} color={'action'} />
-																					</Box>
-																					<Box ml={0.5}>
-																						<Typography variant={'caption'} color={'textSecondary'}>
-																							{notice.commentTotalCount.toLocaleString()}
-																						</Typography>
-																					</Box>
+																				<Box>
+																					<MessageIcon className={classes.icon} color={'action'} />
 																				</Box>
-																				<Box display={'flex'} alignItems={'center'} ml={1}>
-																					<Box>
-																						<VisibilityIcon className={classes.icon} color={'action'} />
-																					</Box>
-																					<Box ml={0.5}>
-																						<Typography variant={'caption'} color={'textSecondary'}>
-																							{notice.viewCount.toLocaleString()}
-																						</Typography>
-																					</Box>
+																				<Box ml={0.5}>
+																					<Typography variant={'caption'} color={'textSecondary'}>
+																						{notice.commentTotalCount.toLocaleString()}
+																					</Typography>
+																				</Box>
+																			</Box>
+																			<Box display={'flex'} alignItems={'center'} ml={1}>
+																				<Box>
+																					<VisibilityIcon className={classes.icon} color={'action'} />
+																				</Box>
+																				<Box ml={0.5}>
+																					<Typography variant={'caption'} color={'textSecondary'}>
+																						{notice.viewCount.toLocaleString()}
+																					</Typography>
 																				</Box>
 																			</Box>
 																		</Box>
-																	</CardContent>
-																</CardActionArea>
-															</Card>
-														</a>
-													</Link>
-												</Grid>
-											))}
-										</Grid>
+																	</Box>
+																</CardContent>
+															</CardActionArea>
+														</Card>
+													</a>
+												</Link>
+											</Grid>
+										))}
 									</Grid>
-								</Grow>
+								</Grid>
 							);
 						}
 						return (
@@ -333,116 +328,22 @@ function NoticeGridList() {
 								<Hidden xsDown>
 									<Grid container>
 										{item.map((notice) => (
-											<Grow key={`notice-section-1-pc-${notice.id}`} in>
-												<Grid item xs={12}>
-													<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
-														<a className={classes.anchor}>
-															<Card className={classes.card} elevation={0} square>
-																<CardActionArea className={classes.gridCardActionArea}>
-																	<Box className={classes.details}>
-																		{notice.thumbnailUrl ? (
-																			<CardMedia
-																				className={classes.mediaCover}
-																				image={notice.thumbnailUrl}
-																				title={'Contemplative Reptile'}
-																			/>
-																		) : (
-																			<Box className={classes.media} />
-																		)}
-																		<CardContent className={classes.cardContentForList}>
-																			<Typography
-																				className={clsx(classes.typography, {
-																					[classes.typographyWithBadge]:
-																						moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0
-																				})}
-																				variant={'body1'}
-																				noWrap
-																			>
-																				{notice.subject}
-																			</Typography>
-																			{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
-																				<Box component={'span'} ml={1}>
-																					<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
-																				</Box>
-																			)}
-																			<Box className={classes.descriptionTypographyBox}>
-																				<Typography
-																					className={classes.descriptionTypography}
-																					variant={'body2'}
-																					color={'textSecondary'}
-																				>
-																					{notice.description}
-																				</Typography>
-																			</Box>
-																			<Box
-																				display={'flex'}
-																				alignItems={'center'}
-																				justifyContent={'space-between'}
-																				flex={1}
-																				mt={0.5}
-																			>
-																				<Box className={classes.infoBox}>
-																					<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
-																					<Typography className={classes.nicknameTypography} variant={'caption'}>
-																						{notice.user.nickname}
-																					</Typography>
-																					<Typography variant={'caption'} color={'textSecondary'}>
-																						{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
-																					</Typography>
-																				</Box>
-																				<Box display={'flex'} alignItems={'center'}>
-																					<Box display={'flex'} alignItems={'center'}>
-																						<Box>
-																							<MessageIcon className={classes.icon} color={'action'} />
-																						</Box>
-																						<Box ml={0.5}>
-																							<Typography variant={'caption'} color={'textSecondary'}>
-																								{notice.commentTotalCount.toLocaleString()}
-																							</Typography>
-																						</Box>
-																					</Box>
-																					<Box display={'flex'} alignItems={'center'} ml={1}>
-																						<Box>
-																							<VisibilityIcon className={classes.icon} color={'action'} />
-																						</Box>
-																						<Box ml={0.5}>
-																							<Typography variant={'caption'} color={'textSecondary'}>
-																								{notice.viewCount.toLocaleString()}
-																							</Typography>
-																						</Box>
-																					</Box>
-																				</Box>
-																			</Box>
-																		</CardContent>
-																	</Box>
-																</CardActionArea>
-															</Card>
-														</a>
-													</Link>
-												</Grid>
-											</Grow>
-										))}
-									</Grid>
-								</Hidden>
-								<Hidden smUp>
-									<Grid className={classes.gridItemContainer} container>
-										{item.map((notice) => (
-											<Grow key={`notice-section-1-mobile-${notice.id}`} in>
-												<Grid item xs={12} lg={6}>
-													<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
-														<a className={classes.anchor}>
-															<Card className={classes.gridCard} square elevation={0}>
-																<CardActionArea className={classes.cardActionArea}>
+											<Grid key={`notice-section-1-pc-${notice.id}`} item xs={12}>
+												<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
+													<a className={classes.anchor}>
+														<Card className={classes.card} elevation={0} square>
+															<CardActionArea className={classes.gridCardActionArea}>
+																<Box className={classes.details}>
 																	{notice.thumbnailUrl ? (
 																		<CardMedia
-																			className={classes.media}
+																			className={classes.mediaCover}
 																			image={notice.thumbnailUrl}
 																			title={'Contemplative Reptile'}
 																		/>
 																	) : (
 																		<Box className={classes.media} />
 																	)}
-																	<CardContent className={classes.cardContent}>
+																	<CardContent className={classes.cardContentForList}>
 																		<Typography
 																			className={clsx(classes.typography, {
 																				[classes.typographyWithBadge]:
@@ -454,7 +355,7 @@ function NoticeGridList() {
 																			{notice.subject}
 																		</Typography>
 																		{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
-																			<Box ml={1}>
+																			<Box component={'span'} ml={1}>
 																				<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
 																			</Box>
 																		)}
@@ -507,12 +408,102 @@ function NoticeGridList() {
 																			</Box>
 																		</Box>
 																	</CardContent>
-																</CardActionArea>
-															</Card>
-														</a>
-													</Link>
-												</Grid>
-											</Grow>
+																</Box>
+															</CardActionArea>
+														</Card>
+													</a>
+												</Link>
+											</Grid>
+										))}
+									</Grid>
+								</Hidden>
+								<Hidden smUp>
+									<Grid className={classes.gridItemContainer} container>
+										{item.map((notice) => (
+											<Grid key={`notice-section-1-mobile-${notice.id}`} item xs={12} lg={6}>
+												<Link href={'/notices/[id]'} as={`/notices/${notice.id}`}>
+													<a className={classes.anchor}>
+														<Card className={classes.gridCard} square elevation={0}>
+															<CardActionArea className={classes.cardActionArea}>
+																{notice.thumbnailUrl ? (
+																	<CardMedia
+																		className={classes.media}
+																		image={notice.thumbnailUrl}
+																		title={'Contemplative Reptile'}
+																	/>
+																) : (
+																	<Box className={classes.media} />
+																)}
+																<CardContent className={classes.cardContent}>
+																	<Typography
+																		className={clsx(classes.typography, {
+																			[classes.typographyWithBadge]:
+																				moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0
+																		})}
+																		variant={'body1'}
+																		noWrap
+																	>
+																		{notice.subject}
+																	</Typography>
+																	{moment(new Date(), 'YYYYMMDDHH:mm:ss').diff(notice.createdAt, 'days') === 0 && (
+																		<Box ml={1}>
+																			<Chip className={classes.chip} label={'N'} color={'primary'} size={'small'} />
+																		</Box>
+																	)}
+																	<Box className={classes.descriptionTypographyBox}>
+																		<Typography
+																			className={classes.descriptionTypography}
+																			variant={'body2'}
+																			color={'textSecondary'}
+																		>
+																			{notice.description}
+																		</Typography>
+																	</Box>
+																	<Box
+																		display={'flex'}
+																		alignItems={'center'}
+																		justifyContent={'space-between'}
+																		flex={1}
+																		mt={0.5}
+																	>
+																		<Box className={classes.infoBox}>
+																			<Avatar src={notice.user.avatarUrl || ''} className={classes.avatar} />
+																			<Typography className={classes.nicknameTypography} variant={'caption'}>
+																				{notice.user.nickname}
+																			</Typography>
+																			<Typography variant={'caption'} color={'textSecondary'}>
+																				{moment(notice.createdAt, 'YYYYMMDDHH:mm:ss').fromNow()}
+																			</Typography>
+																		</Box>
+																		<Box display={'flex'} alignItems={'center'}>
+																			<Box display={'flex'} alignItems={'center'}>
+																				<Box>
+																					<MessageIcon className={classes.icon} color={'action'} />
+																				</Box>
+																				<Box ml={0.5}>
+																					<Typography variant={'caption'} color={'textSecondary'}>
+																						{notice.commentTotalCount.toLocaleString()}
+																					</Typography>
+																				</Box>
+																			</Box>
+																			<Box display={'flex'} alignItems={'center'} ml={1}>
+																				<Box>
+																					<VisibilityIcon className={classes.icon} color={'action'} />
+																				</Box>
+																				<Box ml={0.5}>
+																					<Typography variant={'caption'} color={'textSecondary'}>
+																						{notice.viewCount.toLocaleString()}
+																					</Typography>
+																				</Box>
+																			</Box>
+																		</Box>
+																	</Box>
+																</CardContent>
+															</CardActionArea>
+														</Card>
+													</a>
+												</Link>
+											</Grid>
 										))}
 									</Grid>
 								</Hidden>

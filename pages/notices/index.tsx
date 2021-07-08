@@ -12,7 +12,6 @@ import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import Zoom from '@material-ui/core/Zoom';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Grow from '@material-ui/core/Grow';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Material UI Icons
@@ -42,14 +41,21 @@ const useStyles = makeStyles((theme: Theme) =>
 		icon: {
 			color: 'white'
 		},
-		moreButton: {
-			height: 46,
-			marginBottom: theme.spacing(2),
-			borderRadius: 0,
-			color: theme.palette.action.active,
-			fontWeight: 700,
+		moreButtonBox: {
+			margin: theme.spacing(2, 0),
+			textAlign: 'center',
 			[theme.breakpoints.down('md')]: {
-				marginBottom: 0
+				margin: 0
+			}
+		},
+		moreButton: {
+			maxWidth: 200,
+			height: 46,
+			color: 'white',
+			fontFamily: 'NanumSquareRoundEB',
+			[theme.breakpoints.down('md')]: {
+				maxWidth: '100%',
+				borderRadius: 'inherit'
 			}
 		},
 		adminContainer: {
@@ -63,6 +69,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			position: 'fixed',
 			bottom: 75,
 			right: 15
+		},
+		circularProgress: {
+			color: 'white'
 		}
 	})
 );
@@ -133,17 +142,21 @@ function Notices() {
 			<Container className={classes.container}>
 				<NoticeGridList />
 				{totalPages !== 0 && !isLastPage && (
-					<Grow in>
+					<Box className={classes.moreButtonBox}>
 						<Button
 							className={classes.moreButton}
 							fullWidth
-							startIcon={pending ? '' : <ExpandMoreIcon />}
+							variant={'contained'}
+							startIcon={
+								pending ? <CircularProgress className={classes.circularProgress} size={15} /> : <ExpandMoreIcon />
+							}
 							size={'large'}
+							color={'primary'}
 							onClick={onClickFetchNoticesMoreButton}
 						>
-							{pending ? <CircularProgress size={30} /> : '더 보기'}
+							{'더 보기'}
 						</Button>
-					</Grow>
+					</Box>
 				)}
 				{!isMobile && isLastPage && <Box mt={2} />}
 			</Container>

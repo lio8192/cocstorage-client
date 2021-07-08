@@ -195,112 +195,111 @@ function EditForm() {
 	const handlePrevButton = useCallback(() => router.back(), [router]);
 
 	return (
-		<Grow in>
-			<Box position={'relative'}>
-				<Container className={classes.container}>
-					{!isMember && (
-						<NoSsr>
-							<Grid container spacing={isMobile ? 0 : 1}>
-								<Grid item xs={6}>
-									<TextField
-										fullWidth
-										variant={'outlined'}
-										label={isMobile ? null : '닉네임'}
-										placeholder={isMobile ? '닉네임' : undefined}
-										InputProps={{
-											className: classes.nicknameTextFieldInput
-										}}
-										onChange={onHandleEditFormTextField}
-										name={'nickname'}
-										value={nickname || ''}
-										disabled={pending}
-									/>
-								</Grid>
-								<Grid item xs={6}>
-									<TextField
-										fullWidth
-										variant={'outlined'}
-										type={showPassword ? 'text' : 'password'}
-										label={isMobile ? null : '비밀번호'}
-										placeholder={isMobile ? '비밀번호' : undefined}
-										InputProps={{
-											className: classes.passwordTextFieldInput,
-											endAdornment: (
-												<InputAdornment position={'end'}>
-													<IconButton edge={'end'} onClick={onShowEditFormPassword}>
-														{showPassword ? <VisibilityOff /> : <Visibility />}
-													</IconButton>
-												</InputAdornment>
-											)
-										}}
-										onChange={onHandleEditFormTextField}
-										name={'password'}
-										value={password || ''}
-										disabled
-									/>
-								</Grid>
+		<Box position={'relative'}>
+			<Container className={classes.container}>
+				{!isMember && (
+					<NoSsr>
+						<Grid container spacing={isMobile ? 0 : 1}>
+							<Grid item xs={6}>
+								<TextField
+									fullWidth
+									variant={'outlined'}
+									label={isMobile ? null : '닉네임'}
+									placeholder={isMobile ? '닉네임' : undefined}
+									InputProps={{
+										className: classes.nicknameTextFieldInput
+									}}
+									onChange={onHandleEditFormTextField}
+									name={'nickname'}
+									value={nickname || ''}
+									disabled={pending}
+								/>
 							</Grid>
-						</NoSsr>
-					)}
-					<Box className={classes.subjectBox}>
-						<TextField
-							fullWidth
-							variant={'outlined'}
-							label={isMobile ? null : '제목'}
-							placeholder={isMobile ? '제목을 입력해주세요.' : undefined}
-							InputProps={{
-								className: classes.subjectTextFieldInput
-							}}
-							onChange={onHandleEditFormTextField}
-							name={'subject'}
-							value={subject}
-							disabled={pending}
-						/>
-					</Box>
-					<Box className={classes.textEditorBox}>
-						<Grow in={id === 0 || pending || !open}>
-							<Box
-								position={'absolute'}
-								top={0}
-								left={0}
-								display={'flex'}
-								alignItems={'center'}
-								justifyContent={'center'}
-								width={'100%'}
-								height={'100%'}
-								textAlign={'center'}
-							>
-								<CircularProgress color={'primary'} />
-							</Box>
-						</Grow>
-						{id !== 0 && !pending && theme.palette.type === 'light' && (
-							<Editor
-								apiKey={'kmfhv3po7kg1phohpf4oxj6lmnm8vgpviv2anq3loui0joj8'}
-								initialValue={initialContent}
-								init={{
-									height: 500,
-									menubar: false,
-									plugins:
-										'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-									toolbar:
-										'fontsizeselect | bold italic | image media link anchor |'
-										+ 'forecolor backcolor | alignleft aligncenter '
-										+ 'alignright alignjustify | bullist numlist outdent indent | '
-										+ 'emoticons removeformat fullscreen  preview | help',
-									toolbar_sticky: true,
-									toolbar_mode: 'sliding',
-									images_upload_handler: (blobInfo, success, failure) => {
-										if (isMember) {
-											onPostStorageBoardImage(blobInfo, success, failure);
-										} else {
-											onPostNonMemberStorageBoardImage(blobInfo, success, failure);
-										}
-									},
-									image_advtab: true,
-									image_caption: true,
-									language: 'ko_KR',
-									placeholder: '내용을 입력해주세요.',
-									content_style: `
+							<Grid item xs={6}>
+								<TextField
+									fullWidth
+									variant={'outlined'}
+									type={showPassword ? 'text' : 'password'}
+									label={isMobile ? null : '비밀번호'}
+									placeholder={isMobile ? '비밀번호' : undefined}
+									InputProps={{
+										className: classes.passwordTextFieldInput,
+										endAdornment: (
+											<InputAdornment position={'end'}>
+												<IconButton edge={'end'} onClick={onShowEditFormPassword}>
+													{showPassword ? <VisibilityOff /> : <Visibility />}
+												</IconButton>
+											</InputAdornment>
+										)
+									}}
+									onChange={onHandleEditFormTextField}
+									name={'password'}
+									value={password || ''}
+									disabled
+								/>
+							</Grid>
+						</Grid>
+					</NoSsr>
+				)}
+				<Box className={classes.subjectBox}>
+					<TextField
+						fullWidth
+						variant={'outlined'}
+						label={isMobile ? null : '제목'}
+						placeholder={isMobile ? '제목을 입력해주세요.' : undefined}
+						InputProps={{
+							className: classes.subjectTextFieldInput
+						}}
+						onChange={onHandleEditFormTextField}
+						name={'subject'}
+						value={subject}
+						disabled={pending}
+					/>
+				</Box>
+				<Box className={classes.textEditorBox}>
+					<Grow in={id === 0 || pending || !open}>
+						<Box
+							position={'absolute'}
+							top={0}
+							left={0}
+							display={'flex'}
+							alignItems={'center'}
+							justifyContent={'center'}
+							width={'100%'}
+							height={'100%'}
+							textAlign={'center'}
+						>
+							<CircularProgress color={'primary'} />
+						</Box>
+					</Grow>
+					{id !== 0 && !pending && theme.palette.type === 'light' && (
+						<Editor
+							apiKey={'kmfhv3po7kg1phohpf4oxj6lmnm8vgpviv2anq3loui0joj8'}
+							initialValue={initialContent}
+							init={{
+								height: 500,
+								menubar: false,
+								plugins:
+									'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+								toolbar:
+									'fontsizeselect | bold italic | image media link anchor |'
+									+ 'forecolor backcolor | alignleft aligncenter '
+									+ 'alignright alignjustify | bullist numlist outdent indent | '
+									+ 'emoticons removeformat fullscreen  preview | help',
+								toolbar_sticky: true,
+								toolbar_mode: 'sliding',
+								images_upload_handler: (blobInfo, success, failure) => {
+									if (isMember) {
+										onPostStorageBoardImage(blobInfo, success, failure);
+									} else {
+										onPostNonMemberStorageBoardImage(blobInfo, success, failure);
+									}
+								},
+								image_advtab: true,
+								image_caption: true,
+								language: 'ko_KR',
+								placeholder: '내용을 입력해주세요.',
+								content_style: `
 										@font-face {
 											font-family: NanumSquareRoundR;
 											src: url(${NanumSquareRoundR}) format('woff2');
@@ -316,45 +315,45 @@ function EditForm() {
 										img {
 											max-width: 100%;
 										}`,
-									mobile: {
-										toolbar_sticky: true,
-										toolbar_mode: 'sliding',
-										toolbar: 'bold italic | image media link anchor | forecolor backcolor | alignleft aligncenter'
-									}
-								}}
-								disabled={pending}
-								onChange={onHandleEditFormRichEditor}
-								onInit={handleInit}
-							/>
-						)}
-						{id !== 0 && !pending && theme.palette.type === 'dark' && (
-							<Editor
-								apiKey={'kmfhv3po7kg1phohpf4oxj6lmnm8vgpviv2anq3loui0joj8'}
-								initialValue={initialContent}
-								init={{
-									height: 500,
-									menubar: false,
-									plugins:
-										'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-									toolbar:
-										'fontsizeselect | bold italic | image media link anchor |'
-										+ 'forecolor backcolor | alignleft aligncenter '
-										+ 'alignright alignjustify | bullist numlist outdent indent | '
-										+ 'emoticons removeformat fullscreen  preview | help',
+								mobile: {
 									toolbar_sticky: true,
 									toolbar_mode: 'sliding',
-									images_upload_handler: (blobInfo, success, failure) => {
-										if (isMember) {
-											onPostStorageBoardImage(blobInfo, success, failure);
-										} else {
-											onPostNonMemberStorageBoardImage(blobInfo, success, failure);
-										}
-									},
-									image_advtab: true,
-									image_caption: true,
-									language: 'ko_KR',
-									placeholder: '내용을 입력해주세요.',
-									content_style: `
+									toolbar: 'bold italic | image media link anchor | forecolor backcolor | alignleft aligncenter'
+								}
+							}}
+							disabled={pending}
+							onChange={onHandleEditFormRichEditor}
+							onInit={handleInit}
+						/>
+					)}
+					{id !== 0 && !pending && theme.palette.type === 'dark' && (
+						<Editor
+							apiKey={'kmfhv3po7kg1phohpf4oxj6lmnm8vgpviv2anq3loui0joj8'}
+							initialValue={initialContent}
+							init={{
+								height: 500,
+								menubar: false,
+								plugins:
+									'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+								toolbar:
+									'fontsizeselect | bold italic | image media link anchor |'
+									+ 'forecolor backcolor | alignleft aligncenter '
+									+ 'alignright alignjustify | bullist numlist outdent indent | '
+									+ 'emoticons removeformat fullscreen  preview | help',
+								toolbar_sticky: true,
+								toolbar_mode: 'sliding',
+								images_upload_handler: (blobInfo, success, failure) => {
+									if (isMember) {
+										onPostStorageBoardImage(blobInfo, success, failure);
+									} else {
+										onPostNonMemberStorageBoardImage(blobInfo, success, failure);
+									}
+								},
+								image_advtab: true,
+								image_caption: true,
+								language: 'ko_KR',
+								placeholder: '내용을 입력해주세요.',
+								content_style: `
 										@font-face {
 											font-family: NanumSquareRoundR;
 											src: url(${NanumSquareRoundR}) format('woff2');
@@ -374,62 +373,61 @@ function EditForm() {
 										img {
 											max-width: 100%;
 										}`,
-									mobile: {
-										toolbar_sticky: true,
-										toolbar_mode: 'sliding',
-										toolbar: 'bold italic | image media link anchor | forecolor backcolor | alignleft aligncenter'
-									}
-								}}
-								disabled={pending}
-								onChange={onHandleEditFormRichEditor}
-								onInit={handleInit}
-							/>
-						)}
-					</Box>
-					<Box className={classes.buttonBox}>
-						<Grid className={classes.grid} container spacing={1} justify={'flex-end'}>
-							<Grid item xs={isMobile && 6}>
-								<Button
-									fullWidth={isMobile}
-									className={classes.prevButton}
-									variant={'contained'}
-									size={'large'}
-									startIcon={<ArrowBackIcon />}
-									onClick={handlePrevButton}
-								>
-									{'이전'}
-								</Button>
-							</Grid>
-							<Grid item xs={isMobile && 6}>
-								<Button
-									fullWidth={isMobile}
-									className={classes.button}
-									variant={'contained'}
-									color={'primary'}
-									size={'large'}
-									startIcon={<DoneIcon />}
-									onClick={isMember ? onPutStorageBoard : onPutNonMemberStorageBoard}
-									disabled={pending}
-								>
-									{'완료'}
-								</Button>
-							</Grid>
+								mobile: {
+									toolbar_sticky: true,
+									toolbar_mode: 'sliding',
+									toolbar: 'bold italic | image media link anchor | forecolor backcolor | alignleft aligncenter'
+								}
+							}}
+							disabled={pending}
+							onChange={onHandleEditFormRichEditor}
+							onInit={handleInit}
+						/>
+					)}
+				</Box>
+				<Box className={classes.buttonBox}>
+					<Grid className={classes.grid} container spacing={1} justify={'flex-end'}>
+						<Grid item xs={isMobile && 6}>
+							<Button
+								fullWidth={isMobile}
+								className={classes.prevButton}
+								variant={'contained'}
+								size={'large'}
+								startIcon={<ArrowBackIcon />}
+								onClick={handlePrevButton}
+							>
+								{'이전'}
+							</Button>
 						</Grid>
-					</Box>
-				</Container>
-				<AuthBox
-					pending={pending}
-					isMember={isMember}
-					editAuthenticated={editAuthenticated}
-					showPassword={showPassword}
-					password={password}
-					passwordError={passwordError}
-					onShowEditFormPassword={onShowEditFormPassword}
-					onHandleEditFormTextField={onHandleEditFormTextField}
-					onFetchNonMemberStorageBoardEditDetail={onFetchNonMemberStorageBoardEditDetail}
-				/>
-			</Box>
-		</Grow>
+						<Grid item xs={isMobile && 6}>
+							<Button
+								fullWidth={isMobile}
+								className={classes.button}
+								variant={'contained'}
+								color={'primary'}
+								size={'large'}
+								startIcon={<DoneIcon />}
+								onClick={isMember ? onPutStorageBoard : onPutNonMemberStorageBoard}
+								disabled={pending}
+							>
+								{'완료'}
+							</Button>
+						</Grid>
+					</Grid>
+				</Box>
+			</Container>
+			<AuthBox
+				pending={pending}
+				isMember={isMember}
+				editAuthenticated={editAuthenticated}
+				showPassword={showPassword}
+				password={password}
+				passwordError={passwordError}
+				onShowEditFormPassword={onShowEditFormPassword}
+				onHandleEditFormTextField={onHandleEditFormTextField}
+				onFetchNonMemberStorageBoardEditDetail={onFetchNonMemberStorageBoardEditDetail}
+			/>
+		</Box>
 	);
 }
 

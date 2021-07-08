@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
-import Grow from '@material-ui/core/Grow';
 
 // Material UI Icons
 import Visibility from '@material-ui/icons/Visibility';
@@ -77,140 +76,138 @@ function MyInfoForm() {
 	} = useMyInfoForm();
 	return (
 		<Box mb={2}>
-			<Grow in>
-				<Box className={classes.box}>
-					<Typography className={classes.typography} variant={'h5'}>
-						{'개인 정보'}
-					</Typography>
-					<Box className={classes.gridBox}>
-						<Grid className={classes.grid} container alignItems={'center'} spacing={1}>
-							<Grid item xs={12} lg={3}>
-								{'이름'}
-							</Grid>
-							<Grid item xs={12} lg={9}>
-								<TextField fullWidth variant={'outlined'} value={name} disabled />
-							</Grid>
+			<Box className={classes.box}>
+				<Typography className={classes.typography} variant={'h5'}>
+					{'개인 정보'}
+				</Typography>
+				<Box className={classes.gridBox}>
+					<Grid className={classes.grid} container alignItems={'center'} spacing={1}>
+						<Grid item xs={12} lg={3}>
+							{'이름'}
 						</Grid>
-						<Grid className={classes.grid} container alignItems={'center'} spacing={1}>
-							<Grid item xs={12} lg={3}>
-								{'이메일'}
-							</Grid>
-							<Grid item xs={12} lg={9}>
-								<TextField fullWidth variant={'outlined'} value={email} disabled />
-							</Grid>
+						<Grid item xs={12} lg={9}>
+							<TextField fullWidth variant={'outlined'} value={name} disabled />
 						</Grid>
-						<Box mt={2} mb={2} textAlign={'right'}>
-							<Button
-								className={classes.button}
-								variant={'contained'}
-								color={'primary'}
-								size={'large'}
-								onClick={onHandlePrivacyAuthDialog}
-								disabled={pending || privacyPending || !isAuthenticated}
-							>
-								{'개인 정보 확인'}
-							</Button>
-						</Box>
-						<Divider className={classes.divider} />
-						<Grid className={classes.grid} container alignItems={'center'} spacing={1}>
-							<Grid item xs={12} lg={3}>
-								{'현재 비밀번호'}
-							</Grid>
-							<Grid item xs={12} lg={9}>
-								<TextField
-									fullWidth
-									type={currentPassword.showPassword ? 'text' : 'password'}
-									variant={'outlined'}
-									placeholder={'현재 비밀번호'}
-									InputProps={{
-										endAdornment: (
-											<InputAdornment position={'end'}>
-												<IconButton edge={'end'} onClick={onShowCurrentPassword}>
-													{currentPassword.showPassword ? <Visibility /> : <VisibilityOff />}
-												</IconButton>
-											</InputAdornment>
-										)
-									}}
-									name={'currentPassword'}
-									value={currentPassword.value || ''}
-									error={currentPassword.error}
-									helperText={currentPassword.helperText}
-									onChange={onHandlePasswordTextField}
-									disabled={pending || !isAuthenticated}
-								/>
-							</Grid>
+					</Grid>
+					<Grid className={classes.grid} container alignItems={'center'} spacing={1}>
+						<Grid item xs={12} lg={3}>
+							{'이메일'}
 						</Grid>
-						<Grid className={classes.grid} container alignItems={'center'} spacing={1}>
-							<Grid item xs={12} lg={3}>
-								{'새 비밀번호'}
-							</Grid>
-							<Grid item xs={12} lg={9}>
-								<TextField
-									fullWidth
-									type={password.showPassword ? 'text' : 'password'}
-									variant={'outlined'}
-									placeholder={'새 비밀번호'}
-									InputProps={{
-										endAdornment: (
-											<InputAdornment position={'end'}>
-												<IconButton edge={'end'} onClick={onShowPassword}>
-													{password.showPassword ? <Visibility /> : <VisibilityOff />}
-												</IconButton>
-											</InputAdornment>
-										)
-									}}
-									name={'password'}
-									value={password.value || ''}
-									error={password.error}
-									helperText={password.helperText}
-									onChange={onHandlePasswordTextField}
-									disabled={pending || !isAuthenticated}
-								/>
-							</Grid>
+						<Grid item xs={12} lg={9}>
+							<TextField fullWidth variant={'outlined'} value={email} disabled />
 						</Grid>
-						<Grid className={classes.grid} container alignItems={'center'} spacing={1}>
-							<Grid item xs={12} lg={3}>
-								{'새 비밀번호 확인'}
-							</Grid>
-							<Grid item xs={12} lg={9}>
-								<TextField
-									fullWidth
-									type={retypePassword.showPassword ? 'text' : 'password'}
-									variant={'outlined'}
-									placeholder={'새 비밀번호 확인'}
-									InputProps={{
-										endAdornment: (
-											<InputAdornment position={'end'}>
-												<IconButton edge={'end'} onClick={onShowReTypePassword}>
-													{retypePassword.showPassword ? <Visibility /> : <VisibilityOff />}
-												</IconButton>
-											</InputAdornment>
-										)
-									}}
-									name={'retypePassword'}
-									value={retypePassword.value || ''}
-									error={retypePassword.error}
-									helperText={retypePassword.helperText}
-									onChange={onHandlePasswordTextField}
-									disabled={pending || !isAuthenticated}
-								/>
-							</Grid>
+					</Grid>
+					<Box mt={2} mb={2} textAlign={'right'}>
+						<Button
+							className={classes.button}
+							variant={'contained'}
+							color={'primary'}
+							size={'large'}
+							onClick={onHandlePrivacyAuthDialog}
+							disabled={pending || privacyPending || !isAuthenticated}
+						>
+							{'개인 정보 확인'}
+						</Button>
+					</Box>
+					<Divider className={classes.divider} />
+					<Grid className={classes.grid} container alignItems={'center'} spacing={1}>
+						<Grid item xs={12} lg={3}>
+							{'현재 비밀번호'}
 						</Grid>
-						<Box mt={2} textAlign={'right'}>
-							<Button
-								className={classes.button}
-								variant={'contained'}
-								color={'primary'}
-								size={'large'}
-								onClick={onPutPassword}
-								disabled={pending || privacyPending || !isAuthenticated}
-							>
-								{'변경사항 저장'}
-							</Button>
-						</Box>
+						<Grid item xs={12} lg={9}>
+							<TextField
+								fullWidth
+								type={currentPassword.showPassword ? 'text' : 'password'}
+								variant={'outlined'}
+								placeholder={'현재 비밀번호'}
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position={'end'}>
+											<IconButton edge={'end'} onClick={onShowCurrentPassword}>
+												{currentPassword.showPassword ? <Visibility /> : <VisibilityOff />}
+											</IconButton>
+										</InputAdornment>
+									)
+								}}
+								name={'currentPassword'}
+								value={currentPassword.value || ''}
+								error={currentPassword.error}
+								helperText={currentPassword.helperText}
+								onChange={onHandlePasswordTextField}
+								disabled={pending || !isAuthenticated}
+							/>
+						</Grid>
+					</Grid>
+					<Grid className={classes.grid} container alignItems={'center'} spacing={1}>
+						<Grid item xs={12} lg={3}>
+							{'새 비밀번호'}
+						</Grid>
+						<Grid item xs={12} lg={9}>
+							<TextField
+								fullWidth
+								type={password.showPassword ? 'text' : 'password'}
+								variant={'outlined'}
+								placeholder={'새 비밀번호'}
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position={'end'}>
+											<IconButton edge={'end'} onClick={onShowPassword}>
+												{password.showPassword ? <Visibility /> : <VisibilityOff />}
+											</IconButton>
+										</InputAdornment>
+									)
+								}}
+								name={'password'}
+								value={password.value || ''}
+								error={password.error}
+								helperText={password.helperText}
+								onChange={onHandlePasswordTextField}
+								disabled={pending || !isAuthenticated}
+							/>
+						</Grid>
+					</Grid>
+					<Grid className={classes.grid} container alignItems={'center'} spacing={1}>
+						<Grid item xs={12} lg={3}>
+							{'새 비밀번호 확인'}
+						</Grid>
+						<Grid item xs={12} lg={9}>
+							<TextField
+								fullWidth
+								type={retypePassword.showPassword ? 'text' : 'password'}
+								variant={'outlined'}
+								placeholder={'새 비밀번호 확인'}
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position={'end'}>
+											<IconButton edge={'end'} onClick={onShowReTypePassword}>
+												{retypePassword.showPassword ? <Visibility /> : <VisibilityOff />}
+											</IconButton>
+										</InputAdornment>
+									)
+								}}
+								name={'retypePassword'}
+								value={retypePassword.value || ''}
+								error={retypePassword.error}
+								helperText={retypePassword.helperText}
+								onChange={onHandlePasswordTextField}
+								disabled={pending || !isAuthenticated}
+							/>
+						</Grid>
+					</Grid>
+					<Box mt={2} textAlign={'right'}>
+						<Button
+							className={classes.button}
+							variant={'contained'}
+							color={'primary'}
+							size={'large'}
+							onClick={onPutPassword}
+							disabled={pending || privacyPending || !isAuthenticated}
+						>
+							{'변경사항 저장'}
+						</Button>
 					</Box>
 				</Box>
-			</Grow>
+			</Box>
 			<PasswordAuthDialog
 				open={open}
 				pending={privacyPending}

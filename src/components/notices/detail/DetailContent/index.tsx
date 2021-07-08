@@ -219,165 +219,161 @@ function DetailContent() {
 	return (
 		<>
 			{pending && (
-				<Grow in>
-					<Box className={classes.root}>
-						<Box className={classes.subjectBox}>
-							<Typography component={'h5'} variant={'h5'}>
-								<Skeleton animation={'wave'} height={50} />
-							</Typography>
-						</Box>
-						<Box
-							className={classes.writerInfoBox}
-							display={'flex'}
-							alignItems={'center'}
-							justifyContent={'space-between'}
-							mb={2}
-							pt={1}
-							pb={1}
-						>
-							<Box display={'flex'} alignItems={'center'}>
-								<Box>
-									<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
-								</Box>
-								<Box ml={1}>
-									<Skeleton animation={'wave'} width={50} />
-								</Box>
-							</Box>
+				<Box className={classes.root}>
+					<Box className={classes.subjectBox}>
+						<Typography component={'h5'} variant={'h5'}>
+							<Skeleton animation={'wave'} height={50} />
+						</Typography>
+					</Box>
+					<Box
+						className={classes.writerInfoBox}
+						display={'flex'}
+						alignItems={'center'}
+						justifyContent={'space-between'}
+						mb={2}
+						pt={1}
+						pb={1}
+					>
+						<Box display={'flex'} alignItems={'center'}>
 							<Box>
-								<Skeleton animation={'wave'} width={100} />
+								<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
+							</Box>
+							<Box ml={1}>
+								<Skeleton animation={'wave'} width={50} />
 							</Box>
 						</Box>
-						<Box className={classes.otherInfoSkeletonBox}>
-							<Grid container alignItems={'center'}>
-								<Grid item xs={10}>
-									<Box display={'flex'} alignItems={'center'}>
-										<Box>
-											<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
-										</Box>
-										<Box ml={1} mr={1}>
-											<Skeleton animation={'wave'} width={35} />
-										</Box>
-										<Box>
-											<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
-										</Box>
-										<Box ml={1} mr={1}>
-											<Skeleton animation={'wave'} width={35} />
-										</Box>
+						<Box>
+							<Skeleton animation={'wave'} width={100} />
+						</Box>
+					</Box>
+					<Box className={classes.otherInfoSkeletonBox}>
+						<Grid container alignItems={'center'}>
+							<Grid item xs={10}>
+								<Box display={'flex'} alignItems={'center'}>
+									<Box>
+										<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
 									</Box>
-								</Grid>
-								<Grid item xs={2}>
-									<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
-										<Skeleton animation={'wave'} width={30} />
+									<Box ml={1} mr={1}>
+										<Skeleton animation={'wave'} width={35} />
 									</Box>
-								</Grid>
+									<Box>
+										<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
+									</Box>
+									<Box ml={1} mr={1}>
+										<Skeleton animation={'wave'} width={35} />
+									</Box>
+								</Box>
 							</Grid>
+							<Grid item xs={2}>
+								<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
+									<Skeleton animation={'wave'} width={30} />
+								</Box>
+							</Grid>
+						</Grid>
+					</Box>
+					<Box className={classes.contentBox}>
+						<Skeleton animation={'wave'} />
+						<Skeleton animation={'wave'} />
+						<Skeleton animation={'wave'} />
+						<Box mt={1}>
+							<Skeleton variant={'rect'} animation={'wave'} height={250} />
 						</Box>
-						<Box className={classes.contentBox}>
-							<Skeleton animation={'wave'} />
-							<Skeleton animation={'wave'} />
-							<Skeleton animation={'wave'} />
-							<Box mt={1}>
-								<Skeleton variant={'rect'} animation={'wave'} height={250} />
-							</Box>
-							<Box textAlign={'center'}>
-								<Box>
-									<Box maxWidth={150} m={'auto'} mt={2}>
-										<Skeleton variant={'rect'} animation={'wave'} width={170} height={58} />
-									</Box>
+						<Box textAlign={'center'}>
+							<Box>
+								<Box maxWidth={150} m={'auto'} mt={2}>
+									<Skeleton variant={'rect'} animation={'wave'} width={170} height={58} />
 								</Box>
 							</Box>
 						</Box>
 					</Box>
-				</Grow>
+				</Box>
 			)}
 			{!pending && (
-				<Grow in>
-					<Box className={classes.root}>
-						<Box className={classes.subjectBox}>
-							<Typography className={classes.subjectBoxTypography} variant={'h5'}>
-								{subject}
-							</Typography>
-						</Box>
-						<Box className={classes.writerInfoBox}>
-							<Grid container alignItems={'center'}>
-								<Grid item xs={12} sm={6}>
-									<Box display={'flex'} alignItems={'center'}>
-										<Avatar className={classes.writerAvatar} src={user?.avatarUrl || ''}>
-											{!user?.avatarUrl && user?.nickname.toString().charAt(0)}
-										</Avatar>
-										<Box className={classes.nicknameBox}>{`${user?.nickname}`}</Box>
-										<Box ml={1}>
-											<Chip variant={'outlined'} label={'운영자'} color={'primary'} size={'small'} />
-										</Box>
+				<Box className={classes.root}>
+					<Box className={classes.subjectBox}>
+						<Typography className={classes.subjectBoxTypography} variant={'h5'}>
+							{subject}
+						</Typography>
+					</Box>
+					<Box className={classes.writerInfoBox}>
+						<Grid container alignItems={'center'}>
+							<Grid item xs={12} sm={6}>
+								<Box display={'flex'} alignItems={'center'}>
+									<Avatar className={classes.writerAvatar} src={user?.avatarUrl || ''}>
+										{!user?.avatarUrl && user?.nickname.toString().charAt(0)}
+									</Avatar>
+									<Box className={classes.nicknameBox}>{`${user?.nickname}`}</Box>
+									<Box ml={1}>
+										<Chip variant={'outlined'} label={'운영자'} color={'primary'} size={'small'} />
 									</Box>
-								</Grid>
-								<Grid item xs={12} sm={6}>
-									<Box textAlign={'right'}>
-										<Box>{moment(createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
-									</Box>
-								</Grid>
+								</Box>
 							</Grid>
-						</Box>
-						<Box className={classes.otherInfoBox}>
-							<Box flex={1} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
-								<Box flex={1}>
-									<Button startIcon={<MessageIcon />} disabled>
-										{commentTotalCount.toLocaleString()}
-									</Button>
-									<Button startIcon={<VisibilityIcon />} disabled>
-										{viewCount.toLocaleString()}
-									</Button>
+							<Grid item xs={12} sm={6}>
+								<Box textAlign={'right'}>
+									<Box>{moment(createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
 								</Box>
-								<Box>
-									{isAuthenticated && user?.id === id && (
-										<>
-											<IconButton ref={anchorRef} onClick={handleToggle}>
-												<MoreVertIcon />
-											</IconButton>
-											<Popper
-												className={classes.popper}
-												open={open}
-												anchorEl={anchorRef.current}
-												role={undefined}
-												transition
-												disablePortal
-											>
-												{({ TransitionProps, placement }) => (
-													<Grow
-														{...TransitionProps}
-														style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-													>
-														<Paper>
-															<ClickAwayListener onClickAway={handleClose}>
-																<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
-																	<MenuItem onClick={handleEditRouter}>
-																		<ListItemIcon>
-																			<EditIcon />
-																		</ListItemIcon>
-																		{'수정'}
-																	</MenuItem>
-																	<MenuItem onClick={onDeleteNoticeDetail}>
-																		<ListItemIcon>
-																			<DeleteIcon />
-																		</ListItemIcon>
-																		{'삭제'}
-																	</MenuItem>
-																</MenuList>
-															</ClickAwayListener>
-														</Paper>
-													</Grow>
-												)}
-											</Popper>
-										</>
-									)}
-								</Box>
+							</Grid>
+						</Grid>
+					</Box>
+					<Box className={classes.otherInfoBox}>
+						<Box flex={1} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+							<Box flex={1}>
+								<Button startIcon={<MessageIcon />} disabled>
+									{commentTotalCount.toLocaleString()}
+								</Button>
+								<Button startIcon={<VisibilityIcon />} disabled>
+									{viewCount.toLocaleString()}
+								</Button>
+							</Box>
+							<Box>
+								{isAuthenticated && user?.id === id && (
+									<>
+										<IconButton ref={anchorRef} onClick={handleToggle}>
+											<MoreVertIcon />
+										</IconButton>
+										<Popper
+											className={classes.popper}
+											open={open}
+											anchorEl={anchorRef.current}
+											role={undefined}
+											transition
+											disablePortal
+										>
+											{({ TransitionProps, placement }) => (
+												<Grow
+													{...TransitionProps}
+													style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+												>
+													<Paper>
+														<ClickAwayListener onClickAway={handleClose}>
+															<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
+																<MenuItem onClick={handleEditRouter}>
+																	<ListItemIcon>
+																		<EditIcon />
+																	</ListItemIcon>
+																	{'수정'}
+																</MenuItem>
+																<MenuItem onClick={onDeleteNoticeDetail}>
+																	<ListItemIcon>
+																		<DeleteIcon />
+																	</ListItemIcon>
+																	{'삭제'}
+																</MenuItem>
+															</MenuList>
+														</ClickAwayListener>
+													</Paper>
+												</Grow>
+											)}
+										</Popper>
+									</>
+								)}
 							</Box>
 						</Box>
-						<Box className={classes.contentBox}>
-							<Box dangerouslySetInnerHTML={{ __html: content }} />
-						</Box>
 					</Box>
-				</Grow>
+					<Box className={classes.contentBox}>
+						<Box dangerouslySetInnerHTML={{ __html: content }} />
+					</Box>
+				</Box>
 			)}
 		</>
 	);

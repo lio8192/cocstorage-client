@@ -274,340 +274,336 @@ function DetailContent() {
 	return (
 		<>
 			{pending && (
-				<Grow in>
-					<Box className={classes.root}>
-						<Box className={classes.subjectBox}>
-							{isPopular && (
-								<Box mr={1}>
-									<Skeleton animation={'wave'} width={30} height={50} />
-								</Box>
-							)}
-							<Box flex={1}>
-								<Typography component={'h5'} variant={'h5'}>
-									<Skeleton animation={'wave'} height={50} />
-								</Typography>
-							</Box>
-						</Box>
-						<Box
-							className={classes.writerInfoBox}
-							display={'flex'}
-							alignItems={'center'}
-							justifyContent={'space-between'}
-							mb={2}
-							pt={1}
-							pb={1}
-						>
-							<Box display={'flex'} alignItems={'center'}>
-								<Box>
-									<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
-								</Box>
-								<Box ml={1}>
-									<Skeleton animation={'wave'} width={50} />
-								</Box>
-							</Box>
-							<Box>
-								<Skeleton animation={'wave'} width={100} />
-							</Box>
-						</Box>
-						<Box className={classes.otherInfoSkeletonBox}>
-							<Grid container alignItems={'center'}>
-								<Grid item xs={10}>
-									<Box display={'flex'} alignItems={'center'}>
-										<Box>
-											<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
-										</Box>
-										<Box ml={1} mr={1}>
-											<Skeleton animation={'wave'} width={35} />
-										</Box>
-										<Box>
-											<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
-										</Box>
-										<Box ml={1} mr={1}>
-											<Skeleton animation={'wave'} width={35} />
-										</Box>
-										<Box>
-											<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
-										</Box>
-										<Box ml={1} mr={1}>
-											<Skeleton animation={'wave'} width={35} />
-										</Box>
-										<Box>
-											<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
-										</Box>
-										<Box ml={1}>
-											<Skeleton animation={'wave'} width={35} />
-										</Box>
-									</Box>
-								</Grid>
-								<Grid item xs={2}>
-									<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
-										<Skeleton animation={'wave'} width={30} />
-									</Box>
-								</Grid>
-							</Grid>
-						</Box>
-						<Box className={classes.contentBox}>
-							<Skeleton animation={'wave'} />
-							<Skeleton animation={'wave'} />
-							<Skeleton animation={'wave'} />
-							<Box mt={1}>
-								<Skeleton variant={'rect'} animation={'wave'} height={250} />
-							</Box>
-							<Box textAlign={'center'}>
-								<Box>
-									<Box maxWidth={150} m={'auto'} mt={2}>
-										<Skeleton variant={'rect'} animation={'wave'} width={170} height={58} />
-									</Box>
-								</Box>
-							</Box>
-						</Box>
-					</Box>
-				</Grow>
-			)}
-			{!pending && (
-				<Grow in>
-					<Box className={classes.root}>
-						<Box className={classes.subjectBox}>
-							{isPopular && (
-								<Box mr={1}>
-									<Avatar className={classes.avatar} variant={'rounded'}>
-										<StarIcon />
-									</Avatar>
-								</Box>
-							)}
-							<Box flex={1}>
-								<Typography className={classes.subjectBoxTypography} variant={'h5'}>
-									{subject}
-								</Typography>
-							</Box>
-						</Box>
-						<Box className={classes.writerInfoBox}>
-							<Grid container alignItems={'center'}>
-								<Grid item xs={12} sm={6}>
-									<Box display={'flex'} alignItems={'center'}>
-										{isMember && user ? (
-											<>
-												<Avatar className={classes.writerAvatar} src={user?.avatarUrl || ''}>
-													{!user?.avatarUrl && user?.nickname.toString().charAt(0)}
-												</Avatar>
-												<Box ml={1}>
-													<Box
-														className={clsx(classes.nicknameBox, {
-															[classes.adminSpecificNickname]: user?.role === 'admin'
-														})}
-														component={'span'}
-													>
-														{user?.nickname}
-													</Box>
-												</Box>
-												{user.role === 'admin' && (
-													<Box ml={1}>
-														<Chip variant={'outlined'} label={'운영자'} color={'primary'} size={'small'} />
-													</Box>
-												)}
-											</>
-										) : (
-											<>
-												<Avatar className={classes.writerAvatar}>
-													{nonMemberNickname && nonMemberNickname.toString().charAt(0)}
-												</Avatar>
-												<Box ml={1}>
-													<Box className={classes.nicknameBox} component={'span'}>
-														{nonMemberNickname}
-													</Box>
-													{createdIp && (
-														<Box component={'span'} ml={0.5}>
-															{`(${createdIp})`}
-														</Box>
-													)}
-												</Box>
-											</>
-										)}
-									</Box>
-								</Grid>
-								<Grid item xs={12} sm={6}>
-									<Box textAlign={'right'}>
-										<Box>{moment(createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
-									</Box>
-								</Grid>
-							</Grid>
-						</Box>
-						<Box className={classes.otherInfoBox}>
-							<Box flex={1} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
-								<Box flex={1}>
-									<Button startIcon={<MessageIcon />} disabled>
-										{commentTotalCount.toLocaleString()}
-									</Button>
-									<Button startIcon={<VisibilityIcon />} disabled>
-										{viewCount.toLocaleString()}
-									</Button>
-									<Button startIcon={<ThumbUpAltSharpIcon />} disabled>
-										{thumbUp.toLocaleString()}
-									</Button>
-									<Button startIcon={<ThumbDownAltSharpIcon />} disabled>
-										{thumbDown.toLocaleString()}
-									</Button>
-								</Box>
-								<Box>
-									{!isMember && (
-										<>
-											<IconButton ref={anchorRef} onClick={handleToggle}>
-												<MoreVertIcon />
-											</IconButton>
-											<Popper
-												className={classes.popper}
-												open={open}
-												anchorEl={anchorRef.current}
-												role={undefined}
-												transition
-												disablePortal
-											>
-												{({ TransitionProps, placement }) => (
-													<Grow
-														{...TransitionProps}
-														style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-													>
-														<Paper>
-															<ClickAwayListener onClickAway={handleClose}>
-																<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
-																	<MenuItem onClick={handleEditRouter}>
-																		<ListItemIcon>
-																			<EditIcon />
-																		</ListItemIcon>
-																		{'수정'}
-																	</MenuItem>
-																	<MenuItem
-																		onClick={onHandleDeleteAuthDialog}
-																		data-id={storageBoardId}
-																		data-sub-title={'개념글 삭제'}
-																		data-type={'boardDetail'}
-																	>
-																		<ListItemIcon>
-																			<DeleteIcon />
-																		</ListItemIcon>
-																		{'삭제'}
-																	</MenuItem>
-																</MenuList>
-															</ClickAwayListener>
-														</Paper>
-													</Grow>
-												)}
-											</Popper>
-										</>
-									)}
-									{isMember && user?.id === id && (
-										<>
-											<IconButton ref={anchorRef} onClick={handleToggle}>
-												<MoreVertIcon />
-											</IconButton>
-											<Popper
-												className={classes.popper}
-												open={open}
-												anchorEl={anchorRef.current}
-												role={undefined}
-												transition
-												disablePortal
-											>
-												{({ TransitionProps, placement }) => (
-													<Grow
-														{...TransitionProps}
-														style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-													>
-														<Paper>
-															<ClickAwayListener onClickAway={handleClose}>
-																<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
-																	<MenuItem onClick={handleEditRouter}>
-																		<ListItemIcon>
-																			<EditIcon />
-																		</ListItemIcon>
-																		{'수정'}
-																	</MenuItem>
-																	<MenuItem onClick={onDeleteStorageBoardDetail}>
-																		<ListItemIcon>
-																			<DeleteIcon />
-																		</ListItemIcon>
-																		{'삭제'}
-																	</MenuItem>
-																</MenuList>
-															</ClickAwayListener>
-														</Paper>
-													</Grow>
-												)}
-											</Popper>
-										</>
-									)}
-								</Box>
-							</Box>
-						</Box>
-						{sourceCode && (
-							<Box className={classes.adBox}>
-								<GoogleAdSense
-									html={
-										'<ins class="adsbygoogle"'
-										+ 'style="display:block"'
-										+ 'data-ad-client="ca-pub-5809905264951057"'
-										+ 'data-ad-slot="8033291397"'
-										+ 'data-ad-format="auto"'
-										+ 'data-full-width-responsive="true"></ins>'
-									}
-									color={'default'}
-								/>
+				<Box className={classes.root}>
+					<Box className={classes.subjectBox}>
+						{isPopular && (
+							<Box mr={1}>
+								<Skeleton animation={'wave'} width={30} height={50} />
 							</Box>
 						)}
-						<Box className={classes.contentBox}>
-							{sourceCode && (
-								<Box mb={2} textAlign={'right'}>
-									<Box component={'span'}>
-										<Chip
-											className={classes.chip}
-											color={'primary'}
-											label={'출처'}
-											icon={<LinkIcon />}
-											onClick={handleSource}
-										/>
+						<Box flex={1}>
+							<Typography component={'h5'} variant={'h5'}>
+								<Skeleton animation={'wave'} height={50} />
+							</Typography>
+						</Box>
+					</Box>
+					<Box
+						className={classes.writerInfoBox}
+						display={'flex'}
+						alignItems={'center'}
+						justifyContent={'space-between'}
+						mb={2}
+						pt={1}
+						pb={1}
+					>
+						<Box display={'flex'} alignItems={'center'}>
+							<Box>
+								<Skeleton variant={'circle'} animation={'wave'} width={35} height={35} />
+							</Box>
+							<Box ml={1}>
+								<Skeleton animation={'wave'} width={50} />
+							</Box>
+						</Box>
+						<Box>
+							<Skeleton animation={'wave'} width={100} />
+						</Box>
+					</Box>
+					<Box className={classes.otherInfoSkeletonBox}>
+						<Grid container alignItems={'center'}>
+							<Grid item xs={10}>
+								<Box display={'flex'} alignItems={'center'}>
+									<Box>
+										<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
 									</Box>
-									<Box component={'span'} ml={1}>
-										<Chip
-											className={classes.chip}
-											color={'primary'}
-											label={'cocstoragehelps@gmail.com'}
-											icon={<EmailIcon />}
-										/>
+									<Box ml={1} mr={1}>
+										<Skeleton animation={'wave'} width={35} />
+									</Box>
+									<Box>
+										<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
+									</Box>
+									<Box ml={1} mr={1}>
+										<Skeleton animation={'wave'} width={35} />
+									</Box>
+									<Box>
+										<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
+									</Box>
+									<Box ml={1} mr={1}>
+										<Skeleton animation={'wave'} width={35} />
+									</Box>
+									<Box>
+										<Skeleton variant={'circle'} animation={'wave'} width={20} height={20} />
+									</Box>
+									<Box ml={1}>
+										<Skeleton animation={'wave'} width={35} />
 									</Box>
 								</Box>
-							)}
-							<Box dangerouslySetInnerHTML={{ __html: content }} />
-							<Box textAlign={'center'}>
-								<Box>
-									<ButtonGroup className={classes.recommendButtonGroup}>
-										<Button
-											className={classes.thumbsUpButton}
-											endIcon={<ThumbUpAltSharpIcon color={'primary'} />}
-											data-thumbs-type={0}
-											onClick={
-												isAuthenticated ? onPutStorageBoardDetailRecommend : onPutNonMemberStorageBoardDetailRecommend
-											}
-											disabled={recommendPending}
-										>
-											{thumbUp}
-										</Button>
-										<Button
-											className={classes.thumbsDownButton}
-											startIcon={<ThumbDownAltSharpIcon color={'secondary'} />}
-											data-thumbs-type={1}
-											onClick={
-												isAuthenticated ? onPutStorageBoardDetailRecommend : onPutNonMemberStorageBoardDetailRecommend
-											}
-											disabled={recommendPending}
-										>
-											{thumbDown}
-										</Button>
-									</ButtonGroup>
+							</Grid>
+							<Grid item xs={2}>
+								<Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'}>
+									<Skeleton animation={'wave'} width={30} />
+								</Box>
+							</Grid>
+						</Grid>
+					</Box>
+					<Box className={classes.contentBox}>
+						<Skeleton animation={'wave'} />
+						<Skeleton animation={'wave'} />
+						<Skeleton animation={'wave'} />
+						<Box mt={1}>
+							<Skeleton variant={'rect'} animation={'wave'} height={250} />
+						</Box>
+						<Box textAlign={'center'}>
+							<Box>
+								<Box maxWidth={150} m={'auto'} mt={2}>
+									<Skeleton variant={'rect'} animation={'wave'} width={170} height={58} />
 								</Box>
 							</Box>
 						</Box>
 					</Box>
-				</Grow>
+				</Box>
+			)}
+			{!pending && (
+				<Box className={classes.root}>
+					<Box className={classes.subjectBox}>
+						{isPopular && (
+							<Box mr={1}>
+								<Avatar className={classes.avatar} variant={'rounded'}>
+									<StarIcon />
+								</Avatar>
+							</Box>
+						)}
+						<Box flex={1}>
+							<Typography className={classes.subjectBoxTypography} variant={'h5'}>
+								{subject}
+							</Typography>
+						</Box>
+					</Box>
+					<Box className={classes.writerInfoBox}>
+						<Grid container alignItems={'center'}>
+							<Grid item xs={12} sm={6}>
+								<Box display={'flex'} alignItems={'center'}>
+									{isMember && user ? (
+										<>
+											<Avatar className={classes.writerAvatar} src={user?.avatarUrl || ''}>
+												{!user?.avatarUrl && user?.nickname.toString().charAt(0)}
+											</Avatar>
+											<Box ml={1}>
+												<Box
+													className={clsx(classes.nicknameBox, {
+														[classes.adminSpecificNickname]: user?.role === 'admin'
+													})}
+													component={'span'}
+												>
+													{user?.nickname}
+												</Box>
+											</Box>
+											{user.role === 'admin' && (
+												<Box ml={1}>
+													<Chip variant={'outlined'} label={'운영자'} color={'primary'} size={'small'} />
+												</Box>
+											)}
+										</>
+									) : (
+										<>
+											<Avatar className={classes.writerAvatar}>
+												{nonMemberNickname && nonMemberNickname.toString().charAt(0)}
+											</Avatar>
+											<Box ml={1}>
+												<Box className={classes.nicknameBox} component={'span'}>
+													{nonMemberNickname}
+												</Box>
+												{createdIp && (
+													<Box component={'span'} ml={0.5}>
+														{`(${createdIp})`}
+													</Box>
+												)}
+											</Box>
+										</>
+									)}
+								</Box>
+							</Grid>
+							<Grid item xs={12} sm={6}>
+								<Box textAlign={'right'}>
+									<Box>{moment(createdAt).format('YYYY. MM. DD HH:mm:ss')}</Box>
+								</Box>
+							</Grid>
+						</Grid>
+					</Box>
+					<Box className={classes.otherInfoBox}>
+						<Box flex={1} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+							<Box flex={1}>
+								<Button startIcon={<MessageIcon />} disabled>
+									{commentTotalCount.toLocaleString()}
+								</Button>
+								<Button startIcon={<VisibilityIcon />} disabled>
+									{viewCount.toLocaleString()}
+								</Button>
+								<Button startIcon={<ThumbUpAltSharpIcon />} disabled>
+									{thumbUp.toLocaleString()}
+								</Button>
+								<Button startIcon={<ThumbDownAltSharpIcon />} disabled>
+									{thumbDown.toLocaleString()}
+								</Button>
+							</Box>
+							<Box>
+								{!isMember && (
+									<>
+										<IconButton ref={anchorRef} onClick={handleToggle}>
+											<MoreVertIcon />
+										</IconButton>
+										<Popper
+											className={classes.popper}
+											open={open}
+											anchorEl={anchorRef.current}
+											role={undefined}
+											transition
+											disablePortal
+										>
+											{({ TransitionProps, placement }) => (
+												<Grow
+													{...TransitionProps}
+													style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+												>
+													<Paper>
+														<ClickAwayListener onClickAway={handleClose}>
+															<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
+																<MenuItem onClick={handleEditRouter}>
+																	<ListItemIcon>
+																		<EditIcon />
+																	</ListItemIcon>
+																	{'수정'}
+																</MenuItem>
+																<MenuItem
+																	onClick={onHandleDeleteAuthDialog}
+																	data-id={storageBoardId}
+																	data-sub-title={'개념글 삭제'}
+																	data-type={'boardDetail'}
+																>
+																	<ListItemIcon>
+																		<DeleteIcon />
+																	</ListItemIcon>
+																	{'삭제'}
+																</MenuItem>
+															</MenuList>
+														</ClickAwayListener>
+													</Paper>
+												</Grow>
+											)}
+										</Popper>
+									</>
+								)}
+								{isMember && user?.id === id && (
+									<>
+										<IconButton ref={anchorRef} onClick={handleToggle}>
+											<MoreVertIcon />
+										</IconButton>
+										<Popper
+											className={classes.popper}
+											open={open}
+											anchorEl={anchorRef.current}
+											role={undefined}
+											transition
+											disablePortal
+										>
+											{({ TransitionProps, placement }) => (
+												<Grow
+													{...TransitionProps}
+													style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+												>
+													<Paper>
+														<ClickAwayListener onClickAway={handleClose}>
+															<MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
+																<MenuItem onClick={handleEditRouter}>
+																	<ListItemIcon>
+																		<EditIcon />
+																	</ListItemIcon>
+																	{'수정'}
+																</MenuItem>
+																<MenuItem onClick={onDeleteStorageBoardDetail}>
+																	<ListItemIcon>
+																		<DeleteIcon />
+																	</ListItemIcon>
+																	{'삭제'}
+																</MenuItem>
+															</MenuList>
+														</ClickAwayListener>
+													</Paper>
+												</Grow>
+											)}
+										</Popper>
+									</>
+								)}
+							</Box>
+						</Box>
+					</Box>
+					{sourceCode && (
+						<Box className={classes.adBox}>
+							<GoogleAdSense
+								html={
+									'<ins class="adsbygoogle"'
+									+ 'style="display:block"'
+									+ 'data-ad-client="ca-pub-5809905264951057"'
+									+ 'data-ad-slot="8033291397"'
+									+ 'data-ad-format="auto"'
+									+ 'data-full-width-responsive="true"></ins>'
+								}
+								color={'default'}
+							/>
+						</Box>
+					)}
+					<Box className={classes.contentBox}>
+						{sourceCode && (
+							<Box mb={2} textAlign={'right'}>
+								<Box component={'span'}>
+									<Chip
+										className={classes.chip}
+										color={'primary'}
+										label={'출처'}
+										icon={<LinkIcon />}
+										onClick={handleSource}
+									/>
+								</Box>
+								<Box component={'span'} ml={1}>
+									<Chip
+										className={classes.chip}
+										color={'primary'}
+										label={'cocstoragehelps@gmail.com'}
+										icon={<EmailIcon />}
+									/>
+								</Box>
+							</Box>
+						)}
+						<Box dangerouslySetInnerHTML={{ __html: content }} />
+						<Box textAlign={'center'}>
+							<Box>
+								<ButtonGroup className={classes.recommendButtonGroup}>
+									<Button
+										className={classes.thumbsUpButton}
+										endIcon={<ThumbUpAltSharpIcon color={'primary'} />}
+										data-thumbs-type={0}
+										onClick={
+											isAuthenticated ? onPutStorageBoardDetailRecommend : onPutNonMemberStorageBoardDetailRecommend
+										}
+										disabled={recommendPending}
+									>
+										{thumbUp}
+									</Button>
+									<Button
+										className={classes.thumbsDownButton}
+										startIcon={<ThumbDownAltSharpIcon color={'secondary'} />}
+										data-thumbs-type={1}
+										onClick={
+											isAuthenticated ? onPutStorageBoardDetailRecommend : onPutNonMemberStorageBoardDetailRecommend
+										}
+										disabled={recommendPending}
+									>
+										{thumbDown}
+									</Button>
+								</ButtonGroup>
+							</Box>
+						</Box>
+					</Box>
+				</Box>
 			)}
 		</>
 	);
