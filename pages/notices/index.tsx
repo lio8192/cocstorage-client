@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		adminContainer: {
-			padding: theme.spacing(0, 0, 1),
+			paddingBottom: theme.spacing(1),
 			[theme.breakpoints.down('md')]: {
 				paddingTop: theme.spacing(2),
 				paddingBottom: theme.spacing(0)

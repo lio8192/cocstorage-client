@@ -334,9 +334,7 @@ function DetailCommentList() {
 		>
 			<Box className={classes.commentOrderBox}>
 				{pending ? (
-					<Box>
-						<Skeleton width={50} height={50} />
-					</Box>
+					<Skeleton width={40} height={30} />
 				) : (
 					<Typography component={'span'} className={classes.commentOrderTypography} variant={'body1'}>
 						{'최신순'}
