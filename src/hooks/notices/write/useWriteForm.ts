@@ -51,7 +51,7 @@ export default function useWriteForm() {
 			setPutNoticeBody({
 				...putNoticeBody,
 				content: event.level.content,
-				description: event.level.content.replace(/(<([^>]+)>)/gi, '')
+				description: event.level.content.replace(/<\/p>/gi, ' ').replace(/(<([^>]+)>)/gi, '')
 			});
 		},
 		[putNoticeBody]

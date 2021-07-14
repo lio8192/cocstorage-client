@@ -67,7 +67,7 @@ export default function useEditForm() {
 			setPutStorageBoardBody({
 				...putStorageBoardBody,
 				content: event.level.content,
-				description: event.level.content.replace(/(<([^>]+)>)/gi, '')
+				description: event.level.content.replace(/<\/p>/gi, ' ').replace(/(<([^>]+)>)/gi, '')
 			});
 		},
 		[putStorageBoardBody]

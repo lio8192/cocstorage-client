@@ -58,7 +58,7 @@ export default function useWriteForm() {
 			setPutStorageBoardBody({
 				...putStorageBoardBody,
 				content: event.level.content,
-				description: event.level.content.replace(/(<([^>]+)>)/gi, '')
+				description: event.level.content.replace(/<\/p>/gi, ' ').replace(/(<([^>]+)>)/gi, '')
 			});
 		},
 		[putStorageBoardBody]
