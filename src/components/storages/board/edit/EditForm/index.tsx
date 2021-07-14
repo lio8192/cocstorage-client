@@ -14,7 +14,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import NoSsr from '@material-ui/core/NoSsr';
 import Grow from '@material-ui/core/Grow';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -198,48 +197,46 @@ function EditForm() {
 		<Box position={'relative'}>
 			<Container className={classes.container}>
 				{!isMember && (
-					<NoSsr>
-						<Grid container spacing={isMobile ? 0 : 1}>
-							<Grid item xs={6}>
-								<TextField
-									fullWidth
-									variant={'outlined'}
-									label={isMobile ? null : '닉네임'}
-									placeholder={isMobile ? '닉네임' : undefined}
-									InputProps={{
-										className: classes.nicknameTextFieldInput
-									}}
-									onChange={onHandleEditFormTextField}
-									name={'nickname'}
-									value={nickname || ''}
-									disabled={pending}
-								/>
-							</Grid>
-							<Grid item xs={6}>
-								<TextField
-									fullWidth
-									variant={'outlined'}
-									type={showPassword ? 'text' : 'password'}
-									label={isMobile ? null : '비밀번호'}
-									placeholder={isMobile ? '비밀번호' : undefined}
-									InputProps={{
-										className: classes.passwordTextFieldInput,
-										endAdornment: (
-											<InputAdornment position={'end'}>
-												<IconButton edge={'end'} onClick={onShowEditFormPassword}>
-													{showPassword ? <VisibilityOff /> : <Visibility />}
-												</IconButton>
-											</InputAdornment>
-										)
-									}}
-									onChange={onHandleEditFormTextField}
-									name={'password'}
-									value={password || ''}
-									disabled
-								/>
-							</Grid>
+					<Grid className={classes.writerInfoTextFieldGrid} container spacing={isMobile ? 0 : 1}>
+						<Grid item xs={6}>
+							<TextField
+								fullWidth
+								variant={'outlined'}
+								label={isMobile ? null : '닉네임'}
+								placeholder={isMobile ? '닉네임' : undefined}
+								InputProps={{
+									className: classes.nicknameTextFieldInput
+								}}
+								onChange={onHandleEditFormTextField}
+								name={'nickname'}
+								value={nickname || ''}
+								disabled={pending}
+							/>
 						</Grid>
-					</NoSsr>
+						<Grid item xs={6}>
+							<TextField
+								fullWidth
+								variant={'outlined'}
+								type={showPassword ? 'text' : 'password'}
+								label={isMobile ? null : '비밀번호'}
+								placeholder={isMobile ? '비밀번호' : undefined}
+								InputProps={{
+									className: classes.passwordTextFieldInput,
+									endAdornment: (
+										<InputAdornment position={'end'}>
+											<IconButton edge={'end'} onClick={onShowEditFormPassword}>
+												{showPassword ? <VisibilityOff /> : <Visibility />}
+											</IconButton>
+										</InputAdornment>
+									)
+								}}
+								onChange={onHandleEditFormTextField}
+								name={'password'}
+								value={password || ''}
+								disabled
+							/>
+						</Grid>
+					</Grid>
 				)}
 				<Box className={classes.subjectBox}>
 					<TextField
