@@ -161,7 +161,10 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: theme.palette.type === 'light' ? theme.palette.primary.dark : theme.palette.primary.light
 		},
 		thumbsDownButton: {
-			color: theme.palette.type === 'light' ? theme.palette.secondary.dark : theme.palette.secondary.light
+			color: theme.palette.type === 'light' ? theme.palette.grey.A200 : theme.palette.action.active
+		},
+		thumbsDownButtonIcon: {
+			color: theme.palette.type === 'light' ? theme.palette.action.active : theme.palette.grey.A200
 		},
 		backdrop: {
 			zIndex: theme.zIndex.drawer + 1,
@@ -590,7 +593,7 @@ function DetailContent() {
 									</Button>
 									<Button
 										className={classes.thumbsDownButton}
-										startIcon={<ThumbDownAltSharpIcon color={'secondary'} />}
+										startIcon={<ThumbDownAltSharpIcon className={classes.thumbsDownButtonIcon} />}
 										data-thumbs-type={1}
 										onClick={
 											isAuthenticated ? onPutStorageBoardDetailRecommend : onPutNonMemberStorageBoardDetailRecommend
