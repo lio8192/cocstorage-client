@@ -1,4 +1,4 @@
-## cocstoarge-api
+## cocstoarge-client
 개념글 저장소의 Client 입니다.
 
 ### Project Stack
