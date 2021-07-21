@@ -5,6 +5,7 @@
 <ul>
   <li>React</li>
   <li>Next.js</li>
+  <li>TypeScript</li>
   <li>Redux</li>
   <li>Redux-Saga</li>
   <li>Material-UI</li>
