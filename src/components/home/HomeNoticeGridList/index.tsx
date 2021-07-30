@@ -70,19 +70,13 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		avatar: {
 			marginRight: theme.spacing(1),
-			[theme.breakpoints.down('md')]: {
-				width: theme.spacing(4),
-				height: theme.spacing(4)
-			}
+			width: theme.spacing(4),
+			height: theme.spacing(4)
 		},
 		avatarBig: {
-			width: theme.spacing(5.19),
-			height: theme.spacing(5.19),
 			marginRight: theme.spacing(1),
-			[theme.breakpoints.down('md')]: {
-				width: theme.spacing(4),
-				height: theme.spacing(4)
-			}
+			width: theme.spacing(4),
+			height: theme.spacing(4)
 		},
 		gridItem: {
 			width: '100%'
@@ -148,6 +142,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			textDecoration: 'none'
 		},
 		list: {
+			display: 'flex',
+			flexDirection: 'column',
 			height: '100%',
 			backgroundColor: theme.palette.background.paper,
 			[theme.breakpoints.down('md')]: {
@@ -170,6 +166,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		listItem: {
+			flexGrow: 1,
 			[theme.breakpoints.down('md')]: {
 				padding: theme.spacing(1, 3)
 			},
@@ -454,7 +451,7 @@ function HomeNoticeGridList() {
 														</Box>
 														<Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} mt={0.5}>
 															<Box className={classes.listInfoBox}>
-																<Avatar className={classes.avatarBig} src={item.user.avatarUrl || ''} />
+																<Avatar className={classes.avatar} src={item.user.avatarUrl || ''} />
 																<Typography className={classes.nicknameTypography} variant={'caption'}>
 																	{item.user.nickname}
 																</Typography>
