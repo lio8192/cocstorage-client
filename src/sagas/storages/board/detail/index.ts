@@ -81,7 +81,7 @@ function* watchFetchStorageDetailAndStorageBoardDetail(
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					content: '이미 삭제되었거나 존재하지 않는 개념글입니다.',
+					content: '이미 삭제되었거나 존재하지 않는 게시글이에요.',
 					severity: 'info',
 					route: `/storages/${storageId}`
 				})
@@ -114,7 +114,7 @@ function* watchFetchStorageBoardDetail(action: ActionType<typeof fetchStorageBoa
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					content: '이미 삭제되었거나 존재하지 않는 개념글입니다.',
+					content: '이미 삭제되었거나 존재하지 않는 게시글이에요.',
 					severity: 'error',
 					route: `/storages/${Router.query.path}`
 				})
@@ -151,7 +151,7 @@ function* watchPutStorageBoardDetailRecommend(action: ActionType<typeof putStora
 		const response = yield call(Service.putStorageBoardDetailRecommend, payload);
 		yield put(
 			putStorageBoardDetailRecommendSucceeded({
-				message: payload.type === 0 ? '추천을 누르셨습니다.' : '비추천을 누르셨습니다.',
+				message: payload.type === 0 ? '추천을 누르셨어요.' : '비추천을 누르셨어요.',
 				thumbUp: response.data.thumbUp,
 				thumbDown: response.data.thumbDown
 			})
@@ -169,7 +169,7 @@ function* watchPutNonMemberStorageBoardDetailRecommend(
 		const response = yield call(Service.putNonMemberStorageBoardDetailRecommend, payload);
 		yield put(
 			putNonMemberStorageBoardDetailRecommendSucceeded({
-				message: payload.type === 0 ? '추천을 누르셨습니다.' : '비추천을 누르셨습니다.',
+				message: payload.type === 0 ? '추천을 누르셨어요.' : '비추천을 누르셨어요.',
 				thumbUp: response.data.thumbUp,
 				thumbDown: response.data.thumbDown
 			})

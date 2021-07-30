@@ -255,12 +255,12 @@ export default function useMyInfoForm() {
 				password: {
 					...putPasswordBody.password,
 					error: true,
-					helperText: '비밀번호가 일치하지 않습니다.'
+					helperText: '비밀번호가 일치하지 않아요.'
 				},
 				retypePassword: {
 					...putPasswordBody.retypePassword,
 					error: true,
-					helperText: '비밀번호가 일치하지 않습니다.'
+					helperText: '비밀번호가 일치하지 않아요.'
 				}
 			});
 			return false;

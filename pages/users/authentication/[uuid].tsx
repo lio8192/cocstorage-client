@@ -95,7 +95,7 @@ function UserAuthenticationUUID() {
 									<CheckCircleIcon className={classes.successIcon} />
 								</Box>
 								<Box>
-									<Typography variant={'h5'}>{'인증이 완료되었습니다.'}</Typography>
+									<Typography variant={'h5'}>{'인증이 완료되었어요.'}</Typography>
 								</Box>
 							</>
 						)}

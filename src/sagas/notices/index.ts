@@ -119,7 +119,7 @@ function* watchFetchNoticeEditDetail(action: ActionType<typeof fetchNoticeEditDe
 			handleNotificationModal({
 				open: true,
 				title: '오류',
-				content: '올바르지 않은 접근입니다.',
+				content: '올바르지 않은 접근이에요.',
 				severity: 'error',
 				route: '/notices'
 			})

@@ -188,7 +188,7 @@ export default function useStorageManageDialog() {
 				name: {
 					...postStorageFormData.name,
 					error: true,
-					helperText: '올바른 저장소명을 입력해주세요.'
+					helperText: '올바른 게시판명을 입력해주세요.'
 				}
 			});
 
@@ -227,7 +227,7 @@ export default function useStorageManageDialog() {
 				policy: {
 					...postStorageFormData.policy,
 					error: true,
-					helperText: '저장소 개인정보보호정책 및 이용약관에 동의해주세요.'
+					helperText: '게시판 개인정보보호정책 및 이용약관에 동의해주세요.'
 				}
 			});
 

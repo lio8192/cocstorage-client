@@ -61,7 +61,7 @@ function* watchFetchNoticeDetail(action: ActionType<typeof fetchNoticeDetail>) {
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					content: '이미 삭제되었거나 존재하지 않는 소식입니다.',
+					content: '이미 삭제되었거나 존재하지 않는 소식이에요.',
 					severity: 'info',
 					route: '/notices'
 				})

@@ -49,7 +49,7 @@ function* watchFetchStorageDetail(action: ActionType<typeof fetchStorageDetail>)
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					content: '저장소가 존재하지 않습니다.',
+					content: '게시판이 존재하지 않아요.',
 					severity: 'info',
 					route: '/storages'
 				})
@@ -80,7 +80,7 @@ function* watchFetchStorageBoards(action: ActionType<typeof fetchStorageBoards>)
 				handleNotificationModal({
 					open: true,
 					title: '안내',
-					content: '저장소가 존재하지 않습니다.',
+					content: '게시판이 존재하지 않아요.',
 					severity: 'info',
 					route: '/storages'
 				})
@@ -179,7 +179,7 @@ function* watchFetchStorageBoardEditDetail(action: ActionType<typeof fetchStorag
 			handleNotificationModal({
 				open: true,
 				title: '안내',
-				content: '올바르지 않은 접근입니다.',
+				content: '올바르지 않은 접근이에요.',
 				severity: 'error',
 				route: `/storages/${Router.query.path}`
 			})

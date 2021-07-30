@@ -63,7 +63,7 @@ function* watchPutPassword(action: ActionType<typeof putPassword>) {
 			handleNotificationModal({
 				open: true,
 				title: '변경 완료',
-				content: '비밀번호가 정상적으로 변경되었습니다.',
+				content: '비밀번호가 정상적으로 변경되었어요.',
 				severity: 'success',
 				route: ''
 			})

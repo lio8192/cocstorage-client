@@ -95,7 +95,7 @@ function MyPage() {
 	useEffect(() => {
 		if (isMounted.current && !isAuthenticated) {
 			router.push('/', '/').then(() => {
-				enqueueSnackbar('올바르지 않은 접근입니다.', { variant: 'warning' });
+				enqueueSnackbar('올바르지 않은 접근이에요.', { variant: 'warning' });
 			});
 		}
 	}, [router, enqueueSnackbar, isAuthenticated, isMounted]);
