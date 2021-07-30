@@ -305,7 +305,7 @@ function BoardList({ params, adOpen = true, searchValue }: BoardListPros) {
 						)}
 					</Box>
 				))}
-			{!pending && !searchValue && boards.length === 0 && <DataEmptyBox message={'아직 개념글이 존재하지 않아요.'} />}
+			{!pending && !searchValue && boards.length === 0 && <DataEmptyBox message={'아직 게시글이 존재하지 않아요.'} />}
 			{!pending && searchValue && boards.length === 0 && (
 				<DataEmptyBox message={`"${searchValue}" 에 대한 검색 결과가 존재하지 않아요.`} />
 			)}
