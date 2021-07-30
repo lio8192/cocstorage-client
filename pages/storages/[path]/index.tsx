@@ -196,12 +196,9 @@ function StorageBoard() {
 				<meta httpEquiv={'content-language'} content={'ko'} />
 				<meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
 				<meta name={'author'} content={storage.user ? storage.user.nickname : '개념글 저장소'} />
-				<meta name={'title'} content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'} />
+				<meta name={'title'} content={storage.name ? `${storage.name} : 개념글 저장소` : '개념글 저장소'} />
 				<meta name={'description'} content={storage.description} />
-				<meta
-					property={'og:title'}
-					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
-				/>
+				<meta property={'og:title'} content={storage.name ? `${storage.name} : 개념글 저장소` : '개념글 저장소'} />
 				<meta property={'og:description'} content={storage.description} />
 				<meta property={'og:type'} content={'website'} />
 				<meta property={'og:image'} content={storage.avatarUrl || 'https://static.cocstorage.com/images/icon.png'} />
@@ -211,15 +208,9 @@ function StorageBoard() {
 						storage.path ? `https://www.cocstorage.com/storages/${storage.path}` : 'https://www.cocstorage.com/storages'
 					}
 				/>
-				<meta
-					property={'og:site_name'}
-					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
-				/>
+				<meta property={'og:site_name'} content={storage.name ? `${storage.name} : 개념글 저장소` : '개념글 저장소'} />
 				<meta property={'og:locale'} content={'ko_KR'} />
-				<meta
-					property={'twitter:title'}
-					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
-				/>
+				<meta property={'twitter:title'} content={storage.name ? `${storage.name} : 개념글 저장소` : '개념글 저장소'} />
 				<meta property={'twitter:description'} content={storage.description} />
 				<meta
 					property={'twitter:image'}
@@ -234,10 +225,10 @@ function StorageBoard() {
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta
 					name={'apple-mobile-web-app-title'}
-					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
+					content={storage.name ? `${storage.name} : 개념글 저장소` : '개념글 저장소'}
 				/>
 				<meta name={'theme-color'} content={theme.palette.primary.main} />
-				<title>{storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}</title>
+				<title>{storage.name ? `${storage.name} : 개념글 저장소` : '개념글 저장소'}</title>
 				<link
 					rel={'canonical'}
 					href={
@@ -262,8 +253,8 @@ function StorageBoard() {
 							textColor={'primary'}
 							onChange={onChangeOrderBy}
 						>
-							<Tab label={'최신 개념글'} value={'latest'} disabled={pending} />
-							<Tab label={'인기 개념글'} value={'popular'} disabled={pending} />
+							<Tab label={'최신 게시글'} value={'latest'} disabled={pending} />
+							<Tab label={'인기 게시글'} value={'popular'} disabled={pending} />
 						</Tabs>
 					</Container>
 					<Container className={classes.container}>
@@ -279,7 +270,7 @@ function StorageBoard() {
 										startIcon={<CreateIcon />}
 										disabled={pending}
 									>
-										{'새 개념글 등록'}
+										{'새 개시글 등록'}
 									</Button>
 								</Link>
 							</Box>

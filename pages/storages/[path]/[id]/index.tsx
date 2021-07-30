@@ -251,9 +251,9 @@ function StorageBoardDetail({ query }: NextPageContext) {
 				<meta httpEquiv={'content-language'} content={'ko'} />
 				<meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
 				<meta name={'author'} content={isMember ? user?.nickname : nickname || '개념글 저장소'} />
-				<meta name={'title'} content={subject ? `${subject} : ${name} 저장소` : '개념글 저장소'} />
+				<meta name={'title'} content={subject ? `${subject} : ${name} : 개념글 저장소` : '개념글 저장소'} />
 				<meta name={'description'} content={description ? description.substr(9, 159) : ''} />
-				<meta property={'og:title'} content={subject ? `${subject} : ${name} 저장소` : '개념글 저장소'} />
+				<meta property={'og:title'} content={subject ? `${subject} : ${name} : 개념글 저장소` : '개념글 저장소'} />
 				<meta property={'og:description'} content={description ? description.substr(9, 159) : ''} />
 				<meta property={'og:type'} content={'website'} />
 				<meta
@@ -268,9 +268,9 @@ function StorageBoardDetail({ query }: NextPageContext) {
 							: 'https://www.cocstorage.com/storages'
 					}
 				/>
-				<meta property={'og:site_name'} content={name ? `${name} 저장소 : 개념글 저장소` : '개념글 저장소'} />
+				<meta property={'og:site_name'} content={name ? `${name} : 개념글 저장소` : '개념글 저장소'} />
 				<meta property={'og:locale'} content={'ko_KR'} />
-				<meta property={'twitter:title'} content={subject ? `${subject} : ${name} 저장소` : '개념글 저장소'} />
+				<meta property={'twitter:title'} content={subject ? `${subject} : ${name} : 개념글 저장소` : '개념글 저장소'} />
 				<meta property={'twitter:description'} content={description ? description.substr(9, 159) : ''} />
 				<meta
 					property={'twitter:image'}
@@ -285,9 +285,9 @@ function StorageBoardDetail({ query }: NextPageContext) {
 					}
 				/>
 				<meta property={'twitter:card'} content={'summary'} />
-				<meta name={'apple-mobile-web-app-title'} content={subject ? `${subject} : ${name} 저장소` : '개념글 저장소'} />
+				<meta name={'apple-mobile-web-app-title'} content={subject ? `${subject} : ${name}` : '개념글 저장소'} />
 				<meta name={'theme-color'} content={theme.palette.primary.main} />
-				<title>{subject ? `${subject} : ${name} 저장소` : '개념글 저장소'}</title>
+				<title>{subject ? `${subject} : ${name} : 개념글 저장소` : '개념글 저장소'}</title>
 				<link
 					rel={'canonical'}
 					href={
@@ -373,8 +373,8 @@ function StorageBoardDetail({ query }: NextPageContext) {
 								textColor={'primary'}
 								onChange={onChangeOrderBy}
 							>
-								<Tab label={'최신 개념글'} value={'latest'} disabled={pending} />
-								<Tab label={'인기 개념글'} value={'popular'} disabled={pending} />
+								<Tab label={'최신 게시글'} value={'latest'} disabled={pending} />
+								<Tab label={'인기 게시글'} value={'popular'} disabled={pending} />
 							</Tabs>
 							<BoardList params={getParams(query)} adOpen={false} searchValue={searchValue} />
 							{storageBoardPagination.totalPages > 0 ? (

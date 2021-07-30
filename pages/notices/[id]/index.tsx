@@ -100,23 +100,26 @@ function NoticeDetail() {
 				<meta httpEquiv={'content-language'} content={'ko'} />
 				<meta httpEquiv={'X-UA-Compatible'} content={'IE=선edge'} />
 				<meta name={'author'} content={user.nickname} />
-				<meta name={'title'} content={subject ? `${subject} : 개념글 저장소` : '개념글 저장소'} />
+				<meta name={'title'} content={subject ? `${subject} : 새로운 소식 : 개념글 저장소` : '개념글 저장소'} />
 				<meta name={'description'} content={description ? description.substr(9, 159) : ''} />
-				<meta property={'og:title'} content={subject ? `${subject} : 개념글 저장소` : '개념글 저장소'} />
+				<meta property={'og:title'} content={subject ? `${subject} : 새로운 소식 : 개념글 저장소` : '개념글 저장소'} />
 				<meta property={'og:description'} content={description ? description.substr(9, 159) : ''} />
 				<meta property={'og:type'} content={'website'} />
 				<meta property={'og:image'} content={thumbnailUrl || 'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'og:url'} content={`https://www.cocstorage.com/notices/${noticeId}`} />
 				<meta property={'og:site_name'} content={'새로운 소식 : 개념글 저장소'} />
 				<meta property={'og:locale'} content={'ko_KR'} />
-				<meta property={'twitter:title'} content={subject ? `${subject} : 개념글 저장소` : '개념글 저장소'} />
+				<meta
+					property={'twitter:title'}
+					content={subject ? `${subject} : 새로운 소식 : 개념글 저장소` : '개념글 저장소'}
+				/>
 				<meta property={'twitter:description'} content={description ? description.substr(9, 159) : ''} />
 				<meta property={'twitter:image'} content={thumbnailUrl || 'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'twitter:url'} content={`https://www.cocstorage.com/notices/${noticeId}`} />
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta name={'apple-mobile-web-app-title'} content={subject ? `${subject} : 개념글 저장소` : '개념글 저장소'} />
 				<meta name={'theme-color'} content={theme.palette.primary.main} />
-				<title>{subject ? `${subject} : 개념글 저장소` : '개념글 저장소'}</title>
+				<title>{subject ? `${subject} : 새로운 소식 : 개념글 저장소` : '개념글 저장소'}</title>
 				<link rel={'canonical'} href={`https://www.cocstorage.com/notices/${noticeId}`} />
 				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />
 				<link rel={'apple-touch-icon'} href={'https://static.cocstorage.com/images/icon.png'} />

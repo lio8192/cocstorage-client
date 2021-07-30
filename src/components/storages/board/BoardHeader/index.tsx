@@ -165,7 +165,7 @@ function BoardHeader() {
 									<Link href={'/storages/[path]'} as={`/storages/${path}`}>
 										<a>
 											<Typography className={classes.typography} variant={'h5'}>
-												{`${name} 저장소`}
+												{`${name}`}
 												<Hidden mdUp={!pending}>
 													<IconButton className={classes.iconButton} size={'small'} onClick={onHandleNotificationModal}>
 														<InfoIcon />

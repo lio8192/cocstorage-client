@@ -6,9 +6,14 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 // Material UI Icons
 import ForumIcon from '@material-ui/icons/Forum';
+import AddBoxIcon from '@material-ui/icons/AddBox';
+
+// Custom Hooks
+import useStorageHeader from 'hooks/storages/board/useStorageHeader';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -56,12 +61,18 @@ const useStyles = makeStyles((theme: Theme) =>
 			verticalAlign: 'middle',
 			color: 'white',
 			cursor: 'pointer'
+		},
+		button: {
+			height: 20,
+			color: 'white'
 		}
 	})
 );
 
 function StorageHeader() {
 	const classes = useStyles();
+	const { isAuthenticated, onHandleStorageManageDialogOpen, onHandleSignInDialog } = useStorageHeader();
+
 	return (
 		<Box className={classes.root}>
 			<Container className={classes.container}>
@@ -78,15 +89,25 @@ function StorageHeader() {
 							<Link href={'/storages'} as={'/storages'}>
 								<a>
 									<Typography className={classes.typography} variant={'h5'}>
-										{'커뮤니티 저장소'}
+										{'커뮤니티'}
 									</Typography>
 								</a>
 							</Link>
 						</Box>
 					</Box>
-					<Typography className={classes.descriptionTypography} variant={'caption'}>
-						{'다양한 주제의 저장소를 이용해보거나 자신만의 저장소를 운영해보세요!'}
-					</Typography>
+					<Box display={'flex'} alignItems={'top'} justifyContent={'space-between'}>
+						<Typography className={classes.descriptionTypography} variant={'caption'}>
+							{'원하는 게시판을 만들어 운영해보세요!'}
+						</Typography>
+						<Button
+							className={classes.button}
+							size={'small'}
+							startIcon={<AddBoxIcon />}
+							onClick={isAuthenticated ? onHandleStorageManageDialogOpen : onHandleSignInDialog}
+						>
+							{'새 게시판 등록'}
+						</Button>
+					</Box>
 				</Box>
 			</Container>
 		</Box>

@@ -63,12 +63,9 @@ function StorageBoardEdit() {
 				<meta httpEquiv={'content-language'} content={'ko'} />
 				<meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
 				<meta name={'author'} content={storage.user ? storage.user.nickname : '개념글 저장소'} />
-				<meta name={'title'} content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'} />
+				<meta name={'title'} content={storage.name ? `${storage.name}: 개념글 저장소` : '개념글 저장소'} />
 				<meta name={'description'} content={storage.description} />
-				<meta
-					property={'og:title'}
-					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
-				/>
+				<meta property={'og:title'} content={storage.name ? `${storage.name}: 개념글 저장소` : '개념글 저장소'} />
 				<meta property={'og:description'} content={storage.description} />
 				<meta property={'og:type'} content={'website'} />
 				<meta property={'og:image'} content={storage.avatarUrl || 'https://static.cocstorage.com/images/icon.png'} />
@@ -78,15 +75,9 @@ function StorageBoardEdit() {
 						storage.path ? `https://www.cocstorage.com/storages/${storage.path}` : 'https://www.cocstorage.com/storages'
 					}
 				/>
-				<meta
-					property={'og:site_name'}
-					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
-				/>
+				<meta property={'og:site_name'} content={storage.name ? `${storage.name}: 개념글 저장소` : '개념글 저장소'} />
 				<meta property={'og:locale'} content={'ko_KR'} />
-				<meta
-					property={'twitter:title'}
-					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
-				/>
+				<meta property={'twitter:title'} content={storage.name ? `${storage.name}: 개념글 저장소` : '개념글 저장소'} />
 				<meta property={'twitter:description'} content={storage.description} />
 				<meta
 					property={'twitter:image'}
@@ -101,10 +92,10 @@ function StorageBoardEdit() {
 				<meta property={'twitter:card'} content={'summary'} />
 				<meta
 					name={'apple-mobile-web-app-title'}
-					content={storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}
+					content={storage.name ? `${storage.name}: 개념글 저장소` : '개념글 저장소'}
 				/>
 				<meta name={'theme-color'} content={theme.palette.primary.main} />
-				<title>{storage.name ? `${storage.name} 저장소 : 개념글 저장소` : '개념글 저장소'}</title>
+				<title>{storage.name ? `${storage.name}: 개념글 저장소` : '개념글 저장소'}</title>
 				<link
 					rel={'canonical'}
 					href={

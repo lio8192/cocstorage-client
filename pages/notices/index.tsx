@@ -13,6 +13,7 @@ import Fab from '@material-ui/core/Fab';
 import Zoom from '@material-ui/core/Zoom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Hidden from '@material-ui/core/Hidden';
 
 // Material UI Icons
 import CreateIcon from '@material-ui/icons/Create';
@@ -138,7 +139,9 @@ function Notices() {
 				<link rel={'apple-touch-icon'} href={'https://static.cocstorage.com/images/icon.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 			</Head>
-			<NoticeHeader />
+			<Hidden mdDown>
+				<NoticeHeader />
+			</Hidden>
 			<Container className={classes.container}>
 				<NoticeGridList />
 				{totalPages !== 0 && !isLastPage && (

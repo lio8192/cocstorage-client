@@ -36,7 +36,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type DataEmptyBoxProps = {
-	message: string;
+	message?: string;
+	content?: JSX.Element | JSX.Element[];
 	marginTop?: number;
 	marginBottom?: number;
 	paddingTop?: number;
@@ -47,7 +48,8 @@ type DataEmptyBoxProps = {
 };
 
 function DataEmptyBox({
-	message,
+	message = '잠시 후 시도해주세요.',
+	content,
 	marginTop,
 	marginBottom,
 	paddingTop,
@@ -79,15 +81,17 @@ function DataEmptyBox({
 				</Avatar>
 			</Box>
 			<Box mt={2} textAlign={'center'}>
-				<Typography className={classes.typography} variant={isMobile ? 'body1' : 'h6'}>
-					{message.split('\n').map((item, index) => (
-						// eslint-disable-next-line react/no-array-index-key
-						<span key={`message-${index}`}>
-							{item}
-							<br />
-						</span>
-					))}
-				</Typography>
+				{content || (
+					<Typography className={classes.typography} variant={isMobile ? 'body1' : 'h6'}>
+						{message.split('\n').map((item, index) => (
+							// eslint-disable-next-line react/no-array-index-key
+							<span key={`message-${index}`}>
+								{item}
+								<br />
+							</span>
+						))}
+					</Typography>
+				)}
 			</Box>
 		</Box>
 	);

@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		typography: {
-			fontWeight: 700,
+			fontFamily: 'NanumSquareRoundEB',
 			cursor: 'default'
 		},
 		chip: {
@@ -152,7 +152,7 @@ function HomePopularStorageBoardList() {
 				<Divider className={classes.divider} />
 				<Box mt={0.5} />
 				<Typography className={classes.typography} variant={'h6'}>
-					{'실시간 인기 개념글'}
+					{'실시간 인기 게시글'}
 				</Typography>
 			</Box>
 			<List
@@ -233,7 +233,7 @@ function HomePopularStorageBoardList() {
 					))}
 				{!pending && data.length === 0 && (
 					<DataEmptyBox
-						message={'아직 실시간 인기 개념글이 존재하지 않아요.'}
+						message={'아직 실시간 인기 게시글이 존재하지 않아요.'}
 						paddingTop={0}
 						paddingBottom={0}
 						maxHeight={400}

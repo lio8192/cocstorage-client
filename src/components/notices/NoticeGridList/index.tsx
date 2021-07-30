@@ -170,6 +170,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			overflow: 'hidden'
 		},
 		avatar: {
+			width: theme.spacing(4),
+			height: theme.spacing(4),
 			marginRight: theme.spacing(1)
 		},
 		progressBox: {

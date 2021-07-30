@@ -226,7 +226,7 @@ function Header() {
 													className={clsx(classes.categoryChip, {
 														[classes.activeCategoryChip]: activatedTab.indexOf('/storages') !== -1
 													})}
-													label={'커뮤니티 저장소'}
+													label={'커뮤니티'}
 													clickable
 													color={activatedTab.indexOf('/storages') !== -1 ? 'primary' : 'default'}
 												/>

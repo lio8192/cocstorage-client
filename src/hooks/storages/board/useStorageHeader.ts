@@ -3,22 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Modules
 import { handleStorageManageDialog } from 'modules/storages';
-import { RootState } from 'modules';
 import { handleSignInDialog } from 'modules/common';
+import { RootState } from 'modules';
 
-export default function useStorageGridList() {
+export default function useStorageHeader() {
+	const dispatch = useDispatch();
 	const {
 		user: { isAuthenticated }
 	} = useSelector((state: RootState) => state.common);
-	const storagesState = useSelector((state: RootState) => state.storages);
-	const dispatch = useDispatch();
 
 	const onHandleStorageManageDialogOpen = useCallback(() => dispatch(handleStorageManageDialog()), [dispatch]);
 
 	const onHandleSignInDialog = useCallback(() => dispatch(handleSignInDialog()), [dispatch]);
 
 	return {
-		...storagesState,
 		isAuthenticated,
 		onHandleStorageManageDialogOpen,
 		onHandleSignInDialog

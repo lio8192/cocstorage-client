@@ -13,6 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import Chip from '@material-ui/core/Chip';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -31,6 +32,7 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import SchoolIcon from '@material-ui/icons/School';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 
 // Components
 import DataEmptyBox from 'components/common/DataEmptyBox';
@@ -117,6 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			verticalAlign: 'middle'
 		},
 		button: {
+			fontWeight: 700,
 			color: 'white'
 		},
 		pagination: {
@@ -169,7 +172,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const categories = [
 	{
 		id: 1,
-		name: '수집',
+		name: '타 커뮤니티 인기글 모음',
 		icon: <ArchiveIcon color={'action'} />
 	},
 	{
@@ -224,7 +227,10 @@ function StorageGridList() {
 	const {
 		pending,
 		storages,
-		fetchParams: { name }
+		fetchParams: { name },
+		isAuthenticated,
+		onHandleStorageManageDialogOpen,
+		onHandleSignInDialog
 	} = useStorageGridList();
 
 	const [open, setOpen] = useState<boolean>(false);
@@ -256,7 +262,7 @@ function StorageGridList() {
 											<>
 												<Tooltip
 													title={
-														'수집 카테고리에 소속되어 있는 아래의 저장소 내에 포함된 모든 게시글 및 댓글/답글들은 개념글 저장소의 유저가 작성하는 것이 아닌, 다수의 커뮤니티 사이트 내의 인기 게시글들이며 출처를 포함하고 있습니다. 누군가에게 문제가 될 수 있는 게시글은 모니터링 중인 관리자가 발견하거나 신고를 받게되면 곧 바로 삭제 처리됩니다.'
+														'아래의 게시판 내에 포함된 모든 게시글 및 댓글/답글들은 개념글 저장소의 유저가 작성하는 것이 아닌, 다수의 커뮤니티 사이트 내의 인기 게시글들이며 출처를 포함하고 있습니다. 누군가에게 문제가 될 수 있는 게시글은 모니터링 중인 관리자가 발견하거나 신고를 받게되면 곧 바로 삭제 처리됩니다.'
 													}
 													PopperProps={{
 														disablePortal: true
@@ -280,7 +286,17 @@ function StorageGridList() {
 							{!name && storages.filter((item) => item.storageCategoryId === category.id).length === 0 && (
 								<Box className={classes.emptyBox}>
 									<DataEmptyBox
-										message={`${category.name} 카테고리의 첫번째 저장소를 등록하여 관리자가 되어 보세요.\n우측 하단의 새 저장소 등록 버튼을 누르면 새 저장소를 등록할 수 있어요.`}
+										content={(
+											<Button
+												className={classes.button}
+												variant={'contained'}
+												color={'primary'}
+												startIcon={<AddBoxIcon />}
+												onClick={isAuthenticated ? onHandleStorageManageDialogOpen : onHandleSignInDialog}
+											>
+												{`${category.name} 카테고리 게시판 등록`}
+											</Button>
+										)}
 										borderRadius={4}
 									/>
 								</Box>

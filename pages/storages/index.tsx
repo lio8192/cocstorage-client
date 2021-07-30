@@ -24,7 +24,6 @@ import AddIcon from '@material-ui/icons/Add';
 import StorageHeader from 'components/storages/StorageHeader';
 import StorageGridList from 'components/storages/StorageGridList';
 import StorageManageDialog from 'components/storages/StorageManageDialog';
-import GoogleAdSense from 'components/common/GoogleAdSense';
 
 // Custom Hooks
 import useStorages from 'hooks/storages/useStorages';
@@ -37,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
 				marginTop: 0,
 				paddingTop: theme.spacing(2)
 			}
+		},
+		container: {
+			marginBottom: theme.spacing(2)
 		},
 		card: {
 			border: `1px solid ${theme.palette.grey['50']}`
@@ -64,17 +66,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			color: 'white',
 			fontFamily: 'NanumSquareRoundEB'
 		},
-		adBox: {
-			border: `1px solid ${theme.palette.grey['50']}`,
-			borderRadius: 4,
-			overflow: 'hidden',
-			[theme.breakpoints.down('md')]: {
-				border: 'none',
-				borderTop: `1px solid ${theme.palette.grey['50']}`,
-				borderRadius: 'inherit'
-			}
-		},
 		searchBox: {
+			display: 'none',
 			margin: theme.spacing(2, 0),
 			borderRadius: 4,
 			overflow: 'hidden',
@@ -117,43 +110,39 @@ function Storages() {
 				<meta httpEquiv={'content-language'} content={'ko'} />
 				<meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
 				<meta name={'author'} content={'개념글 저장소'} />
-				<meta name={'title'} content={'커뮤니티 저장소 : 개념글 저장소'} />
-				<meta name={'description'} content={'다양한 주제의 저장소를 이용해보거나 자신만의 저장소를 운영해보세요!'} />
+				<meta name={'title'} content={'커뮤니티 : 개념글 저장소'} />
+				<meta name={'description'} content={'원하는 게시판을 만들어 운영해보세요!'} />
 				<meta property={'og:title'} content={'저장소 : 개념글 저장소'} />
-				<meta
-					property={'og:description'}
-					content={'다양한 주제의 저장소를 이용해보거나 자신만의 저장소를 운영해보세요!'}
-				/>
+				<meta property={'og:description'} content={'원하는 게시판을 만들어 운영해보세요!'} />
 				<meta property={'og:type'} content={'website'} />
 				<meta property={'og:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'og:url'} content={'https://www.cocstorage.com/storages'} />
-				<meta property={'og:site_name'} content={'커뮤니티 저장소 : 개념글 저장소'} />
+				<meta property={'og:site_name'} content={'커뮤니티 : 개념글 저장소'} />
 				<meta property={'og:locale'} content={'ko_KR'} />
-				<meta property={'twitter:title'} content={'커뮤니티 저장소 : 개념글 저장소'} />
-				<meta
-					property={'twitter:description'}
-					content={'다양한 주제의 저장소를 이용해보거나 자신만의 저장소를 운영해보세요!'}
-				/>
+				<meta property={'twitter:title'} content={'커뮤니티 : 개념글 저장소'} />
+				<meta property={'twitter:description'} content={'원하는 게시판을 만들어 운영해보세요!'} />
 				<meta property={'twitter:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'twitter:url'} content={'https://www.cocstorage.com/storages'} />
 				<meta property={'twitter:card'} content={'summary'} />
-				<meta name={'apple-mobile-web-app-title'} content={'커뮤니티 저장소 : 개념글 저장소'} />
+				<meta name={'apple-mobile-web-app-title'} content={'커뮤니티 : 개념글 저장소'} />
 				<meta name={'theme-color'} content={theme.palette.primary.main} />
-				<title>{'커뮤니티 저장소 : 개념글 저장소'}</title>
+				<title>{'커뮤니티 : 개념글 저장소'}</title>
 				<link rel={'canonical'} href={'https://www.cocstorage.com/storages'} />
 				<link rel={'shortcut icon'} href={'https://static.cocstorage.com/images/favicon.ico'} />
 				<link rel={'apple-touch-icon'} href={'https://static.cocstorage.com/images/icon.png'} />
 				<link rel={'manifest'} href={'/manifest.json'} />
 				<script async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'} />
 			</Head>
-			<StorageHeader />
+			<Hidden mdDown>
+				<StorageHeader />
+			</Hidden>
 			<Box className={classes.box}>
-				<Container>
+				<Container className={classes.container}>
 					<StorageGridList />
 				</Container>
 				<Container>
 					<Hidden mdDown>
-						<Box mt={2} textAlign={'right'}>
+						<Box mb={2} textAlign={'right'}>
 							<Button
 								fullWidth={isMobile}
 								className={classes.button}
@@ -164,7 +153,7 @@ function Storages() {
 								onClick={isAuthenticated ? onHandleStorageManageDialogOpen : onHandleSignInDialog}
 								disabled={pending}
 							>
-								{'새 저장소 등록'}
+								{'새 게시판 등록'}
 							</Button>
 						</Box>
 					</Hidden>
@@ -180,44 +169,14 @@ function Storages() {
 									</InputAdornment>
 								)
 							}}
-							placeholder={'저장소명 입력 후 엔터를 눌러주세요.'}
+							placeholder={'게시판명 입력 후 엔터를 눌러주세요.'}
 							onKeyUp={onKeyUpStorageSearchTextField}
 							defaultValue={name || ''}
 							disabled={pending}
 						/>
 					</Box>
-					<Hidden mdDown>
-						<Box mb={2}>
-							<Box className={classes.adBox}>
-								<GoogleAdSense
-									html={
-										'<ins class="adsbygoogle"\n'
-										+ 'style="display:block"\n'
-										+ 'data-ad-client="ca-pub-5809905264951057"\n'
-										+ 'data-ad-slot="2500107460"\n'
-										+ 'data-ad-format="auto"\n'
-										+ 'data-full-width-responsive="true"></ins>\n'
-									}
-								/>
-							</Box>
-						</Box>
-					</Hidden>
 				</Container>
 			</Box>
-			<Hidden lgUp>
-				<Box className={classes.adBox}>
-					<GoogleAdSense
-						html={
-							'<ins class="adsbygoogle"\n'
-							+ 'style="display:block"\n'
-							+ 'data-ad-client="ca-pub-5809905264951057"\n'
-							+ 'data-ad-slot="2500107460"\n'
-							+ 'data-ad-format="auto"\n'
-							+ 'data-full-width-responsive="true"></ins>\n'
-						}
-					/>
-				</Box>
-			</Hidden>
 			<StorageManageDialog />
 			<Zoom in={isMobile}>
 				<Fab

@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		title: {
 			width: '100%',
-			fontWeight: 700,
+			fontFamily: 'NanumSquareRoundEB',
 			cursor: 'default'
 		},
 		grid: {
