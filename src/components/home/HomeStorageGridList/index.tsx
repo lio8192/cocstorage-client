@@ -171,7 +171,7 @@ function HomeStorageGridList() {
 				<Box className={classes.titleBox}>
 					<Box flex={1}>
 						<Typography className={classes.title} variant={'h6'}>
-							{'새로운 저장소'}
+							{'새로운 게시판'}
 						</Typography>
 					</Box>
 					<Link href={'/storages'} as={'/storages'}>
