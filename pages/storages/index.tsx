@@ -112,7 +112,7 @@ function Storages() {
 				<meta name={'author'} content={'개념글 저장소'} />
 				<meta name={'title'} content={'커뮤니티 : 개념글 저장소'} />
 				<meta name={'description'} content={'원하는 게시판을 만들어 운영해보세요!'} />
-				<meta property={'og:title'} content={'저장소 : 개념글 저장소'} />
+				<meta property={'og:title'} content={'커뮤니티 : 개념글 저장소'} />
 				<meta property={'og:description'} content={'원하는 게시판을 만들어 운영해보세요!'} />
 				<meta property={'og:type'} content={'website'} />
 				<meta property={'og:image'} content={'https://static.cocstorage.com/images/icon.png'} />
