@@ -65,16 +65,16 @@ function Privacy() {
 				<meta httpEquiv={'X-UA-Compatible'} content={'IE=edge'} />
 				<meta name={'author'} content={'개념글 저장소'} />
 				<meta name={'title'} content={'개인정보처리방침 : 개념글 저장소'} />
-				<meta name={'description'} content={'내가 만들어 운영하는 저장소 커뮤니티'} />
+				<meta name={'description'} content={'내가 만들어 운영하는 커뮤니티'} />
 				<meta property={'og:title'} content={'개인정보처리방침 : 개념글 저장소'} />
-				<meta property={'og:description'} content={'내가 만들어 운영하는 저장소 커뮤니티'} />
+				<meta property={'og:description'} content={'내가 만들어 운영하는 커뮤니티'} />
 				<meta property={'og:type'} content={'website'} />
 				<meta property={'og:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'og:url'} content={'https://www.cocstorage.com/privacy'} />
 				<meta property={'og:site_name'} content={'개념글 저장소'} />
 				<meta property={'og:locale'} content={'ko_KR'} />
 				<meta property={'twitter:title'} content={'개인정보처리방침 : 개념글 저장소'} />
-				<meta property={'twitter:description'} content={'내가 만들어 운영하는 저장소 커뮤니티'} />
+				<meta property={'twitter:description'} content={'내가 만들어 운영하는 커뮤니티'} />
 				<meta property={'twitter:image'} content={'https://static.cocstorage.com/images/icon.png'} />
 				<meta property={'twitter:url'} content={'https://wwww.cocstorage.com/privacy'} />
 				<meta property={'twitter:card'} content={'summary'} />
