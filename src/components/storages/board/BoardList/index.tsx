@@ -94,7 +94,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		avatarUser: {
 			width: theme.spacing(4),
-			height: theme.spacing(4)
+			height: theme.spacing(4),
+			fontSize: 14
 		},
 		avatarStar: {
 			width: theme.spacing(3.5),
@@ -247,7 +248,9 @@ function BoardList({ params, adOpen = true, searchValue }: BoardListPros) {
 											<Avatar
 												className={classes.avatarUser}
 												src={item.isMember && item.user ? item.user.avatarUrl || '' : ''}
-											/>
+											>
+												{item.user ? item.user.nickname.charAt(0) : item.nickname?.charAt(0)}
+											</Avatar>
 											<Box className={classes.writerInfoBox} ml={1}>
 												<Typography
 													className={clsx(classes.typography, {

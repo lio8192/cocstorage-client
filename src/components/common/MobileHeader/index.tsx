@@ -380,7 +380,7 @@ function MobileHeader() {
 						<Box display={'flex'} alignItems={'center'}>
 							<Box mr={1}>
 								<Avatar className={classes.avatar} src={storage.user?.avatarUrl || ''} alt={'User Avatar Img'}>
-									{storage.user?.nickname.substr(0)}
+									{storage.user?.nickname.charAt(0)}
 								</Avatar>
 							</Box>
 							<Box>{storage.user?.nickname}</Box>
