@@ -58,7 +58,6 @@ const useStyles = makeStyles((theme: Theme) =>
 			}
 		},
 		tabs: {
-			borderBottom: `1px solid ${theme.palette.grey['50']}`,
 			'& *': {
 				fontFamily: 'NanumSquareRoundEB'
 			},
