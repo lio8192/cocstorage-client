@@ -36,9 +36,6 @@ export const lightTheme = createMuiTheme({
 		secondary: {
 			main: '#E0C3FC'
 		},
-		background: {
-			default: '#FFFFFF'
-		},
 		error: {
 			main: red.A400
 		},
