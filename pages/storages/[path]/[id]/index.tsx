@@ -118,6 +118,7 @@ const useStyles = makeStyles((theme: Theme) =>
 				height: 5
 			},
 			[theme.breakpoints.down('md')]: {
+				border: `1px solid ${theme.palette.grey['50']}`,
 				backgroundColor: theme.palette.background.paper
 			}
 		},
